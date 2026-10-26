@@ -289,7 +289,7 @@ function renderBoard() {
   }).join('');
 }
 
-// カードをプレイ
+// カードをプレイ（じらし判定 ＆ フェードアウト消去演出付き）
 function playCard(index) {
   if (isAnimating || matchOver) return;
   const pCard = playerHand[index];
@@ -300,7 +300,7 @@ function playCard(index) {
   // プレイヤー手札から抜き出し
   playerHand.splice(index, 1);
 
-  // CPUの思考ロジック（現在のお題で最もスコアが高くなる手を選択、たまにミス）
+  // CPUの思考ロジック
   let cpuIndex = 0;
   let bestScore = -999;
   cpuHand.forEach((c, idx) => {
@@ -313,84 +313,134 @@ function playCard(index) {
   });
 
   const cpuCard = cpuHand.splice(cpuIndex, 1)[0];
-
-  // 捨て札へ追加
   discardPile.push(pCard, cpuCard);
 
-  // スロット描画
+  // スロット要素取得
   const pSlot = document.getElementById('p1-slot');
   const cSlot = document.getElementById('cpu-slot');
-  pSlot.classList.add('filled');
-  cSlot.classList.add('filled');
+  const ticker = document.getElementById('result-ticker');
 
-  // スコア判定
+  // スコア事前計算
   const pScore = calculateScore(pCard, currentField);
   const cScore = calculateScore(cpuCard, currentField);
 
-  pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)", pScore);
-  cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)", cScore);
+  // ----------------------------------------------------
+  // STEP 1: カード提示 ＆ じらし開始 (サスペンス演出)
+  // ----------------------------------------------------
+  pSlot.className = 'clash-slot filled suspense';
+  cSlot.className = 'clash-slot filled suspense';
 
-  let resultMsg = "";
-  if (pScore.total > cScore.total) {
-    playerWins++;
-    if (pScore.isG2Special) {
-      resultMsg = `🔥 重力除去位で大逆転！【${pCard.title}】(${pScore.breakdownText}) が相手の${cScore.total}点を圧倒！`;
-    } else {
-      resultMsg = `🎉 あなたの勝ち！【${pCard.title}】(${pScore.breakdownText}) ＞ 相手(${cScore.total}点)`;
-    }
-  } else if (pScore.total < cScore.total) {
-    cpuWins++;
-    resultMsg = `💦 相手の勝ち！相手の【${cpuCard.title}】(${cScore.breakdownText}) ＞ あなた(${pScore.total}点)`;
-  } else {
-    resultMsg = `⚖️ 同点引き分け！両者とも ${pScore.total}点 で互角の測定！`;
-  }
+  // 最初はスコアを伏せて表示 (isRevealed = false)
+  pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)", pScore, false);
+  cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)", cScore, false);
 
-  document.getElementById('result-ticker').innerText = resultMsg;
+  ticker.innerText = "⚖️ Daniels徒手筋力検査を測定中...（両者の肢位を判定）";
   renderBoard();
 
-  // 次の展開（手札補充 ＆ 3勝判定）
+  // ----------------------------------------------------
+  // STEP 2: ドン！ 判定オープン (1.4秒じらした後)
+  // ----------------------------------------------------
   setTimeout(() => {
-    isAnimating = false;
+    pSlot.classList.remove('suspense');
+    cSlot.classList.remove('suspense');
 
-    // 1枚ずつ山札から即時ドロー（常時5枚キープ）
-    playerHand.push(drawSingleCard());
-    cpuHand.push(drawSingleCard());
+    // スコアオープン表示 (isRevealed = true)
+    pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)", pScore, true);
+    cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)", cScore, true);
 
-    if (playerWins >= 3 || cpuWins >= 3) {
-      matchOver = true;
-      const isWinner = playerWins >= 3;
-      document.getElementById('result-ticker').innerText = isWinner
-        ? "🏆 3勝先取！あなたの完全勝利です！「勝負」タブで再戦できます。"
-        : "💀 相手が3勝先取しました...！「勝負」タブで再戦できます。";
-      setTimeout(() => {
-        if (confirm(isWinner ? "🏆 3勝先取！マッチ勝利！もう一度遊びますか？" : "💀 相手が3勝先取しました。もう一度挑戦しますか？")) {
-          initGame();
-        }
-      }, 700);
+    let resultMsg = "";
+    if (pScore.total > cScore.total) {
+      playerWins++;
+      pSlot.classList.add('winner');
+      cSlot.classList.add('loser');
+      if (pScore.isG2Special) {
+        resultMsg = `🔥 重力除去位で大逆転！【${pCard.title}】(${pScore.breakdownText}) が相手の${cScore.total}点を圧倒！`;
+      } else {
+        resultMsg = `🎉 あなたの勝ち！【${pCard.title}】(${pScore.breakdownText}) ＞ 相手(${cScore.total}点)`;
+      }
+    } else if (pScore.total < cScore.total) {
+      cpuWins++;
+      cSlot.classList.add('winner');
+      pSlot.classList.add('loser');
+      resultMsg = `💦 相手の勝ち！相手の【${cpuCard.title}】(${cScore.breakdownText}) ＞ あなた(${pScore.total}点)`;
     } else {
-      rollField();
-      renderBoard();
+      resultMsg = `⚖️ 同点引き分け！両者とも ${pScore.total}点 で互角の測定！`;
     }
+
+    ticker.innerText = resultMsg;
+    renderBoard();
+
+    // ----------------------------------------------------
+    // STEP 3: カード消去・フェードアウト開始 (判定後 2.0秒)
+    // ----------------------------------------------------
+    setTimeout(() => {
+      pSlot.classList.add('exit-fade');
+      cSlot.classList.add('exit-fade');
+      ticker.innerText = "✨ 測定完了... カードを回収し次の肢位へ";
+
+      // ----------------------------------------------------
+      // STEP 4: 完全消去 ＆ 次のターン開始 (フェードアウト1.2秒後)
+      // ----------------------------------------------------
+      setTimeout(() => {
+        pSlot.className = 'clash-slot';
+        cSlot.className = 'clash-slot';
+        pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
+        cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
+
+        // 1枚ずつ山札から即時ドロー（常時5枚キープ）
+        playerHand.push(drawSingleCard());
+        cpuHand.push(drawSingleCard());
+
+        isAnimating = false;
+
+        if (playerWins >= 3 || cpuWins >= 3) {
+          matchOver = true;
+          const isWinner = playerWins >= 3;
+          ticker.innerText = isWinner
+            ? "🏆 3勝先取！あなたの完全勝利です！「勝負」タブで再戦できます。"
+            : "💀 相手が3勝先取しました...！「勝負」タブで再戦できます。";
+          setTimeout(() => {
+            if (confirm(isWinner ? "🏆 3勝先取！マッチ勝利！もう一度遊びますか？" : "💀 相手が3勝先取しました。もう一度挑戦しますか？")) {
+              initGame();
+            }
+          }, 600);
+        } else {
+          rollField();
+          renderBoard();
+          ticker.innerText = "場のお題に合致するカードを手札から選んでください";
+        }
+      }, 1250);
+    }, 2000);
   }, 1400);
 }
 
-// アリーナ内カード描画ヘルパー（スコア内訳バッジ付き）
-function renderSlotCard(c, ownerLabel, labelColor, scoreObj) {
+// アリーナ内カード描画ヘルパー（大型カード ＆ じらし対応）
+function renderSlotCard(c, ownerLabel, labelColor, scoreObj, isRevealed) {
+  const scoreBadgeHtml = isRevealed
+    ? `<span style="font-size:0.75rem; background:var(--text-primary); color:#FFF; padding:2px 8px; border-radius:999px; font-weight:900; box-shadow:0 1px 3px rgba(0,0,0,0.2);">${scoreObj.total}点</span>`
+    : `<span style="font-size:0.68rem; background:var(--accent-amber-bg); color:var(--accent-amber); border:1px solid var(--accent-amber); padding:1px 6px; border-radius:999px; font-weight:800;">⏳ 判定中</span>`;
+
+  const footerText = isRevealed
+    ? `<div style="font-size:0.68rem; color:${scoreObj.posBonus > 0 ? 'var(--accent-green)' : 'var(--accent-red)'}; font-weight:800; margin-top:2px; line-height:1.2;">
+        ${scoreObj.breakdownText}
+       </div>`
+    : `<div style="font-size:0.65rem; color:var(--text-muted); font-weight:700; margin-top:2px;">
+        肢位: ${c.pos}
+       </div>`;
+
   return `
-    <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-      <span style="font-size:0.6rem; color:${labelColor}; font-weight:800;">${ownerLabel}</span>
-      <span style="font-size:0.65rem; background:var(--text-primary); color:#FFF; padding:1px 6px; border-radius:999px; font-weight:900;">${scoreObj ? scoreObj.total + '点' : ''}</span>
+    <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:2px;">
+      <span style="font-size:0.68rem; color:${labelColor}; font-weight:800;">${ownerLabel}</span>
+      ${scoreBadgeHtml}
     </div>
-    <div style="width:100%; height:70px; border-radius:4px; overflow:hidden; margin:3px 0; background:var(--bg-bone);">
+    <div style="width:100%; height:105px; border-radius:6px; overflow:hidden; margin:4px 0; background:var(--bg-bone); border:1px solid var(--border-hairline);">
       ${c.image 
         ? `<img src="${c.image}" style="width:100%; height:100%; object-fit:cover;" alt="">` 
-        : `<div style="height:100%; display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--text-muted); font-weight:700;">${c.title}</div>`
+        : `<div style="height:100%; display:flex; align-items:center; justify-content:center; font-size:0.68rem; color:var(--text-muted); font-weight:700;">${c.title}</div>`
       }
     </div>
-    <div style="font-size:0.72rem; font-weight:900; color:var(--text-primary); line-height:1.2;">${c.title}</div>
-    <div style="font-size:0.58rem; color:${scoreObj && scoreObj.posBonus > 0 ? 'var(--accent-green)' : 'var(--accent-red)'}; font-weight:800; margin-top:2px;">
-      ${scoreObj ? scoreObj.breakdownText : c.pos}
-    </div>
+    <div style="font-size:0.82rem; font-weight:900; color:var(--text-primary); line-height:1.2;">${c.title}</div>
+    ${footerText}
   `;
 }
 

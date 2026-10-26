@@ -321,25 +321,26 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
   flex: 1;
+  margin: 4px 0;
 }
 
 .clash-slot {
-  width: 125px;
-  height: 160px;
+  width: clamp(142px, 44vw, 185px);
+  height: clamp(195px, 32vh, 240px);
   border: 1.5px dashed var(--border-strong);
-  border-radius: 9px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: var(--bg-bone);
-  padding: 6px;
+  padding: 8px;
   text-align: center;
   box-shadow: var(--shadow-slot);
-  transition: all 0.25s var(--smooth-ease);
+  transition: transform 0.4s var(--smooth-ease), box-shadow 0.4s var(--smooth-ease), opacity 0.4s ease, filter 0.4s ease;
   position: relative;
   overflow: hidden;
 }
@@ -351,33 +352,87 @@ html, body {
   box-shadow: var(--shadow-card-hover);
 }
 
+/* 判定中のじらし微動演出 */
+.clash-slot.suspense {
+  animation: suspensePulse 1.2s ease-in-out infinite alternate;
+  border-color: var(--accent-amber);
+}
+
+@keyframes suspensePulse {
+  0% { transform: scale(1) translateY(0); box-shadow: 0 4px 12px rgba(45,42,38,0.08); }
+  50% { transform: scale(1.02) translateY(-2px); box-shadow: 0 8px 18px rgba(180,83,9,0.18); }
+  100% { transform: scale(1) translateY(0); box-shadow: 0 4px 12px rgba(45,42,38,0.08); }
+}
+
+/* スコア確定・勝者演出 */
+.clash-slot.winner {
+  transform: scale(1.05) translateY(-4px);
+  border-color: var(--accent-green);
+  box-shadow: 0 14px 28px rgba(21, 128, 61, 0.22);
+  z-index: 5;
+}
+
+/* スコア確定・敗者演出 */
+.clash-slot.loser {
+  transform: scale(0.96) translateY(2px);
+  opacity: 0.65;
+  filter: grayscale(25%);
+  border-color: var(--border-hairline);
+}
+
+/* 次のターンへ向けてカードが消える演出 (1〜1.5秒) */
+.clash-slot.exit-fade {
+  animation: fadeOutUp 1.3s var(--smooth-ease) forwards;
+  pointer-events: none;
+}
+
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  40% {
+    opacity: 0.8;
+    transform: translateY(-8px) scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.92);
+    filter: blur(4px);
+  }
+}
+
 .slot-placeholder {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--text-muted);
 }
 
 .clash-vs {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--border-strong);
+  transition: opacity 0.3s ease;
 }
 
 .result-ticker {
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.76rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--text-primary);
   text-align: center;
   width: 100%;
-  min-height: 32px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1.35;
+  transition: all 0.3s ease;
 }
 
 /* --------------------------------------------------------------------------
