@@ -47,9 +47,34 @@
             <span class="sub-label">+1特効</span>
             <span class="sub-value" id="field-sub-name">下肢 / 伸展</span>
           </div>
+          <div class="field-next-badge" id="field-next-badge" title="次のターンの指定体位です">
+            <span class="next-label">NEXT</span>
+            <span class="next-value" id="field-next-name">端座位</span>
+          </div>
           <button class="tactical-btn" id="btn-bed-rotate" onclick="useBedRotate()">
             🛏️ 体位変更［1回］
           </button>
+        </div>
+
+        <!-- 3-Win Match Lamp Gauge -->
+        <div class="match-gauge">
+          <div class="gauge-side player-side">
+            <span class="gauge-label">あなた</span>
+            <div class="gauge-lamps" id="player-lamps">
+              <span class="lamp" id="p-lamp-1"></span>
+              <span class="lamp" id="p-lamp-2"></span>
+              <span class="lamp" id="p-lamp-3"></span>
+            </div>
+          </div>
+          <div class="gauge-center">3勝先取</div>
+          <div class="gauge-side cpu-side">
+            <div class="gauge-lamps" id="cpu-lamps">
+              <span class="lamp" id="c-lamp-1"></span>
+              <span class="lamp" id="c-lamp-2"></span>
+              <span class="lamp" id="c-lamp-3"></span>
+            </div>
+            <span class="gauge-label">相手</span>
+          </div>
         </div>
 
         <!-- Clash Slots -->
@@ -73,7 +98,7 @@
       <div class="player-deck-zone">
         <div class="deck-meta-bar">
           <span class="deck-label">✋ あなたの手札 (<span id="player-rem-count">5</span>枚 / 山札:<span id="deck-rem-count">5</span>)</span>
-          <span class="score-readout" id="score-readout">★ 0勝 — 0勝 (3勝先取)</span>
+          <span class="deck-hint-text">✨ 青枠:体位一致 / 紫枠:重力除去逆転</span>
         </div>
         <div class="hand-card-grid" id="player-hand-container"></div>
       </div>

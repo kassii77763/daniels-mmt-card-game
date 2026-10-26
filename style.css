@@ -176,24 +176,46 @@ html, body {
 }
 
 .cpu-mini-card {
-  background: #FFFFFF;
-  border: 1px solid var(--border-strong);
-  border-radius: 5px;
+  background: linear-gradient(145deg, #2D2A26 0%, #1C1917 100%);
+  border: 1px solid #44403C;
+  border-radius: 6px;
   padding: 4px 2px;
   text-align: center;
-  font-size: 0.62rem;
-  height: 42px;
+  height: 44px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.2s var(--smooth-ease);
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s var(--smooth-ease);
+}
+
+.cpu-card-hint-region {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #A8A29E;
+  letter-spacing: 0.02em;
+}
+
+.cpu-card-hint-grade {
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: #FEF3C7;
+  background: rgba(180, 83, 9, 0.45);
+  border: 1px solid rgba(245, 158, 11, 0.6);
+  border-radius: 4px;
+  padding: 0 5px;
+  line-height: 1.25;
 }
 
 .cpu-mini-card.used {
-  opacity: 0.3;
+  opacity: 0.25;
   background: #E5E0D8;
-  border-style: dashed;
-  transform: scale(0.96);
+  border: 1px dashed var(--border-strong);
+  box-shadow: none;
+  transform: scale(0.95);
 }
 
 /* --------------------------------------------------------------------------
@@ -280,6 +302,122 @@ html, body {
 .field-sub-badge .sub-value {
   font-weight: 700;
   color: var(--text-secondary);
+}
+
+.field-next-badge {
+  background: #F2EFEB;
+  border: 1px dashed var(--border-strong);
+  padding: 3px 9px;
+  border-radius: 999px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 0.62rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.field-next-badge .next-label {
+  font-weight: 900;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  font-size: 0.55rem;
+}
+
+.field-next-badge .next-value {
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+/* 3-Win Match Lamp Gauge */
+.match-gauge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: 999px;
+  padding: 3px 12px;
+  margin: 4px 0 2px 0;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.gauge-side {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.gauge-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+.gauge-lamps {
+  display: flex;
+  gap: 4px;
+}
+
+.lamp {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #DDD8CE;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+  transition: all 0.3s var(--spring-ease);
+}
+
+.lamp.player-lit {
+  background: #2563EB;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.8), inset 0 1px 1px #93C5FD;
+  transform: scale(1.2);
+}
+
+.lamp.cpu-lit {
+  background: #DC2626;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.8), inset 0 1px 1px #FCA5A5;
+  transform: scale(1.2);
+}
+
+.gauge-center {
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* クリティカルヒット画面シェイク & 発光フラッシュ */
+.battle-board.shake {
+  animation: battleShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes battleShake {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  15% { transform: translate(-6px, 4px) rotate(-1.2deg); }
+  30% { transform: translate(6px, -4px) rotate(1.2deg); }
+  45% { transform: translate(-4px, 2px) rotate(-0.6deg); }
+  60% { transform: translate(4px, -2px) rotate(0.6deg); }
+  75% { transform: translate(-2px, 1px) rotate(-0.2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.battle-board.flash-gold {
+  animation: flashGold 0.65s ease-out;
+}
+
+@keyframes flashGold {
+  0% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.85), inset 0 0 25px rgba(245, 158, 11, 0.45); }
+  100% { box-shadow: var(--shadow-card); }
+}
+
+.battle-board.flash-purple {
+  animation: flashPurple 0.65s ease-out;
+}
+
+@keyframes flashPurple {
+  0% { box-shadow: 0 0 40px rgba(147, 51, 234, 0.9), inset 0 0 25px rgba(147, 51, 234, 0.5); }
+  100% { box-shadow: var(--shadow-card); }
 }
 
 .tactical-btn {
@@ -456,6 +594,13 @@ html, body {
   color: var(--text-secondary);
 }
 
+.deck-hint-text {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--accent-blue);
+  letter-spacing: 0.02em;
+}
+
 .score-readout {
   color: var(--accent-amber);
   font-weight: 800;
@@ -479,16 +624,54 @@ html, body {
   height: 145px;
   cursor: pointer;
   box-shadow: var(--shadow-card);
-  transition: transform 0.18s var(--spring-ease), box-shadow 0.18s ease, opacity 0.2s ease;
+  transition: transform 0.22s var(--spring-ease), box-shadow 0.22s ease, opacity 0.25s ease, border-color 0.22s ease;
   user-select: none;
   position: relative;
   overflow: hidden;
 }
 
+/* 通常肢位一致: 青いオーラ & 浮き上がり */
+.k-card.match-normal {
+  border-color: #2563EB;
+  border-width: 2px;
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.45), 0 4px 10px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+}
+.k-card.match-normal .kc-grade-badge {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+/* 重力除去G2逆転一致: 紫の特大オーラ & パルス浮き上がり */
+.k-card.match-gravity {
+  border-color: #9333EA;
+  border-width: 2px;
+  box-shadow: 0 0 18px rgba(147, 51, 234, 0.7), 0 6px 12px rgba(0,0,0,0.14);
+  transform: translateY(-7px);
+  animation: pulsePurple 1.4s ease-in-out infinite alternate;
+}
+@keyframes pulsePurple {
+  0% { box-shadow: 0 0 12px rgba(147, 51, 234, 0.55), 0 4px 8px rgba(0,0,0,0.1); }
+  100% { box-shadow: 0 0 22px rgba(147, 51, 234, 0.95), 0 8px 16px rgba(0,0,0,0.18); }
+}
+.k-card.match-gravity .kc-grade-badge {
+  background: #9333EA;
+  color: #FFFFFF;
+}
+
+/* 不一致カード: 彩度を落として直感的に識別可能に */
+.k-card.match-dim {
+  opacity: 0.62;
+  filter: grayscale(25%);
+}
+.k-card.match-dim:hover {
+  opacity: 0.95;
+  filter: grayscale(0%);
+}
+
 .k-card:hover:not(.used) {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-card-hover);
-  border-color: var(--accent-blue);
 }
 
 .k-card:active:not(.used) {
