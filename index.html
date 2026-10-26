@@ -37,10 +37,19 @@
 
       <!-- Central Field & Clash Board -->
       <div class="battle-board">
-        <!-- Field Position Indicator (Othello/Karuta Objective) -->
-        <div class="field-badge" id="field-badge">
-          <span class="field-caption">場のお題［指定体位］</span>
-          <strong class="field-value" id="field-name">背臥位</strong>
+        <!-- Field Position Indicator & Tactical Badges -->
+        <div class="field-container">
+          <div class="field-badge" id="field-badge">
+            <span class="field-caption">指定体位</span>
+            <strong class="field-value" id="field-name">背臥位</strong>
+          </div>
+          <div class="field-sub-badge" id="field-sub-badge">
+            <span class="sub-label">+1特効</span>
+            <span class="sub-value" id="field-sub-name">下肢 / 伸展</span>
+          </div>
+          <button class="tactical-btn" id="btn-bed-rotate" onclick="useBedRotate()">
+            🛏️ 体位変更［1回］
+          </button>
         </div>
 
         <!-- Clash Slots -->
@@ -54,7 +63,7 @@
           </div>
         </div>
 
-        <!-- Result Banner with Subtle Editorial Shading -->
+        <!-- Result Banner with Score Breakdown -->
         <div class="result-ticker" id="result-ticker">
           場のお題に合致するカードを手札から選んでください
         </div>
@@ -63,8 +72,8 @@
       <!-- Player Hand Zone -->
       <div class="player-deck-zone">
         <div class="deck-meta-bar">
-          <span class="deck-label">✋ あなたの手札 (<span id="player-rem-count">5</span>枚)</span>
-          <span class="score-readout" id="score-readout">勝 0 — 0 負</span>
+          <span class="deck-label">✋ あなたの手札 (<span id="player-rem-count">5</span>枚 / 山札:<span id="deck-rem-count">5</span>)</span>
+          <span class="score-readout" id="score-readout">★ 0勝 — 0勝 (3勝先取)</span>
         </div>
         <div class="hand-card-grid" id="player-hand-container"></div>
       </div>
@@ -82,20 +91,27 @@
     <!-- 3. RULES & GUIDE TAB -->
     <section id="tab-rules" class="tab-pane">
       <div class="rules-card">
-        <h3>カルタ・オセロ式 MMTバトルの臨床ルール</h3>
-        <p>臨床実習や国試で問われる「肢位と判定基準」を直感的にマスターするためのミニマルカードゲームです。</p>
+        <h3>臨床カルタ・オセロ式 MMTバトルの新スコアルール</h3>
+        <p>手札の引き運をプレイングで打破する、ダニエルズ臨床準拠のスコア対戦システムです。</p>
         <div class="rules-flow">
           <div class="rule-step">
-            <strong>1. 場のお題（指定肢位）</strong>
-            <p>毎ターン、中央に指定体位（背臥位・端座位・側臥位など）がめくられます。</p>
+            <strong>1. スコア計算と肢位補正（代償ペナルティ）</strong>
+            <p>得点 ＝ <strong>基礎Grade数値（5, 4, 3, 2）＋ 肢位補正</strong><br>
+            ・指定肢位と一致：<strong>+2点</strong>（例: G5一致 ＝ 7点 / G3一致 ＝ 5点）<br>
+            ・肢位不一致（代償測定）：<strong>-2点</strong>（例: G5不一致 ＝ 3点）<br>
+            ※不一致のG5（3点）よりも一致したG3（5点）やG2（4点）が勝つため、『正しい肢位の選択』が最優先されます。</p>
           </div>
           <div class="rule-step">
-            <strong>2. 一致で勝利（Grade判定）</strong>
-            <p>出されたカードの測定肢位が場と一致していれば合格（Grade 5またはGrade 2）。相手が外せばあなたの勝利です。</p>
+            <strong>2. 重力除去位（Grade 2）の逆転特効ギミック</strong>
+            <p>場のお題が「側臥位」「前腕中間位」など重力除去位のターンは、Grade 2カードが肢位一致すると<strong>特大ボーナス +5点（合計7点！）</strong>となり、G5と同等以上の大逆転が決まります。</p>
           </div>
           <div class="rule-step">
-            <strong>3. 重力除去位（Grade 2）の逆転</strong>
-            <p>場が「側臥位」の時は、Grade 2のカードで鮮やかに体位一致を狙えます。</p>
+            <strong>3. サブ条件（部位・運動ベクトル）の+1コンボ</strong>
+            <p>場のお題に表示される特効条件（例:「下肢」「伸展」など）とカードの部位・運動が合致すると、さらに <strong>+1点</strong> 加算されます。同点時の決定打になります。</p>
+          </div>
+          <div class="rule-step">
+            <strong>4. 常時5枚ドロー ＆ 体位変更（ベッド操作）切り札</strong>
+            <p>カードを出すと山札から即座に1枚補充され、常に5枚の手札から戦えます（3勝先取でマッチ勝利）。手札が合わない時は、1試合1回限定の<strong>「🛏️ 体位変更」</strong>で場をリロールできます。</p>
           </div>
         </div>
         <div class="rules-disclaimer" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #E5E2DC; font-size: 0.75rem; color: #78716C; line-height: 1.6;">

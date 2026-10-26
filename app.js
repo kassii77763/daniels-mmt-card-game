@@ -1,6 +1,6 @@
 /**
  * MMT GRADE — Daniels Tactical Card Engine
- * カルタ・オセロ式 臨床判定＆スプリング物理制御
+ * 臨床カルタ・オセロ式 MMTバトルの新スコア対戦システム
  */
 
 // 内蔵マスターカード（画像パス付き）
@@ -23,15 +23,28 @@ const DEFAULT_CARDS = [
 ];
 
 const POSITIONS = ["背臥位", "腹臥位", "座位", "端座位", "側臥位", "前腕支持", "前腕中間位", "立位"];
+const SUB_REGIONS = ["上肢", "下肢", "体幹", "頸部"];
+const SUB_MOTIONS = ["屈曲", "伸展", "外転", "底屈", "背屈"];
 
 let cardDatabase = [...DEFAULT_CARDS];
+let drawDeck = [];
+let discardPile = [];
 let playerHand = [];
 let cpuHand = [];
-let currentField = "端座位";
-let wins = 0, losses = 0;
-let isAnimating = false;
+let currentField = {
+  pos: "端座位",
+  subRegion: "下肢",
+  subMotion: "伸展",
+  isGravity: false
+};
 
-// 外部JSON読み込み（ある場合）
+let playerWins = 0;
+let cpuWins = 0;
+let bedRotateCount = 1; // 1試合1回限定
+let isAnimating = false;
+let matchOver = false;
+
+// 外部JSON読み込み
 async function loadCardDatabase() {
   try {
     const res = await fetch('data/cards.json');
@@ -46,167 +59,338 @@ async function loadCardDatabase() {
   }
 }
 
-// ゲーム初期化（ディープクローン）
-function initGame() {
-  const cloned = cardDatabase.map(c => ({ ...c, used: false }));
-  const shuffled = cloned.sort(() => Math.random() - 0.5);
-
-  playerHand = shuffled.slice(0, 5);
-  cpuHand = shuffled.slice(5, 10);
-
-  rollField();
-  renderBoard();
+// カードのGrade数値化 (G5/4 -> 5, G2 -> 2)
+function getCardGradeValue(card) {
+  if (!card || !card.grade) return 5;
+  if (card.grade.includes('5')) return 5;
+  if (card.grade.includes('4')) return 4;
+  if (card.grade.includes('3')) return 3;
+  if (card.grade.includes('2')) return 2;
+  if (card.grade.includes('1')) return 1;
+  return 0;
 }
 
-// 場のお題決定（手札に合わせて試合が成立しやすい確率調整）
-function rollField() {
-  const activeCards = playerHand.filter(c => !c.used);
-  if (activeCards.length > 0 && Math.random() < 0.8) {
-    currentField = activeCards[Math.floor(Math.random() * activeCards.length)].pos;
-  } else {
-    currentField = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
-  }
+// ゲーム初期化（新規マッチ開始）
+function initGame() {
+  matchOver = false;
+  playerWins = 0;
+  cpuWins = 0;
+  bedRotateCount = 1;
+  discardPile = [];
 
-  const fieldBadge = document.getElementById('field-badge');
-  const fieldName = document.getElementById('field-name');
-  if (fieldName) {
-    fieldName.innerText = currentField;
-    // フリップ変形マイクロアニメーション
-    if (fieldBadge) {
-      fieldBadge.style.transform = "scale(0.92)";
-      setTimeout(() => { fieldBadge.style.transform = "scale(1)"; }, 180);
+  // 山札作成 & シャッフル
+  drawDeck = cardDatabase.map((c, i) => ({ ...c, uid: `${c.id}_${Date.now()}_${i}` }))
+    .sort(() => Math.random() - 0.5);
+
+  // 初期手札5枚ずつ
+  playerHand = drawDeck.splice(0, 5);
+  cpuHand = drawDeck.splice(0, 5);
+
+  updateBedButton();
+  rollField();
+  renderBoard();
+
+  // スロットリセット
+  const pSlot = document.getElementById('p1-slot');
+  const cSlot = document.getElementById('cpu-slot');
+  if (pSlot && cSlot) {
+    pSlot.classList.remove('filled');
+    cSlot.classList.remove('filled');
+    pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
+    cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
+  }
+  document.getElementById('result-ticker').innerText = "場のお題に合致するカードを手札から選んでください";
+}
+
+// 山札から1枚引く
+function drawSingleCard() {
+  if (drawDeck.length === 0) {
+    if (discardPile.length > 0) {
+      drawDeck = discardPile.sort(() => Math.random() - 0.5);
+      discardPile = [];
+    } else {
+      drawDeck = cardDatabase.map((c, i) => ({ ...c, uid: `${c.id}_${Date.now()}_${i}` }))
+        .sort(() => Math.random() - 0.5);
     }
   }
+  return drawDeck.pop();
+}
+
+// 場のお題決定（指定肢位 & サブ特効条件）
+function rollField() {
+  // プレイヤー手札の肢位を少し優先して引きやすく調整
+  if (playerHand.length > 0 && Math.random() < 0.75) {
+    currentField.pos = playerHand[Math.floor(Math.random() * playerHand.length)].pos;
+  } else {
+    currentField.pos = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
+  }
+
+  // 重力除去位フラグ（側臥位・前腕中間位）
+  currentField.isGravity = (currentField.pos === "側臥位" || currentField.pos === "前腕中間位");
+
+  // サブ条件（部位＆運動）
+  currentField.subRegion = SUB_REGIONS[Math.floor(Math.random() * SUB_REGIONS.length)];
+  currentField.subMotion = SUB_MOTIONS[Math.floor(Math.random() * SUB_MOTIONS.length)];
+
+  // UI更新
+  const fieldBadge = document.getElementById('field-badge');
+  const fieldName = document.getElementById('field-name');
+  const fieldSubName = document.getElementById('field-sub-name');
+
+  if (fieldName) {
+    fieldName.innerText = currentField.pos + (currentField.isGravity ? " (重力除去位)" : "");
+  }
+  if (fieldSubName) {
+    fieldSubName.innerText = `${currentField.subRegion} / ${currentField.subMotion}`;
+  }
+
+  if (fieldBadge) {
+    if (currentField.isGravity) {
+      fieldBadge.classList.add('gravity-mode');
+    } else {
+      fieldBadge.classList.remove('gravity-mode');
+    }
+    fieldBadge.style.transform = "scale(0.92)";
+    setTimeout(() => { fieldBadge.style.transform = "scale(1)"; }, 180);
+  }
+}
+
+// 体位変更（ベッド操作）ボタン処理
+function useBedRotate() {
+  if (isAnimating || matchOver || bedRotateCount <= 0) return;
+
+  bedRotateCount--;
+  updateBedButton();
+  rollField();
+
+  const ticker = document.getElementById('result-ticker');
+  if (ticker) {
+    ticker.innerText = `🛏️ ベッド操作発動！場のお題を【${currentField.pos}】に変更しました！`;
+  }
+}
+
+// 体位変更ボタンの見た目更新
+function updateBedButton() {
+  const btn = document.getElementById('btn-bed-rotate');
+  if (!btn) return;
+  if (bedRotateCount > 0) {
+    btn.disabled = false;
+    btn.innerHTML = `🛏️ 体位変更［${bedRotateCount}回］`;
+  } else {
+    btn.disabled = true;
+    btn.innerHTML = `🛏️ 体位変更［使用済］`;
+  }
+}
+
+// スコア計算ロジック
+function calculateScore(card, field) {
+  const base = getCardGradeValue(card);
+  const isGravityField = field.isGravity || field.pos === "側臥位" || field.pos === "前腕中間位";
+  const isG2 = (card.grade && card.grade.includes("2"));
+  const isPosMatch = (card.pos === field.pos);
+
+  let posBonus = 0;
+  let isG2Special = false;
+
+  if (isPosMatch) {
+    if (isGravityField && isG2) {
+      // 重力除去位でG2が一致！特大ボーナス +5点 (合計7点)
+      posBonus = 5;
+      isG2Special = true;
+    } else {
+      // 通常の一致 +2点
+      posBonus = 2;
+    }
+  } else {
+    // 肢位不一致（代償測定） -2点
+    posBonus = -2;
+  }
+
+  // サブ条件（部位一致または運動方向一致で +1点）
+  let subBonus = 0;
+  const matchRegion = (card.region === field.subRegion);
+  const matchMotion = (card.title.includes(field.subMotion) || (card.vector && card.vector.includes(field.subMotion)));
+  if (matchRegion || matchMotion) {
+    subBonus = 1;
+  }
+
+  const total = Math.max(0, base + posBonus + subBonus);
+
+  // 内訳テキスト作成
+  const parts = [`G${base}`];
+  if (isG2Special) {
+    parts.push(`重力除去特効+5`);
+  } else if (posBonus > 0) {
+    parts.push(`一致+2`);
+  } else {
+    parts.push(`不一致-2`);
+  }
+  if (subBonus > 0) {
+    parts.push(`特効+1`);
+  }
+
+  return {
+    total,
+    base,
+    posBonus,
+    subBonus,
+    isPosMatch,
+    isG2Special,
+    breakdownText: `${parts.join(' ')} ＝ ${total}点`
+  };
 }
 
 // ボード描画
 function renderBoard() {
-  const pRem = playerHand.filter(c => !c.used).length;
-  const cRem = cpuHand.filter(c => !c.used).length;
+  document.getElementById('player-rem-count').innerText = playerHand.length;
+  document.getElementById('cpu-rem-count').innerText = cpuHand.length;
+  document.getElementById('deck-rem-count').innerText = drawDeck.length;
+  document.getElementById('score-readout').innerText = `★ ${playerWins}勝 — ${cpuWins}勝 (3勝先取)`;
 
-  document.getElementById('player-rem-count').innerText = pRem;
-  document.getElementById('cpu-rem-count').innerText = cRem;
-  document.getElementById('score-readout').innerText = `勝 ${wins} — ${losses} 負`;
-
-  // CPU Hand UI (ミニマリスト・裏面風)
+  // CPU Hand UI
   const cpuContainer = document.getElementById('cpu-hand-container');
   cpuContainer.innerHTML = cpuHand.map(c => `
-    <div class="cpu-mini-card ${c.used ? 'used' : ''}">
+    <div class="cpu-mini-card">
       <span style="color:var(--text-muted); font-size:0.52rem;">${c.region}</span>
-      <strong style="color:var(--text-primary); font-size:0.58rem;">${c.used ? '済' : c.title}</strong>
+      <strong style="color:var(--text-primary); font-size:0.58rem;">${c.title}</strong>
     </div>
   `).join('');
 
-  // Player Hand UI (額縁アートウィンドウ付きカルタ札)
+  // Player Hand UI
   const playerContainer = document.getElementById('player-hand-container');
-  playerContainer.innerHTML = playerHand.map((c, i) => `
-    <div class="k-card ${c.used ? 'used' : ''}" onclick="playCard(${i})">
-      <div class="kc-top">
-        <span class="kc-region-badge">${c.region}</span>
-        <span class="kc-grade-badge">${c.grade || 'G5'}</span>
-      </div>
-      
-      <div class="kc-art-window">
-        ${c.image 
-          ? `<img src="${c.image}" alt="${c.title}" loading="lazy">` 
-          : `<div class="kc-art-placeholder">MMT<br>${c.pos}</div>`
-        }
-      </div>
+  playerContainer.innerHTML = playerHand.map((c, i) => {
+    const isMatch = (c.pos === currentField.pos);
+    const scorePrev = calculateScore(c, currentField);
+    return `
+      <div class="k-card ${isMatch ? 'highlight-match' : ''}" onclick="playCard(${i})">
+        <div class="kc-top">
+          <span class="kc-region-badge">${c.region}</span>
+          <span class="kc-grade-badge">${c.grade || 'G5'}</span>
+        </div>
+        
+        <div class="kc-art-window">
+          ${c.image 
+            ? `<img src="${c.image}" alt="${c.title}" loading="lazy">` 
+            : `<div class="kc-art-placeholder">MMT<br>${c.pos}</div>`
+          }
+        </div>
 
-      <div class="kc-meta">
-        <div class="kc-title">${c.title}</div>
-        <div class="kc-muscle">${c.muscle}</div>
-      </div>
+        <div class="kc-meta">
+          <div class="kc-title">${c.title}</div>
+          <div class="kc-muscle">${c.muscle}</div>
+        </div>
 
-      <div class="kc-footer">
-        <span>${c.vector || '標準'}</span>
-        <span class="kc-pos">${c.pos}</span>
+        <div class="kc-footer">
+          <span>予想:${scorePrev.total}点</span>
+          <span class="kc-pos">${c.pos}</span>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // カードをプレイ
 function playCard(index) {
-  if (isAnimating) return;
+  if (isAnimating || matchOver) return;
   const pCard = playerHand[index];
-  if (!pCard || pCard.used) return;
+  if (!pCard) return;
 
   isAnimating = true;
-  pCard.used = true;
 
-  // CPU思考ロジック（場の一致を賢く優先）
-  const activeCpu = cpuHand.filter(c => !c.used);
-  if (activeCpu.length === 0) return;
+  // プレイヤー手札から抜き出し
+  playerHand.splice(index, 1);
 
-  const matchCpu = activeCpu.filter(c => c.pos === currentField);
-  let cpuCard = (matchCpu.length > 0 && Math.random() < 0.75)
-    ? matchCpu[0]
-    : activeCpu[Math.floor(Math.random() * activeCpu.length)];
+  // CPUの思考ロジック（現在のお題で最もスコアが高くなる手を選択、たまにミス）
+  let cpuIndex = 0;
+  let bestScore = -999;
+  cpuHand.forEach((c, idx) => {
+    const scoreObj = calculateScore(c, currentField);
+    let evalVal = scoreObj.total + (Math.random() * 0.4);
+    if (evalVal > bestScore) {
+      bestScore = evalVal;
+      cpuIndex = idx;
+    }
+  });
 
-  cpuCard.used = true;
+  const cpuCard = cpuHand.splice(cpuIndex, 1)[0];
 
-  // アリーナへカード展開（画像付き）
+  // 捨て札へ追加
+  discardPile.push(pCard, cpuCard);
+
+  // スロット描画
   const pSlot = document.getElementById('p1-slot');
   const cSlot = document.getElementById('cpu-slot');
-
   pSlot.classList.add('filled');
   cSlot.classList.add('filled');
 
-  pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)");
-  cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)");
+  // スコア判定
+  const pScore = calculateScore(pCard, currentField);
+  const cScore = calculateScore(cpuCard, currentField);
 
-  // 判定
-  const pMatch = pCard.pos === currentField;
-  const cpuMatch = cpuCard.pos === currentField;
+  pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)", pScore);
+  cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)", cScore);
 
   let resultMsg = "";
-  if (pMatch && !cpuMatch) {
-    wins++;
-    resultMsg = `🎉 あなたの勝ち！【${pCard.title}】が指定肢位（${currentField}）と完全一致！`;
-  } else if (!pMatch && cpuMatch) {
-    losses++;
-    resultMsg = `💦 相手の勝ち！相手が【${cpuCard.title}】（${cpuCard.pos}）で肢位を合わせました`;
-  } else if (pMatch && cpuMatch) {
-    resultMsg = `⚖️ 引き分け！両者とも指定肢位（${currentField}）で一致！`;
+  if (pScore.total > cScore.total) {
+    playerWins++;
+    if (pScore.isG2Special) {
+      resultMsg = `🔥 重力除去位で大逆転！【${pCard.title}】(${pScore.breakdownText}) が相手の${cScore.total}点を圧倒！`;
+    } else {
+      resultMsg = `🎉 あなたの勝ち！【${pCard.title}】(${pScore.breakdownText}) ＞ 相手(${cScore.total}点)`;
+    }
+  } else if (pScore.total < cScore.total) {
+    cpuWins++;
+    resultMsg = `💦 相手の勝ち！相手の【${cpuCard.title}】(${cScore.breakdownText}) ＞ あなた(${pScore.total}点)`;
   } else {
-    resultMsg = `⚡ 不成立（両者不一致）！どちらも【${currentField}】ではありませんでした`;
+    resultMsg = `⚖️ 同点引き分け！両者とも ${pScore.total}点 で互角の測定！`;
   }
 
   document.getElementById('result-ticker').innerText = resultMsg;
   renderBoard();
 
-  // 次のターン進行
+  // 次の展開（手札補充 ＆ 3勝判定）
   setTimeout(() => {
     isAnimating = false;
-    if (playerHand.every(c => c.used)) {
-      document.getElementById('result-ticker').innerText = "🏁 全5回戦終了！新たなカードを配ります...";
+
+    // 1枚ずつ山札から即時ドロー（常時5枚キープ）
+    playerHand.push(drawSingleCard());
+    cpuHand.push(drawSingleCard());
+
+    if (playerWins >= 3 || cpuWins >= 3) {
+      matchOver = true;
+      const isWinner = playerWins >= 3;
+      document.getElementById('result-ticker').innerText = isWinner
+        ? "🏆 3勝先取！あなたの完全勝利です！「勝負」タブで再戦できます。"
+        : "💀 相手が3勝先取しました...！「勝負」タブで再戦できます。";
       setTimeout(() => {
-        initGame();
-        pSlot.classList.remove('filled');
-        cSlot.classList.remove('filled');
-        pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
-        cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
-        document.getElementById('result-ticker').innerText = "場のお題に合致するカードを手札から選んでください";
-      }, 1300);
+        if (confirm(isWinner ? "🏆 3勝先取！マッチ勝利！もう一度遊びますか？" : "💀 相手が3勝先取しました。もう一度挑戦しますか？")) {
+          initGame();
+        }
+      }, 700);
     } else {
       rollField();
+      renderBoard();
     }
-  }, 1000);
+  }, 1400);
 }
 
-// アリーナ内カード描画ヘルパー
-function renderSlotCard(c, ownerLabel, labelColor) {
+// アリーナ内カード描画ヘルパー（スコア内訳バッジ付き）
+function renderSlotCard(c, ownerLabel, labelColor, scoreObj) {
   return `
-    <span style="font-size:0.6rem; color:${labelColor}; font-weight:800;">${ownerLabel}</span>
-    <div style="width:100%; height:75px; border-radius:4px; overflow:hidden; margin:3px 0; background:var(--bg-bone);">
+    <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <span style="font-size:0.6rem; color:${labelColor}; font-weight:800;">${ownerLabel}</span>
+      <span style="font-size:0.65rem; background:var(--text-primary); color:#FFF; padding:1px 6px; border-radius:999px; font-weight:900;">${scoreObj ? scoreObj.total + '点' : ''}</span>
+    </div>
+    <div style="width:100%; height:70px; border-radius:4px; overflow:hidden; margin:3px 0; background:var(--bg-bone);">
       ${c.image 
         ? `<img src="${c.image}" style="width:100%; height:100%; object-fit:cover;" alt="">` 
         : `<div style="height:100%; display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--text-muted); font-weight:700;">${c.title}</div>`
       }
     </div>
-    <div style="font-size:0.75rem; font-weight:900; color:var(--text-primary); line-height:1.2;">${c.title}</div>
-    <div style="font-size:0.62rem; color:var(--accent-amber); font-weight:800; margin-top:2px;">${c.pos}</div>
+    <div style="font-size:0.72rem; font-weight:900; color:var(--text-primary); line-height:1.2;">${c.title}</div>
+    <div style="font-size:0.58rem; color:${scoreObj && scoreObj.posBonus > 0 ? 'var(--accent-green)' : 'var(--accent-red)'}; font-weight:800; margin-top:2px;">
+      ${scoreObj ? scoreObj.breakdownText : c.pos}
+    </div>
   `;
 }
 
@@ -251,6 +435,7 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     if (target) target.classList.add('active');
 
     if (tabId === 'list') renderEncyclopedia();
+    if (tabId === 'battle' && matchOver) initGame();
   });
 });
 
