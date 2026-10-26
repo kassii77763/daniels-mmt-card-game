@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "title": "頸部屈曲",
+    "region": "頸部",
+    "muscle": "胸鎖乳突筋",
+    "grade": "Grade 5/4",
+    "pos": "背臥位",
+    "image": "assets/cards/neck_flexion.jpg",
+    "vector": "↓ 前額部加圧"
+  },
+  {
+    "id": 2,
+    "title": "頸部伸展",
+    "region": "頸部",
+    "muscle": "頭板状筋",
+    "grade": "Grade 5/4",
+    "pos": "腹臥位",
+    "image": "assets/cards/neck_extension.jpg",
+    "vector": "↓ 後頭部加圧"
+  },
+  {
+    "id": 3,
+    "title": "体幹屈曲",
+    "region": "体幹",
+    "muscle": "腹直筋",
+    "grade": "Grade 5",
+    "pos": "背臥位",
+    "image": "assets/cards/trunk_flexion.jpg",
+    "vector": "⇡ 頭後ろ手組み"
+  },
+  {
+    "id": 4,
+    "title": "体幹伸展",
+    "region": "体幹",
+    "muscle": "脊柱起立筋",
+    "grade": "Grade 5",
+    "pos": "腹臥位",
+    "image": "assets/cards/trunk_extension.jpg",
+    "vector": "↓ 足首固定"
+  },
+  {
+    "id": 5,
+    "title": "肩関節屈曲",
+    "region": "上肢",
+    "muscle": "三角筋前部",
+    "grade": "Grade 5/4",
+    "pos": "座位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "↓ 上腕遠位加圧"
+  },
+  {
+    "id": 6,
+    "title": "肩関節外転",
+    "region": "上肢",
+    "muscle": "三角筋中部",
+    "grade": "Grade 5/4",
+    "pos": "座位",
+    "image": "assets/cards/shoulder_abduction.jpg",
+    "vector": "↓ 上腕遠位加圧"
+  },
+  {
+    "id": 7,
+    "title": "肘関節屈曲",
+    "region": "上肢",
+    "muscle": "上腕二頭筋",
+    "grade": "Grade 5/4",
+    "pos": "座位",
+    "image": "assets/cards/elbow_flexion.jpg",
+    "vector": "↓ 前腕遠位伸展抵抗"
+  },
+  {
+    "id": 8,
+    "title": "手関節伸展",
+    "region": "上肢",
+    "muscle": "橈側手根伸筋群",
+    "grade": "Grade 5/4",
+    "pos": "前腕支持",
+    "image": "assets/cards/wrist_extension.jpg",
+    "vector": "↓ 手背加圧"
+  },
+  {
+    "id": 9,
+    "title": "股関節屈曲",
+    "region": "下肢",
+    "muscle": "腸腰筋",
+    "grade": "Grade 5/4",
+    "pos": "端座位",
+    "image": "assets/cards/hip_flexion.jpg",
+    "vector": "↓ 大腿遠位加圧"
+  },
+  {
+    "id": 10,
+    "title": "膝関節伸展",
+    "region": "下肢",
+    "muscle": "大腿四頭筋",
+    "grade": "Grade 5/4",
+    "pos": "端座位",
+    "image": "assets/cards/knee_extension.jpg",
+    "vector": "↓ 下腿遠位加圧"
+  },
+  {
+    "id": 11,
+    "title": "膝関節伸展 (G2)",
+    "region": "下肢",
+    "muscle": "大腿四頭筋",
+    "grade": "Grade 2",
+    "pos": "側臥位",
+    "image": "assets/cards/knee_extension_g2.jpg",
+    "vector": "⤹ 屈曲位から前方伸展円弧"
+  },
+  {
+    "id": 12,
+    "title": "手関節伸展 (G2)",
+    "region": "上肢",
+    "muscle": "橈側手根伸筋群",
+    "grade": "Grade 2",
+    "pos": "前腕中間位",
+    "image": "assets/cards/wrist_extension_g2.jpg",
+    "vector": "➔ 水平背屈スライド"
+  },
+  {
+    "id": 13,
+    "title": "体幹屈曲 (G4)",
+    "region": "体幹",
+    "muscle": "腹直筋",
+    "grade": "Grade 4",
+    "pos": "背臥位",
+    "image": "assets/cards/trunk_flexion_g4.jpg",
+    "vector": "⇡ 胸の前腕組み"
+  },
+  {
+    "id": 14,
+    "title": "足関節底屈",
+    "region": "下肢",
+    "muscle": "下腿三頭筋",
+    "grade": "Grade 5",
+    "pos": "立位",
+    "image": "assets/cards/ankle_plantar_g5.jpg",
+    "vector": "↑ 片脚立ち踵上げ25回"
+  },
+  {
+    "id": 15,
+    "title": "足関節背屈",
+    "region": "下肢",
+    "muscle": "前脛骨筋",
+    "grade": "Grade 5/4",
+    "pos": "端座位",
+    "image": "assets/cards/ankle_dorsi_g5.jpg",
+    "vector": "↓ 前足部外返し加圧"
+  }
+]

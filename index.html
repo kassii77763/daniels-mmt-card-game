@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- Minimalist Editorial Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <span class="brand-title">MMT GRADE</span>
+      <span class="brand-tag">DANIELS CARDS</span>
+    </div>
+    <div class="header-nav">
+      <button class="nav-btn active" data-tab="battle">⚔️ 勝負</button>
+      <button class="nav-btn" data-tab="list">📚 図鑑</button>
+      <button class="nav-btn" data-tab="rules">📖 手引き</button>
+    </div>
+  </header>
+
+  <!-- Main Dynamic Viewport -->
+  <main class="main-viewport">
+    <!-- 1. BATTLE ARENA TAB -->
+    <section id="tab-battle" class="tab-pane active">
+      <!-- CPU Opponent Area -->
+      <div class="cpu-deck-bar">
+        <div class="zone-label">
+          <span>🤖 相手の手札 (<span id="cpu-rem-count">5</span>枚)</span>
+          <span class="cpu-state" id="cpu-status">思考中</span>
+        </div>
+        <div class="cpu-mini-cards" id="cpu-hand-container"></div>
+      </div>
+
+      <!-- Central Field & Clash Board -->
+      <div class="battle-board">
+        <!-- Field Position Indicator (Othello/Karuta Objective) -->
+        <div class="field-badge" id="field-badge">
+          <span class="field-caption">場のお題［指定体位］</span>
+          <strong class="field-value" id="field-name">背臥位</strong>
+        </div>
+
+        <!-- Clash Slots -->
+        <div class="clash-stage">
+          <div class="clash-slot" id="p1-slot">
+            <span class="slot-placeholder">あなたの札</span>
+          </div>
+          <div class="clash-vs">VS</div>
+          <div class="clash-slot" id="cpu-slot">
+            <span class="slot-placeholder">相手の札</span>
+          </div>
+        </div>
+
+        <!-- Result Banner with Subtle Editorial Shading -->
+        <div class="result-ticker" id="result-ticker">
+          場のお題に合致するカードを手札から選んでください
+        </div>
+      </div>
+
+      <!-- Player Hand Zone -->
+      <div class="player-deck-zone">
+        <div class="deck-meta-bar">
+          <span class="deck-label">✋ あなたの手札 (<span id="player-rem-count">5</span>枚)</span>
+          <span class="score-readout" id="score-readout">勝 0 — 0 負</span>
+        </div>
+        <div class="hand-card-grid" id="player-hand-container"></div>
+      </div>
+    </section>
+
+    <!-- 2. ENCYCLOPEDIA TAB -->
+    <section id="tab-list" class="tab-pane">
+      <div class="encyclopedia-header">
+        <h2>ダニエルズ徒手筋力検査法 肢位マスター図鑑</h2>
+        <p>全動作の標準測定肢位・主動作筋・力学ベクトル</p>
+      </div>
+      <div class="encyclopedia-grid" id="encyclopedia-container"></div>
+    </section>
+
+    <!-- 3. RULES & GUIDE TAB -->
+    <section id="tab-rules" class="tab-pane">
+      <div class="rules-card">
+        <h3>カルタ・オセロ式 MMTバトルの臨床ルール</h3>
+        <p>臨床実習や国試で問われる「肢位と判定基準」を直感的にマスターするためのミニマルカードゲームです。</p>
+        <div class="rules-flow">
+          <div class="rule-step">
+            <strong>1. 場のお題（指定肢位）</strong>
+            <p>毎ターン、中央に指定体位（背臥位・端座位・側臥位など）がめくられます。</p>
+          </div>
+          <div class="rule-step">
+            <strong>2. 一致で勝利（Grade判定）</strong>
+            <p>出されたカードの測定肢位が場と一致していれば合格（Grade 5またはGrade 2）。相手が外せばあなたの勝利です。</p>
+          </div>
+          <div class="rule-step">
+            <strong>3. 重力除去位（Grade 2）の逆転</strong>
+            <p>場が「側臥位」の時は、Grade 2のカードで鮮やかに体位一致を狙えます。</p>
+          </div>
+        </div>
+        <div class="rules-disclaimer" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #E5E2DC; font-size: 0.75rem; color: #78716C; line-height: 1.6;">
+          <strong>【準拠基準および免責事項】</strong><br/>
+          本教材に掲載されている測定肢位、力学判定、主動作筋の分類は、理学療法教育における国際的標準基準（ダニエルズ徒手筋力検査法）に基づき、教育目的で独自にイラストレーションおよびゲームロジックを構成したものです。特定の出版社や公式書籍とは独立した自立型学習教材です。
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

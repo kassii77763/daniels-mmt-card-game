@@ -1,0 +1,28 @@
+{
+  "project": "mmt_card_game",
+  "profile": "PROFILE_A_VISUAL_CARD",
+  "synthesizedAt": "2026-10-26T02:17:38.281Z",
+  "inheritedLessonsCount": 3,
+  "activeRules": [
+    {
+      "id": "H2-RULE-001",
+      "name": "ANTI_ROLEPLAY_GUARD",
+      "summary": "同一セッション内での一人二役ロールプレイの物理禁止。監査は必ず独立外部プロセスとして実行すること。",
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "H2-RULE-002",
+      "name": "OUTSIDE_IN_VISUAL_EVAL_GUARD",
+      "summary": "ファイル存在やメタデータだけでなく、縮小実機での視覚・幾何・意味論の客観的一次証拠を必須とする。",
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "H2-RULE-006",
+      "name": "GESTALT_THUMBNAIL_VISUAL_VERIFICATION_GUARD",
+      "summary": "高解像度画像の部分要素チェックを禁止。実機カード・実機サムネイル枠（縮小表示）におけるゲシュタルト（姿勢の誤認・矢印落下の誤認）をPlaywrightまたは独立VLMで判定すること。",
+      "severity": "CRITICAL",
+      "sourceProject": "mmt_card_game",
+      "harvestedAt": "2026-10-26T02:17:38.280Z"
+    }
+  ]
+}
