@@ -57,7 +57,10 @@ let isAnimating = false;
 let isWaitingNextTurn = false;
 let matchOver = false;
 
-let cpuPersona = "pt"; // "pt" | "rookie" | "gravity"
+let cpuPersona = "pt"; // "pt" | "rookie" | "gravity" | "pvp"
+let pvpCurrentTurn = 1; // 1: 1P(あなた), 2: 2P(相手)
+let pvpCard1 = null;
+let pvpCard2 = null;
 let mistakeCardIds = new Set(); // 弱点カルテ（ミスしたカードIDの記録）
 let currentEncFilter = "all"; // "all" | "weak"
 
@@ -253,13 +256,13 @@ function playSound(type) {
 }
 
 // ============================================================================
-// CPU キャラクター選択
+// CPU / 対面2P キャラクター選択
 // ============================================================================
 function selectCpuPersona(personaKey) {
   cpuPersona = personaKey;
   playSound('card');
 
-  ['p-pt', 'p-rookie', 'p-gravity'].forEach(id => {
+  ['p-pt', 'p-rookie', 'p-gravity', 'p-pvp'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.classList.remove('active');
   });
@@ -268,18 +271,32 @@ function selectCpuPersona(personaKey) {
   if (activeBtn) activeBtn.classList.add('active');
 
   const nameLabel = document.getElementById('cpu-name-label');
-  if (nameLabel) {
-    if (personaKey === 'pt') nameLabel.innerText = "指導者PT";
-    else if (personaKey === 'rookie') nameLabel.innerText = "1年後輩";
-    else if (personaKey === 'gravity') nameLabel.innerText = "重力マスター";
+  const oppLabel = document.getElementById('opponent-hand-label');
+  const ticker = document.getElementById('result-ticker');
+
+  pvpCurrentTurn = 1;
+  pvpCard1 = null;
+  pvpCard2 = null;
+
+  if (personaKey === 'pvp') {
+    if (nameLabel) nameLabel.innerText = "2P (相手)";
+    if (oppLabel) oppLabel.innerHTML = `2Pの手札 (<span id="cpu-rem-count">${cpuHand.length}</span>枚)`;
+    if (ticker) ticker.innerText = "👥 1台2人対戦（伏せオープン）を開始！まず1Pの手札から1枚選んでください";
+  } else {
+    if (nameLabel) {
+      if (personaKey === 'pt') nameLabel.innerText = "指導者PT";
+      else if (personaKey === 'rookie') nameLabel.innerText = "1年後輩";
+      else if (personaKey === 'gravity') nameLabel.innerText = "重力マスター";
+    }
+    if (oppLabel) oppLabel.innerHTML = `相手の手札 (<span id="cpu-rem-count">${cpuHand.length}</span>枚)`;
+    if (ticker) {
+      if (personaKey === 'pt') ticker.innerText = "対戦相手を「指導者PT（王道の正確な判定）」に設定しました";
+      else if (personaKey === 'rookie') ticker.innerText = "対戦相手を「1年後輩（たまに代償ミスをする）」に設定しました";
+      else if (personaKey === 'gravity') ticker.innerText = "対戦相手を「重力マスター（G2逆転を狙ってくる）」に設定しました";
+    }
   }
 
-  const ticker = document.getElementById('result-ticker');
-  if (ticker) {
-    if (personaKey === 'pt') ticker.innerText = "対戦相手を「指導者PT（王道の正確な判定）」に設定しました";
-    else if (personaKey === 'rookie') ticker.innerText = "対戦相手を「1年後輩（たまに代償ミスをする）」に設定しました";
-    else if (personaKey === 'gravity') ticker.innerText = "対戦相手を「重力マスター（G2逆転を狙ってくる）」に設定しました";
-  }
+  initGame();
 }
 
 // ============================================================================
@@ -574,21 +591,49 @@ function generateClinicalFeedback(pCard, pScore, cpuCard, cScore) {
 
 // ボード描画
 function renderBoard() {
-  document.getElementById('player-rem-count').innerText = playerHand.length;
-  document.getElementById('deck-rem-count').innerText = drawDeck.length;
+  const isPvP = (cpuPersona === 'pvp');
+  const activeHand = (isPvP && pvpCurrentTurn === 2) ? cpuHand : playerHand;
 
-  // CPU Hand UI (裏面ヒント・属性チラ見せデザイン)
+  const pRemEl = document.getElementById('player-rem-count');
+  const dRemEl = document.getElementById('deck-rem-count');
+  const cRemEl = document.getElementById('cpu-rem-count');
+  const deckMetaLabel = document.querySelector('.deck-meta-bar .deck-label');
+
+  if (pRemEl) pRemEl.innerText = activeHand.length;
+  if (dRemEl) dRemEl.innerText = drawDeck.length;
+  if (cRemEl) cRemEl.innerText = isPvP ? cpuHand.length : cpuHand.length;
+
+  if (deckMetaLabel) {
+    if (isPvP) {
+      deckMetaLabel.innerHTML = (pvpCurrentTurn === 1)
+        ? `✋ <strong>1P（あなた）の手番</strong> (<span id="player-rem-count">${playerHand.length}</span>枚) — 伏せる札を選んでください`
+        : `✋ <strong>2P（相手）の手番</strong> (<span id="player-rem-count">${cpuHand.length}</span>枚) — 伏せる札を選んでください`;
+    } else {
+      deckMetaLabel.innerHTML = `✋ あなたの手札 (<span id="player-rem-count">${playerHand.length}</span>枚 / 山札:<span id="deck-rem-count">${drawDeck.length}</span>)`;
+    }
+  }
+
+  // CPU Hand UI (2P対戦時は手札の完全伏せ・ブラインド保護)
   const cpuContainer = document.getElementById('cpu-hand-container');
-  cpuContainer.innerHTML = cpuHand.map(c => `
-    <div class="cpu-mini-card">
-      <span class="cpu-card-hint-region">${c.region}</span>
-      <span class="cpu-card-hint-grade">${c.grade || 'G5'}</span>
-    </div>
-  `).join('');
+  if (isPvP) {
+    cpuContainer.innerHTML = cpuHand.map(() => `
+      <div class="cpu-mini-card" style="background:#292524; border-color:#57534E;">
+        <span class="cpu-card-hint-region" style="color:#A8A29E;">2P</span>
+        <span class="cpu-card-hint-grade" style="color:#D6D3D1;">🃏</span>
+      </div>
+    `).join('');
+  } else {
+    cpuContainer.innerHTML = cpuHand.map(c => `
+      <div class="cpu-mini-card">
+        <span class="cpu-card-hint-region">${c.region}</span>
+        <span class="cpu-card-hint-grade">${c.grade || 'G5'}</span>
+      </div>
+    `).join('');
+  }
 
-  // Player Hand UI (直感オーラ表示)
+  // 手札 UI (PvP時は現在の手番のプレイヤーの手札を描画)
   const playerContainer = document.getElementById('player-hand-container');
-  playerContainer.innerHTML = playerHand.map((c, i) => {
+  playerContainer.innerHTML = activeHand.map((c, i) => {
     const isPosMatch = (c.pos === currentField.pos);
     const isGravityField = currentField.isGravity || currentField.pos === "側臥位" || currentField.pos === "前腕中間位";
     const isG2 = (c.grade && c.grade.includes("2"));
@@ -632,25 +677,80 @@ function renderBoard() {
   }).join('');
 }
 
+// 2P対戦：スマホ手渡し後の2P手番開始
+function continuePvPTurn() {
+  const modal = document.getElementById('pvp-pass-modal');
+  if (modal) modal.style.display = 'none';
+
+  pvpCurrentTurn = 2;
+  playSound('card');
+  renderBoard();
+
+  const ticker = document.getElementById('result-ticker');
+  if (ticker) ticker.innerText = `👉 2Pの番です。指定肢位【${currentField.pos}】に合わせてカードを1枚伏せてください`;
+}
+
 // カードをプレイ
 function playCard(index) {
   if (isAnimating || isWaitingNextTurn || matchOver) return;
+
+  const isPvP = (cpuPersona === 'pvp');
+
+  if (isPvP) {
+    if (pvpCurrentTurn === 1) {
+      // 1Pの手番：カードを伏せてセットし、スマホ手渡しモーダル表示
+      pvpCard1 = playerHand.splice(index, 1)[0];
+      playSound('card');
+
+      const pSlot = document.getElementById('p1-slot');
+      if (pSlot) {
+        pSlot.className = 'clash-slot facedown';
+        pSlot.innerHTML = '<span class="facedown-icon">🃏</span><span class="facedown-text">1P 伏せ完了</span>';
+      }
+
+      const passModal = document.getElementById('pvp-pass-modal');
+      const passTitle = document.getElementById('pvp-pass-title');
+      const passDesc = document.getElementById('pvp-pass-desc');
+
+      if (passTitle) passTitle.innerText = "📱 1Pセット完了！";
+      if (passDesc) passDesc.innerText = "手札がバレないようにスマホを2P（相手）に渡してください。";
+      if (passModal) passModal.style.display = 'flex';
+      return;
+    } else {
+      // 2Pの手番：カードを伏せてセットし、せーのでオープン！
+      pvpCard2 = cpuHand.splice(index, 1)[0];
+      playSound('card');
+
+      const cSlot = document.getElementById('cpu-slot');
+      if (cSlot) {
+        cSlot.className = 'clash-slot facedown';
+        cSlot.innerHTML = '<span class="facedown-icon">🃏</span><span class="facedown-text">2P 伏せ完了</span>';
+      }
+
+      isAnimating = true;
+      const ticker = document.getElementById('result-ticker');
+      if (ticker) ticker.innerText = "⚡ 2人ともセット完了！せーの、オープン！！";
+
+      setTimeout(() => {
+        executeBattleClash(pvpCard1, pvpCard2);
+      }, 650);
+      return;
+    }
+  }
+
+  // 通常のCPU戦
   const pCard = playerHand[index];
   if (!pCard) return;
 
   isAnimating = true;
   playSound('card');
-
-  // プレイヤー手札から抜き出し
   playerHand.splice(index, 1);
 
   // CPU思考ロジック（ペルソナ別）
   let cpuIndex = 0;
   if (cpuPersona === "rookie" && Math.random() < 0.35) {
-    // 1年後輩: 35%の確率で適当に選んで代償ミス
     cpuIndex = Math.floor(Math.random() * cpuHand.length);
   } else if (cpuPersona === "gravity") {
-    // 重力マスター: 重力除去位ならG2最優先、通常時はG2温存
     const isGravityField = currentField.isGravity || currentField.pos === "側臥位" || currentField.pos === "前腕中間位";
     let foundG2 = cpuHand.findIndex(c => c.grade && c.grade.includes("2"));
     if (isGravityField && foundG2 !== -1) {
@@ -667,7 +767,6 @@ function playCard(index) {
       });
     }
   } else {
-    // 指導者PT (王道)
     let bestScore = -999;
     cpuHand.forEach((c, idx) => {
       const scoreObj = calculateScore(c, currentField);
@@ -680,9 +779,17 @@ function playCard(index) {
   }
 
   const cpuCard = cpuHand.splice(cpuIndex, 1)[0];
+  executeBattleClash(pCard, cpuCard);
+}
+
+// バトル激突・勝敗判定・サスペンス演出
+function executeBattleClash(pCard, cpuCard) {
   discardPile.push(pCard, cpuCard);
 
-  // 要素取得
+  const isPvP = (cpuPersona === 'pvp');
+  const pLabel = isPvP ? "1P (先攻)" : "あなた";
+  const cLabel = isPvP ? "2P (後攻)" : "相手";
+
   const pSlot = document.getElementById('p1-slot');
   const cSlot = document.getElementById('cpu-slot');
   const ticker = document.getElementById('result-ticker');
@@ -697,20 +804,20 @@ function playCard(index) {
   const pScore = calculateScore(pCard, currentField);
   const cScore = calculateScore(cpuCard, currentField);
 
-  // プレイヤーが代償ミス（不一致）した場合は弱点カルテに記録！
+  // 代償ミス弱点カルテ記録（1P分）
   if (!pScore.isPosMatch) {
     mistakeCardIds.add(pCard.id);
     updateWeakCount();
   }
 
-  // 0.0秒（オープン）：お互いのカードが場に出る
+  // 0.0秒（オープン）：お互いのカードがバンッと表になる
   pSlot.className = 'clash-slot filled suspense';
   cSlot.className = 'clash-slot filled suspense';
 
-  pSlot.innerHTML = renderCountUpSlotCard(pCard, "あなた", "var(--accent-blue)", pScore.base, "基礎Grade");
-  cSlot.innerHTML = renderCountUpSlotCard(cpuCard, "相手", "var(--accent-red)", cScore.base, "基礎Grade");
+  pSlot.innerHTML = renderCountUpSlotCard(pCard, pLabel, "var(--accent-blue)", pScore.base, "基礎Grade");
+  cSlot.innerHTML = renderCountUpSlotCard(cpuCard, cLabel, "var(--accent-red)", cScore.base, "基礎Grade");
 
-  ticker.innerText = `⚔️ カード対峙！基礎Grade（あなた ${pScore.base} vs 相手 ${cScore.base}）`;
+  ticker.innerText = `⚔️ せーのでオープン！ 基礎Grade（${pLabel} ${pScore.base} vs ${cLabel} ${cScore.base}）`;
   renderBoard();
 
   // 0.7秒（スコア加算）
@@ -718,13 +825,13 @@ function playCard(index) {
     pSlot.classList.remove('suspense');
     cSlot.classList.remove('suspense');
 
-    pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)", pScore, true);
-    cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)", cScore, true);
+    pSlot.innerHTML = renderSlotCard(pCard, pLabel, "var(--accent-blue)", pScore, true);
+    cSlot.innerHTML = renderSlotCard(cpuCard, cLabel, "var(--accent-red)", cScore, true);
 
     const isBonus = (pScore.posBonus > 0 || pScore.subBonus > 0);
     playSound(isBonus ? 'bonus' : 'penalty');
 
-    ticker.innerText = `⚖️ スコア確定！ あなた ${pScore.total}点 (${pScore.breakdownText}) vs 相手 ${cScore.total}点`;
+    ticker.innerText = `⚖️ スコア確定！ ${pLabel} ${pScore.total}点 vs ${cLabel} ${cScore.total}点`;
 
     // 1.4秒（勝敗確定＆一時停止）
     setTimeout(() => {
@@ -751,11 +858,9 @@ function playCard(index) {
         carryOverStars = 1;
 
         if (pScore.isG2Special) {
-          resultMsg = `🔥 重力除去位で大逆転！【${pCard.title}】が相手を圧倒！ ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
-        } else if (pScore.total >= 8) {
-          resultMsg = `⚡ 8点クリティカル勝利！完全一致フルコンボ！ ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
+          resultMsg = `🔥 ${pLabel}が重力除去で大逆転！【${pCard.title}】が圧倒！ ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
         } else {
-          resultMsg = `🎉 あなたの勝ち！【${pCard.title}】＞ 相手(${cScore.total}点) ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
+          resultMsg = `🎉 ${pLabel}のラウンド勝利！【${pCard.title}】＞ ${cLabel}(${cScore.total}点) ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
         }
       } else if (pScore.total < cScore.total) {
         cSlot.classList.add('winner');
@@ -766,7 +871,7 @@ function playCard(index) {
         cpuWins += wonStars;
         carryOverStars = 1;
 
-        resultMsg = `💦 相手の勝ち！相手の【${cpuCard.title}】＞ あなた(${pScore.total}点)`;
+        resultMsg = `🎉 ${cLabel}のラウンド勝利！【${cpuCard.title}】＞ ${pLabel}(${pScore.total}点) ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
       } else {
         playSound('draw');
         carryOverStars++;
@@ -799,6 +904,10 @@ function proceedToNextTurn() {
   isWaitingNextTurn = false;
   isAnimating = true;
 
+  pvpCurrentTurn = 1;
+  pvpCard1 = null;
+  pvpCard2 = null;
+
   playSound('card');
 
   const pSlot = document.getElementById('p1-slot');
@@ -821,8 +930,8 @@ function proceedToNextTurn() {
     }
     pSlot.className = 'clash-slot';
     cSlot.className = 'clash-slot';
-    pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
-    cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
+    pSlot.innerHTML = `<span class="slot-placeholder">${cpuPersona === 'pvp' ? '1Pの札' : 'あなたの札'}</span>`;
+    cSlot.innerHTML = `<span class="slot-placeholder">${cpuPersona === 'pvp' ? '2Pの札' : '相手の札'}</span>`;
 
     playerHand.push(drawSingleCard());
     cpuHand.push(drawSingleCard());
@@ -831,22 +940,27 @@ function proceedToNextTurn() {
 
     if (playerWins >= 3 || cpuWins >= 3) {
       matchOver = true;
-      const isWinner = playerWins >= 3;
-      if (isWinner) playSound('critical');
+      const isP1Won = playerWins >= 3;
+      if (isP1Won) playSound('critical');
       else playSound('lose');
 
-      ticker.innerText = isWinner
-        ? "🏆 3勝達成！あなたのマッチ完全勝利です！「勝負」タブで再戦できます。"
-        : "💀 相手が3勝達成しました...！「勝負」タブで再戦できます。";
+      const isPvP = (cpuPersona === 'pvp');
+      const winLabel = isPvP ? (isP1Won ? "1P (先攻)" : "2P (後攻)") : (isP1Won ? "あなた" : "相手");
+
+      ticker.innerText = `🏆 3勝達成！【${winLabel}】のマッチ完全勝利です！`;
       setTimeout(() => {
-        if (confirm(isWinner ? "🏆 3勝先取！マッチ完全勝利！もう一度遊びますか？" : "💀 相手が3勝先取しました。もう一度挑戦しますか？")) {
+        if (confirm(`🏆 3勝先取！【${winLabel}】の勝利！もう一度対戦しますか？`)) {
           initGame();
         }
       }, 500);
     } else {
       rollField();
       renderBoard();
-      ticker.innerText = "場のお題に合致するカードを手札から選んでください";
+      if (cpuPersona === 'pvp') {
+        ticker.innerText = "👥 1Pの番です。場のお題に合わせて手札からカードを伏せてください";
+      } else {
+        ticker.innerText = "場のお題に合致するカードを手札から選んでください";
+      }
     }
   }, 950);
 }
