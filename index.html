@@ -17,9 +17,9 @@
     </div>
     <div class="header-nav">
       <button class="sound-toggle-btn" id="btn-sound-toggle" onclick="toggleSound()" title="効果音のON/OFF">🔊 ON</button>
-      <button class="nav-btn active" data-tab="battle">⚔️ 勝負</button>
-      <button class="nav-btn" data-tab="list">📚 図鑑</button>
-      <button class="nav-btn" data-tab="rules">📖 手引き</button>
+      <button class="nav-btn active" data-tab="battle">🃏 バトル</button>
+      <button class="nav-btn" data-tab="flow">🔀 判定フロー</button>
+      <button class="nav-btn" data-tab="list">📖 図鑑</button>
     </div>
   </header>
 
@@ -27,11 +27,15 @@
   <main class="main-viewport">
     <!-- 1. BATTLE ARENA TAB -->
     <section id="tab-battle" class="tab-pane active">
-      <!-- CPU Opponent Area -->
+      <!-- CPU Opponent Area with Persona Selector -->
       <div class="cpu-deck-bar">
         <div class="zone-label">
-          <span>🤖 相手の手札 (<span id="cpu-rem-count">5</span>枚)</span>
-          <span class="cpu-state" id="cpu-status">思考中</span>
+          <span>相手の手札 (<span id="cpu-rem-count">5</span>枚)</span>
+          <div class="cpu-persona-selector">
+            <button class="persona-btn active" id="p-pt" onclick="selectCpuPersona('pt')" title="王道の正確な判定">👨‍🏫 指導者PT</button>
+            <button class="persona-btn" id="p-rookie" onclick="selectCpuPersona('rookie')" title="たまに代償ミスをする">🔰 1年後輩</button>
+            <button class="persona-btn" id="p-gravity" onclick="selectCpuPersona('gravity')" title="G2逆転を狙ってくる">🦊 重力マスター</button>
+          </div>
         </div>
         <div class="cpu-mini-cards" id="cpu-hand-container"></div>
       </div>
@@ -74,7 +78,7 @@
               <span class="lamp" id="c-lamp-2"></span>
               <span class="lamp" id="c-lamp-3"></span>
             </div>
-            <span class="gauge-label">相手</span>
+            <span class="gauge-label" id="cpu-name-label">指導者PT</span>
           </div>
         </div>
 
@@ -116,45 +120,96 @@
       </div>
     </section>
 
-    <!-- 2. ENCYCLOPEDIA TAB -->
-    <section id="tab-list" class="tab-pane">
-      <div class="encyclopedia-header">
-        <h2>ダニエルズ徒手筋力検査法 肢位マスター図鑑</h2>
-        <p>全動作の標準測定肢位・主動作筋・力学ベクトル</p>
+    <!-- 2. DIAGNOSTIC FLOW CHART TAB (段階3スタート・判定フロー) -->
+    <section id="tab-flow" class="tab-pane">
+      <div class="flow-header">
+        <h2>Daniels 段階3スタート判定フローチャート</h2>
+        <p>臨床の鉄則：まず「抗重力位（Grade 3）」から測定を開始し、成否で上下に分岐します</p>
       </div>
-      <div class="encyclopedia-grid" id="encyclopedia-container"></div>
+
+      <!-- 関節別ワンタップ連動セレクター -->
+      <div class="joint-selector-scroll">
+        <div class="joint-btn-bar" id="flow-joint-buttons">
+          <!-- JSで自動生成 -->
+        </div>
+      </div>
+
+      <!-- 3分岐フローチャートボード -->
+      <div class="flow-chart-card">
+        <!-- START: Grade 3 -->
+        <div class="flow-node flow-start">
+          <div class="flow-node-badge">STEP 1：測定開始</div>
+          <div class="flow-node-title">【Grade 3】抗重力位で全可動域（ROM）動くか？</div>
+          <div class="flow-node-desc">
+            対象動作: <strong id="flow-joint-title">膝関節伸展（大腿四頭筋）</strong><br>
+            抗重力肢位: <span class="flow-pos-pill" id="flow-ag-pos">端座位</span>
+          </div>
+        </div>
+
+        <!-- 3分岐コネクタ -->
+        <div class="flow-branches-container">
+          <!-- 分岐A: YES (動く) -->
+          <div class="flow-branch branch-yes">
+            <div class="branch-tag tag-yes">YES（全可動域クリア）</div>
+            <div class="branch-step-box">
+              <span class="branch-action">徒手抵抗を追加</span>
+              <ul class="grade-result-list">
+                <li><span class="grade-pill g5">Grade 5 (Normal)</span> 最大抵抗に耐える</li>
+                <li><span class="grade-pill g4">Grade 4 (Good)</span> 中等度抵抗に耐える</li>
+                <li><span class="grade-pill g3">Grade 3 (Fair)</span> 抵抗には負ける（自重のみ）</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 分岐B: NO (動かない) ➔ 重力除去位 -->
+          <div class="flow-branch branch-no">
+            <div class="branch-tag tag-no">NO（動かない／部分可動）</div>
+            <div class="branch-step-box">
+              <span class="branch-action">🛏️ 重力除去位へ体位変換！</span>
+              <div class="flow-ge-highlight">
+                重力除去肢位: <strong id="flow-ge-pos">側臥位（下腿支持）</strong>
+              </div>
+              <ul class="grade-result-list">
+                <li><span class="grade-pill g2">Grade 2 (Poor)</span> 重力除去で全ROM動く</li>
+              </ul>
+              
+              <!-- 分岐C: 重力除去でも動かない ➔ 触診 -->
+              <div class="sub-branch-touch">
+                <div class="touch-tag">さらに動かない場合 ➔ 🤏 筋・腱の触診</div>
+                <div class="touch-target-box">
+                  触診対象: <strong id="flow-palpation">大腿四頭筋腱 / 膝蓋骨上部</strong>
+                </div>
+                <ul class="grade-result-list">
+                  <li><span class="grade-pill g1">Grade 1 (Trace)</span> 筋収縮（ピクッ）あり</li>
+                  <li><span class="grade-pill g0">Grade 0 (Zero)</span> 完全収縮なし（麻痺）</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 3. RULES & GUIDE TAB -->
-    <section id="tab-rules" class="tab-pane">
-      <div class="rules-card">
-        <h3>臨床カルタ・オセロ式 MMTバトルの新スコアルール</h3>
-        <p>手札の引き運をプレイングで打破する、ダニエルズ臨床準拠のスコア対戦システムです。</p>
-        <div class="rules-flow">
-          <div class="rule-step">
-            <strong>1. スコア計算と肢位補正（代償ペナルティ）</strong>
-            <p>得点 ＝ <strong>基礎Grade数値（5, 4, 3, 2）＋ 肢位補正</strong><br>
-            ・指定肢位と一致：<strong>+2点</strong>（例: G5一致 ＝ 7点 / G3一致 ＝ 5点）<br>
-            ・肢位不一致（代償測定）：<strong>-2点</strong>（例: G5不一致 ＝ 3点）<br>
-            ※不一致のG5（3点）よりも一致したG3（5点）やG2（4点）が勝つため、『正しい肢位の選択』が最優先されます。</p>
+    <!-- 3. ENCYCLOPEDIA & WEAKNESS TAB (図鑑＆弱点カルテ) -->
+    <section id="tab-list" class="tab-pane">
+      <div class="encyclopedia-header">
+        <div class="enc-title-row">
+          <div>
+            <h2>ダニエルズ徒手筋力検査法 肢位マスター図鑑</h2>
+            <p>全動作の標準測定肢位・主動作筋・力学ベクトル</p>
           </div>
-          <div class="rule-step">
-            <strong>2. 重力除去位（Grade 2）の逆転特効ギミック</strong>
-            <p>場のお題が「側臥位」「前腕中間位」など重力除去位のターンは、Grade 2カードが肢位一致すると<strong>特大ボーナス +5点（合計7点！）</strong>となり、G5と同等以上の大逆転が決まります。</p>
-          </div>
-          <div class="rule-step">
-            <strong>3. サブ条件（部位・運動ベクトル）の+1コンボ</strong>
-            <p>場のお題に表示される特効条件（例:「下肢」「伸展」など）とカードの部位・運動が合致すると、さらに <strong>+1点</strong> 加算されます。同点時の決定打になります。</p>
-          </div>
-          <div class="rule-step">
-            <strong>4. 常時5枚ドロー ＆ 体位変更（ベッド操作）切り札</strong>
-            <p>カードを出すと山札から即座に1枚補充され、常に5枚の手札から戦えます（3勝先取でマッチ勝利）。手札が合わない時は、1試合1回限定の<strong>「🛏️ 体位変更」</strong>で場をリロールできます。</p>
+          <div class="enc-filter-bar">
+            <button class="enc-filter-btn active" id="filter-all" onclick="filterEncyclopedia('all')">全15枚</button>
+            <button class="enc-filter-btn" id="filter-weak" onclick="filterEncyclopedia('weak')">⚠️ 要復習 (<span id="weak-count">0</span>)</button>
           </div>
         </div>
-        <div class="rules-disclaimer" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #E5E2DC; font-size: 0.75rem; color: #78716C; line-height: 1.6;">
-          <strong>【準拠基準および免責事項】</strong><br/>
-          本教材に掲載されている測定肢位、力学判定、主動作筋の分類は、理学療法教育における国際的標準基準（ダニエルズ徒手筋力検査法）に基づき、教育目的で独自にイラストレーションおよびゲームロジックを構成したものです。特定の出版社や公式書籍とは独立した自立型学習教材です。
-        </div>
+      </div>
+      <div class="encyclopedia-grid" id="encyclopedia-container"></div>
+      
+      <!-- 免責事項・準拠基準（厳守保持） -->
+      <div class="rules-disclaimer" style="margin: 1.5rem 0 0.5rem 0; padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-hairline); font-size: 0.72rem; color: #78716C; line-height: 1.6;">
+        <strong>【準拠基準および免責事項】</strong><br/>
+        本教材に掲載されている測定肢位、力学判定、主動作筋の分類は、理学療法教育における国際的標準基準（ダニエルズ徒手筋力検査法）に基づき、教育目的で独自にイラストレーションおよびゲームロジックを構成したものです。特定の出版社や公式書籍とは独立した自立型学習教材です。
       </div>
     </section>
   </main>

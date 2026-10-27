@@ -26,6 +26,20 @@ const POSITIONS = ["背臥位", "腹臥位", "座位", "端座位", "側臥位",
 const SUB_REGIONS = ["上肢", "下肢", "体幹", "頸部"];
 const SUB_MOTIONS = ["屈曲", "伸展", "外転", "底屈", "背屈"];
 
+// フローチャート用関節マスター
+const FLOW_JOINTS_DATA = [
+  { id: "knee_ext", name: "膝関節伸展", muscle: "大腿四頭筋", agPos: "端座位（下腿前上方伸展）", gePos: "側臥位（下腿を検者が支持）", palpation: "大腿四頭筋腱 / 膝蓋骨上部" },
+  { id: "shoulder_abd", name: "肩関節外転", muscle: "三角筋中部", agPos: "座位（腕を真横90°挙上）", gePos: "背臥位（机・シーツ上を水平スライド）", palpation: "三角筋中部（肩峰外側直下）" },
+  { id: "elbow_flex", name: "肘関節屈曲", muscle: "上腕二頭筋", agPos: "座位（前腕回外位で屈曲）", gePos: "座位（前腕を机上支持して水平屈曲）", palpation: "上腕二頭筋腱（肘窩中央深部）" },
+  { id: "hip_flex", name: "股関節屈曲", muscle: "腸腰筋", agPos: "端座位（大腿を座面から持ち上げる）", gePos: "側臥位（検者が上肢・対側下肢を支持）", palpation: "鼠径靭帯直下（大腿三角）" },
+  { id: "wrist_ext", name: "手関節伸展", muscle: "橈側手根伸筋群", agPos: "前腕支持（手首を机から反らす）", gePos: "前腕中間位（小指側接地・手刀姿勢で背屈）", palpation: "手関節背側橈側（長・短橈側手根伸筋腱）" },
+  { id: "ankle_plantar", name: "足関節底屈", muscle: "下腿三頭筋", agPos: "立位（片脚立ち踵上げ25回）", gePos: "腹臥位 / 側臥位（足関節底屈）", palpation: "アキレス腱 / 腓腹筋筋腹" },
+  { id: "ankle_dorsi", name: "足関節背屈", muscle: "前脛骨筋", agPos: "端座位（つま先を内反・背屈）", gePos: "側臥位（足部を検者が支持）", palpation: "前脛骨筋腱（足関節前内側）" },
+  { id: "neck_flex", name: "頸部屈曲", muscle: "胸鎖乳突筋", agPos: "背臥位（顎を引いて頭部を浮かす）", gePos: "側臥位（頭部を検者が支持）", palpation: "胸鎖乳突筋前縁（頸部側面前方）" },
+  { id: "trunk_flex", name: "体幹屈曲", muscle: "腹直筋", agPos: "背臥位（頭の後ろ手組み・肩甲骨離床）", gePos: "背臥位（骨盤前傾アシスト）", palpation: "腹直筋筋腹（正中線両側）" }
+];
+
+let selectedFlowJointId = "knee_ext";
 let cardDatabase = [...DEFAULT_CARDS];
 let drawDeck = [];
 let discardPile = [];
@@ -37,11 +51,15 @@ let nextField = null;
 
 let playerWins = 0;
 let cpuWins = 0;
-let carryOverStars = 1; // DRAW時のキャリーオーバー（通常1勝、DRAWで+1）
+let carryOverStars = 1; // DRAW時のキャリーオーバー
 let bedRotateCount = 1; // 1試合1回限定
 let isAnimating = false;
 let isWaitingNextTurn = false;
 let matchOver = false;
+
+let cpuPersona = "pt"; // "pt" | "rookie" | "gravity"
+let mistakeCardIds = new Set(); // 弱点カルテ（ミスしたカードIDの記録）
+let currentEncFilter = "all"; // "all" | "weak"
 
 // ============================================================================
 // Web Audio API によるシンセサイズ効果音エンジン（外部ファイル不要）
@@ -86,12 +104,11 @@ function playSound(type) {
     const now = ctx.currentTime;
 
     if (type === 'card') {
-      // カード選択時: 軽快な高音サイン波（シュッ）
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(587.33, now); // D5
-      osc.frequency.exponentialRampToValueAtTime(880, now + 0.07); // A5
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.07);
       gain.gain.setValueAtTime(0.18, now);
       gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
       osc.connect(gain);
@@ -99,12 +116,11 @@ function playSound(type) {
       osc.start(now);
       osc.stop(now + 0.08);
     } else if (type === 'bonus') {
-      // ボーナス加算時: 上昇ポップ音（ピコン♪）
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(523.25, now); // C5
-      osc.frequency.setValueAtTime(783.99, now + 0.08); // G5
+      osc.frequency.setValueAtTime(523.25, now);
+      osc.frequency.setValueAtTime(783.99, now + 0.08);
       gain.gain.setValueAtTime(0.2, now);
       gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
       osc.connect(gain);
@@ -112,12 +128,11 @@ function playSound(type) {
       osc.start(now);
       osc.stop(now + 0.2);
     } else if (type === 'penalty') {
-      // ペナルティ時: 短い低音ブザー
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(196, now); // G3
-      osc.frequency.setValueAtTime(164.81, now + 0.08); // E3
+      osc.frequency.setValueAtTime(196, now);
+      osc.frequency.setValueAtTime(164.81, now + 0.08);
       gain.gain.setValueAtTime(0.18, now);
       gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
       osc.connect(gain);
@@ -125,7 +140,6 @@ function playSound(type) {
       osc.start(now);
       osc.stop(now + 0.22);
     } else if (type === 'win') {
-      // 勝利時: 明るいチャイム（ティロリン♪ C5-E5-G5-C6）
       const notes = [523.25, 659.25, 783.99, 1046.50];
       notes.forEach((freq, idx) => {
         const osc = ctx.createOscillator();
@@ -140,7 +154,6 @@ function playSound(type) {
         osc.stop(now + idx * 0.08 + 0.25);
       });
     } else if (type === 'critical') {
-      // 7点以上 or G2逆転: 豪華な重低音ファンファーレ
       const rootNotes = [130.81, 261.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
       rootNotes.forEach((freq, idx) => {
         const osc = ctx.createOscillator();
@@ -155,12 +168,11 @@ function playSound(type) {
         osc.stop(now + idx * 0.06 + 0.35);
       });
     } else if (type === 'lose') {
-      // 敗北時: 短い下降トーン
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(349.23, now); // F4
-      osc.frequency.exponentialRampToValueAtTime(174.61, now + 0.28); // F3
+      osc.frequency.setValueAtTime(349.23, now);
+      osc.frequency.exponentialRampToValueAtTime(174.61, now + 0.28);
       gain.gain.setValueAtTime(0.18, now);
       gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
       osc.connect(gain);
@@ -168,7 +180,6 @@ function playSound(type) {
       osc.start(now);
       osc.stop(now + 0.3);
     } else if (type === 'draw') {
-      // 引き分け時: 保留音
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
@@ -183,6 +194,36 @@ function playSound(type) {
     }
   } catch (e) {
     console.log("Audio play error:", e);
+  }
+}
+
+// ============================================================================
+// CPU キャラクター選択
+// ============================================================================
+function selectCpuPersona(personaKey) {
+  cpuPersona = personaKey;
+  playSound('card');
+
+  ['p-pt', 'p-rookie', 'p-gravity'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.remove('active');
+  });
+
+  const activeBtn = document.getElementById(`p-${personaKey}`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const nameLabel = document.getElementById('cpu-name-label');
+  if (nameLabel) {
+    if (personaKey === 'pt') nameLabel.innerText = "指導者PT";
+    else if (personaKey === 'rookie') nameLabel.innerText = "1年後輩";
+    else if (personaKey === 'gravity') nameLabel.innerText = "重力マスター";
+  }
+
+  const ticker = document.getElementById('result-ticker');
+  if (ticker) {
+    if (personaKey === 'pt') ticker.innerText = "対戦相手を「指導者PT（王道の正確な判定）」に設定しました";
+    else if (personaKey === 'rookie') ticker.innerText = "対戦相手を「1年後輩（たまに代償ミスをする）」に設定しました";
+    else if (personaKey === 'gravity') ticker.innerText = "対戦相手を「重力マスター（G2逆転を狙ってくる）」に設定しました";
   }
 }
 
@@ -451,27 +492,21 @@ function calculateScore(card, field) {
 
 // 臨床ワンポイント解説の自動生成
 function generateClinicalFeedback(pCard, pScore, cpuCard, cScore) {
-  // 1. G2逆転が決まった場合
   if (pScore.isG2Special) {
     return `⚡ 重力除去位クリティカル！【${pCard.title}】のGrade 2は摩擦・重力を最小化する「${pCard.pos}」が標準肢位です（+5pt特効！）`;
   }
-  // 2. 相手が体位不一致で自滅した場合
   if (pScore.isPosMatch && !cScore.isPosMatch) {
     return `⚠️ 相手の代償測定ミス！【${cpuCard.title}】の正しい標準肢位は「${cpuCard.pos}」であり、「${currentField.pos}」では代償が混入します（-2pt）`;
   }
-  // 3. 自分が体位不一致で敗北した場合
   if (!pScore.isPosMatch && cScore.isPosMatch) {
     return `⚠️ 代償測定ペナルティ！【${pCard.title}】を「${currentField.pos}」で測ると正しい筋力が出ません（標準は「${pCard.pos}」）`;
   }
-  // 4. 両者一致で特効で勝った場合
   if (pScore.isPosMatch && cScore.isPosMatch && pScore.subBonus > 0 && cScore.subBonus === 0) {
     return `🎯 特効コンボ決着！【${pCard.title}】が場のボーナス条件（${currentField.subRegion} / ${currentField.subMotion}）を満たし、同点対決を制しました（+1pt）`;
   }
-  // 5. 通常の一致勝利
   if (pScore.isPosMatch) {
     return `⭕ 正しい測定肢位！【${pCard.title}（${pCard.muscle}）】は「${pCard.pos}」にて抗重力位で正確に測定します（+2pt）`;
   }
-  // 6. 引き分け
   return `⚖️ 互角の臨床測定！両者とも【${currentField.pos}】に対する測定精度が同点となりました`;
 }
 
@@ -496,13 +531,12 @@ function renderBoard() {
     const isGravityField = currentField.isGravity || currentField.pos === "側臥位" || currentField.pos === "前腕中間位";
     const isG2 = (c.grade && c.grade.includes("2"));
 
-    // オーラクラス判定
     let auraClass = "match-dim";
     if (isPosMatch) {
       if (isGravityField && isG2) {
-        auraClass = "match-gravity"; // 紫の特大オーラ
+        auraClass = "match-gravity";
       } else {
-        auraClass = "match-normal"; // 青のオーラ
+        auraClass = "match-normal";
       }
     }
 
@@ -536,7 +570,7 @@ function renderBoard() {
   }).join('');
 }
 
-// カードをプレイ（黄金テンポ：0.0s ➜ 0.7s ➜ 1.4s ➜ 手動確認待ち）
+// カードをプレイ
 function playCard(index) {
   if (isAnimating || isWaitingNextTurn || matchOver) return;
   const pCard = playerHand[index];
@@ -548,17 +582,40 @@ function playCard(index) {
   // プレイヤー手札から抜き出し
   playerHand.splice(index, 1);
 
-  // CPU思考ロジック
+  // CPU思考ロジック（ペルソナ別）
   let cpuIndex = 0;
-  let bestScore = -999;
-  cpuHand.forEach((c, idx) => {
-    const scoreObj = calculateScore(c, currentField);
-    let evalVal = scoreObj.total + (Math.random() * 0.4);
-    if (evalVal > bestScore) {
-      bestScore = evalVal;
-      cpuIndex = idx;
+  if (cpuPersona === "rookie" && Math.random() < 0.35) {
+    // 1年後輩: 35%の確率で適当に選んで代償ミス
+    cpuIndex = Math.floor(Math.random() * cpuHand.length);
+  } else if (cpuPersona === "gravity") {
+    // 重力マスター: 重力除去位ならG2最優先、通常時はG2温存
+    const isGravityField = currentField.isGravity || currentField.pos === "側臥位" || currentField.pos === "前腕中間位";
+    let foundG2 = cpuHand.findIndex(c => c.grade && c.grade.includes("2"));
+    if (isGravityField && foundG2 !== -1) {
+      cpuIndex = foundG2;
+    } else {
+      let bestScore = -999;
+      cpuHand.forEach((c, idx) => {
+        if (!isGravityField && c.grade && c.grade.includes("2")) return;
+        const scoreObj = calculateScore(c, currentField);
+        if (scoreObj.total > bestScore) {
+          bestScore = scoreObj.total;
+          cpuIndex = idx;
+        }
+      });
     }
-  });
+  } else {
+    // 指導者PT (王道)
+    let bestScore = -999;
+    cpuHand.forEach((c, idx) => {
+      const scoreObj = calculateScore(c, currentField);
+      let evalVal = scoreObj.total + (Math.random() * 0.4);
+      if (evalVal > bestScore) {
+        bestScore = evalVal;
+        cpuIndex = idx;
+      }
+    });
+  }
 
   const cpuCard = cpuHand.splice(cpuIndex, 1)[0];
   discardPile.push(pCard, cpuCard);
@@ -578,9 +635,13 @@ function playCard(index) {
   const pScore = calculateScore(pCard, currentField);
   const cScore = calculateScore(cpuCard, currentField);
 
-  // ----------------------------------------------------------------
-  // 0.0秒（オープン）：お互いのカードが場に出る（基礎Gradeのみ表示）
-  // ----------------------------------------------------------------
+  // プレイヤーが代償ミス（不一致）した場合は弱点カルテに記録！
+  if (!pScore.isPosMatch) {
+    mistakeCardIds.add(pCard.id);
+    updateWeakCount();
+  }
+
+  // 0.0秒（オープン）：お互いのカードが場に出る
   pSlot.className = 'clash-slot filled suspense';
   cSlot.className = 'clash-slot filled suspense';
 
@@ -590,9 +651,7 @@ function playCard(index) {
   ticker.innerText = `⚔️ カード対峙！基礎Grade（あなた ${pScore.base} vs 相手 ${cScore.base}）`;
   renderBoard();
 
-  // ----------------------------------------------------------------
-  // 0.7秒（スコア加算）：肢位一致・特効バッジがポップし合計点へ跳ね上がる
-  // ----------------------------------------------------------------
+  // 0.7秒（スコア加算）
   setTimeout(() => {
     pSlot.classList.remove('suspense');
     cSlot.classList.remove('suspense');
@@ -605,15 +664,12 @@ function playCard(index) {
 
     ticker.innerText = `⚖️ スコア確定！ あなた ${pScore.total}点 (${pScore.breakdownText}) vs 相手 ${cScore.total}点`;
 
-    // ----------------------------------------------------------------
-    // 1.4秒（勝敗確定＆一時停止）：勝敗・臨床解説表示、カードを場に残して停止！
-    // ----------------------------------------------------------------
+    // 1.4秒（勝敗確定＆一時停止）
     setTimeout(() => {
       let resultMsg = "";
       const isCritical = (pScore.total >= 7 || pScore.isG2Special || cScore.total >= 7 || cScore.isG2Special);
 
       if (pScore.total > cScore.total) {
-        // プレイヤー勝利
         pSlot.classList.add('winner');
         cSlot.classList.add('loser');
 
@@ -630,7 +686,7 @@ function playCard(index) {
 
         const wonStars = carryOverStars;
         playerWins += wonStars;
-        carryOverStars = 1; // リセット
+        carryOverStars = 1;
 
         if (pScore.isG2Special) {
           resultMsg = `🔥 重力除去位で大逆転！【${pCard.title}】が相手を圧倒！ ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
@@ -640,18 +696,16 @@ function playCard(index) {
           resultMsg = `🎉 あなたの勝ち！【${pCard.title}】＞ 相手(${cScore.total}点) ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
         }
       } else if (pScore.total < cScore.total) {
-        // CPU勝利
         cSlot.classList.add('winner');
         pSlot.classList.add('loser');
         playSound('lose');
 
         const wonStars = carryOverStars;
         cpuWins += wonStars;
-        carryOverStars = 1; // リセット
+        carryOverStars = 1;
 
         resultMsg = `💦 相手の勝ち！相手の【${cpuCard.title}】＞ あなた(${pScore.total}点)`;
       } else {
-        // 引き分け（DRAW）➜ キャリーオーバー発生！
         playSound('draw');
         carryOverStars++;
         resultMsg = `⚖️ 引き分け（DRAW）！勝敗は次ターンへ持ち越し（キャリーオーバー ★${carryOverStars}個！）`;
@@ -661,25 +715,23 @@ function playCard(index) {
       updateCarryOverUI();
       ticker.innerText = resultMsg;
 
-      // 臨床ワンポイント解説の表示
       const clinicalText = generateClinicalFeedback(pCard, pScore, cpuCard, cScore);
       if (memo) {
         memo.innerText = clinicalText;
         memo.style.display = 'block';
       }
 
-      // 「次のターンへ ▶」ボタンの出現（自動進行ストップ）
       if (nextBtn) {
         nextBtn.style.display = 'inline-block';
       }
 
       isAnimating = false;
       isWaitingNextTurn = true;
-    }, 700); // 0.7s + 0.7s = 1.4s
-  }, 700); // 0.7s
+    }, 700);
+  }, 700);
 }
 
-// プレイヤーが「次のターンへ ▶」を押したときの処理
+// 「次のターンへ ▶」処理
 function proceedToNextTurn() {
   if (!isWaitingNextTurn) return;
   isWaitingNextTurn = false;
@@ -697,7 +749,6 @@ function proceedToNextTurn() {
   if (nextBtn) nextBtn.style.display = 'none';
   if (memo) memo.style.display = 'none';
 
-  // カード消去・フェードアウト開始（1.0秒）
   pSlot.classList.add('exit-fade');
   cSlot.classList.add('exit-fade');
   ticker.innerText = "✨ 測定完了... 次の肢位へ移行中";
@@ -711,13 +762,11 @@ function proceedToNextTurn() {
     pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
     cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
 
-    // 1枚ずつ山札からドロー（手札常時5枚キープ）
     playerHand.push(drawSingleCard());
     cpuHand.push(drawSingleCard());
 
     isAnimating = false;
 
-    // 3勝マッチ決着判定
     if (playerWins >= 3 || cpuWins >= 3) {
       matchOver = true;
       const isWinner = playerWins >= 3;
@@ -745,7 +794,7 @@ function renderCountUpSlotCard(c, ownerLabel, labelColor, currentDisplayScore, s
   return `
     <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:2px;">
       <span style="font-size:0.68rem; color:${labelColor}; font-weight:800;">${ownerLabel}</span>
-      <span style="font-size:0.75rem; background:var(--text-primary); color:#FFF; padding:2px 8px; border-radius:999px; font-weight:900; box-shadow:0 1px 3px rgba(0,0,0,0.2); transition:transform 0.2s ease;">
+      <span style="font-size:0.75rem; background:var(--text-primary); color:#FFF; padding:2px 8px; border-radius:999px; font-weight:900; box-shadow:0 1px 3px rgba(0,0,0,0.2);">
         ${currentDisplayScore}点
       </span>
     </div>
@@ -792,33 +841,115 @@ function renderSlotCard(c, ownerLabel, labelColor, scoreObj, isRevealed) {
   `;
 }
 
-// 図鑑描画
+// ============================================================================
+// 判定フローチャート（段階3スタート・別タブ）ロジック
+// ============================================================================
+function initFlowChart() {
+  const container = document.getElementById('flow-joint-buttons');
+  if (!container) return;
+
+  container.innerHTML = FLOW_JOINTS_DATA.map(j => `
+    <button class="joint-btn ${j.id === selectedFlowJointId ? 'active' : ''}" onclick="selectFlowJoint('${j.id}')">
+      ${j.name}
+    </button>
+  `).join('');
+
+  renderFlowChartContent();
+}
+
+function selectFlowJoint(jointId) {
+  selectedFlowJointId = jointId;
+  playSound('card');
+
+  document.querySelectorAll('.joint-btn').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = Array.from(document.querySelectorAll('.joint-btn')).find(b => b.innerText.includes(FLOW_JOINTS_DATA.find(x => x.id === jointId).name));
+  if (activeBtn) activeBtn.classList.add('active');
+
+  renderFlowChartContent();
+}
+
+function renderFlowChartContent() {
+  const joint = FLOW_JOINTS_DATA.find(x => x.id === selectedFlowJointId) || FLOW_JOINTS_DATA[0];
+
+  const titleEl = document.getElementById('flow-joint-title');
+  const agPosEl = document.getElementById('flow-ag-pos');
+  const gePosEl = document.getElementById('flow-ge-pos');
+  const touchEl = document.getElementById('flow-palpation');
+
+  if (titleEl) titleEl.innerText = `${joint.name}（${joint.muscle}）`;
+  if (agPosEl) agPosEl.innerText = joint.agPos;
+  if (gePosEl) gePosEl.innerText = joint.gePos;
+  if (touchEl) touchEl.innerText = joint.palpation;
+}
+
+// ============================================================================
+// 図鑑 ＆ 弱点カルテ（ミス記録）ロジック
+// ============================================================================
+function updateWeakCount() {
+  const countEl = document.getElementById('weak-count');
+  if (countEl) countEl.innerText = mistakeCardIds.size;
+}
+
+function filterEncyclopedia(filterType) {
+  currentEncFilter = filterType;
+  playSound('card');
+
+  const btnAll = document.getElementById('filter-all');
+  const btnWeak = document.getElementById('filter-weak');
+  if (filterType === 'all') {
+    if (btnAll) btnAll.classList.add('active');
+    if (btnWeak) btnWeak.classList.remove('active');
+  } else {
+    if (btnAll) btnAll.classList.remove('active');
+    if (btnWeak) btnWeak.classList.add('active');
+  }
+
+  renderEncyclopedia();
+}
+
 function renderEncyclopedia() {
   const container = document.getElementById('encyclopedia-container');
   if (!container) return;
 
-  container.innerHTML = cardDatabase.map(c => `
-    <div class="k-card" style="height:140px; cursor:default;">
-      <div class="kc-top">
-        <span class="kc-region-badge">${c.region}</span>
-        <span class="kc-grade-badge">${c.grade || 'G5'}</span>
+  let displayCards = cardDatabase;
+  if (currentEncFilter === 'weak') {
+    displayCards = cardDatabase.filter(c => mistakeCardIds.has(c.id));
+  }
+
+  if (displayCards.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+        🎉 要復習の代償ミスカードはありません！全問パーフェクト測定中！
       </div>
-      <div class="kc-art-window" style="height:62px;">
-        ${c.image 
-          ? `<img src="${c.image}" alt="${c.title}" loading="lazy">` 
-          : `<div class="kc-art-placeholder">MMT<br>${c.pos}</div>`
-        }
+    `;
+    return;
+  }
+
+  container.innerHTML = displayCards.map(c => {
+    const isWeak = mistakeCardIds.has(c.id);
+    return `
+      <div class="k-card ${isWeak ? 'weak-mark' : ''}" style="height:140px; cursor:default;">
+        <div class="kc-top">
+          <span class="kc-region-badge">${c.region}</span>
+          <span class="kc-grade-badge">${c.grade || 'G5'}</span>
+        </div>
+        <div class="kc-art-window" style="height:62px;">
+          ${c.image 
+            ? `<img src="${c.image}" alt="${c.title}" loading="lazy">` 
+            : `<div class="kc-art-placeholder">MMT<br>${c.pos}</div>`
+          }
+        </div>
+        <div class="kc-meta">
+          <div class="kc-title">${c.title}</div>
+          <div class="kc-muscle">${c.muscle}</div>
+        </div>
+        <div class="kc-footer">
+          <span>${c.vector || '標準'}</span>
+          <span class="kc-pos">${c.pos}</span>
+        </div>
       </div>
-      <div class="kc-meta">
-        <div class="kc-title">${c.title}</div>
-        <div class="kc-muscle">${c.muscle}</div>
-      </div>
-      <div class="kc-footer">
-        <span>${c.vector || '標準'}</span>
-        <span class="kc-pos">${c.pos}</span>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // タブ切り替え
@@ -833,7 +964,11 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     const target = document.getElementById('tab-' + tabId);
     if (target) target.classList.add('active');
 
-    if (tabId === 'list') renderEncyclopedia();
+    if (tabId === 'flow') initFlowChart();
+    if (tabId === 'list') {
+      updateWeakCount();
+      renderEncyclopedia();
+    }
     if (tabId === 'battle' && matchOver) initGame();
   });
 });
@@ -842,4 +977,5 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 (async function() {
   await loadCardDatabase();
   initGame();
+  initFlowChart();
 })();

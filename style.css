@@ -943,3 +943,302 @@ html, body {
   color: var(--text-secondary);
   line-height: 1.4;
 }
+
+/* --------------------------------------------------------------------------
+   CPU Persona Selector
+   -------------------------------------------------------------------------- */
+.cpu-persona-selector {
+  display: flex;
+  gap: 3px;
+}
+
+.persona-btn {
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.persona-btn.active {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border-color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Diagnostic Flow Chart Tab (段階3スタート判定フロー)
+   -------------------------------------------------------------------------- */
+.flow-header {
+  margin-bottom: 8px;
+}
+
+.flow-header h2 {
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.flow-header p {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.joint-selector-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.joint-btn-bar {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.joint-btn {
+  background: #FFFFFF;
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.joint-btn.active {
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  border-color: var(--accent-blue);
+  box-shadow: 0 2px 6px rgba(29, 78, 216, 0.3);
+}
+
+.flow-chart-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow-card);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.flow-node {
+  background: var(--bg-subtle);
+  border: 1.5px solid var(--border-card);
+  border-radius: 8px;
+  padding: 10px 12px;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.flow-node-badge {
+  display: inline-block;
+  background: var(--accent-amber);
+  color: #FFFFFF;
+  font-size: 0.58rem;
+  font-weight: 900;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.flow-node-title {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.flow-node-desc {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.flow-pos-pill {
+  background: var(--accent-amber-bg);
+  color: var(--accent-amber);
+  border: 1px solid var(--accent-amber);
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-weight: 900;
+}
+
+.flow-branches-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.flow-branch {
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.branch-yes {
+  background: var(--accent-green-bg);
+  border: 1.5px solid var(--accent-green);
+}
+
+.branch-no {
+  background: #F5F3EF;
+  border: 1.5px solid #D97706;
+}
+
+.branch-tag {
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.tag-yes {
+  background: var(--accent-green);
+  color: #FFFFFF;
+}
+
+.tag-no {
+  background: #D97706;
+  color: #FFFFFF;
+}
+
+.branch-step-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.branch-action {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.grade-result-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.grade-pill {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 900;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #FFFFFF;
+  margin-right: 2px;
+}
+
+.grade-pill.g5 { background: #15803D; }
+.grade-pill.g4 { background: #059669; }
+.grade-pill.g3 { background: #2563EB; }
+.grade-pill.g2 { background: #9333EA; }
+.grade-pill.g1 { background: #D97706; }
+.grade-pill.g0 { background: #64748B; }
+
+.flow-ge-highlight {
+  background: #FFFFFF;
+  border: 1px solid #D97706;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  color: #92400E;
+  margin-bottom: 4px;
+}
+
+.sub-branch-touch {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border-strong);
+}
+
+.touch-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.touch-target-box {
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Encyclopedia Filter & Weakness Karte
+   -------------------------------------------------------------------------- */
+.enc-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.enc-filter-bar {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.enc-filter-btn {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.enc-filter-btn.active {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border-color: var(--text-primary);
+}
+
+/* 弱点カルテ警告マーク（代償ミスカード） */
+.k-card.weak-mark {
+  border-color: var(--accent-red) !important;
+  box-shadow: 0 0 10px rgba(185, 28, 28, 0.4) !important;
+}
+
+.k-card.weak-mark::after {
+  content: "⚠️ 要復習";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: var(--accent-red);
+  color: #FFFFFF;
+  font-size: 0.48rem;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 3px;
+  z-index: 10;
+}
