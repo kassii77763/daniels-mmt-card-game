@@ -1189,6 +1189,7 @@ function switchTab(tabId) {
   }
   if (tabId === 'battle' && matchOver) initGame();
   if (tabId === 'judge') initJudgeTab();
+  if (tabId === 'karuta') initKarutaTab();
 }
 
 document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1997,6 +1998,256 @@ window.addEventListener('keydown', (e) => {
     else if (key === 'e' || key === 'E' || key === '0') submitJudgeAnswer('ERROR');
   }
 });
+
+// ============================================================================
+// 🎴 MMT 早押しカルタ（対面1台・反射神経バトル）エンジン
+// ============================================================================
+
+let karutaP1Score = 0;
+let karutaP2Score = 0;
+let karutaRound = 0;
+let karutaTargetCard = null;
+let karutaFieldCards = [];
+let isKarutaPlaying = false;
+let isKarutaRoundEnding = false;
+let karutaP1Cooldown = false;
+let karutaP2Cooldown = false;
+let karutaCooldownTimerP1 = null;
+let karutaCooldownTimerP2 = null;
+
+function initKarutaTab() {
+  if (!isKarutaPlaying) {
+    const startScreen = document.getElementById('karuta-start-screen');
+    const resultScreen = document.getElementById('karuta-result-screen');
+    if (startScreen) startScreen.style.display = 'flex';
+    if (resultScreen) resultScreen.style.display = 'none';
+  }
+}
+
+function startKarutaGame() {
+  karutaP1Score = 0;
+  karutaP2Score = 0;
+  karutaRound = 0;
+  isKarutaPlaying = true;
+  isKarutaRoundEnding = false;
+  karutaP1Cooldown = false;
+  karutaP2Cooldown = false;
+
+  const startScreen = document.getElementById('karuta-start-screen');
+  const resultScreen = document.getElementById('karuta-result-screen');
+  if (startScreen) startScreen.style.display = 'none';
+  if (resultScreen) resultScreen.style.display = 'none';
+
+  updateKarutaScores();
+  playSound('deal');
+  loadKarutaRound();
+}
+
+function updateKarutaScores() {
+  const p1ScoreEl = document.getElementById('karuta-p1-score');
+  const p2ScoreEl = document.getElementById('karuta-p2-score');
+  if (p1ScoreEl) p1ScoreEl.innerText = `${karutaP1Score} / 5pt`;
+  if (p2ScoreEl) p2ScoreEl.innerText = `${karutaP2Score} / 5pt`;
+
+  const p1Stars = document.querySelectorAll('#karuta-p1-stars .k-star');
+  p1Stars.forEach((star, idx) => {
+    if (idx < karutaP1Score) star.classList.add('active');
+    else star.classList.remove('active');
+  });
+
+  const p2Stars = document.querySelectorAll('#karuta-p2-stars .k-star');
+  p2Stars.forEach((star, idx) => {
+    if (idx < karutaP2Score) star.classList.add('active');
+    else star.classList.remove('active');
+  });
+}
+
+function loadKarutaRound() {
+  karutaRound++;
+  isKarutaRoundEnding = false;
+
+  const ticker = document.getElementById('karuta-feedback-ticker');
+  if (ticker) ticker.style.display = 'none';
+
+  const roundEl = document.getElementById('karuta-round-num');
+  if (roundEl) roundEl.innerText = `第 ${karutaRound} 問`;
+
+  // 6枚をランダム選出
+  const pool = [...cardDatabase].sort(() => Math.random() - 0.5);
+  karutaFieldCards = pool.slice(0, 6);
+  karutaTargetCard = karutaFieldCards[Math.floor(Math.random() * karutaFieldCards.length)];
+  window.karutaTargetCard = karutaTargetCard;
+  window.karutaFieldCards = karutaFieldCards;
+
+  // お題タイプ決定: 0=肢位, 1=主動作筋, 2=支配神経
+  const clueTypes = ['pos', 'muscle'];
+  if (karutaTargetCard.nerve) clueTypes.push('nerve');
+  const selectedType = clueTypes[Math.floor(Math.random() * clueTypes.length)];
+
+  const badgeEl = document.getElementById('karuta-clue-badge');
+  const textEl = document.getElementById('karuta-clue-text');
+  const subEl = document.getElementById('karuta-clue-sub');
+
+  if (selectedType === 'pos') {
+    if (badgeEl) badgeEl.innerText = "🛏️ 測定肢位";
+    if (textEl) textEl.innerHTML = `【<strong>${karutaTargetCard.pos}</strong>】で測定する運動を取れ！`;
+    if (subEl) subEl.innerText = "正しい取り札を素早くタップ！";
+  } else if (selectedType === 'muscle') {
+    if (badgeEl) badgeEl.innerText = "💪 主動作筋";
+    if (textEl) textEl.innerHTML = `【<strong>${karutaTargetCard.muscle}</strong>】が働く運動を取れ！`;
+    if (subEl) subEl.innerText = "主動作筋に合致する札を奪取せよ！";
+  } else {
+    if (badgeEl) badgeEl.innerText = "🧠 支配神経・髄節";
+    const nerveText = karutaTargetCard.root ? `${karutaTargetCard.nerve}（${karutaTargetCard.root}）` : karutaTargetCard.nerve;
+    if (textEl) textEl.innerHTML = `【<strong>${nerveText}</strong>】支配の筋を取れ！`;
+    if (subEl) subEl.innerText = "国試頻出の神経支配カルタ！";
+  }
+
+  // 取り札グリッドのレンダリング
+  const grid = document.getElementById('karuta-field-grid');
+  if (grid) {
+    grid.innerHTML = karutaFieldCards.map((card, idx) => {
+      const fallbackSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='80' viewBox='0 0 120 80'><rect width='120' height='80' fill='%23E7E5E4'/><text x='60' y='45' font-size='11' text-anchor='middle' fill='%2378716C' font-weight='bold'>${encodeURIComponent(card.region)}</text></svg>`;
+      return `
+        <div class="karuta-card" data-idx="${idx}" onpointerdown="handleKarutaCardTap(${idx}, event)">
+          <div class="karuta-card-img">
+            <img src="${card.image}" alt="${card.title}" onerror="this.onerror=null; this.src='${fallbackSvg}'">
+            <span class="karuta-card-badge">${card.grade}</span>
+          </div>
+          <div class="karuta-card-title">${card.title}</div>
+          <div class="karuta-card-muscle">${card.muscle}</div>
+          <div class="karuta-card-pos">${card.pos}</div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+function showKarutaFeedback(msg) {
+  const ticker = document.getElementById('karuta-feedback-ticker');
+  if (ticker) {
+    ticker.innerHTML = msg;
+    ticker.style.display = 'block';
+  }
+}
+
+function handleKarutaCardTap(index, event) {
+  if (!isKarutaPlaying || isKarutaRoundEnding) return;
+
+  // タッチ・ポインタ座標からプレイヤーを判定（上半分: 2P, 下半分: 1P）
+  let clientY = 0;
+  if (event.clientY !== undefined) {
+    clientY = event.clientY;
+  } else if (event.touches && event.touches.length > 0) {
+    clientY = event.touches[0].clientY;
+  } else {
+    clientY = window.innerHeight / 2;
+  }
+
+  const cardEls = document.querySelectorAll('.karuta-card');
+  const targetEl = cardEls[index];
+
+  // カード内での相対タップ位置（上半分＝2P、下半分＝1P）でプレイヤーを正確に識別
+  let isPlayer2 = false;
+  if (targetEl) {
+    const rect = targetEl.getBoundingClientRect();
+    const relativeY = clientY - rect.top;
+    isPlayer2 = relativeY < (rect.height / 2);
+  } else {
+    isPlayer2 = clientY < (window.innerHeight / 2);
+  }
+
+  // クールダウンチェック
+  if (isPlayer2 && karutaP2Cooldown) {
+    showKarutaFeedback(`⚠️ 🔴 2Pはお手つきペナルティ中！`);
+    return;
+  }
+  if (!isPlayer2 && karutaP1Cooldown) {
+    showKarutaFeedback(`⚠️ 🔵 1Pはお手つきペナルティ中！`);
+    return;
+  }
+
+  const selectedCard = karutaFieldCards[index];
+
+  // 正解判定
+  if (selectedCard.id === karutaTargetCard.id) {
+    isKarutaRoundEnding = true;
+    playSound('correct');
+
+    if (isPlayer2) {
+      karutaP2Score++;
+      if (targetEl) targetEl.classList.add('taken-p2');
+      showKarutaFeedback(`🎉 <strong>🔴 2Pが獲得！</strong> (+1pt)<br><span style="font-size:0.75rem;">正解: ${selectedCard.title}</span>`);
+    } else {
+      karutaP1Score++;
+      if (targetEl) targetEl.classList.add('taken-p1');
+      showKarutaFeedback(`🎉 <strong>🔵 1Pが獲得！</strong> (+1pt)<br><span style="font-size:0.75rem;">正解: ${selectedCard.title}</span>`);
+    }
+
+    updateKarutaScores();
+
+    if (karutaP1Score >= 5 || karutaP2Score >= 5) {
+      setTimeout(() => {
+        endKarutaGame(karutaP1Score >= 5 ? 1 : 2);
+      }, 700);
+    } else {
+      setTimeout(() => {
+        loadKarutaRound();
+      }, 750);
+    }
+  } else {
+    // 不正解（お手つき）
+    playSound('wrong');
+    if (targetEl) {
+      targetEl.classList.add('fault');
+      setTimeout(() => targetEl.classList.remove('fault'), 350);
+    }
+
+    if (isPlayer2) {
+      karutaP2Score = Math.max(0, karutaP2Score - 1);
+      karutaP2Cooldown = true;
+      showKarutaFeedback(`❌ <strong>🔴 2Pがお手つき！</strong> (-1pt & 1秒休止)`);
+      clearTimeout(karutaCooldownTimerP2);
+      karutaCooldownTimerP2 = setTimeout(() => {
+        karutaP2Cooldown = false;
+      }, 1000);
+    } else {
+      karutaP1Score = Math.max(0, karutaP1Score - 1);
+      karutaP1Cooldown = true;
+      showKarutaFeedback(`❌ <strong>🔵 1Pがお手つき！</strong> (-1pt & 1秒休止)`);
+      clearTimeout(karutaCooldownTimerP1);
+      karutaCooldownTimerP1 = setTimeout(() => {
+        karutaP1Cooldown = false;
+      }, 1000);
+    }
+
+    updateKarutaScores();
+  }
+}
+
+function endKarutaGame(winner) {
+  isKarutaPlaying = false;
+  playSound('fever');
+
+  const resultScreen = document.getElementById('karuta-result-screen');
+  const titleEl = document.getElementById('karuta-winner-title');
+  const descEl = document.getElementById('karuta-winner-desc');
+  const scoresEl = document.getElementById('karuta-final-scores');
+
+  if (winner === 1) {
+    if (titleEl) titleEl.innerText = "🔵 1P (下側) の完全勝利！！";
+    if (descEl) descEl.innerText = "驚異的な反応速度とMMT臨床知識でマッチを制しました！";
+  } else {
+    if (titleEl) titleEl.innerText = "🔴 2P (上側) の完全勝利！！";
+    if (descEl) descEl.innerText = "抜群の洞察力と解剖学的知識で相手を圧倒しました！";
+  }
+
+  if (scoresEl) {
+    scoresEl.innerText = `🔵 1P: ${karutaP1Score}pt  vs  🔴 2P: ${karutaP2Score}pt`;
+  }
+
+  if (resultScreen) resultScreen.style.display = 'flex';
+}
 
 // 起動
 (async function() {

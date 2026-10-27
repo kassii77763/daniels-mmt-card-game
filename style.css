@@ -102,16 +102,16 @@ html, body {
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
 }
 
 .sound-toggle-btn {
   background: var(--bg-subtle);
   color: var(--text-primary);
   border: 1px solid var(--border-hairline);
-  padding: 4px 6px;
+  padding: 4px 5px;
   border-radius: 6px;
-  font-size: 0.64rem;
+  font-size: 0.60rem;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -127,10 +127,10 @@ html, body {
   background: var(--bg-subtle);
   color: var(--text-secondary);
   border: 1px solid var(--border-hairline);
-  padding: 4px 7px;
+  padding: 4px 6px;
   border-radius: 6px;
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-size: 0.64rem;
+  font-weight: 800;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -2296,6 +2296,370 @@ html, body {
   font-weight: 900;
   letter-spacing: 0.05em;
 }
+
+/* ==========================================================================
+   🎴 早押しカルタ（対面・1台共有 反射神経バトル）スタイル
+   ========================================================================== */
+#tab-karuta {
+  position: relative;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#tab-karuta.active {
+  display: flex;
+}
+
+/* プレイヤー スコアバー（2P側は180度回転で対面相手から正対） */
+.karuta-player-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-hairline);
+  border-radius: 8px;
+  padding: 6px 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  flex-shrink: 0;
+}
+
+.karuta-player-bar.p2-bar {
+  transform: rotate(180deg);
+  border-color: #FECACA;
+  background: #FFF5F5;
+}
+
+.karuta-player-bar.p1-bar {
+  border-color: #BFDBFE;
+  background: #EFF6FF;
+}
+
+.k-p-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.k-p-name {
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.p2-bar .k-p-name { color: #DC2626; }
+.p1-bar .k-p-name { color: #2563EB; }
+
+.k-p-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.k-star {
+  font-size: 0.85rem;
+  color: #D6D3D1;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.k-star.active {
+  color: #F59E0B;
+  transform: scale(1.15);
+}
+
+.k-p-score {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 詠み札（中央お題カード） */
+.karuta-clue-card {
+  background: #FFFFFF;
+  border: 2px solid var(--border-card);
+  border-radius: 10px;
+  box-shadow: var(--shadow-card);
+  padding: 8px 12px;
+  text-align: center;
+  margin: 4px 0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.k-clue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.k-clue-badge {
+  font-size: 0.58rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  background: var(--accent-amber);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.k-clue-round {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.k-clue-text {
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 2px 0;
+}
+
+.k-clue-sub {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+/* 取り札グリッド（6枚） */
+.karuta-field-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 6px;
+  flex: 1;
+  padding: 4px 0;
+  min-height: 200px;
+}
+
+.karuta-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-hairline);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.1s ease;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.karuta-card:active {
+  transform: scale(0.94);
+}
+
+.karuta-card-img {
+  width: 100%;
+  flex: 1;
+  min-height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-bone);
+  border: 1px solid var(--border-hairline);
+  position: relative;
+  pointer-events: none;
+}
+
+.karuta-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.karuta-card-badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: rgba(28, 25, 23, 0.85);
+  color: #FBBF24;
+  font-size: 0.54rem;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.karuta-card-title {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 3px 0 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.karuta-card-muscle {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  line-height: 1.1;
+}
+
+.karuta-card-pos {
+  font-size: 0.58rem;
+  color: var(--accent-amber);
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  margin-top: 1px;
+}
+
+/* 正解・お手つきアニメーション */
+.karuta-card.taken-p1 {
+  border-color: #2563EB !important;
+  background: #EFF6FF !important;
+  box-shadow: 0 0 12px #2563EB !important;
+  animation: card-pop-vanish 0.6s forwards ease;
+}
+
+.karuta-card.taken-p2 {
+  border-color: #DC2626 !important;
+  background: #FFF5F5 !important;
+  box-shadow: 0 0 12px #DC2626 !important;
+  animation: card-pop-vanish 0.6s forwards ease;
+}
+
+@keyframes card-pop-vanish {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.4); opacity: 0; }
+}
+
+.karuta-card.fault {
+  border-color: #DC2626 !important;
+  animation: card-shake-red 0.35s ease;
+}
+
+@keyframes card-shake-red {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* フィードバックティッカー */
+.karuta-feedback-ticker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(28, 25, 23, 0.92);
+  color: #FFFFFF;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 900;
+  z-index: 20;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  animation: pop-in 0.2s ease;
+}
+
+/* カルタモーダル */
+.karuta-overlay-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(249, 248, 246, 0.96);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  padding: 12px;
+}
+
+.karuta-modal-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-card);
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+}
+
+.k-modal-icon {
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+}
+
+.k-modal-title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.k-modal-desc {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.k-modal-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg-bone);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.karuta-btn-start {
+  width: 100%;
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border: none;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.1s ease;
+}
+
+.karuta-btn-start:active {
+  transform: scale(0.97);
+}
+
+.karuta-final-scores {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--accent-amber);
+  background: var(--bg-bone);
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
 
 
 

@@ -18,14 +18,97 @@
     <div class="header-nav">
       <button class="sound-toggle-btn" id="btn-sound-toggle" onclick="toggleSound()" title="効果音のON/OFF">🔊 ON</button>
       <button class="nav-btn active" data-tab="battle">🃏 バトル</button>
-      <button class="nav-btn" data-tab="judge">⚡ スピード判定</button>
-      <button class="nav-btn" data-tab="flow">🔀 判定フロー</button>
+      <button class="nav-btn" data-tab="karuta">🎴 カルタ</button>
+      <button class="nav-btn" data-tab="judge">⚡ 判定</button>
+      <button class="nav-btn" data-tab="flow">🔀 フロー</button>
       <button class="nav-btn" data-tab="list">📖 図鑑</button>
     </div>
   </header>
 
   <!-- Main Dynamic Viewport -->
   <main class="main-viewport">
+    <!-- KARUTA TAB (対面・1台共有 早押しカルタ) -->
+    <section id="tab-karuta" class="tab-pane">
+      <!-- 2P側スコアバー（180度反転で2Pから正対） -->
+      <div class="karuta-player-bar p2-bar">
+        <div class="k-p-info">
+          <span class="k-p-name">🔴 2P (上側)</span>
+          <div class="k-p-stars" id="karuta-p2-stars">
+            <span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span>
+          </div>
+        </div>
+        <span class="k-p-score" id="karuta-p2-score">0 / 5pt</span>
+      </div>
+
+      <!-- 中央：詠み札（お題エリア） -->
+      <div class="karuta-clue-card" id="karuta-clue-card">
+        <div class="k-clue-header">
+          <span class="k-clue-badge" id="karuta-clue-badge">お題</span>
+          <span class="k-clue-round" id="karuta-round-num">第 1 問</span>
+        </div>
+        <div class="k-clue-text" id="karuta-clue-text">
+          🛏️ 【側臥位】で測定する下肢の運動はどれだ！？
+        </div>
+        <div class="k-clue-sub" id="karuta-clue-sub">
+          正しい取り札を素早くタップ！
+        </div>
+      </div>
+
+      <!-- 中央：取り札グリッド（6枚） -->
+      <div class="karuta-field-grid" id="karuta-field-grid">
+        <!-- JSで6枚のカードを自動配札 -->
+      </div>
+
+      <!-- 判定フィードバックバナー -->
+      <div class="karuta-feedback-ticker" id="karuta-feedback-ticker" style="display:none;">
+        🎉 1Pが獲得！ (+1pt)
+      </div>
+
+      <!-- 1P側スコアバー（1Pから正対） -->
+      <div class="karuta-player-bar p1-bar">
+        <div class="k-p-info">
+          <span class="k-p-name">🔵 1P (下側)</span>
+          <div class="k-p-stars" id="karuta-p1-stars">
+            <span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span>
+          </div>
+        </div>
+        <span class="k-p-score" id="karuta-p1-score">0 / 5pt</span>
+      </div>
+
+      <!-- カルタ スタート画面 -->
+      <div class="karuta-overlay-screen" id="karuta-start-screen">
+        <div class="karuta-modal-card">
+          <div class="k-modal-icon">🎴 ⚡ 🤝</div>
+          <h2 class="k-modal-title">MMT 早押しカルタ</h2>
+          <p class="k-modal-desc">
+            スマホを机の中央に置き、2人で挟んで対戦！<br>
+            中央のお題に合致する札を先に叩いた方が得点！<br>
+            <span style="color:var(--accent-red); font-weight:800;">※上半分タップで2P、下半分タップで1P！お手つきは−1点！</span>
+          </p>
+          <div class="k-modal-rules">
+            <span>🎯 5点先取でマッチ勝利！</span>
+            <span>🧠 肢位・主動作筋・支配神経から出題</span>
+          </div>
+          <button class="karuta-btn-start" onclick="startKarutaGame()">対戦スタート ［5点先取］</button>
+        </div>
+      </div>
+
+      <!-- カルタ リザルト画面 -->
+      <div class="karuta-overlay-screen" id="karuta-result-screen" style="display:none;">
+        <div class="karuta-modal-card">
+          <div class="k-modal-icon" id="karuta-winner-icon">🏆</div>
+          <h2 class="k-modal-title" id="karuta-winner-title">🔵 1Pの完全勝利！！</h2>
+          <p class="k-modal-desc" id="karuta-winner-desc">
+            圧倒的な反射神経とMMT臨床知識で勝利を掴み取りました！
+          </p>
+          <div class="karuta-final-scores" id="karuta-final-scores">
+            🔵 1P: 5pt  vs  🔴 2P: 3pt
+          </div>
+          <button class="karuta-btn-start" onclick="startKarutaGame()">🔄 もう一戦プレイ</button>
+        </div>
+      </div>
+    </section>
+
     <!-- 0. 3-SECOND JUDGE TAB (新設: 高速スワイプ＆タップ臨床判定ゲーム) -->
     <section id="tab-judge" class="tab-pane">
       <!-- Judge HUD Bar -->
