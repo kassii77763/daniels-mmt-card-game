@@ -37,9 +37,158 @@ let nextField = null;
 
 let playerWins = 0;
 let cpuWins = 0;
+let carryOverStars = 1; // DRAW時のキャリーオーバー（通常1勝、DRAWで+1）
 let bedRotateCount = 1; // 1試合1回限定
 let isAnimating = false;
+let isWaitingNextTurn = false;
 let matchOver = false;
+
+// ============================================================================
+// Web Audio API によるシンセサイズ効果音エンジン（外部ファイル不要）
+// ============================================================================
+let audioCtx = null;
+let isSoundEnabled = true;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function toggleSound() {
+  isSoundEnabled = !isSoundEnabled;
+  const btn = document.getElementById('btn-sound-toggle');
+  if (btn) {
+    if (isSoundEnabled) {
+      btn.innerText = "🔊 ON";
+      btn.classList.remove('muted');
+      playSound('card');
+    } else {
+      btn.innerText = "🔇 OFF";
+      btn.classList.add('muted');
+    }
+  }
+}
+
+function playSound(type) {
+  if (!isSoundEnabled) return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  try {
+    const now = ctx.currentTime;
+
+    if (type === 'card') {
+      // カード選択時: 軽快な高音サイン波（シュッ）
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now); // D5
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.07); // A5
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === 'bonus') {
+      // ボーナス加算時: 上昇ポップ音（ピコン♪）
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(523.25, now); // C5
+      osc.frequency.setValueAtTime(783.99, now + 0.08); // G5
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.2);
+    } else if (type === 'penalty') {
+      // ペナルティ時: 短い低音ブザー
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(196, now); // G3
+      osc.frequency.setValueAtTime(164.81, now + 0.08); // E3
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.22);
+    } else if (type === 'win') {
+      // 勝利時: 明るいチャイム（ティロリン♪ C5-E5-G5-C6）
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+        gain.gain.setValueAtTime(0.22, now + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.08 + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.08);
+        osc.stop(now + idx * 0.08 + 0.25);
+      });
+    } else if (type === 'critical') {
+      // 7点以上 or G2逆転: 豪華な重低音ファンファーレ
+      const rootNotes = [130.81, 261.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+      rootNotes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = (idx < 2) ? 'sawtooth' : 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+        gain.gain.setValueAtTime(0.25, now + idx * 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.06 + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.06);
+        osc.stop(now + idx * 0.06 + 0.35);
+      });
+    } else if (type === 'lose') {
+      // 敗北時: 短い下降トーン
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(349.23, now); // F4
+      osc.frequency.exponentialRampToValueAtTime(174.61, now + 0.28); // F3
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.3);
+    } else if (type === 'draw') {
+      // 引き分け時: 保留音
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.setValueAtTime(440, now + 0.12);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    }
+  } catch (e) {
+    console.log("Audio play error:", e);
+  }
+}
+
+// ============================================================================
+// カードデータおよびゲーム進行ロジック
+// ============================================================================
 
 // 外部JSON読み込み
 async function loadCardDatabase() {
@@ -56,7 +205,7 @@ async function loadCardDatabase() {
   }
 }
 
-// カードのGrade数値化 (G5/4 -> 5, G2 -> 2)
+// カードのGrade数値化
 function getCardGradeValue(card) {
   if (!card || !card.grade) return 5;
   if (card.grade.includes('5')) return 5;
@@ -86,8 +235,10 @@ function generateSingleField(preferCardList = null) {
 // ゲーム初期化（新規マッチ開始）
 function initGame() {
   matchOver = false;
+  isWaitingNextTurn = false;
   playerWins = 0;
   cpuWins = 0;
+  carryOverStars = 1;
   bedRotateCount = 1;
   discardPile = [];
 
@@ -105,9 +256,10 @@ function initGame() {
   updateBedButton();
   updateFieldUI();
   updateLamps();
+  updateCarryOverUI();
   renderBoard();
 
-  // スロットリセット
+  // スロット・ボタンリセット
   const pSlot = document.getElementById('p1-slot');
   const cSlot = document.getElementById('cpu-slot');
   if (pSlot && cSlot) {
@@ -116,6 +268,12 @@ function initGame() {
     pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
     cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
   }
+  
+  const memo = document.getElementById('clinical-memo');
+  const nextBtn = document.getElementById('btn-next-turn');
+  if (memo) memo.style.display = 'none';
+  if (nextBtn) nextBtn.style.display = 'none';
+
   document.getElementById('result-ticker').innerText = "場のお題に合致するカードを手札から選んでください";
 }
 
@@ -133,7 +291,7 @@ function drawSingleCard() {
   return drawDeck.pop();
 }
 
-// 場のお題決定（NEXTからスライド）
+// フィールド更新（NEXTからスライド）
 function rollField() {
   if (nextField) {
     currentField = nextField;
@@ -189,14 +347,28 @@ function updateLamps() {
   }
 }
 
+// キャリーオーバーバッジの更新
+function updateCarryOverUI() {
+  const badge = document.getElementById('carry-over-badge');
+  const starsSpan = document.getElementById('carry-over-stars');
+  if (!badge) return;
+
+  if (carryOverStars > 1) {
+    badge.style.display = 'block';
+    if (starsSpan) starsSpan.innerText = carryOverStars;
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
 // 体位変更（ベッド操作）ボタン処理
 function useBedRotate() {
-  if (isAnimating || matchOver || bedRotateCount <= 0) return;
+  if (isAnimating || isWaitingNextTurn || matchOver || bedRotateCount <= 0) return;
 
+  playSound('card');
   bedRotateCount--;
   updateBedButton();
   
-  // 現在の場を即座に再生成
   currentField = generateSingleField(playerHand);
   updateFieldUI();
   renderBoard();
@@ -277,6 +449,32 @@ function calculateScore(card, field) {
   };
 }
 
+// 臨床ワンポイント解説の自動生成
+function generateClinicalFeedback(pCard, pScore, cpuCard, cScore) {
+  // 1. G2逆転が決まった場合
+  if (pScore.isG2Special) {
+    return `⚡ 重力除去位クリティカル！【${pCard.title}】のGrade 2は摩擦・重力を最小化する「${pCard.pos}」が標準肢位です（+5pt特効！）`;
+  }
+  // 2. 相手が体位不一致で自滅した場合
+  if (pScore.isPosMatch && !cScore.isPosMatch) {
+    return `⚠️ 相手の代償測定ミス！【${cpuCard.title}】の正しい標準肢位は「${cpuCard.pos}」であり、「${currentField.pos}」では代償が混入します（-2pt）`;
+  }
+  // 3. 自分が体位不一致で敗北した場合
+  if (!pScore.isPosMatch && cScore.isPosMatch) {
+    return `⚠️ 代償測定ペナルティ！【${pCard.title}】を「${currentField.pos}」で測ると正しい筋力が出ません（標準は「${pCard.pos}」）`;
+  }
+  // 4. 両者一致で特効で勝った場合
+  if (pScore.isPosMatch && cScore.isPosMatch && pScore.subBonus > 0 && cScore.subBonus === 0) {
+    return `🎯 特効コンボ決着！【${pCard.title}】が場のボーナス条件（${currentField.subRegion} / ${currentField.subMotion}）を満たし、同点対決を制しました（+1pt）`;
+  }
+  // 5. 通常の一致勝利
+  if (pScore.isPosMatch) {
+    return `⭕ 正しい測定肢位！【${pCard.title}（${pCard.muscle}）】は「${pCard.pos}」にて抗重力位で正確に測定します（+2pt）`;
+  }
+  // 6. 引き分け
+  return `⚖️ 互角の臨床測定！両者とも【${currentField.pos}】に対する測定精度が同点となりました`;
+}
+
 // ボード描画
 function renderBoard() {
   document.getElementById('player-rem-count').innerText = playerHand.length;
@@ -338,13 +536,14 @@ function renderBoard() {
   }).join('');
 }
 
-// カードをプレイ（段階的カウントアップ ＆ クリティカルシェイク ＆ フェードアウト演出）
+// カードをプレイ（黄金テンポ：0.0s ➜ 0.7s ➜ 1.4s ➜ 手動確認待ち）
 function playCard(index) {
-  if (isAnimating || matchOver) return;
+  if (isAnimating || isWaitingNextTurn || matchOver) return;
   const pCard = playerHand[index];
   if (!pCard) return;
 
   isAnimating = true;
+  playSound('card');
 
   // プレイヤー手札から抜き出し
   playerHand.splice(index, 1);
@@ -368,14 +567,19 @@ function playCard(index) {
   const pSlot = document.getElementById('p1-slot');
   const cSlot = document.getElementById('cpu-slot');
   const ticker = document.getElementById('result-ticker');
-  const battleBoard = document.querySelector('.battle-board');
+  const memo = document.getElementById('clinical-memo');
+  const nextBtn = document.getElementById('btn-next-turn');
+  const battleBoard = document.getElementById('battle-board');
+
+  if (memo) memo.style.display = 'none';
+  if (nextBtn) nextBtn.style.display = 'none';
 
   // スコア事前計算
   const pScore = calculateScore(pCard, currentField);
   const cScore = calculateScore(cpuCard, currentField);
 
   // ----------------------------------------------------------------
-  // STEP 1: カード提示 ＆ 基礎Grade表示 (T = 0ms)
+  // 0.0秒（オープン）：お互いのカードが場に出る（基礎Gradeのみ表示）
   // ----------------------------------------------------------------
   pSlot.className = 'clash-slot filled suspense';
   cSlot.className = 'clash-slot filled suspense';
@@ -383,123 +587,157 @@ function playCard(index) {
   pSlot.innerHTML = renderCountUpSlotCard(pCard, "あなた", "var(--accent-blue)", pScore.base, "基礎Grade");
   cSlot.innerHTML = renderCountUpSlotCard(cpuCard, "相手", "var(--accent-red)", cScore.base, "基礎Grade");
 
-  ticker.innerText = `⚔️ 測定開始！基礎Grade（あなた ${pScore.base} vs 相手 ${cScore.base}）で対峙中...`;
+  ticker.innerText = `⚔️ カード対峙！基礎Grade（あなた ${pScore.base} vs 相手 ${cScore.base}）`;
   renderBoard();
 
   // ----------------------------------------------------------------
-  // STEP 2: 肢位一致判定 ＆ 加算 (T = 600ms)
+  // 0.7秒（スコア加算）：肢位一致・特効バッジがポップし合計点へ跳ね上がる
   // ----------------------------------------------------------------
   setTimeout(() => {
-    const pStep1Score = Math.max(0, pScore.base + pScore.posBonus);
-    const cStep1Score = Math.max(0, cScore.base + cScore.posBonus);
+    pSlot.classList.remove('suspense');
+    cSlot.classList.remove('suspense');
 
-    const pPosLabel = pScore.isG2Special ? "🔥 重力除去特効+5！" : (pScore.posBonus > 0 ? "✨ 体位一致+2！" : "代償測定-2");
-    const cPosLabel = cScore.isG2Special ? "🔥 重力除去特効+5！" : (cScore.posBonus > 0 ? "✨ 体位一致+2！" : "代償測定-2");
+    pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)", pScore, true);
+    cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)", cScore, true);
 
-    pSlot.innerHTML = renderCountUpSlotCard(pCard, "あなた", "var(--accent-blue)", pStep1Score, pPosLabel);
-    cSlot.innerHTML = renderCountUpSlotCard(cpuCard, "相手", "var(--accent-red)", cStep1Score, cPosLabel);
+    const isBonus = (pScore.posBonus > 0 || pScore.subBonus > 0);
+    playSound(isBonus ? 'bonus' : 'penalty');
 
-    ticker.innerText = `⚖️ 肢位判定！ あなた[${pPosLabel}] ➜ ${pStep1Score}点 / 相手[${cPosLabel}] ➜ ${cStep1Score}点`;
+    ticker.innerText = `⚖️ スコア確定！ あなた ${pScore.total}点 (${pScore.breakdownText}) vs 相手 ${cScore.total}点`;
 
     // ----------------------------------------------------------------
-    // STEP 3: 特効コンボ加算 (T = 1200ms)
+    // 1.4秒（勝敗確定＆一時停止）：勝敗・臨床解説表示、カードを場に残して停止！
     // ----------------------------------------------------------------
     setTimeout(() => {
-      pSlot.classList.remove('suspense');
-      cSlot.classList.remove('suspense');
+      let resultMsg = "";
+      const isCritical = (pScore.total >= 7 || pScore.isG2Special || cScore.total >= 7 || cScore.isG2Special);
 
-      pSlot.innerHTML = renderSlotCard(pCard, "あなた", "var(--accent-blue)", pScore, true);
-      cSlot.innerHTML = renderSlotCard(cpuCard, "相手", "var(--accent-red)", cScore, true);
+      if (pScore.total > cScore.total) {
+        // プレイヤー勝利
+        pSlot.classList.add('winner');
+        cSlot.classList.add('loser');
 
-      // ----------------------------------------------------------------
-      // STEP 4: 最終勝敗確定 ＆ クリティカルヒット演出 (T = 1700ms)
-      // ----------------------------------------------------------------
-      setTimeout(() => {
-        let resultMsg = "";
-        const isCritical = (pScore.total >= 7 || pScore.isG2Special || cScore.total >= 7 || cScore.isG2Special);
-
-        // 画面シェイク ＆ フラッシュ演出
-        if (isCritical && battleBoard) {
-          battleBoard.classList.remove('shake', 'flash-gold', 'flash-purple');
-          void battleBoard.offsetWidth; // リフロー強制
-          battleBoard.classList.add('shake');
-          if (pScore.isG2Special || cScore.isG2Special) {
-            battleBoard.classList.add('flash-purple');
-          } else {
-            battleBoard.classList.add('flash-gold');
+        if (isCritical) {
+          playSound('critical');
+          if (battleBoard) {
+            battleBoard.classList.remove('shake', 'flash-gold', 'flash-purple');
+            void battleBoard.offsetWidth;
+            battleBoard.classList.add('shake', pScore.isG2Special ? 'flash-purple' : 'flash-gold');
           }
-        }
-
-        if (pScore.total > cScore.total) {
-          playerWins++;
-          pSlot.classList.add('winner');
-          cSlot.classList.add('loser');
-          if (pScore.isG2Special) {
-            resultMsg = `🔥 重力除去位で大逆転！【${pCard.title}】(${pScore.breakdownText}) が相手の${cScore.total}点を粉砕！`;
-          } else if (pScore.total >= 8) {
-            resultMsg = `⚡ 8点クリティカル勝利！【${pCard.title}】完全一致フルコンボ！`;
-          } else {
-            resultMsg = `🎉 あなたの勝ち！【${pCard.title}】(${pScore.breakdownText}) ＞ 相手(${cScore.total}点)`;
-          }
-        } else if (pScore.total < cScore.total) {
-          cpuWins++;
-          cSlot.classList.add('winner');
-          pSlot.classList.add('loser');
-          resultMsg = `💦 相手の勝ち！相手の【${cpuCard.title}】(${cScore.breakdownText}) ＞ あなた(${pScore.total}点)`;
         } else {
-          resultMsg = `⚖️ 同点引き分け！両者とも ${pScore.total}点 で互角の測定！`;
+          playSound('win');
         }
 
-        updateLamps();
-        ticker.innerText = resultMsg;
+        const wonStars = carryOverStars;
+        playerWins += wonStars;
+        carryOverStars = 1; // リセット
 
-        // ----------------------------------------------------------------
-        // STEP 5: カード消去・フェードアウト開始 (T = 3700ms)
-        // ----------------------------------------------------------------
-        setTimeout(() => {
-          pSlot.classList.add('exit-fade');
-          cSlot.classList.add('exit-fade');
-          ticker.innerText = "✨ 測定完了... 次の肢位へ移行中";
+        if (pScore.isG2Special) {
+          resultMsg = `🔥 重力除去位で大逆転！【${pCard.title}】が相手を圧倒！ ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
+        } else if (pScore.total >= 8) {
+          resultMsg = `⚡ 8点クリティカル勝利！完全一致フルコンボ！ ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
+        } else {
+          resultMsg = `🎉 あなたの勝ち！【${pCard.title}】＞ 相手(${cScore.total}点) ★${wonStars > 1 ? wonStars + '個' : ''}獲得！`;
+        }
+      } else if (pScore.total < cScore.total) {
+        // CPU勝利
+        cSlot.classList.add('winner');
+        pSlot.classList.add('loser');
+        playSound('lose');
 
-          // ----------------------------------------------------------------
-          // STEP 6: 完全消去 ＆ 次のターン開始 (T = 5000ms)
-          // ----------------------------------------------------------------
-          setTimeout(() => {
-            if (battleBoard) {
-              battleBoard.classList.remove('shake', 'flash-gold', 'flash-purple');
-            }
-            pSlot.className = 'clash-slot';
-            cSlot.className = 'clash-slot';
-            pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
-            cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
+        const wonStars = carryOverStars;
+        cpuWins += wonStars;
+        carryOverStars = 1; // リセット
 
-            // 1枚ずつ山札から即時ドロー
-            playerHand.push(drawSingleCard());
-            cpuHand.push(drawSingleCard());
+        resultMsg = `💦 相手の勝ち！相手の【${cpuCard.title}】＞ あなた(${pScore.total}点)`;
+      } else {
+        // 引き分け（DRAW）➜ キャリーオーバー発生！
+        playSound('draw');
+        carryOverStars++;
+        resultMsg = `⚖️ 引き分け（DRAW）！勝敗は次ターンへ持ち越し（キャリーオーバー ★${carryOverStars}個！）`;
+      }
 
-            isAnimating = false;
+      updateLamps();
+      updateCarryOverUI();
+      ticker.innerText = resultMsg;
 
-            if (playerWins >= 3 || cpuWins >= 3) {
-              matchOver = true;
-              const isWinner = playerWins >= 3;
-              ticker.innerText = isWinner
-                ? "🏆 3勝先取！あなたの完全勝利です！「勝負」タブで再戦できます。"
-                : "💀 相手が3勝先取しました...！「勝負」タブで再戦できます。";
-              setTimeout(() => {
-                if (confirm(isWinner ? "🏆 3勝先取！マッチ完全勝利！もう一度遊びますか？" : "💀 相手が3勝先取しました。もう一度挑戦しますか？")) {
-                  initGame();
-                }
-              }, 600);
-            } else {
-              rollField();
-              renderBoard();
-              ticker.innerText = "場のお題に合致するカードを手札から選んでください";
-            }
-          }, 1250);
-        }, 2000);
+      // 臨床ワンポイント解説の表示
+      const clinicalText = generateClinicalFeedback(pCard, pScore, cpuCard, cScore);
+      if (memo) {
+        memo.innerText = clinicalText;
+        memo.style.display = 'block';
+      }
+
+      // 「次のターンへ ▶」ボタンの出現（自動進行ストップ）
+      if (nextBtn) {
+        nextBtn.style.display = 'inline-block';
+      }
+
+      isAnimating = false;
+      isWaitingNextTurn = true;
+    }, 700); // 0.7s + 0.7s = 1.4s
+  }, 700); // 0.7s
+}
+
+// プレイヤーが「次のターンへ ▶」を押したときの処理
+function proceedToNextTurn() {
+  if (!isWaitingNextTurn) return;
+  isWaitingNextTurn = false;
+  isAnimating = true;
+
+  playSound('card');
+
+  const pSlot = document.getElementById('p1-slot');
+  const cSlot = document.getElementById('cpu-slot');
+  const ticker = document.getElementById('result-ticker');
+  const memo = document.getElementById('clinical-memo');
+  const nextBtn = document.getElementById('btn-next-turn');
+  const battleBoard = document.getElementById('battle-board');
+
+  if (nextBtn) nextBtn.style.display = 'none';
+  if (memo) memo.style.display = 'none';
+
+  // カード消去・フェードアウト開始（1.0秒）
+  pSlot.classList.add('exit-fade');
+  cSlot.classList.add('exit-fade');
+  ticker.innerText = "✨ 測定完了... 次の肢位へ移行中";
+
+  setTimeout(() => {
+    if (battleBoard) {
+      battleBoard.classList.remove('shake', 'flash-gold', 'flash-purple');
+    }
+    pSlot.className = 'clash-slot';
+    cSlot.className = 'clash-slot';
+    pSlot.innerHTML = '<span class="slot-placeholder">あなたの札</span>';
+    cSlot.innerHTML = '<span class="slot-placeholder">相手の札</span>';
+
+    // 1枚ずつ山札からドロー（手札常時5枚キープ）
+    playerHand.push(drawSingleCard());
+    cpuHand.push(drawSingleCard());
+
+    isAnimating = false;
+
+    // 3勝マッチ決着判定
+    if (playerWins >= 3 || cpuWins >= 3) {
+      matchOver = true;
+      const isWinner = playerWins >= 3;
+      if (isWinner) playSound('critical');
+      else playSound('lose');
+
+      ticker.innerText = isWinner
+        ? "🏆 3勝達成！あなたのマッチ完全勝利です！「勝負」タブで再戦できます。"
+        : "💀 相手が3勝達成しました...！「勝負」タブで再戦できます。";
+      setTimeout(() => {
+        if (confirm(isWinner ? "🏆 3勝先取！マッチ完全勝利！もう一度遊びますか？" : "💀 相手が3勝先取しました。もう一度挑戦しますか？")) {
+          initGame();
+        }
       }, 500);
-    }, 600);
-  }, 600);
+    } else {
+      rollField();
+      renderBoard();
+      ticker.innerText = "場のお題に合致するカードを手札から選んでください";
+    }
+  }, 950);
 }
 
 // 段階的カウントアップ中のスロットカード描画ヘルパー
@@ -586,6 +824,7 @@ function renderEncyclopedia() {
 // タブ切り替え
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
+    playSound('card');
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
 

@@ -16,6 +16,7 @@
       <span class="brand-tag">DANIELS CARDS</span>
     </div>
     <div class="header-nav">
+      <button class="sound-toggle-btn" id="btn-sound-toggle" onclick="toggleSound()" title="効果音のON/OFF">🔊 ON</button>
       <button class="nav-btn active" data-tab="battle">⚔️ 勝負</button>
       <button class="nav-btn" data-tab="list">📚 図鑑</button>
       <button class="nav-btn" data-tab="rules">📖 手引き</button>
@@ -36,7 +37,7 @@
       </div>
 
       <!-- Central Field & Clash Board -->
-      <div class="battle-board">
+      <div class="battle-board" id="battle-board">
         <!-- Field Position Indicator & Tactical Badges -->
         <div class="field-container">
           <div class="field-badge" id="field-badge">
@@ -77,8 +78,13 @@
           </div>
         </div>
 
+        <!-- Carry Over Notification Banner -->
+        <div class="carry-over-badge" id="carry-over-badge" style="display:none;">
+          🔥 CARRY OVER!! 次ターン勝利で ★<span id="carry-over-stars">2</span>個 獲得！
+        </div>
+
         <!-- Clash Slots -->
-        <div class="clash-stage">
+        <div class="clash-stage" id="clash-stage">
           <div class="clash-slot" id="p1-slot">
             <span class="slot-placeholder">あなたの札</span>
           </div>
@@ -88,9 +94,15 @@
           </div>
         </div>
 
-        <!-- Result Banner with Score Breakdown -->
-        <div class="result-ticker" id="result-ticker">
-          場のお題に合致するカードを手札から選んでください
+        <!-- Result Box with Score Breakdown, Clinical Feedback & Next Button -->
+        <div class="result-box" id="result-box">
+          <div class="result-ticker" id="result-ticker">
+            場のお題に合致するカードを手札から選んでください
+          </div>
+          <div class="clinical-memo" id="clinical-memo" style="display:none;"></div>
+          <button class="next-turn-btn" id="btn-next-turn" onclick="proceedToNextTurn()" style="display:none;">
+            次のターンへ ▶
+          </button>
         </div>
       </div>
 

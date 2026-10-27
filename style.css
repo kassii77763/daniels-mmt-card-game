@@ -101,7 +101,25 @@ html, body {
 
 .header-nav {
   display: flex;
+  align-items: center;
   gap: 5px;
+}
+
+.sound-toggle-btn {
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-hairline);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sound-toggle-btn.muted {
+  color: var(--text-muted);
+  opacity: 0.65;
 }
 
 .nav-btn {
@@ -555,22 +573,97 @@ html, body {
   transition: opacity 0.3s ease;
 }
 
+/* キャリーオーバーバッジ */
+.carry-over-badge {
+  background: linear-gradient(135deg, #DC2626 0%, #EA580C 100%);
+  color: #FFFFFF;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+  animation: pulseCarryOver 1.5s ease-in-out infinite alternate;
+  margin: 2px 0;
+}
+
+@keyframes pulseCarryOver {
+  0% { transform: scale(1); box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3); }
+  100% { transform: scale(1.04); box-shadow: 0 4px 14px rgba(234, 88, 12, 0.6); }
+}
+
+/* 結果ボックス＆手動ターン進行ボタン */
+.result-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 .result-ticker {
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 0.78rem;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--text-primary);
   text-align: center;
   width: 100%;
-  min-height: 36px;
+  min-height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1.35;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
+}
+
+/* 1行臨床ワンポイント解説枠 */
+.clinical-memo {
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  color: #92400E;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  width: 100%;
+  animation: popBadge 0.3s var(--spring-ease);
+}
+
+/* 次のターンへ ▶ ボタン */
+.next-turn-btn {
+  background: linear-gradient(135deg, #2D2A26 0%, #1C1917 100%);
+  color: #FFFFFF;
+  border: 1px solid #44403C;
+  padding: 7px 20px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18), inset 0 1px 1px rgba(255,255,255,0.2);
+  transition: all 0.2s var(--smooth-ease);
+  animation: popNextBtn 0.35s var(--spring-ease);
+}
+
+.next-turn-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.24);
+  background: linear-gradient(135deg, #383430 0%, #25221E 100%);
+}
+
+.next-turn-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes popNextBtn {
+  0% { transform: scale(0.7); opacity: 0; }
+  70% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 /* --------------------------------------------------------------------------
