@@ -179,6 +179,61 @@ function playSound(type) {
       gain.connect(ctx.destination);
       osc.start(now);
       osc.stop(now + 0.3);
+    } else if (type === 'correct') {
+      // 軽快で爽快な上昇アルペジオ
+      const notes = [659.25, 880, 1046.50, 1318.51];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+        gain.gain.setValueAtTime(0.18, now + idx * 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.15);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.05);
+        osc.stop(now + idx * 0.05 + 0.15);
+      });
+    } else if (type === 'wrong') {
+      // 鋭い警告ブザー
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else if (type === 'tick') {
+      // 残り1秒未満の短いパルスティック
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, now);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.03);
+    } else if (type === 'fever') {
+      // 5コンボごとのFEVERファンファーレ
+      const feverNotes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+      feverNotes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.04);
+        gain.gain.setValueAtTime(0.2, now + idx * 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.04 + 0.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.04);
+        osc.stop(now + idx * 0.04 + 0.2);
+      });
     } else if (type === 'draw') {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -952,25 +1007,796 @@ function renderEncyclopedia() {
   }).join('');
 }
 
-// タブ切り替え
+// タブ切り替え関数
+function switchTab(tabId) {
+  playSound('card');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+  const navBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
+  if (navBtn) navBtn.classList.add('active');
+
+  const target = document.getElementById('tab-' + tabId);
+  if (target) target.classList.add('active');
+
+  if (tabId === 'flow') initFlowChart();
+  if (tabId === 'list') {
+    updateWeakCount();
+    renderEncyclopedia();
+  }
+  if (tabId === 'battle' && matchOver) initGame();
+  if (tabId === 'judge') initJudgeTab();
+}
+
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    playSound('card');
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-
-    btn.classList.add('active');
     const tabId = btn.getAttribute('data-tab');
-    const target = document.getElementById('tab-' + tabId);
-    if (target) target.classList.add('active');
-
-    if (tabId === 'flow') initFlowChart();
-    if (tabId === 'list') {
-      updateWeakCount();
-      renderEncyclopedia();
-    }
-    if (tabId === 'battle' && matchOver) initGame();
+    switchTab(tabId);
   });
+});
+
+// ============================================================================
+// ⚡ MMT 3秒ジャッジ（高速スワイプ＆タップ臨床判定ゲーム）エンジン
+// ============================================================================
+
+// 臨床問題バンク（Daniels MMT基準・約20%の肢位エラーひっかけ混入）
+const JUDGE_QUESTIONS_POOL = [
+  // 1. 膝関節 伸展 (大腿四頭筋)
+  {
+    id: 101, cardId: 10, region: "下肢",
+    title: "膝関節 伸展（大腿四頭筋）",
+    pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "下腿遠位への最大抵抗に耐える",
+    correctAnswer: "G5", explanation: "端座位での抗重力全域完遂＋最大抵抗クリアは【Grade 5】です。",
+    image: "assets/cards/knee_extension.jpg"
+  },
+  {
+    id: 102, cardId: 10, region: "下肢",
+    title: "膝関節 伸展（大腿四頭筋）",
+    pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える（最大抵抗で崩れる）",
+    correctAnswer: "G4", explanation: "中等度抵抗に耐え、最大抵抗で保持できない場合は【Grade 4】です。",
+    image: "assets/cards/knee_extension.jpg"
+  },
+  {
+    id: 103, cardId: 10, region: "下肢",
+    title: "膝関節 伸展（大腿四頭筋）",
+    pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "徒手抵抗には負ける（自重のみ保持）",
+    correctAnswer: "G3", explanation: "抗重力位で自重のみ全可動域動く場合は【Grade 3】です。",
+    image: "assets/cards/knee_extension.jpg"
+  },
+  {
+    id: 104, cardId: 11, region: "下肢",
+    title: "膝関節 伸展（大腿四頭筋）",
+    pos: "側臥位（下腿を検者が支持）", rom: "重力除去位で全ROM完遂", finding: "抵抗なし（摩擦低減）",
+    correctAnswer: "G2", explanation: "重力除去肢位（側臥位）で全可動域動く場合は【Grade 2】です。",
+    image: "assets/cards/knee_extension_g2.jpg"
+  },
+  {
+    id: 105, cardId: 10, region: "下肢",
+    title: "膝関節 伸展（大腿四頭筋）",
+    pos: "側臥位（重力除去位）", rom: "関節運動なし", finding: "大腿四頭筋腱にわずかな収縮を触知",
+    correctAnswer: "G1", explanation: "関節運動は起きず、筋腱の収縮のみ触知される場合は【Grade 1】です。",
+    image: "assets/cards/knee_extension.jpg"
+  },
+  {
+    id: 106, cardId: 10, region: "下肢",
+    title: "膝関節 伸展（大腿四頭筋）",
+    pos: "⚠️ 背臥位（ベッド上で膝屈曲から伸展）", rom: "全可動域 完遂", finding: "最大抵抗に耐えた",
+    correctAnswer: "ERROR", explanation: "💡 膝伸展の抗重力位（G5/G4/G3）は「端座位」です。背臥位では抗重力になりません！",
+    image: "assets/cards/knee_extension.jpg"
+  },
+
+  // 2. 肩関節 外転 (三角筋中部)
+  {
+    id: 107, cardId: 6, region: "上肢",
+    title: "肩関節 外転（三角筋中部）",
+    pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "上腕遠位への最大抵抗に耐える",
+    correctAnswer: "G5", explanation: "座位で真横90°挙上し最大抵抗クリアは【Grade 5】です。",
+    image: "assets/cards/shoulder_abduction.jpg"
+  },
+  {
+    id: 108, cardId: 6, region: "上肢",
+    title: "肩関節 外転（三角筋中部）",
+    pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える",
+    correctAnswer: "G4", explanation: "中等度抵抗に耐える場合は【Grade 4】です。",
+    image: "assets/cards/shoulder_abduction.jpg"
+  },
+  {
+    id: 109, cardId: 6, region: "上肢",
+    title: "肩関節 外転（三角筋中部）",
+    pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "自重のみ（徒手抵抗で落下）",
+    correctAnswer: "G3", explanation: "自重のみ抗重力全域保持できる場合は【Grade 3】です。",
+    image: "assets/cards/shoulder_abduction.jpg"
+  },
+  {
+    id: 110, cardId: 6, region: "上肢",
+    title: "肩関節 外転（三角筋中部）",
+    pos: "背臥位（机・シーツ上を水平スライド）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
+    correctAnswer: "G2", explanation: "背臥位で水平スライド全可動域完遂は【Grade 2】です。",
+    image: "assets/cards/shoulder_abduction.jpg"
+  },
+  {
+    id: 111, cardId: 6, region: "上肢",
+    title: "肩関節 外転（三角筋中部）",
+    pos: "⚠️ 立位（腕を体側に下垂したまま）", rom: "水平に動かした", finding: "重力除去位として判定",
+    correctAnswer: "ERROR", explanation: "💡 肩外転の重力除去位（G2）は「背臥位」です。立位下垂位は誤りです！",
+    image: "assets/cards/shoulder_abduction.jpg"
+  },
+
+  // 3. 肘関節 屈曲 (上腕二頭筋)
+  {
+    id: 112, cardId: 7, region: "上肢",
+    title: "肘関節 屈曲（上腕二頭筋）",
+    pos: "座位（前腕回外位で屈曲）", rom: "全可動域 完遂", finding: "前腕遠位への最大抵抗に耐える",
+    correctAnswer: "G5", explanation: "座位・前腕回外位での最大抵抗クリアは【Grade 5】です。",
+    image: "assets/cards/elbow_flexion.jpg"
+  },
+  {
+    id: 113, cardId: 7, region: "上肢",
+    title: "肘関節 屈曲（上腕二頭筋）",
+    pos: "座位（前腕回外位で屈曲）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える",
+    correctAnswer: "G4", explanation: "中等度抵抗に耐える場合は【Grade 4】です。",
+    image: "assets/cards/elbow_flexion.jpg"
+  },
+  {
+    id: 114, cardId: 7, region: "上肢",
+    title: "肘関節 屈曲（上腕二頭筋）",
+    pos: "座位（机上に上腕を置き水平屈曲）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
+    correctAnswer: "G2", explanation: "机上面での水平屈曲（重力除去位）完遂は【Grade 2】です。",
+    image: "assets/cards/elbow_flexion.jpg"
+  },
+  {
+    id: 115, cardId: 7, region: "上肢",
+    title: "肘関節 屈曲（上腕二頭筋）",
+    pos: "⚠️ 腹臥位（ベッド上で肘屈曲）", rom: "全可動域 完遂", finding: "最大抵抗に耐えた",
+    correctAnswer: "ERROR", explanation: "💡 肘屈曲の抗重力位測定は「座位」で行います。腹臥位は誤りです！",
+    image: "assets/cards/elbow_flexion.jpg"
+  },
+
+  // 4. 股関節 屈曲 (腸腰筋)
+  {
+    id: 116, cardId: 9, region: "下肢",
+    title: "股関節 屈曲（腸腰筋）",
+    pos: "端座位（大腿を座面から挙上）", rom: "全可動域 完遂", finding: "大腿遠位への最大抵抗に耐える",
+    correctAnswer: "G5", explanation: "端座位で大腿を浮かせ最大抵抗クリアは【Grade 5】です。",
+    image: "assets/cards/hip_flexion.jpg"
+  },
+  {
+    id: 117, cardId: 9, region: "下肢",
+    title: "股関節 屈曲（腸腰筋）",
+    pos: "側臥位（検者が上肢・対側下肢支持）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
+    correctAnswer: "G2", explanation: "側臥位（重力除去位）での全可動域完遂は【Grade 2】です。",
+    image: "assets/cards/hip_flexion.jpg"
+  },
+
+  // 5. 手関節 伸展 (橈側手根伸筋群)
+  {
+    id: 118, cardId: 8, region: "上肢",
+    title: "手関節 伸展（橈側手根伸筋群）",
+    pos: "前腕支持（机上伏臥位で手首反らし）", rom: "全可動域 完遂", finding: "手背面への最大抵抗に耐える",
+    correctAnswer: "G5", explanation: "前腕支持で手背への最大抵抗クリアは【Grade 5】です。",
+    image: "assets/cards/wrist_extension.jpg"
+  },
+  {
+    id: 119, cardId: 12, region: "上肢",
+    title: "手関節 伸展（橈側手根伸筋群）",
+    pos: "前腕中間位（手刀姿勢・小指接地）", rom: "机上を水平背屈スライド", finding: "全可動域 完遂",
+    correctAnswer: "G2", explanation: "前腕中間位（手刀姿勢）での重力除去背屈は【Grade 2】です。",
+    image: "assets/cards/wrist_extension_g2.jpg"
+  },
+  {
+    id: 120, cardId: 8, region: "上肢",
+    title: "手関節 伸展（橈側手根伸筋群）",
+    pos: "前腕支持（机上伏臥位）", rom: "関節運動なし", finding: "橈側手根伸筋腱に収縮を触知",
+    correctAnswer: "G1", explanation: "関節運動は起きず収縮触知のみは【Grade 1】です。",
+    image: "assets/cards/wrist_extension.jpg"
+  },
+
+  // 6. 足関節 底屈 (下腿三頭筋)
+  {
+    id: 121, cardId: 14, region: "下肢",
+    title: "足関節 底屈（下腿三頭筋）",
+    pos: "立位（片脚立ち踵上げ）", rom: "完全フォームで25回完遂", finding: "抵抗なし（自重25回）",
+    correctAnswer: "G5", explanation: "Daniels基準では立位・片脚立ち踵上げ25回完遂が【Grade 5】です。",
+    image: "assets/cards/ankle_plantar_g5.jpg"
+  },
+  {
+    id: 122, cardId: 14, region: "下肢",
+    title: "足関節 底屈（下腿三頭筋）",
+    pos: "立位（片脚立ち踵上げ）", rom: "完全フォームで12回で疲労", finding: "10〜24回完遂",
+    correctAnswer: "G4", explanation: "片脚立ち踵上げ10〜24回完遂は【Grade 4】です。",
+    image: "assets/cards/ankle_plantar_g5.jpg"
+  },
+  {
+    id: 123, cardId: 14, region: "下肢",
+    title: "足関節 底屈（下腿三頭筋）",
+    pos: "腹臥位（足部ベッド端から下垂）", rom: "足底屈全可動域 完遂", finding: "重力除去位として完遂",
+    correctAnswer: "G2", explanation: "腹臥位での底屈全ROM完遂は【Grade 2】です。",
+    image: "assets/cards/ankle_plantar_g5.jpg"
+  },
+
+  // 7. 体幹 屈曲 (腹直筋)
+  {
+    id: 124, cardId: 3, region: "体幹",
+    title: "体幹 屈曲（腹直筋）",
+    pos: "背臥位（頭の後ろで手組み）", rom: "肩甲骨が完全に床から離床", finding: "完遂",
+    correctAnswer: "G5", explanation: "背臥位・頭後ろ手組みでの体幹屈曲は【Grade 5】です。",
+    image: "assets/cards/trunk_flexion.jpg"
+  },
+  {
+    id: 125, cardId: 13, region: "体幹",
+    title: "体幹 屈曲（腹直筋）",
+    pos: "背臥位（胸の前で腕組み）", rom: "肩甲骨が完全に床から離床", finding: "完遂",
+    correctAnswer: "G4", explanation: "背臥位・胸の前腕組みでの体幹屈曲は【Grade 4】です。",
+    image: "assets/cards/trunk_flexion_g4.jpg"
+  },
+  {
+    id: 126, cardId: 3, region: "体幹",
+    title: "体幹 屈曲（腹直筋）",
+    pos: "背臥位（両腕を前方に伸ばす）", rom: "肩甲骨下角が離床", finding: "完遂",
+    correctAnswer: "G3", explanation: "両腕前腕伸ばしでの体幹屈曲は【Grade 3】です。",
+    image: "assets/cards/trunk_flexion.jpg"
+  },
+  {
+    id: 127, cardId: 3, region: "体幹",
+    title: "体幹 屈曲（腹直筋）",
+    pos: "⚠️ 腹臥位（頭の後ろ手組みで上体を反らす）", rom: "全可動域 完遂", finding: "最大抵抗クリア",
+    correctAnswer: "ERROR", explanation: "💡 体幹「屈曲」は背臥位で行います。腹臥位は伸展（脊柱起立筋）の肢位です！",
+    image: "assets/cards/trunk_flexion.jpg"
+  },
+
+  // 8. 頸部 屈曲 (胸鎖乳突筋)
+  {
+    id: 128, cardId: 1, region: "頸部",
+    title: "頸部 屈曲（胸鎖乳突筋）",
+    pos: "背臥位（顎を引き頭部離床）", rom: "全可動域 完遂", finding: "前額部への最大抵抗に耐える",
+    correctAnswer: "G5", explanation: "背臥位で顎を引き、前額部最大抵抗クリアは【Grade 5】です。",
+    image: "assets/cards/neck_flexion.jpg"
+  },
+  {
+    id: 129, cardId: 1, region: "頸部",
+    title: "頸部 屈曲（胸鎖乳突筋）",
+    pos: "⚠️ 腹臥位（頭部を持ち上げる）", rom: "全可動域 完遂", finding: "後頭部抵抗クリア",
+    correctAnswer: "ERROR", explanation: "💡 腹臥位＋後頭部抵抗は「頸部伸展」です。屈曲は背臥位で行います！",
+    image: "assets/cards/neck_flexion.jpg"
+  },
+
+  // 9. 足関節 背屈 (前脛骨筋)
+  {
+    id: 130, cardId: 15, region: "下肢",
+    title: "足関節 背屈（前脛骨筋）",
+    pos: "端座位（つま先内反・背屈）", rom: "全可動域 完遂", finding: "前足部外返し方向の最大抵抗に耐える",
+    correctAnswer: "G5", explanation: "端座位で足部内反背屈、最大抵抗クリアは【Grade 5】です。",
+    image: "assets/cards/ankle_dorsi_g5.jpg"
+  }
+];
+
+let judgeScore = 0;
+let judgeCombo = 0;
+let judgeMaxCombo = 0;
+let judgeLives = 3;
+let judgeCurrentIndex = 0;
+let judgeQuestions = [];
+let judgeTimerId = null;
+let judgeTimeRemaining = 3.0;
+let judgeTimeTotal = 3.0;
+let judgeQuestionStartTime = 0;
+let judgeResponseTimes = [];
+let judgeWeaknesses = [];
+let isJudgePlaying = false;
+let isJudgePaused = false;
+
+function initJudgeTab() {
+  const startScreen = document.getElementById('judge-start-screen');
+  const cardWrap = document.getElementById('judge-card-wrapper');
+  const feedbackModal = document.getElementById('judge-feedback-modal');
+  const resultsScreen = document.getElementById('judge-results-screen');
+
+  if (startScreen) startScreen.style.display = isJudgePlaying ? 'none' : 'flex';
+  if (cardWrap) cardWrap.style.display = isJudgePlaying ? 'flex' : 'none';
+  if (feedbackModal) feedbackModal.style.display = 'none';
+  if (resultsScreen) resultsScreen.style.display = 'none';
+}
+
+function startJudgeGame() {
+  playSound('card');
+  judgeScore = 0;
+  judgeCombo = 0;
+  judgeMaxCombo = 0;
+  judgeLives = 3;
+  judgeCurrentIndex = 0;
+  judgeResponseTimes = [];
+  judgeWeaknesses = [];
+  isJudgePlaying = true;
+  isJudgePaused = false;
+
+  // 15問シャッフル選出（エラーひっかけも適度に混入）
+  const shuffled = [...JUDGE_QUESTIONS_POOL].sort(() => Math.random() - 0.5);
+  judgeQuestions = shuffled.slice(0, 15);
+
+  const startScreen = document.getElementById('judge-start-screen');
+  const cardWrap = document.getElementById('judge-card-wrapper');
+  const resultsScreen = document.getElementById('judge-results-screen');
+  const feedbackModal = document.getElementById('judge-feedback-modal');
+
+  if (startScreen) startScreen.style.display = 'none';
+  if (resultsScreen) resultsScreen.style.display = 'none';
+  if (feedbackModal) feedbackModal.style.display = 'none';
+  if (cardWrap) cardWrap.style.display = 'flex';
+
+  updateJudgeHUD();
+  setupCardPointerEvents();
+  loadJudgeQuestion();
+}
+
+function updateJudgeHUD() {
+  const scoreEl = document.getElementById('judge-score');
+  const comboEl = document.getElementById('judge-combo');
+  const multEl = document.getElementById('judge-mult');
+  const feverLabel = document.getElementById('judge-fever-label');
+  const heartsEl = document.getElementById('judge-hearts');
+  const qEl = document.getElementById('judge-current-q');
+
+  if (scoreEl) scoreEl.innerText = judgeScore.toLocaleString();
+  if (comboEl) comboEl.innerText = judgeCombo;
+
+  // コンボ倍率
+  let mult = 1.0;
+  if (judgeCombo >= 10) mult = 3.0;
+  else if (judgeCombo >= 5) mult = 2.0;
+  else if (judgeCombo >= 3) mult = 1.5;
+
+  if (multEl) multEl.innerText = `x${mult.toFixed(1)}`;
+  if (feverLabel) {
+    const isFever = judgeCombo >= 5;
+    feverLabel.innerText = isFever ? "🔥 FEVER" : "COMBO";
+    feverLabel.parentElement.classList.toggle('fever', isFever);
+  }
+
+  if (heartsEl) {
+    let hearts = "";
+    for (let i = 0; i < 3; i++) {
+      hearts += (i < judgeLives) ? "❤️" : "🖤";
+    }
+    heartsEl.innerText = hearts;
+  }
+
+  if (qEl) qEl.innerText = Math.min(judgeCurrentIndex + 1, 15);
+}
+
+function loadJudgeQuestion() {
+  if (judgeCurrentIndex >= judgeQuestions.length || judgeLives <= 0) {
+    endJudgeGame();
+    return;
+  }
+
+  const q = judgeQuestions[judgeCurrentIndex];
+  isJudgePaused = false;
+
+  // コンボに応じた制限時間加速
+  if (judgeCombo >= 10) judgeTimeTotal = 1.8;
+  else if (judgeCombo >= 5) judgeTimeTotal = 2.4;
+  else judgeTimeTotal = 3.0;
+
+  judgeTimeRemaining = judgeTimeTotal;
+  judgeQuestionStartTime = performance.now();
+
+  const card = document.getElementById('judge-card');
+  if (card) {
+    card.className = 'judge-card';
+    card.style.transform = '';
+  }
+
+  hideAllStamps();
+
+  // カード内容の反映
+  const regionEl = document.getElementById('jcard-region');
+  const titleEl = document.getElementById('jcard-title');
+  const imgEl = document.getElementById('jcard-img');
+  const posEl = document.getElementById('jcard-pos');
+  const romEl = document.getElementById('jcard-rom');
+  const findingEl = document.getElementById('jcard-finding');
+
+  if (regionEl) regionEl.innerText = q.region;
+  if (titleEl) titleEl.innerText = q.title;
+  if (posEl) posEl.innerText = q.pos;
+  if (romEl) romEl.innerText = q.rom;
+  if (findingEl) findingEl.innerText = q.finding;
+
+  if (imgEl) {
+    imgEl.src = q.image;
+    imgEl.alt = q.title;
+  }
+
+  updateJudgeHUD();
+  startTimerGauge();
+}
+
+function startTimerGauge() {
+  clearInterval(judgeTimerId);
+
+  const fillEl = document.getElementById('judge-timer-bar');
+  const textEl = document.getElementById('judge-timer-text');
+  const intervalMs = 30;
+
+  judgeTimerId = setInterval(() => {
+    if (isJudgePaused) return;
+
+    judgeTimeRemaining -= (intervalMs / 1000);
+    if (judgeTimeRemaining <= 0) {
+      judgeTimeRemaining = 0;
+      clearInterval(judgeTimerId);
+      handleJudgeTimeout();
+      return;
+    }
+
+    const pct = Math.max(0, (judgeTimeRemaining / judgeTimeTotal) * 100);
+    if (fillEl) {
+      fillEl.style.width = pct + "%";
+      fillEl.className = 'judge-timer-fill' + (pct < 33 ? ' danger' : (pct < 60 ? ' warn' : ''));
+    }
+    if (textEl) {
+      textEl.innerText = judgeTimeRemaining.toFixed(1) + "s";
+    }
+
+    if (judgeTimeRemaining <= 1.0 && Math.floor(judgeTimeRemaining * 10) % 3 === 0) {
+      playSound('tick');
+    }
+  }, intervalMs);
+}
+
+function submitJudgeAnswer(chosenAnswer) {
+  if (!isJudgePlaying || isJudgePaused) return;
+
+  clearInterval(judgeTimerId);
+  const q = judgeQuestions[judgeCurrentIndex];
+  const responseTimeSec = (performance.now() - judgeQuestionStartTime) / 1000;
+  judgeResponseTimes.push(responseTimeSec);
+
+  const isCorrect = (chosenAnswer === q.correctAnswer);
+
+  if (isCorrect) {
+    handleCorrectAnswer(chosenAnswer, responseTimeSec);
+  } else {
+    handleWrongAnswer(chosenAnswer, q);
+  }
+}
+
+function handleCorrectAnswer(chosenAnswer, responseTimeSec) {
+  playSound('correct');
+
+  // スコア計算：基本200点 ＋ 残り時間ボーナス(最大100点) × 倍率
+  let mult = 1.0;
+  if (judgeCombo >= 10) mult = 3.0;
+  else if (judgeCombo >= 5) mult = 2.0;
+  else if (judgeCombo >= 3) mult = 1.5;
+
+  const timeBonus = Math.round((judgeTimeRemaining / judgeTimeTotal) * 100);
+  const earned = Math.round((200 + timeBonus) * mult);
+  judgeScore += earned;
+
+  judgeCombo++;
+  if (judgeCombo > judgeMaxCombo) judgeMaxCombo = judgeCombo;
+
+  if (judgeCombo === 5 || judgeCombo === 10) {
+    playSound('fever');
+  }
+
+  // カードの軽快なフライアウトアニメーション
+  const card = document.getElementById('judge-card');
+  if (card) {
+    let flyClass = 'fly-up';
+    if (chosenAnswer === 'G3') flyClass = 'fly-right';
+    else if (chosenAnswer === 'G2' || chosenAnswer === 'G1') flyClass = 'fly-left';
+    else if (chosenAnswer === 'ERROR') flyClass = 'fly-down';
+    card.classList.add(flyClass);
+  }
+
+  updateJudgeHUD();
+
+  // 0.25秒で即座に次の問題へ！サクサク進む
+  setTimeout(() => {
+    judgeCurrentIndex++;
+    loadJudgeQuestion();
+  }, 250);
+}
+
+function handleWrongAnswer(chosenAnswer, q) {
+  playSound('wrong');
+  judgeCombo = 0;
+  judgeLives--;
+  isJudgePaused = true;
+
+  // 弱点カルテに自動記録！
+  if (q.cardId) {
+    mistakeCardIds.add(q.cardId);
+    updateWeakCount();
+  }
+
+  judgeWeaknesses.push({
+    title: q.title,
+    pos: q.pos,
+    correct: q.correctAnswer,
+    yourAnswer: chosenAnswer,
+    memo: q.explanation
+  });
+
+  updateJudgeHUD();
+
+  // ミスモーダル表示（タイマー停止して1行解説）
+  const modal = document.getElementById('judge-feedback-modal');
+  const badge = document.getElementById('feedback-badge');
+  const ansEl = document.getElementById('feedback-correct-answer');
+  const memoEl = document.getElementById('feedback-memo');
+
+  if (badge) badge.innerText = "❌ 不正解！";
+  if (ansEl) {
+    let ansLabel = q.correctAnswer;
+    if (q.correctAnswer === 'ERROR') ansLabel = "⚠️ 肢位エラー（再検査）";
+    else if (q.correctAnswer === 'G5') ansLabel = "Grade 5 (最大抵抗)";
+    else if (q.correctAnswer === 'G4') ansLabel = "Grade 4 (中等度抵抗)";
+    else if (q.correctAnswer === 'G3') ansLabel = "Grade 3 (自重のみ抗重力)";
+    else if (q.correctAnswer === 'G2') ansLabel = "Grade 2 (重力除去)";
+    else if (q.correctAnswer === 'G1') ansLabel = "Grade 1 (筋収縮のみ)";
+    ansEl.innerText = ansLabel;
+  }
+  if (memoEl) memoEl.innerText = q.explanation;
+
+  if (modal) modal.style.display = 'flex';
+}
+
+function handleJudgeTimeout() {
+  playSound('wrong');
+  const q = judgeQuestions[judgeCurrentIndex];
+  judgeResponseTimes.push(judgeTimeTotal);
+
+  judgeCombo = 0;
+  judgeLives--;
+  isJudgePaused = true;
+
+  if (q.cardId) {
+    mistakeCardIds.add(q.cardId);
+    updateWeakCount();
+  }
+
+  judgeWeaknesses.push({
+    title: q.title,
+    pos: q.pos,
+    correct: q.correctAnswer,
+    yourAnswer: "時間切れ",
+    memo: q.explanation
+  });
+
+  updateJudgeHUD();
+
+  const modal = document.getElementById('judge-feedback-modal');
+  const badge = document.getElementById('feedback-badge');
+  const ansEl = document.getElementById('feedback-correct-answer');
+  const memoEl = document.getElementById('feedback-memo');
+
+  if (badge) badge.innerText = "⏰ 時間切れ！";
+  if (ansEl) {
+    let ansLabel = q.correctAnswer;
+    if (q.correctAnswer === 'ERROR') ansLabel = "⚠️ 肢位エラー（再検査）";
+    else if (q.correctAnswer === 'G5') ansLabel = "Grade 5 (最大抵抗)";
+    else if (q.correctAnswer === 'G4') ansLabel = "Grade 4 (中等度抵抗)";
+    else if (q.correctAnswer === 'G3') ansLabel = "Grade 3 (自重のみ抗重力)";
+    else if (q.correctAnswer === 'G2') ansLabel = "Grade 2 (重力除去)";
+    else if (q.correctAnswer === 'G1') ansLabel = "Grade 1 (筋収縮のみ)";
+    ansEl.innerText = ansLabel;
+  }
+  if (memoEl) memoEl.innerText = q.explanation;
+
+  if (modal) modal.style.display = 'flex';
+}
+
+function nextJudgeQuestion() {
+  playSound('card');
+  const modal = document.getElementById('judge-feedback-modal');
+  if (modal) modal.style.display = 'none';
+
+  if (judgeLives <= 0) {
+    endJudgeGame();
+  } else {
+    judgeCurrentIndex++;
+    loadJudgeQuestion();
+  }
+}
+
+function endJudgeGame() {
+  isJudgePlaying = false;
+  clearInterval(judgeTimerId);
+
+  const cardWrap = document.getElementById('judge-card-wrapper');
+  const resultsScreen = document.getElementById('judge-results-screen');
+  const feedbackModal = document.getElementById('judge-feedback-modal');
+
+  if (cardWrap) cardWrap.style.display = 'none';
+  if (feedbackModal) feedbackModal.style.display = 'none';
+  if (resultsScreen) resultsScreen.style.display = 'flex';
+
+  const isSuccess = judgeLives > 0;
+  if (isSuccess) playSound('win');
+  else playSound('lose');
+
+  // リザルト統計
+  const scoreEl = document.getElementById('results-score');
+  const maxComboEl = document.getElementById('results-max-combo');
+  const clearedEl = document.getElementById('results-cleared-count');
+  const avgSpeedEl = document.getElementById('results-avg-speed');
+  const rankIconEl = document.getElementById('results-rank-icon');
+  const rankTitleEl = document.getElementById('results-rank-title');
+  const weakListEl = document.getElementById('results-weak-list');
+
+  if (scoreEl) scoreEl.innerText = judgeScore.toLocaleString();
+  if (maxComboEl) maxComboEl.innerText = judgeMaxCombo;
+  if (clearedEl) clearedEl.innerText = `${Math.min(judgeCurrentIndex, 15)} / 15`;
+
+  const avgSpeed = judgeResponseTimes.length > 0
+    ? (judgeResponseTimes.reduce((a, b) => a + b, 0) / judgeResponseTimes.length).toFixed(2)
+    : "1.50";
+  if (avgSpeedEl) avgSpeedEl.innerText = `${avgSpeed}秒`;
+
+  // 臨床ランク称号判定
+  let rankIcon = "🐣";
+  let rankTitle = "1年生ルーキー";
+  if (judgeScore >= 3200) {
+    rankIcon = "👑";
+    rankTitle = "伝説の指導者級";
+  } else if (judgeScore >= 2200) {
+    rankIcon = "✨";
+    rankTitle = "即戦力バイザー級";
+  } else if (judgeScore >= 1200) {
+    rankIcon = "💪";
+    rankTitle = "臨床実習クリア級";
+  }
+
+  if (rankIconEl) rankIconEl.innerText = rankIcon;
+  if (rankTitleEl) rankTitleEl.innerText = rankTitle;
+
+  // 弱点振り返りリスト描画
+  if (weakListEl) {
+    if (judgeWeaknesses.length === 0) {
+      weakListEl.innerHTML = `
+        <div style="font-size:0.7rem; color:var(--accent-green); font-weight:800; text-align:center; padding:8px;">
+          🎉 ミスなし！全問パーフェクト判定達成！完璧な臨床即応力です！
+        </div>
+      `;
+    } else {
+      weakListEl.innerHTML = judgeWeaknesses.map(w => `
+        <div class="r-weak-item">
+          <strong>${w.title}</strong> [${w.pos}]<br>
+          正解: <span style="color:var(--accent-green); font-weight:800;">${w.correct}</span> (あなたの回答: ${w.yourAnswer})<br>
+          <span style="color:var(--text-secondary);">${w.memo}</span>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+// ============================================================================
+// スワイプ（Pointer / Touch Events）物理制御
+// ============================================================================
+let dragStartX = 0;
+let dragStartY = 0;
+let isDragging = false;
+
+function setupCardPointerEvents() {
+  const card = document.getElementById('judge-card');
+  if (!card) return;
+
+  card.onpointerdown = (e) => {
+    if (!isJudgePlaying || isJudgePaused) return;
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    card.setPointerCapture(e.pointerId);
+    card.style.transition = 'none';
+  };
+
+  card.onpointermove = (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - dragStartX;
+    const deltaY = e.clientY - dragStartY;
+
+    const rot = deltaX * 0.08;
+    card.style.transform = `translate(${deltaX}px, ${deltaY}px) rotate(${rot}deg)`;
+
+    // スワイプスタンプの半透明表示
+    hideAllStamps();
+    if (deltaY < -50 && Math.abs(deltaY) > Math.abs(deltaX)) {
+      showStamp('stamp-up');
+    } else if (deltaX > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      showStamp('stamp-right');
+    } else if (deltaX < -50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      showStamp('stamp-left');
+    } else if (deltaY > 50 && Math.abs(deltaY) > Math.abs(deltaX)) {
+      showStamp('stamp-down');
+    }
+  };
+
+  const endDrag = (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    card.style.transition = 'transform 0.2s ease';
+
+    const deltaX = e.clientX - dragStartX;
+    const deltaY = e.clientY - dragStartY;
+    hideAllStamps();
+
+    const threshold = 70;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+
+    if (absY > threshold && absY > absX && deltaY < 0) {
+      // ⬆️ 上スワイプ：G5 / G4（問題の所見に応じて自動判定、または所見がG4ならG4、G5ならG5）
+      const q = judgeQuestions[judgeCurrentIndex];
+      const autoAnswer = (q.correctAnswer === 'G4') ? 'G4' : 'G5';
+      submitJudgeAnswer(autoAnswer);
+    } else if (absX > threshold && absX > absY && deltaX > 0) {
+      // ➡️ 右スワイプ：G3（抗重力自重のみ）
+      submitJudgeAnswer('G3');
+    } else if (absX > threshold && absX > absY && deltaX < 0) {
+      // ⬅️ 左スワイプ：G2 / G1（重力除去・触診）
+      const q = judgeQuestions[judgeCurrentIndex];
+      const autoAnswer = (q.correctAnswer === 'G1') ? 'G1' : 'G2';
+      submitJudgeAnswer(autoAnswer);
+    } else if (absY > threshold && absY > absX && deltaY > 0) {
+      // ⬇️ 下スワイプ：⚠️ 肢位エラー（再検査）
+      submitJudgeAnswer('ERROR');
+    } else {
+      card.style.transform = '';
+    }
+  };
+
+  card.onpointerup = endDrag;
+  card.onpointercancel = endDrag;
+}
+
+function showStamp(stampId) {
+  const el = document.getElementById(stampId);
+  if (el) el.style.opacity = '1';
+}
+
+function hideAllStamps() {
+  ['stamp-up', 'stamp-right', 'stamp-left', 'stamp-down'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.opacity = '0';
+  });
+}
+
+// キーボード操作リスナー (PC向け超高速回答)
+window.addEventListener('keydown', (e) => {
+  const key = e.key;
+
+  // Space / Enterキーでスタートまたは「次へ」
+  if (key === ' ' || key === 'Enter') {
+    const feedbackModal = document.getElementById('judge-feedback-modal');
+    const startScreen = document.getElementById('judge-start-screen');
+    const tabJudge = document.getElementById('tab-judge');
+
+    if (tabJudge && tabJudge.classList.contains('active')) {
+      if (feedbackModal && feedbackModal.style.display === 'flex') {
+        e.preventDefault();
+        nextJudgeQuestion();
+        return;
+      }
+      if (startScreen && startScreen.style.display === 'flex') {
+        e.preventDefault();
+        startJudgeGame();
+        return;
+      }
+    }
+  }
+
+  // 数字キー & Eキーでのダイレクト判定
+  if (isJudgePlaying && !isJudgePaused) {
+    if (key === '5') submitJudgeAnswer('G5');
+    else if (key === '4') submitJudgeAnswer('G4');
+    else if (key === '3') submitJudgeAnswer('G3');
+    else if (key === '2') submitJudgeAnswer('G2');
+    else if (key === '1') submitJudgeAnswer('G1');
+    else if (key === 'e' || key === 'E' || key === '0') submitJudgeAnswer('ERROR');
+  }
 });
 
 // 起動
@@ -979,3 +1805,4 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   initGame();
   initFlowChart();
 })();
+

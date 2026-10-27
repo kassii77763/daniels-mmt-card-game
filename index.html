@@ -18,6 +18,7 @@
     <div class="header-nav">
       <button class="sound-toggle-btn" id="btn-sound-toggle" onclick="toggleSound()" title="効果音のON/OFF">🔊 ON</button>
       <button class="nav-btn active" data-tab="battle">🃏 バトル</button>
+      <button class="nav-btn" data-tab="judge">⚡ 3秒ジャッジ</button>
       <button class="nav-btn" data-tab="flow">🔀 判定フロー</button>
       <button class="nav-btn" data-tab="list">📖 図鑑</button>
     </div>
@@ -25,6 +26,200 @@
 
   <!-- Main Dynamic Viewport -->
   <main class="main-viewport">
+    <!-- 0. 3-SECOND JUDGE TAB (新設: 高速スワイプ＆タップ臨床判定ゲーム) -->
+    <section id="tab-judge" class="tab-pane">
+      <!-- Judge HUD Bar -->
+      <div class="judge-hud">
+        <div class="hud-item hud-score">
+          <span class="hud-label">SCORE</span>
+          <span class="hud-value" id="judge-score">0</span>
+        </div>
+        <div class="hud-item hud-combo">
+          <span class="hud-label" id="judge-fever-label">COMBO</span>
+          <span class="hud-value" id="judge-combo">0</span>
+          <span class="hud-multiplier" id="judge-mult">x1.0</span>
+        </div>
+        <div class="hud-item hud-lives">
+          <span class="hud-label">LIFE</span>
+          <span class="hud-hearts" id="judge-hearts">❤️❤️❤️</span>
+        </div>
+        <div class="hud-item hud-progress">
+          <span class="hud-label">PROGRESS</span>
+          <span class="hud-value"><span id="judge-current-q">1</span>/15</span>
+        </div>
+      </div>
+
+      <!-- Timer Gauge Bar -->
+      <div class="judge-timer-wrap">
+        <div class="judge-timer-track">
+          <div class="judge-timer-fill" id="judge-timer-bar"></div>
+        </div>
+        <div class="judge-timer-badge" id="judge-timer-text">3.0s</div>
+      </div>
+
+      <!-- Main Carte Card Arena (Swipe & Direct Action Stage) -->
+      <div class="judge-stage" id="judge-stage">
+        <!-- Ready / Start Screen -->
+        <div class="judge-overlay-screen" id="judge-start-screen">
+          <div class="judge-ready-card">
+            <div class="judge-ready-icon">⚡</div>
+            <h2 class="judge-ready-title">MMT 3秒ジャッジ</h2>
+            <p class="judge-ready-desc">
+              カルテの【体位・ROM・抵抗】を瞬時に読み取り、3秒以内に正しいMMT Gradeまたは肢位エラーを判定せよ！
+            </p>
+            <div class="judge-guide-grid">
+              <div class="guide-item">
+                <span class="guide-key">キーボード / タップ</span>
+                <span class="guide-desc">下部6ボタン or [1〜5 / E]</span>
+              </div>
+              <div class="guide-item">
+                <span class="guide-key">スマホ スワイプ</span>
+                <span class="guide-desc">⬆️ G5/G4 ➡️ G3 ⬅️ G2/G1 ⬇️ 肢位ミス</span>
+              </div>
+            </div>
+            <button class="judge-btn-start" onclick="startJudgeGame()">スタート ［Space］</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Carte Card (Swipable) -->
+        <div class="judge-card-wrapper" id="judge-card-wrapper" style="display:none;">
+          <div class="judge-card" id="judge-card">
+            <!-- Swipe Direction Indicator Stamps -->
+            <div class="swipe-stamp stamp-up" id="stamp-up">⬆️ G5 / G4 (抗重力＋抵抗)</div>
+            <div class="swipe-stamp stamp-right" id="stamp-right">➡️ G3 (抗重力自重のみ)</div>
+            <div class="swipe-stamp stamp-left" id="stamp-left">⬅️ G2 / G1 (重力除去・触診)</div>
+            <div class="swipe-stamp stamp-down" id="stamp-down">⬇️ ⚠️ 肢位エラー (再検査)</div>
+
+            <!-- Card Header: Target Motion & Muscle -->
+            <div class="jcard-header">
+              <span class="jcard-region" id="jcard-region">下肢</span>
+              <strong class="jcard-title" id="jcard-title">膝関節 伸展（大腿四頭筋）</strong>
+            </div>
+
+            <!-- Card Art: 16:11 Aspect ratio -->
+            <div class="jcard-art" id="jcard-art">
+              <img id="jcard-img" src="" alt="検査肢位">
+            </div>
+
+            <!-- 3 Clinical Tags -->
+            <div class="jcard-tags">
+              <div class="jcard-tag tag-pos">
+                <span class="tag-icon">🛏️</span>
+                <div class="tag-body">
+                  <span class="tag-caption">測定体位</span>
+                  <strong class="tag-text" id="jcard-pos">端座位</strong>
+                </div>
+              </div>
+              <div class="jcard-tag tag-rom">
+                <span class="tag-icon">📐</span>
+                <div class="tag-body">
+                  <span class="tag-caption">可動域（ROM）</span>
+                  <strong class="tag-text" id="jcard-rom">全可動域 完遂</strong>
+                </div>
+              </div>
+              <div class="jcard-tag tag-finding">
+                <span class="tag-icon">✋</span>
+                <div class="tag-body">
+                  <span class="tag-caption">抵抗・触診所見</span>
+                  <strong class="tag-text" id="jcard-finding">最大抵抗に耐える</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Miss Feedback Modal / Overlay (Only shown on wrong / timeout) -->
+        <div class="judge-feedback-modal" id="judge-feedback-modal" style="display:none;">
+          <div class="feedback-card">
+            <div class="feedback-badge" id="feedback-badge">❌ 不正解！</div>
+            <div class="feedback-correct-row">
+              正解：<strong id="feedback-correct-answer">Grade 4 (中等度抵抗)</strong>
+            </div>
+            <div class="feedback-memo" id="feedback-memo">
+              💡 中等度抵抗に耐えた場合は Grade 4 です。最大抵抗ならGrade 5になります。
+            </div>
+            <button class="feedback-next-btn" id="btn-judge-next" onclick="nextJudgeQuestion()">
+              次へ進む ▶ ［Space］
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Screen (Shown on 3 misses or 15 questions cleared) -->
+        <div class="judge-results-screen" id="judge-results-screen" style="display:none;">
+          <div class="results-card">
+            <div class="results-rank-badge" id="results-rank-icon">👑</div>
+            <h2 class="results-rank-title" id="results-rank-title">伝説の指導者級</h2>
+            <div class="results-score-row">
+              <span class="r-label">FINAL SCORE</span>
+              <span class="r-value" id="results-score">3,420</span>
+            </div>
+            
+            <div class="results-stats-grid">
+              <div class="r-stat-box">
+                <span class="r-stat-label">最大コンボ</span>
+                <strong class="r-stat-num" id="results-max-combo">12</strong>
+              </div>
+              <div class="r-stat-box">
+                <span class="r-stat-label">クリア問数</span>
+                <strong class="r-stat-num" id="results-cleared-count">15 / 15</strong>
+              </div>
+              <div class="r-stat-box">
+                <span class="r-stat-label">平均回答速度</span>
+                <strong class="r-stat-num" id="results-avg-speed">1.18秒</strong>
+              </div>
+            </div>
+
+            <!-- Weakness review list -->
+            <div class="results-weakness-box">
+              <div class="r-weak-title">📋 今回の弱点・復習カルテ</div>
+              <div class="r-weak-list" id="results-weak-list">
+                <!-- JSで動的生成 -->
+              </div>
+            </div>
+
+            <div class="results-actions">
+              <button class="btn-judge-retry" onclick="startJudgeGame()">🔄 もう一度挑戦</button>
+              <button class="btn-judge-back" onclick="switchTab('battle')">🃏 バトルに戻る</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action 6-Button Bar (Bottom Direct Controls) -->
+      <div class="judge-action-bar">
+        <button class="jaction-btn btn-g5" onclick="submitJudgeAnswer('G5')">
+          <span class="jbtn-key">5</span>
+          <span class="jbtn-label">G5</span>
+          <span class="jbtn-sub">最大抵抗</span>
+        </button>
+        <button class="jaction-btn btn-g4" onclick="submitJudgeAnswer('G4')">
+          <span class="jbtn-key">4</span>
+          <span class="jbtn-label">G4</span>
+          <span class="jbtn-sub">中等度</span>
+        </button>
+        <button class="jaction-btn btn-g3" onclick="submitJudgeAnswer('G3')">
+          <span class="jbtn-key">3</span>
+          <span class="jbtn-label">G3</span>
+          <span class="jbtn-sub">自重のみ</span>
+        </button>
+        <button class="jaction-btn btn-g2" onclick="submitJudgeAnswer('G2')">
+          <span class="jbtn-key">2</span>
+          <span class="jbtn-label">G2</span>
+          <span class="jbtn-sub">重力除去</span>
+        </button>
+        <button class="jaction-btn btn-g1" onclick="submitJudgeAnswer('G1')">
+          <span class="jbtn-key">1</span>
+          <span class="jbtn-label">G1</span>
+          <span class="jbtn-sub">収縮のみ</span>
+        </button>
+        <button class="jaction-btn btn-err" onclick="submitJudgeAnswer('ERROR')">
+          <span class="jbtn-key">E</span>
+          <span class="jbtn-label">⚠️ 誤</span>
+          <span class="jbtn-sub">肢位ミス</span>
+        </button>
+      </div>
+    </section>
+
     <!-- 1. BATTLE ARENA TAB -->
     <section id="tab-battle" class="tab-pane active">
       <!-- CPU Opponent Area with Persona Selector -->
