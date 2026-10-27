@@ -3,40 +3,40 @@
  * 臨床カルタ・オセロ式 MMTバトルの新スコア対戦システム
  */
 
-// 内蔵マスターカード（画像パス付き）
+// 内蔵マスターカード（画像パス＋支配神経・髄節データ完備）
 const DEFAULT_CARDS = [
-  { id: 1, title: "頸部屈曲", region: "頸部", muscle: "胸鎖乳突筋", grade: "G5/4", pos: "背臥位", image: "assets/cards/neck_flexion.jpg", vector: "↓ 前額部加圧" },
-  { id: 2, title: "頸部伸展", region: "頸部", muscle: "頭板状筋", grade: "G5/4", pos: "腹臥位", image: "assets/cards/neck_extension.jpg", vector: "↓ 後頭部加圧" },
-  { id: 3, title: "体幹屈曲", region: "体幹", muscle: "腹直筋", grade: "G5", pos: "背臥位", image: "assets/cards/trunk_flexion.jpg", vector: "⇡ 頭後ろ手組み" },
-  { id: 4, title: "体幹伸展", region: "体幹", muscle: "脊柱起立筋", grade: "G5", pos: "腹臥位", image: "assets/cards/trunk_extension.jpg", vector: "↓ 足首固定" },
-  { id: 5, title: "肩関節屈曲", region: "上肢", muscle: "三角筋前部", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_flexion.jpg", vector: "↓ 上腕遠位加圧" },
-  { id: 6, title: "肩関節外転", region: "上肢", muscle: "三角筋中部", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_abduction.jpg", vector: "↓ 上腕遠位加圧" },
-  { id: 7, title: "肘関節屈曲", region: "上肢", muscle: "上腕二頭筋", grade: "G5/4", pos: "座位", image: "assets/cards/elbow_flexion.jpg", vector: "↓ 前腕遠位抵抗" },
-  { id: 8, title: "手関節伸展", region: "上肢", muscle: "橈側手根伸筋群", grade: "G5/4", pos: "前腕支持", image: "assets/cards/wrist_extension.jpg", vector: "↓ 手背面加圧" },
-  { id: 9, title: "股関節屈曲", region: "下肢", muscle: "腸腰筋", grade: "G5/4", pos: "端座位", image: "assets/cards/hip_flexion.jpg", vector: "↓ 大腿遠位加圧" },
-  { id: 10, title: "膝関節伸展", region: "下肢", muscle: "大腿四頭筋", grade: "G5/4", pos: "端座位", image: "assets/cards/knee_extension.jpg", vector: "↓ 下腿遠位加圧" },
-  { id: 11, title: "膝関節伸展 (G2)", region: "下肢", muscle: "大腿四頭筋", grade: "G2", pos: "側臥位", image: "assets/cards/knee_extension_g2.jpg", vector: "⤹ 屈曲位から前方伸展円弧" },
-  { id: 12, title: "手関節伸展 (G2)", region: "上肢", muscle: "橈側手根伸筋群", grade: "G2", pos: "前腕中間位", image: "assets/cards/wrist_extension_g2.jpg", vector: "➔ 水平背屈スライド" },
-  { id: 13, title: "体幹屈曲 (G4)", region: "体幹", muscle: "腹直筋", grade: "G4", pos: "背臥位", image: "assets/cards/trunk_flexion_g4.jpg", vector: "⇡ 胸の前腕組み" },
-  { id: 14, title: "足関節底屈", region: "下肢", muscle: "下腿三頭筋", grade: "G5", pos: "立位", image: "assets/cards/ankle_plantar_g5.jpg", vector: "↑ 片脚立ち踵上げ25回" },
-  { id: 15, title: "足関節背屈", region: "下肢", muscle: "前脛骨筋", grade: "G5/4", pos: "端座位", image: "assets/cards/ankle_dorsi_g5.jpg", vector: "↓ 前足部外返し加圧" }
+  { id: 1, title: "頸部屈曲", region: "頸部", muscle: "胸鎖乳突筋", nerve: "副神経(第Ⅺ脳神経)・頸神経叢", root: "C2〜C3", grade: "G5/4", pos: "背臥位", image: "assets/cards/neck_flexion.jpg", vector: "↓ 前額部加圧" },
+  { id: 2, title: "頸部伸展", region: "頸部", muscle: "頭板状筋", nerve: "頸神経後枝", root: "C2〜C5", grade: "G5/4", pos: "腹臥位", image: "assets/cards/neck_extension.jpg", vector: "↓ 後頭部加圧" },
+  { id: 3, title: "体幹屈曲", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G5", pos: "背臥位", image: "assets/cards/trunk_flexion.jpg", vector: "⇡ 頭後ろ手組み" },
+  { id: 4, title: "体幹伸展", region: "体幹", muscle: "脊柱起立筋", nerve: "脊髄神経後枝", root: "Th1〜L5", grade: "G5", pos: "腹臥位", image: "assets/cards/trunk_extension.jpg", vector: "↓ 足首固定" },
+  { id: 5, title: "肩関節屈曲", region: "上肢", muscle: "三角筋前部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_flexion.jpg", vector: "↓ 上腕遠位加圧" },
+  { id: 6, title: "肩関節外転", region: "上肢", muscle: "三角筋中部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_abduction.jpg", vector: "↓ 上腕遠位加圧" },
+  { id: 7, title: "肘関節屈曲", region: "上肢", muscle: "上腕二頭筋", nerve: "筋皮神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/elbow_flexion.jpg", vector: "↓ 前腕遠位抵抗" },
+  { id: 8, title: "手関節伸展", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G5/4", pos: "前腕支持", image: "assets/cards/wrist_extension.jpg", vector: "↓ 手背面加圧" },
+  { id: 9, title: "股関節屈曲", region: "下肢", muscle: "腸腰筋", nerve: "大腿神経・腰神経叢", root: "L1〜L3", grade: "G5/4", pos: "端座位", image: "assets/cards/hip_flexion.jpg", vector: "↓ 大腿遠位加圧" },
+  { id: 10, title: "膝関節伸展", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G5/4", pos: "端座位", image: "assets/cards/knee_extension.jpg", vector: "↓ 下腿遠位加圧" },
+  { id: 11, title: "膝関節伸展 (G2)", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G2", pos: "側臥位", image: "assets/cards/knee_extension_g2.jpg", vector: "⤹ 屈曲位から前方伸展円弧" },
+  { id: 12, title: "手関節伸展 (G2)", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G2", pos: "前腕中間位", image: "assets/cards/wrist_extension_g2.jpg", vector: "➔ 水平背屈スライド" },
+  { id: 13, title: "体幹屈曲 (G4)", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G4", pos: "背臥位", image: "assets/cards/trunk_flexion_g4.jpg", vector: "⇡ 胸の前腕組み" },
+  { id: 14, title: "足関節底屈", region: "下肢", muscle: "下腿三頭筋", nerve: "脛骨神経", root: "S1〜S2", grade: "G5", pos: "立位", image: "assets/cards/ankle_plantar_g5.jpg", vector: "↑ 片脚立ち踵上げ25回" },
+  { id: 15, title: "足関節背屈", region: "下肢", muscle: "前脛骨筋", nerve: "深腓骨神経", root: "L4〜L5", grade: "G5/4", pos: "端座位", image: "assets/cards/ankle_dorsi_g5.jpg", vector: "↓ 前足部外返し加圧" }
 ];
 
 const POSITIONS = ["背臥位", "腹臥位", "座位", "端座位", "側臥位", "前腕支持", "前腕中間位", "立位"];
 const SUB_REGIONS = ["上肢", "下肢", "体幹", "頸部"];
 const SUB_MOTIONS = ["屈曲", "伸展", "外転", "底屈", "背屈"];
 
-// フローチャート用関節マスター
+// フローチャート用関節マスター（支配神経・髄節完備）
 const FLOW_JOINTS_DATA = [
-  { id: "knee_ext", name: "膝関節伸展", muscle: "大腿四頭筋", agPos: "端座位（下腿前上方伸展）", gePos: "側臥位（下腿を検者が支持）", palpation: "大腿四頭筋腱 / 膝蓋骨上部" },
-  { id: "shoulder_abd", name: "肩関節外転", muscle: "三角筋中部", agPos: "座位（腕を真横90°挙上）", gePos: "背臥位（机・シーツ上を水平スライド）", palpation: "三角筋中部（肩峰外側直下）" },
-  { id: "elbow_flex", name: "肘関節屈曲", muscle: "上腕二頭筋", agPos: "座位（前腕回外位で屈曲）", gePos: "座位（前腕を机上支持して水平屈曲）", palpation: "上腕二頭筋腱（肘窩中央深部）" },
-  { id: "hip_flex", name: "股関節屈曲", muscle: "腸腰筋", agPos: "端座位（大腿を座面から持ち上げる）", gePos: "側臥位（検者が上肢・対側下肢を支持）", palpation: "鼠径靭帯直下（大腿三角）" },
-  { id: "wrist_ext", name: "手関節伸展", muscle: "橈側手根伸筋群", agPos: "前腕支持（手首を机から反らす）", gePos: "前腕中間位（小指側接地・手刀姿勢で背屈）", palpation: "手関節背側橈側（長・短橈側手根伸筋腱）" },
-  { id: "ankle_plantar", name: "足関節底屈", muscle: "下腿三頭筋", agPos: "立位（片脚立ち踵上げ25回）", gePos: "腹臥位 / 側臥位（足関節底屈）", palpation: "アキレス腱 / 腓腹筋筋腹" },
-  { id: "ankle_dorsi", name: "足関節背屈", muscle: "前脛骨筋", agPos: "端座位（つま先を内反・背屈）", gePos: "側臥位（足部を検者が支持）", palpation: "前脛骨筋腱（足関節前内側）" },
-  { id: "neck_flex", name: "頸部屈曲", muscle: "胸鎖乳突筋", agPos: "背臥位（顎を引いて頭部を浮かす）", gePos: "側臥位（頭部を検者が支持）", palpation: "胸鎖乳突筋前縁（頸部側面前方）" },
-  { id: "trunk_flex", name: "体幹屈曲", muscle: "腹直筋", agPos: "背臥位（頭の後ろ手組み・肩甲骨離床）", gePos: "背臥位（骨盤前傾アシスト）", palpation: "腹直筋筋腹（正中線両側）" }
+  { id: "knee_ext", name: "膝関節伸展", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", agPos: "端座位（下腿前上方伸展）", gePos: "側臥位（下腿を検者が支持）", palpation: "大腿四頭筋腱 / 膝蓋骨上部" },
+  { id: "shoulder_abd", name: "肩関節外転", muscle: "三角筋中部", nerve: "腋窩神経", root: "C5〜C6", agPos: "座位（腕を真横90°挙上）", gePos: "背臥位（机・シーツ上を水平スライド）", palpation: "三角筋中部（肩峰外側直下）" },
+  { id: "elbow_flex", name: "肘関節屈曲", muscle: "上腕二頭筋", nerve: "筋皮神経", root: "C5〜C6", agPos: "座位（前腕回外位で屈曲）", gePos: "座位（前腕を机上支持して水平屈曲）", palpation: "上腕二頭筋腱（肘窩中央深部）" },
+  { id: "hip_flex", name: "股関節屈曲", muscle: "腸腰筋", nerve: "大腿神経・腰神経叢", root: "L1〜L3", agPos: "端座位（大腿を座面から持ち上げる）", gePos: "側臥位（検者が上肢・対側下肢を支持）", palpation: "鼠径靭帯直下（大腿三角）" },
+  { id: "wrist_ext", name: "手関節伸展", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", agPos: "前腕支持（手首を机から反らす）", gePos: "前腕中間位（小指側接地・手刀姿勢で背屈）", palpation: "手関節背側橈側（長・短橈側手根伸筋腱）" },
+  { id: "ankle_plantar", name: "足関節底屈", muscle: "下腿三頭筋", nerve: "脛骨神経", root: "S1〜S2", agPos: "立位（片脚立ち踵上げ25回）", gePos: "腹臥位 / 側臥位（足関節底屈）", palpation: "アキレス腱 / 腓腹筋筋腹" },
+  { id: "ankle_dorsi", name: "足関節背屈", muscle: "前脛骨筋", nerve: "深腓骨神経", root: "L4〜L5", agPos: "端座位（つま先を内反・背屈）", gePos: "側臥位（足部を検者が支持）", palpation: "前脛骨筋腱（足関節前内側）" },
+  { id: "neck_flex", name: "頸部屈曲", muscle: "胸鎖乳突筋", nerve: "副神経・頸神経叢", root: "C2〜C3", agPos: "背臥位（顎を引いて頭部を浮かす）", gePos: "側臥位（頭部を検者が支持）", palpation: "胸鎖乳突筋前縁（頸部側面前方）" },
+  { id: "trunk_flex", name: "体幹屈曲", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", agPos: "背臥位（頭の後ろ手組み・肩甲骨離床）", gePos: "背臥位（骨盤前傾アシスト）", palpation: "腹直筋筋腹（正中線両側）" }
 ];
 
 let selectedFlowJointId = "knee_ext";
@@ -293,7 +293,14 @@ async function loadCardDatabase() {
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
-        cardDatabase = data;
+        cardDatabase = data.map(c => {
+          const defaultRef = DEFAULT_CARDS.find(d => d.id === c.id) || {};
+          return {
+            ...c,
+            nerve: c.nerve || defaultRef.nerve || '—',
+            root: c.root || defaultRef.root || '—'
+          };
+        });
       }
     }
   } catch (e) {
@@ -930,11 +937,13 @@ function renderFlowChartContent() {
   const agPosEl = document.getElementById('flow-ag-pos');
   const gePosEl = document.getElementById('flow-ge-pos');
   const touchEl = document.getElementById('flow-palpation');
+  const nerveEl = document.getElementById('flow-joint-nerve');
 
   if (titleEl) titleEl.innerText = `${joint.name}（${joint.muscle}）`;
   if (agPosEl) agPosEl.innerText = joint.agPos;
   if (gePosEl) gePosEl.innerText = joint.gePos;
   if (touchEl) touchEl.innerText = joint.palpation;
+  if (nerveEl) nerveEl.innerText = `${joint.nerve || ''}（${joint.root || ''}）`;
 }
 
 // ============================================================================
@@ -962,6 +971,11 @@ function filterEncyclopedia(filterType) {
   renderEncyclopedia();
 }
 
+function flipCard(el) {
+  playSound('card');
+  el.classList.toggle('flipped');
+}
+
 function renderEncyclopedia() {
   const container = document.getElementById('encyclopedia-container');
   if (!container) return;
@@ -983,24 +997,59 @@ function renderEncyclopedia() {
   container.innerHTML = displayCards.map(c => {
     const isWeak = mistakeCardIds.has(c.id);
     return `
-      <div class="k-card ${isWeak ? 'weak-mark' : ''}" style="height:140px; cursor:default;">
-        <div class="kc-top">
-          <span class="kc-region-badge">${c.region}</span>
-          <span class="kc-grade-badge">${c.grade || 'G5'}</span>
-        </div>
-        <div class="kc-art-window" style="height:62px;">
-          ${c.image 
-            ? `<img src="${c.image}" alt="${c.title}" loading="lazy">` 
-            : `<div class="kc-art-placeholder">MMT<br>${c.pos}</div>`
-          }
-        </div>
-        <div class="kc-meta">
-          <div class="kc-title">${c.title}</div>
-          <div class="kc-muscle">${c.muscle}</div>
-        </div>
-        <div class="kc-footer">
-          <span>${c.vector || '標準'}</span>
-          <span class="kc-pos">${c.pos}</span>
+      <div class="k-card-flip-wrap ${isWeak ? 'weak-mark' : ''}" onclick="flipCard(this)" title="タップで裏面（支配神経・髄節）を表示">
+        <div class="k-card-inner">
+          <!-- 表面 (Front): 検査肢位・ROM・イラスト -->
+          <div class="k-card-face k-card-front">
+            <div class="kc-top">
+              <span class="kc-region-badge">${c.region}</span>
+              <span class="kc-flip-hint">🔄 裏面</span>
+              <span class="kc-grade-badge">${c.grade || 'G5'}</span>
+            </div>
+            <div class="kc-art-window" style="height:62px;">
+              ${c.image 
+                ? `<img src="${c.image}" alt="${c.title}" loading="lazy">` 
+                : `<div class="kc-art-placeholder">MMT<br>${c.pos}</div>`
+              }
+            </div>
+            <div class="kc-meta">
+              <div class="kc-title">${c.title}</div>
+              <div class="kc-muscle">${c.muscle}</div>
+            </div>
+            <div class="kc-footer">
+              <span>${c.vector || '標準'}</span>
+              <span class="kc-pos">${c.pos}</span>
+            </div>
+          </div>
+
+          <!-- 裏面 (Back): 主動作筋 ＆ 支配神経・髄節レベル（国試・実習 必須知識） -->
+          <div class="k-card-face k-card-back">
+            <div class="kcb-top">
+              <span class="kcb-badge">🧠 神経・髄節</span>
+              <span class="kcb-region">${c.region}</span>
+            </div>
+            <div class="kcb-title">${c.title}</div>
+            <div class="kcb-highlight-box">
+              <div class="kcb-row">
+                <span class="kcb-key">主動作筋</span>
+                <strong class="kcb-muscle">${c.muscle}</strong>
+              </div>
+              <div class="kcb-row">
+                <span class="kcb-key">支配神経</span>
+                <strong class="kcb-nerve">${c.nerve || '—'}</strong>
+              </div>
+              <div class="kcb-row">
+                <span class="kcb-key">髄節レベル</span>
+                <strong class="kcb-root">${c.root || '—'}</strong>
+              </div>
+            </div>
+            <div class="kcb-one-liner">
+              💡 <strong>${c.muscle}</strong> ／ ${c.nerve || ''}（${c.root || ''}）
+            </div>
+            <div class="kcb-footer">
+              <span>🔄 タップで表へ</span>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -1277,6 +1326,7 @@ let judgeLives = 3;
 let judgeCurrentIndex = 0;
 let judgeQuestions = [];
 let judgeTimerId = null;
+let judgeBaseTime = 3.0; // 5, 3, 1.5, 0 (0は無制限)
 let judgeTimeRemaining = 3.0;
 let judgeTimeTotal = 3.0;
 let judgeQuestionStartTime = 0;
@@ -1284,6 +1334,16 @@ let judgeResponseTimes = [];
 let judgeWeaknesses = [];
 let isJudgePlaying = false;
 let isJudgePaused = false;
+
+function selectJudgeTimeLimit(seconds) {
+  judgeBaseTime = Number(seconds);
+  playSound('card');
+
+  document.querySelectorAll('.time-opt-btn').forEach(btn => {
+    const val = Number(btn.getAttribute('data-time'));
+    btn.classList.toggle('active', val === judgeBaseTime);
+  });
+}
 
 function initJudgeTab() {
   const startScreen = document.getElementById('judge-start-screen');
@@ -1372,12 +1432,18 @@ function loadJudgeQuestion() {
   const q = judgeQuestions[judgeCurrentIndex];
   isJudgePaused = false;
 
-  // コンボに応じた制限時間加速
-  if (judgeCombo >= 10) judgeTimeTotal = 1.8;
-  else if (judgeCombo >= 5) judgeTimeTotal = 2.4;
-  else judgeTimeTotal = 3.0;
+  // 選択秒数＆コンボに応じた制限時間加速
+  if (judgeBaseTime === 0) {
+    // 📖 無制限モード（じっくり学習）
+    judgeTimeTotal = 0;
+    judgeTimeRemaining = 0;
+  } else {
+    if (judgeCombo >= 10) judgeTimeTotal = Math.max(0.8, Number((judgeBaseTime * 0.6).toFixed(1)));
+    else if (judgeCombo >= 5) judgeTimeTotal = Math.max(1.0, Number((judgeBaseTime * 0.8).toFixed(1)));
+    else judgeTimeTotal = judgeBaseTime;
+    judgeTimeRemaining = judgeTimeTotal;
+  }
 
-  judgeTimeRemaining = judgeTimeTotal;
   judgeQuestionStartTime = performance.now();
 
   const card = document.getElementById('judge-card');
@@ -1416,8 +1482,20 @@ function startTimerGauge() {
 
   const fillEl = document.getElementById('judge-timer-bar');
   const textEl = document.getElementById('judge-timer-text');
-  const intervalMs = 30;
 
+  // 無制限モードの場合
+  if (judgeBaseTime === 0) {
+    if (fillEl) {
+      fillEl.style.width = "100%";
+      fillEl.className = 'judge-timer-fill';
+    }
+    if (textEl) {
+      textEl.innerText = "♾️ 無制限";
+    }
+    return;
+  }
+
+  const intervalMs = 30;
   judgeTimerId = setInterval(() => {
     if (isJudgePaused) return;
 
@@ -1470,7 +1548,14 @@ function handleCorrectAnswer(chosenAnswer, responseTimeSec) {
   else if (judgeCombo >= 5) mult = 2.0;
   else if (judgeCombo >= 3) mult = 1.5;
 
-  const timeBonus = Math.round((judgeTimeRemaining / judgeTimeTotal) * 100);
+  let timeBonus = 50;
+  if (judgeBaseTime > 0) {
+    timeBonus = Math.round((judgeTimeRemaining / judgeTimeTotal) * 100);
+  } else {
+    // 無制限時は回答速度に応じた軽微なボーナス（5秒未満なら最大100点）
+    timeBonus = Math.max(20, Math.round(100 - (responseTimeSec * 10)));
+  }
+
   const earned = Math.round((200 + timeBonus) * mult);
   judgeScore += earned;
 

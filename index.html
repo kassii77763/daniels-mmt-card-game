@@ -18,7 +18,7 @@
     <div class="header-nav">
       <button class="sound-toggle-btn" id="btn-sound-toggle" onclick="toggleSound()" title="効果音のON/OFF">🔊 ON</button>
       <button class="nav-btn active" data-tab="battle">🃏 バトル</button>
-      <button class="nav-btn" data-tab="judge">⚡ 3秒ジャッジ</button>
+      <button class="nav-btn" data-tab="judge">⚡ スピード判定</button>
       <button class="nav-btn" data-tab="flow">🔀 判定フロー</button>
       <button class="nav-btn" data-tab="list">📖 図鑑</button>
     </div>
@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <!-- Timer Gauge Bar -->
+      <!-- Timer Gauge Bar with Current Setting Pill -->
       <div class="judge-timer-wrap">
         <div class="judge-timer-track">
           <div class="judge-timer-fill" id="judge-timer-bar"></div>
@@ -59,14 +59,26 @@
 
       <!-- Main Carte Card Arena (Swipe & Direct Action Stage) -->
       <div class="judge-stage" id="judge-stage">
-        <!-- Ready / Start Screen -->
+        <!-- Ready / Start Screen with Time Limit Selector -->
         <div class="judge-overlay-screen" id="judge-start-screen">
           <div class="judge-ready-card">
             <div class="judge-ready-icon">⚡</div>
-            <h2 class="judge-ready-title">MMT 3秒ジャッジ</h2>
+            <h2 class="judge-ready-title">MMT 臨床スピード判定</h2>
             <p class="judge-ready-desc">
-              カルテの【体位・ROM・抵抗】を瞬時に読み取り、3秒以内に正しいMMT Gradeまたは肢位エラーを判定せよ！
+              カルテの【体位・ROM・抵抗】を瞬時に読み取り、正しいMMT Gradeまたは肢位エラーを判定せよ！
             </p>
+
+            <!-- ⏱️ 制限時間セレクター（3秒にこだわらず自由に選択可能） -->
+            <div class="judge-time-selector-wrap">
+              <span class="time-selector-label">⏱️ 制限時間を選択：</span>
+              <div class="judge-time-btn-group" id="judge-time-buttons">
+                <button class="time-opt-btn" data-time="5" onclick="selectJudgeTimeLimit(5)">🐢 5秒 (入門)</button>
+                <button class="time-opt-btn active" data-time="3" onclick="selectJudgeTimeLimit(3)">⚡ 3秒 (標準)</button>
+                <button class="time-opt-btn" data-time="1.5" onclick="selectJudgeTimeLimit(1.5)">🔥 1.5秒 (プロ)</button>
+                <button class="time-opt-btn" data-time="0" onclick="selectJudgeTimeLimit(0)">📖 無制限 (学習)</button>
+              </div>
+            </div>
+
             <div class="judge-guide-grid">
               <div class="guide-item">
                 <span class="guide-key">キーボード / タップ</span>
@@ -338,6 +350,9 @@
           <div class="flow-node-desc">
             対象動作: <strong id="flow-joint-title">膝関節伸展（大腿四頭筋）</strong><br>
             抗重力肢位: <span class="flow-pos-pill" id="flow-ag-pos">端座位</span>
+            <div style="margin-top:4px; font-size:0.68rem; color:var(--text-secondary);">
+              🧠 支配神経・髄節: <strong id="flow-joint-nerve" style="color:var(--accent-blue);">大腿神経（L2〜L4）</strong>
+            </div>
           </div>
         </div>
 
