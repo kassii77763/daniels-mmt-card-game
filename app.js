@@ -3,6 +3,15 @@
  * 臨床カルタ・オセロ式 MMTバトルの新スコア対戦システム
  */
 
+// 過去の古いIndexedDB（文字ノイズ・モザイク画像キャッシュ）を物理抹消
+try {
+  if (typeof indexedDB !== 'undefined') {
+    indexedDB.deleteDatabase('DanielsMmtImagesDB');
+  }
+} catch (e) {
+  // ignore
+}
+
 // 内蔵マスターカード（画像パス＋支配神経・髄節データ完備）
 const DEFAULT_CARDS = [
   {
@@ -985,134 +994,19 @@ const DEFAULT_CARDS = [
 
 
 // ============================================================================
-// 🎨 CustomImageDB (IndexedDB) & 共有画像解決エンジン
-// ダニエルズ原著スライド・キャプチャ画像の永続保持 ＆ Ctrl+Vペースト / 一括共有
+// 🎨 画像解決エンジン (全60枚 ダニエルズ解剖線画 直接ロード)
 // ============================================================================
 
-const CustomImageDB = {
-  dbName: 'DanielsMmtImagesDB',
-  storeName: 'card_images',
-  version: 1,
-  _db: null,
-  async getDB() {
-    if (this._db) return this._db;
-    return new Promise((resolve, reject) => {
-      const req = indexedDB.open(this.dbName, this.version);
-      req.onupgradeneeded = (e) => {
-        const db = e.target.result;
-        if (!db.objectStoreNames.contains(this.storeName)) {
-          db.createObjectStore(this.storeName);
-        }
-      };
-      req.onsuccess = (e) => {
-        this._db = e.target.result;
-        resolve(this._db);
-      };
-      req.onerror = (e) => reject(e.target.error);
-    });
-  },
-  async getImage(key) {
-    try {
-      const db = await this.getDB();
-      return new Promise((resolve) => {
-        const tx = db.transaction(this.storeName, 'readonly');
-        const req = tx.objectStore(this.storeName).get(String(key));
-        req.onsuccess = () => resolve(req.result || null);
-        req.onerror = () => resolve(null);
-      });
-    } catch (e) {
-      return null;
-    }
-  },
-  async setImage(key, base64) {
-    const db = await this.getDB();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(this.storeName, 'readwrite');
-      const req = tx.objectStore(this.storeName).put(base64, String(key));
-      req.onsuccess = () => resolve(true);
-      req.onerror = (e) => reject(e.target.error);
-    });
-  },
-  async deleteImage(key) {
-    const db = await this.getDB();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(this.storeName, 'readwrite');
-      const req = tx.objectStore(this.storeName).delete(String(key));
-      req.onsuccess = () => resolve(true);
-      req.onerror = (e) => reject(e.target.error);
-    });
-  },
-  async getAllImages() {
-    const db = await this.getDB();
-    return new Promise((resolve) => {
-      const tx = db.transaction(this.storeName, 'readonly');
-      const store = tx.objectStore(this.storeName);
-      const req = store.openCursor();
-      const results = {};
-      req.onsuccess = (e) => {
-        const cursor = e.target.result;
-        if (cursor) {
-          results[cursor.key] = cursor.value;
-          cursor.continue();
-        } else {
-          resolve(results);
-        }
-      };
-      req.onerror = () => resolve({});
-    });
-  },
-  async importAllImages(map) {
-    const db = await this.getDB();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(this.storeName, 'readwrite');
-      const store = tx.objectStore(this.storeName);
-      for (const [key, val] of Object.entries(map)) {
-        store.put(val, String(key));
-      }
-      tx.oncomplete = () => resolve(true);
-      tx.onerror = (e) => reject(e.target.error);
-    });
-  }
-};
-
-const customImageCache = new Map();
-let selectedCardForPasteId = null;
-
-// IndexedDBキャッシュの事前読み込み
-async function preloadCustomImages() {
-  try {
-    const all = await CustomImageDB.getAllImages();
-    customImageCache.clear();
-    for (const [k, v] of Object.entries(all)) {
-      customImageCache.set(String(k), v);
-    }
-    console.log('🖼️ Preloaded', customImageCache.size, 'custom MMT images from IndexedDB');
-  } catch (err) {
-    console.warn('⚠️ CustomImageDB preload warning:', err);
-  }
-}
-
-// カードの図解画像パスを解決（IndexedDB ➔ local assets ➔ card.image ➔ fallback）
+// カードの図解画像パスを解決（assets/mmt/{imgId}.png ➔ card.image ➔ fallback）
 function getCardResolvedImage(card) {
   if (!card) return '';
-  // 1. IndexedDBキャッシュ
-  if (card.imgId && customImageCache.has(card.imgId)) {
-    return customImageCache.get(card.imgId);
-  }
-  if (customImageCache.has(String(card.id))) {
-    return customImageCache.get(String(card.id));
-  }
-  // 2. assets/mmt/{imgId}.png (自動クロップ済み原著イラスト)
   if (card.imgId) {
     return `assets/mmt/${card.imgId}.png`;
   }
   return card.image || '';
 }
 
-function hasCustomImage(card) {
-  if (!card) return false;
-  if (card.imgId && customImageCache.has(card.imgId)) return true;
-  if (customImageCache.has(String(card.id))) return true;
+function hasCustomImage() {
   return false;
 }
 
@@ -1131,184 +1025,11 @@ function renderCardImageTag(card, extraClass = '', alt = '') {
   return `<img src="${src}" alt="${title}" class="mmt-blend-img ${extraClass}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackSvg}';">`;
 }
 
-// 画像リサイズ＆Base64変換 (Canvas: 最大幅480px, 画質0.85)
-async function processAndStoreImageForCard(fileOrBlob, cardId) {
-  const card = cardDatabase.find(c => c.id === cardId);
-  if (!card) return;
-  const targetKey = card.imgId || String(card.id);
-
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = async () => {
-        const maxWidth = 480;
-        let w = img.width;
-        let h = img.height;
-        if (w > maxWidth) {
-          h = Math.round((h * maxWidth) / w);
-          w = maxWidth;
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, w, h);
-        ctx.drawImage(img, 0, 0, w, h);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-
-        await CustomImageDB.setImage(targetKey, dataUrl);
-        customImageCache.set(targetKey, dataUrl);
-        playSound('win');
-        renderEncyclopedia();
-        showPasteToast(`📸「${card.title}」に図解画像を登録しました！`);
-        resolve(dataUrl);
-      };
-      img.onerror = reject;
-      img.src = e.target.result;
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(fileOrBlob);
-  });
-}
-
-function showPasteToast(msg) {
-  let toast = document.getElementById('enc-paste-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'enc-paste-toast';
-    toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(30,27,24,0.92); color:#FFF; padding:10px 18px; border-radius:24px; font-size:0.85rem; font-weight:bold; z-index:99999; box-shadow:0 6px 20px rgba(0,0,0,0.3); transition:opacity 0.3s ease; pointer-events:none;';
-    document.body.appendChild(toast);
-  }
-  toast.textContent = msg;
-  toast.style.opacity = '1';
-  clearTimeout(toast._timer);
-  toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 2400);
-}
-
-// クリップボードからの直接画像ペースト (Ctrl+V)
-window.addEventListener('paste', async (e) => {
-  if (!selectedCardForPasteId) return;
-  const items = e.clipboardData && e.clipboardData.items;
-  if (!items) return;
-
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].type.indexOf('image') !== -1) {
-      const file = items[i].getAsFile();
-      if (file) {
-        e.preventDefault();
-        try {
-          await processAndStoreImageForCard(file, selectedCardForPasteId);
-        } catch (err) {
-          console.error('Image paste failed:', err);
-          alert('画像の貼り付けに失敗しました。');
-        }
-        return;
-      }
-    }
-  }
-});
-
-// JSON一括エクスポート
-async function exportCustomImagesJson() {
-  playSound('card');
-  const all = await CustomImageDB.getAllImages();
-  const count = Object.keys(all).length;
-  if (count === 0) {
-    alert("登録されている図解画像がまだありません。先に図鑑カードを選択してスクショを貼り付けてください。");
-    return;
-  }
-  const blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `daniels_mmt_custom_images_${new Date().toISOString().slice(0, 10)}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  alert(`📦 ${count}枚の図解画像をJSONとして書き出しました！\nこのファイルをクラスメイトに渡して「一括インポート」してもらえば、全員のスマホに一発で図解が同期されます。`);
-}
-
-// JSON一括インポート
-function triggerJsonImport() {
-  const input = document.getElementById('json-import-input');
-  if (input) input.click();
-}
-
-async function handleJsonFileImport(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  try {
-    const text = await file.text();
-    const data = JSON.parse(text);
-    if (typeof data !== 'object' || data === null) {
-      throw new Error('Invalid JSON');
-    }
-    await CustomImageDB.importAllImages(data);
-    await preloadCustomImages();
-    playSound('win');
-    renderEncyclopedia();
-    alert(`📥 ${Object.keys(data).length}枚の図解画像をインポート・同期しました！`);
-  } catch (err) {
-    console.error('Import failed:', err);
-    alert('JSONファイルの読み込みに失敗しました。フォーマットを確認してください。');
-  } finally {
-    event.target.value = '';
-  }
-}
-
-// カードの単独画像ファイル選択
-function triggerCardImageInput(cardId, event) {
-  if (event) event.stopPropagation();
-  selectedCardForPasteId = cardId;
-  const input = document.getElementById('card-img-input');
-  if (input) input.click();
-}
-
-async function handleCardImageFileInput(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file || !selectedCardForPasteId) return;
-  try {
-    await processAndStoreImageForCard(file, selectedCardForPasteId);
-  } catch (err) {
-    console.error('Card image file input failed:', err);
-  } finally {
-    event.target.value = '';
-  }
-}
-
-async function deleteCardImage(cardId, event) {
-  if (event) event.stopPropagation();
-  const card = cardDatabase.find(c => c.id === cardId);
-  if (!card) return;
-  const targetKey = card.imgId || String(card.id);
-  if (confirm(`「${card.title}」の登録画像をリセットしますか？`)) {
-    await CustomImageDB.deleteImage(targetKey);
-    customImageCache.delete(targetKey);
-    playSound('card');
-    renderEncyclopedia();
-    showPasteToast('🗑️ 画像をリセットしました');
-  }
-}
-
-
-// Global exports for HTML event handlers and testing
-window.CustomImageDB = CustomImageDB;
-window.preloadCustomImages = preloadCustomImages;
+// Global exports for testing & external calls
 window.getCardResolvedImage = getCardResolvedImage;
 window.hasCustomImage = hasCustomImage;
 window.renderEncyclopedia = renderEncyclopedia;
 window.filterEncyclopedia = filterEncyclopedia;
-window.exportCustomImagesJson = exportCustomImagesJson;
-window.handleJsonFileImport = handleJsonFileImport;
-window.triggerCardImageInput = triggerCardImageInput;
-window.handleCardImageFileInput = handleCardImageFileInput;
-window.deleteCardImage = deleteCardImage;
-window.handleCardSelectForPaste = handleCardSelectForPaste;
-window.processAndStoreImageForCard = processAndStoreImageForCard;
 
 const POSITIONS = ["背臥位", "腹臥位", "座位", "端座位", "側臥位", "前腕支持", "前腕中間位", "立位"];
 const SUB_REGIONS = ["上肢", "下肢", "体幹", "頸部"];
@@ -1694,7 +1415,6 @@ function selectCpuPersona(personaKey) {
 
 // 外部JSON読み込み
 async function loadCardDatabase() {
-  await preloadCustomImages();
   try {
     const res = await fetch('data/cards.json');
     if (res.ok) {
@@ -2460,12 +2180,6 @@ function renderFlowChartContent() {
 function updateWeakCount() {
   const countEl = document.getElementById('weak-count');
   if (countEl) countEl.textContent = mistakeCardIds.size;
-
-  const customCountEl = document.getElementById('custom-count');
-  if (customCountEl) {
-    const customCount = cardDatabase.filter(c => hasCustomImage(c)).length;
-    customCountEl.textContent = customCount;
-  }
 }
 
 function filterEncyclopedia(filterType) {
@@ -2474,10 +2188,8 @@ function filterEncyclopedia(filterType) {
 
   const btnAll = document.getElementById('filter-all');
   const btnWeak = document.getElementById('filter-weak');
-  const btnCustom = document.getElementById('filter-custom');
   if (btnAll) btnAll.classList.toggle('active', filterType === 'all');
   if (btnWeak) btnWeak.classList.toggle('active', filterType === 'weak');
-  if (btnCustom) btnCustom.classList.toggle('active', filterType === 'custom');
 
   renderEncyclopedia();
 }
@@ -2569,28 +2281,6 @@ function renderEncyclopedia() {
       </div>
     `;
   }).join('');
-}
-
-function handleCardSelectForPaste(cardId, el) {
-  selectedCardForPasteId = cardId;
-  document.querySelectorAll('.k-card-flip-wrap').forEach(wrap => {
-    wrap.classList.remove('selected-for-paste');
-  });
-  if (el) el.classList.add('selected-for-paste');
-  showPasteToast(`カードを選択しました (Ctrl+Vでスクショ貼付可能)`);
-}
-
-function handleCardDragOver(e) {
-  e.preventDefault();
-}
-
-async function handleCardDrop(e, cardId) {
-  e.preventDefault();
-  selectedCardForPasteId = cardId;
-  const files = e.dataTransfer && e.dataTransfer.files;
-  if (files && files[0] && files[0].type.startsWith('image/')) {
-    await processAndStoreImageForCard(files[0], cardId);
-  }
 }
 
 function flipCardFromBack(backEl, event) {
