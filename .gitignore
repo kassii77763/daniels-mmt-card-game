@@ -1,4 +1,4 @@
 node_modules/
 .DS_Store
 *.log
-assets/mmt/*
+assets/mmt/raw/

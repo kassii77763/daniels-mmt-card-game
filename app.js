@@ -833,8 +833,9 @@ function renderCardImageTag(card, extraClass = '', alt = '') {
   if (!card) return '';
   const src = getCardResolvedImage(card);
   const title = alt || card.title || 'MMT検査';
-  const posText = encodeURIComponent(card.pos || 'MMT');
-  const fallbackSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'><rect width='160' height='100' fill='%23F4EFE6'/><text x='80' y='55' font-size='13' text-anchor='middle' fill='%2378716C' font-weight='bold'>${posText}</text></svg>`;
+  const posText = card.pos || 'MMT';
+  const svgXml = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'><rect width='160' height='100' fill='#F4EFE6'/><text x='80' y='55' font-size='13' text-anchor='middle' fill='#78716C' font-weight='bold'>${posText}</text></svg>`;
+  const fallbackSvg = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgXml);
   
   if (!src) {
     return `<div class="kc-art-placeholder">MMT<br>${card.pos}</div>`;
