@@ -74,8 +74,15 @@ function runAudit() {
         console.error(`❌ FATAL CLINICAL ERROR: 画像 '${path.basename(imagePath)}' が異なる肢位 [${positions.join(' ⇔ ')}] で使い回されています！(カード: ${usedCards.map(c => c.title).join(', ')})`);
         errors++;
       } else if (grades.some(g => g.includes('2') || g.includes('G2')) && grades.some(g => g.includes('5') || g.includes('4') || g.includes('G5'))) {
-        console.error(`❌ FATAL CLINICAL ERROR: 画像 '${path.basename(imagePath)}' が抵抗位(G5/G4)と重力除去位(G2)で混同されています！(カード: ${usedCards.map(c => c.title).join(', ')})`);
-        errors++;
+        // 第10版同一肢位・同一セッティング例外（前腕回外回内・前脛骨筋など、画像にg5432を含み肢位が完全一致する場合）
+        const isUnifiedSetting = usedCards.every(c => c.pos === usedCards[0].pos) && imagePath.includes('g5432');
+        if (!isUnifiedSetting) {
+          console.error(`❌ FATAL CLINICAL ERROR: 画像 '${path.basename(imagePath)}' が抵抗位(G5/G4)と重力除去位(G2)で混同されています！(カード: ${usedCards.map(c => c.title).join(', ')})`);
+          errors++;
+        } else {
+          console.log(`ℹ️ 合法画像共有（第10版同一肢位・全Grade共用）: ${path.basename(imagePath)} -> ${usedCards.map(c => c.title).join(', ')}`);
+          passed++;
+        }
       } else {
         console.log(`ℹ️ 画像共有（同一肢位）: ${path.basename(imagePath)} -> ${usedCards.map(c => c.title).join(', ')}`);
         passed++;

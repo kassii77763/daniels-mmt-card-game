@@ -16,6 +16,7 @@ function runStep(cmd, args, desc) {
 
 console.log("🌀 統合自律周回ループ発火");
 runStep('node', ['harness/area7_qa_gate.js'], '【領域7】最外部ペルソナ受入ゲート');
+runStep('node', ['harness/area7_ghost_student.js'], '【領域7】敵対的セマンティック査問 (Ghost Student)');
 runStep('node', ['harness/critic_auditor.js'], '【領域6】臨床整合性＆UI/UX 独立監査 (Critic Auditor)');
 runStep('node', ['harness/visual_geometric_harness.js'], '【領域7】Playwright実機 視覚・幾何構造監査');
 console.log("\n🎉 全監査ゲートを完全突破しました！");

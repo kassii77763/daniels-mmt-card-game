@@ -16,9 +16,9 @@ async function evaluateVisualQuality(htmlPath) {
     const errors = [];
 
     // 1. バトル画面手札カードの視覚幾何監査（アクティブ状態）
-    const handCards = document.querySelectorAll('#player-hand-container .k-card');
+    const handCards = document.querySelectorAll('#player-hand-container .k-card, #player-hand-container .k-card-flip-wrap');
     if (handCards.length === 0) {
-      errors.push("致命的エラー: 手札カード (.k-card) が1枚も検出されませんでした");
+      errors.push("致命的エラー: 手札カード (.k-card / .k-card-flip-wrap) が1枚も検出されませんでした");
     }
 
     handCards.forEach((card, idx) => {
@@ -40,13 +40,13 @@ async function evaluateVisualQuality(htmlPath) {
       }
     });
 
-    // 2. 図鑑タブを開いて全15枚の視覚幾何監査
+    // 2. 図鑑タブを開いて全43枚の視覚幾何監査
     const listBtn = document.querySelector('.nav-btn[data-tab="list"]');
     if (listBtn) {
       listBtn.click();
     }
 
-    const encCards = document.querySelectorAll('#encyclopedia-container .k-card');
+    const encCards = document.querySelectorAll('#encyclopedia-container .k-card, #encyclopedia-container .k-card-flip-wrap');
     if (encCards.length === 0) {
       errors.push("致命的エラー: 図鑑カードが1枚もレンダリングされていません");
     }
