@@ -2495,17 +2495,12 @@ function renderEncyclopedia() {
   let displayCards = cardDatabase;
   if (currentEncFilter === 'weak') {
     displayCards = cardDatabase.filter(c => mistakeCardIds.has(c.id));
-  } else if (currentEncFilter === 'custom') {
-    displayCards = cardDatabase.filter(c => hasCustomImage(c));
   }
 
   if (displayCards.length === 0) {
-    const emptyMsg = currentEncFilter === 'custom'
-      ? '📸 登録された図解画像はまだありません。<br>カードをクリックして【Ctrl+V】でスクショを貼り付けるか、「📷」ボタンから登録してください！'
-      : '🎉 要復習の代償ミスカードはありません！全問パーフェクト測定中！';
     container.innerHTML = `
       <div style="grid-column: 1 / -1; padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; line-height: 1.6;">
-        ${emptyMsg}
+        🎉 要復習の代償ミスカードはありません！全問パーフェクト測定中！
       </div>
     `;
     return;
@@ -2513,35 +2508,23 @@ function renderEncyclopedia() {
 
   container.innerHTML = displayCards.map(c => {
     const isWeak = mistakeCardIds.has(c.id);
-    const isSelected = (selectedCardForPasteId === c.id);
-    const isCustom = hasCustomImage(c);
 
     return `
-      <div class="k-card-flip-wrap ${isWeak ? 'weak-mark' : ''} ${isSelected ? 'selected-for-paste' : ''}" 
+      <div class="k-card-flip-wrap ${isWeak ? 'weak-mark' : ''}" 
            data-id="${c.id}"
-           onclick="handleCardSelectForPaste(${c.id}, this)"
-           ondragover="handleCardDragOver(event)"
-           ondrop="handleCardDrop(event, ${c.id})"
-           title="クリックして選択（Ctrl+Vで画像貼付） / タップで裏面">
+           onclick="flipCard(this)"
+           title="タップで裏面（神経・髄節）を表示">
         <div class="k-card-inner">
           <!-- 表面 (Front): 検査肢位・ROM・イラスト -->
           <div class="k-card-face k-card-front">
             <div class="kc-top">
               <span class="kc-region-badge">${c.region}</span>
-              ${isCustom 
-                ? `<span class="enc-custom-indicator" title="スライド図解登録済">🎨 実機図解</span>`
-                : `<span class="kc-flip-hint">🔄 裏面</span>`
-              }
+              <span class="kc-flip-hint">🔄 裏面</span>
               <span class="kc-grade-badge">${c.grade || 'G5'}</span>
             </div>
             
             <div class="kc-art-window" style="height:62px; position:relative;">
               ${renderCardImageTag(c, '', c.title)}
-              
-              <div class="enc-card-overlay-actions">
-                <button type="button" class="enc-btn-paste-overlay" onclick="triggerCardImageInput(${c.id}, event)" title="スクショ画像ファイルを選択して登録">📷</button>
-                ${isCustom ? `<button type="button" class="enc-btn-paste-overlay btn-del" onclick="deleteCardImage(${c.id}, event)" title="登録画像をリセット">🗑️</button>` : ''}
-              </div>
             </div>
 
             <div class="kc-meta">
