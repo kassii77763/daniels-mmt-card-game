@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-28T15:14:16.527Z",
-  "totalCards": 43,
-  "passedCount": 43,
+  "timestamp": "2026-10-28T15:26:32.755Z",
+  "totalCards": 61,
+  "passedCount": 61,
   "complaintCount": 0,
   "passes": [
     {
@@ -259,6 +259,114 @@
     {
       "cardId": 43,
       "title": "足関節背屈・内反 (G2/1)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 44,
+      "title": "頸部伸展 (G5/4/3)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 45,
+      "title": "頸部伸展 (G2/1)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 46,
+      "title": "体幹回旋 (G5)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 47,
+      "title": "体幹回旋 (G4)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 48,
+      "title": "体幹回旋 (G2/1)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 49,
+      "title": "肩甲骨挙上",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 50,
+      "title": "肩甲骨内転",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 51,
+      "title": "肩甲骨内転・下方回旋",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 52,
+      "title": "肩甲骨内転・下方回旋 (G2/1)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 53,
+      "title": "肩関節水平外転",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 54,
+      "title": "肩関節水平内転",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 55,
+      "title": "手関節屈曲",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 56,
+      "title": "股関節内転",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 57,
+      "title": "股関節内転 (G2/1)",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 58,
+      "title": "股関節外旋",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 59,
+      "title": "股関節内旋",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 60,
+      "title": "足部内反",
+      "status": "APPROVED",
+      "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
+    },
+    {
+      "cardId": 61,
+      "title": "足部外反",
       "status": "APPROVED",
       "evaluator": "領域7 査問委員会（ケンタ・アヤカ・サトウ先生 全員一致合意）"
     }

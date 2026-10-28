@@ -60,7 +60,25 @@ const DANIELS_CLINICAL_GROUND_TRUTH = {
   40: { expectedPos: "立位", allowedPos: ["立位"], forbiddenPos: ["背臥位", "座位", "腹臥位", "側臥位"] },
   41: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["立位", "背臥位"] },
   42: { expectedPos: "背臥位", allowedPos: ["背臥位", "端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
-  43: { expectedPos: "背臥位", allowedPos: ["背臥位", "端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] }
+  43: { expectedPos: "背臥位", allowedPos: ["背臥位", "端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
+  44: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "側臥位", "立位"] },
+  45: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位"] },
+  46: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
+  47: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
+  48: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
+  49: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位"] },
+  50: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位"] },
+  51: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位"] },
+  52: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位"] },
+  53: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位"] },
+  54: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位"] },
+  55: { expectedPos: "前腕支持", allowedPos: ["前腕支持", "端座位", "座位"], forbiddenPos: ["腹臥位", "立位"] },
+  56: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
+  57: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "側臥位"] },
+  58: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
+  59: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
+  60: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "背臥位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
+  61: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "背臥位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] }
 };
 
 function runArea7Audit() {
@@ -197,7 +215,7 @@ function runArea7Audit() {
       console.log(`      指摘: ${c.issue}`);
     });
   } else {
-    console.log("✨ 領域7 敵対的セマンティック査問: 全43枚の臨床整合性・運動学円弧・肢位メタデータ完全受入承認（100% PASS）");
+    console.log(`✨ 領域7 敵対的セマンティック査問: 全${cards.length}枚の臨床整合性・運動学円弧・肢位メタデータ完全受入承認（100% PASS）`);
   }
 
   // ファイルに保存
