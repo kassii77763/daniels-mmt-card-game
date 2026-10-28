@@ -1000,10 +1000,14 @@ const DEFAULT_CARDS = [
 // カードの図解画像パスを解決（assets/mmt/{imgId}.png ➔ card.image ➔ fallback）
 function getCardResolvedImage(card) {
   if (!card) return '';
+  let path = '';
   if (card.imgId) {
-    return `assets/mmt/${card.imgId}.png`;
+    path = `assets/mmt/${card.imgId}.png`;
+  } else {
+    path = card.image || '';
   }
-  return card.image || '';
+  if (!path) return '';
+  return path.includes('?') ? path : `${path}?v=20261029_crisp`;
 }
 
 function hasCustomImage() {
