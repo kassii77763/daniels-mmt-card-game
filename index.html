@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261029_v4">
+<link rel="stylesheet" href="style.css?v=20261029_v5">
 </head>
 <body>
 
@@ -511,6 +511,41 @@
   </main>
 </div>
 
-<script src="app.js?v=20261029_v4"></script>
+<!-- 🔍 画像拡大モーダルポップアップ -->
+<div id="image-modal-overlay" class="image-modal-overlay" onclick="handleModalOverlayClick(event)" style="display:none;">
+  <div class="image-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-card-title">
+    <button class="image-modal-close" onclick="closeImageModal()" aria-label="閉じる">✕</button>
+    <div class="image-modal-header">
+      <span class="modal-region-badge" id="modal-card-region">上肢</span>
+      <h3 class="modal-card-title" id="modal-card-title">動作名</h3>
+      <span class="modal-grade-badge" id="modal-card-grade">G5</span>
+    </div>
+    <div class="image-modal-body">
+      <div class="modal-img-container">
+        <img id="modal-img" src="" alt="拡大図解" />
+      </div>
+      <div class="modal-card-meta">
+        <div class="modal-meta-row">
+          <span class="modal-meta-label">測定肢位:</span>
+          <strong class="modal-meta-val" id="modal-card-pos">背臥位</strong>
+        </div>
+        <div class="modal-meta-row">
+          <span class="modal-meta-label">主動作筋:</span>
+          <strong class="modal-meta-val" id="modal-card-muscle" style="color:var(--accent-blue);">主動作筋</strong>
+        </div>
+        <div class="modal-meta-row">
+          <span class="modal-meta-label">加圧・判定:</span>
+          <span class="modal-meta-val" id="modal-card-vector">標準</span>
+        </div>
+        <div class="modal-meta-row" id="modal-nerve-row" style="margin-top:4px; padding-top:4px; border-top:1px dashed var(--border-hairline);">
+          <span class="modal-meta-label">神経・髄節:</span>
+          <span class="modal-meta-val" id="modal-card-nerve" style="color:#78716C;">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js?v=20261029_v5"></script>
 </body>
 </html>

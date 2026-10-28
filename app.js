@@ -2237,6 +2237,7 @@ function renderEncyclopedia() {
             
             <div class="kc-art-window" style="height:78px; position:relative;">
               ${renderCardImageTag(c, '', c.title)}
+              <button class="kc-zoom-btn" onclick="openImageModal(${c.id}, event)" title="画像を拡大表示">🔍 拡大</button>
             </div>
 
             <div class="kc-meta">
@@ -3472,4 +3473,71 @@ function initKarutaTab() {
   initGame();
   initFlowChart();
 })();
+
+// ============================================================================
+// 🔍 画像拡大モーダル制御ロジック
+// ============================================================================
+function openImageModal(cardId, event) {
+  if (event) {
+    event.stopPropagation(); // カードの裏表反転を防止
+  }
+  const card = cardDatabase.find(c => c.id === cardId);
+  if (!card) return;
+
+  const overlay = document.getElementById('image-modal-overlay');
+  const imgEl = document.getElementById('modal-img');
+  const titleEl = document.getElementById('modal-card-title');
+  const regionEl = document.getElementById('modal-card-region');
+  const gradeEl = document.getElementById('modal-card-grade');
+  const posEl = document.getElementById('modal-card-pos');
+  const muscleEl = document.getElementById('modal-card-muscle');
+  const vectorEl = document.getElementById('modal-card-vector');
+  const nerveEl = document.getElementById('modal-card-nerve');
+
+  if (!overlay || !imgEl) return;
+
+  const imgSrc = getCardResolvedImage(card);
+  imgEl.src = imgSrc;
+  imgEl.alt = card.title;
+
+  if (titleEl) titleEl.textContent = card.title;
+  if (regionEl) regionEl.textContent = card.region || 'MMT';
+  if (gradeEl) gradeEl.textContent = card.grade || 'G5';
+  if (posEl) posEl.textContent = card.pos || '標準肢位';
+  if (muscleEl) muscleEl.textContent = card.muscle || '—';
+  if (vectorEl) vectorEl.textContent = card.vector || '標準抵抗';
+  if (nerveEl) {
+    const nerveText = `${card.nerve || '—'}（${card.root || '—'}）`;
+    nerveEl.textContent = nerveText;
+  }
+
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // 背景スクロール固定
+  playSound('card');
+}
+
+function closeImageModal() {
+  const overlay = document.getElementById('image-modal-overlay');
+  if (overlay) {
+    overlay.style.display = 'none';
+  }
+  document.body.style.overflow = '';
+}
+
+function handleModalOverlayClick(event) {
+  if (event.target.id === 'image-modal-overlay') {
+    closeImageModal();
+  }
+}
+
+// ESCキーで閉じる
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeImageModal();
+  }
+});
+
+window.openImageModal = openImageModal;
+window.closeImageModal = closeImageModal;
+window.handleModalOverlayClick = handleModalOverlayClick;
 
