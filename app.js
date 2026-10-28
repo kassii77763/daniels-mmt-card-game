@@ -2235,17 +2235,17 @@ function renderEncyclopedia() {
               <span class="kc-grade-badge">${c.grade || 'G5'}</span>
             </div>
             
-            <div class="kc-art-window" style="height:62px; position:relative;">
+            <div class="kc-art-window" style="height:78px; position:relative;">
               ${renderCardImageTag(c, '', c.title)}
             </div>
 
             <div class="kc-meta">
-              <div class="kc-title">${c.title}</div>
-              <div class="kc-muscle">${c.muscle}</div>
+              <div class="kc-title" title="${c.title}">${c.title}</div>
+              <div class="kc-muscle" title="${c.muscle}">${c.muscle}</div>
             </div>
             <div class="kc-footer">
-              <span style="font-size:0.68rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:130px;">${c.vector || '標準'}</span>
-              <span class="kc-pos">${c.pos}</span>
+              <span class="kc-vec-text" title="${c.vector || '標準'}">${c.vector || '標準'}</span>
+              <span class="kc-pos-pill">${c.pos}</span>
             </div>
           </div>
 

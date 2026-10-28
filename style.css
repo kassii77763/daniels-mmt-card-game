@@ -809,13 +809,13 @@ html, body {
 /* Art Framing Window (Image insertion point) */
 .kc-art-window {
   width: 100%;
-  height: 60px;
-  min-height: 54px;
+  height: 78px;
+  min-height: 70px;
   flex-shrink: 0;
-  border-radius: 4px;
-  background: var(--bg-bone);
+  border-radius: 6px;
+  background: #FFFFFF;
   border: 1px solid var(--border-hairline);
-  margin: 3px 0;
+  margin: 4px 0;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -826,7 +826,7 @@ html, body {
 .kc-art-window img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   filter: contrast(1.05);
 }
 
@@ -842,22 +842,24 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex: 1;
+  margin-bottom: 2px;
 }
 
 .kc-title {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 800;
   color: var(--text-primary);
-  line-height: 1.2;
-  margin-bottom: 1px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kc-muscle {
-  font-size: 0.56rem;
+  font-size: 0.62rem;
   font-weight: 700;
   color: var(--accent-blue);
-  line-height: 1.15;
+  line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -865,18 +867,34 @@ html, body {
 
 .kc-footer {
   background: var(--bg-subtle);
-  border-radius: 3px;
-  padding: 2px 3px;
+  border-radius: 4px;
+  padding: 3px 6px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.54rem;
-  font-weight: 800;
-  color: var(--text-secondary);
+  gap: 6px;
+  font-size: 0.62rem;
 }
 
-.kc-pos {
-  color: var(--accent-amber);
+.kc-vec-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.kc-pos-pill {
+  flex-shrink: 0;
+  color: #B45309;
+  font-weight: 800;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.60rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -2130,7 +2148,7 @@ html, body {
    ========================================================================== */
 .k-card-flip-wrap {
   perspective: 1000px;
-  height: 146px;
+  height: 178px;
   cursor: pointer;
   position: relative;
   user-select: none;
