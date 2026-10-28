@@ -490,11 +490,18 @@
         <div class="enc-title-row">
           <div>
             <h2>ダニエルズ徒手筋力検査法 肢位マスター図鑑</h2>
-            <p>全動作の標準測定肢位・主動作筋・力学ベクトル</p>
+            <p>全動作の標準測定肢位・主動作筋・力学ベクトル（※カード選択後 Ctrl+V または 📷 で実機図解貼付可能）</p>
           </div>
-          <div class="enc-filter-bar">
-            <button class="enc-filter-btn active" id="filter-all" onclick="filterEncyclopedia('all')">全15枚</button>
-            <button class="enc-filter-btn" id="filter-weak" onclick="filterEncyclopedia('weak')">⚠️ 要復習 (<span id="weak-count">0</span>)</button>
+          <div class="enc-toolbar-actions" style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+            <div class="enc-filter-bar">
+              <button class="enc-filter-btn active" id="filter-all" onclick="filterEncyclopedia('all')">全カード</button>
+              <button class="enc-filter-btn" id="filter-weak" onclick="filterEncyclopedia('weak')">⚠️ 要復習 (<span id="weak-count">0</span>)</button>
+              <button class="enc-filter-btn" id="filter-custom" onclick="filterEncyclopedia('custom')">🎨 登録済 (<span id="custom-count">0</span>)</button>
+            </div>
+            <button class="enc-action-btn" onclick="exportCustomImagesJson()" title="登録した全画像をJSONとして保存・身内共有">📦 一括エクスポート</button>
+            <button class="enc-action-btn" onclick="document.getElementById('json-import-input').click()" title="JSONファイルから全画像を一括インポート">📥 一括インポート</button>
+            <input type="file" id="json-import-input" accept=".json" style="display:none;" onchange="handleJsonFileImport(event)">
+            <input type="file" id="card-img-input" accept="image/*" style="display:none;" onchange="handleCardImageFileInput(event)">
           </div>
         </div>
       </div>

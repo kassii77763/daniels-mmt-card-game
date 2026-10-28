@@ -5,22 +5,984 @@
 
 // 内蔵マスターカード（画像パス＋支配神経・髄節データ完備）
 const DEFAULT_CARDS = [
-  { id: 1, title: "頸部屈曲", region: "頸部", muscle: "胸鎖乳突筋", nerve: "副神経(第Ⅺ脳神経)・頸神経叢", root: "C2〜C3", grade: "G5/4", pos: "背臥位", image: "assets/cards/neck_flexion.jpg", vector: "↓ 前額部加圧", kami: "背臥位（はいがい）で……", naka: "グレード4、前額への抵抗に耐えて……", shimo: "頸部を屈曲（胸鎖乳突筋）するのはどれ？" },
-  { id: 2, title: "頸部伸展", region: "頸部", muscle: "頭板状筋", nerve: "頸神経後枝", root: "C2〜C5", grade: "G5/4", pos: "腹臥位", image: "assets/cards/neck_extension.jpg", vector: "↓ 後頭部加圧", kami: "腹臥位（ふくがい）で……", naka: "グレード4、後頭部への抵抗に耐えて……", shimo: "頸部を伸展（頭板状筋）するのはどれ？" },
-  { id: 3, title: "体幹屈曲", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G5", pos: "背臥位", image: "assets/cards/trunk_flexion.jpg", vector: "⇡ 頭後ろ手組み", kami: "背臥位（はいがい）で……", naka: "グレード5、両手を後頭部で組んで……", shimo: "肩甲骨が浮くまで体幹を屈曲するのはどれ？" },
-  { id: 4, title: "体幹伸展", region: "体幹", muscle: "脊柱起立筋", nerve: "脊髄神経後枝", root: "Th1〜L5", grade: "G5", pos: "腹臥位", image: "assets/cards/trunk_extension.jpg", vector: "↓ 足首固定", kami: "腹臥位（ふくがい）で……", naka: "グレード5、下肢を固定されて背部を反らし……", shimo: "体幹を力強く伸展するのはどれ？" },
-  { id: 5, title: "肩関節屈曲", region: "上肢", muscle: "三角筋前部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_flexion.jpg", vector: "↓ 上腕遠位加圧", kami: "座位（ざい）で……", naka: "グレード4、上腕遠位への下向き抵抗に耐えて……", shimo: "肩関節を前方90度に屈曲するのはどれ？" },
-  { id: 6, title: "肩関節外転", region: "上肢", muscle: "三角筋中部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_abduction.jpg", vector: "↓ 上腕遠位加圧", kami: "座位（ざい）で……", naka: "グレード4、真横90度で上腕遠位の抵抗に耐えて……", shimo: "肩関節を外転（三角筋中部）するのはどれ？" },
-  { id: 7, title: "肘関節屈曲", region: "上肢", muscle: "上腕二頭筋", nerve: "筋皮神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/elbow_flexion.jpg", vector: "↓ 前腕遠位抵抗", kami: "座位で前腕を回外（かいがい）させて……", naka: "グレード4、前腕遠位への伸展抵抗に耐えて……", shimo: "肘関節を屈曲（上腕二頭筋）するのはどれ？" },
-  { id: 8, title: "手関節伸展", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G5/4", pos: "前腕支持", image: "assets/cards/wrist_extension.jpg", vector: "↓ 手背面加圧", kami: "前腕回内の机上支持で……", naka: "グレード4、手背への下向き抵抗に耐えて……", shimo: "手関節を背屈・伸展するのはどれ？" },
-  { id: 9, title: "股関節屈曲", region: "下肢", muscle: "腸腰筋", nerve: "大腿神経・腰神経叢", root: "L1〜L3", grade: "G5/4", pos: "端座位", image: "assets/cards/hip_flexion.jpg", vector: "↓ 大腿遠位加圧", kami: "端座位（たんざい）で……", naka: "グレード4、大腿遠位への下向き抵抗に耐えて……", shimo: "股関節を座面から持ち上げて屈曲するのはどれ？" },
-  { id: 10, title: "膝関節伸展", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G5/4", pos: "端座位", image: "assets/cards/knee_extension.jpg", vector: "↓ 下腿遠位加圧", kami: "端座位（たんざい）で……", naka: "グレード5、下腿遠位への最大抵抗に耐えて……", shimo: "膝関節を完全伸展（大腿四頭筋）するのはどれ？" },
-  { id: 11, title: "膝関節伸展 (G2)", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G2", pos: "側臥位", image: "assets/cards/knee_extension_g2.jpg", vector: "⤹ 屈曲位から前方伸展円弧", kami: "側臥位（そくがい）で……", naka: "グレード2、重力を除去した水平面上で……", shimo: "検者の支持で膝を伸展するのはどれ？" },
-  { id: 12, title: "手関節伸展 (G2)", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G2", pos: "前腕中間位", image: "assets/cards/wrist_extension_g2.jpg", vector: "➔ 水平背屈スライド", kami: "前腕中間位（小指側接地・手刀）で……", naka: "グレード2、重力を除いて机上を水平に滑らせて……", shimo: "手関節を伸展するのはどれ？" },
-  { id: 13, title: "体幹屈曲 (G4)", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G4", pos: "背臥位", image: "assets/cards/trunk_flexion_g4.jpg", vector: "⇡ 胸の前腕組み", kami: "背臥位（はいがい）で……", naka: "グレード4、両腕を胸の前で組んで……", shimo: "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？" },
-  { id: 14, title: "足関節底屈", region: "下肢", muscle: "下腿三頭筋", nerve: "脛骨神経", root: "S1〜S2", grade: "G5", pos: "立位", image: "assets/cards/ankle_plantar_g5.jpg", vector: "↑ 片脚立ち踵上げ25回", kami: "立位（りつい）片脚立ちで……", naka: "グレード5、自重で完全フォームの踵上げを……", shimo: "25回完遂する足関節底屈はどれ？" },
-  { id: 15, title: "足関節背屈", region: "下肢", muscle: "前脛骨筋", nerve: "深腓骨神経", root: "L4〜L5", grade: "G5/4", pos: "端座位", image: "assets/cards/ankle_dorsi_g5.jpg", vector: "↓ 前足部外返し加圧", kami: "端座位（たんざい）で……", naka: "グレード4、前足部外返し方向の抵抗に耐えて……", shimo: "足部を内反・背屈（前脛骨筋）するのはどれ？" }
+  {
+    "id": 1,
+    "imgId": "neck_flex_g543",
+    "title": "頸部屈曲 (G5/4/3)",
+    "region": "頸部",
+    "muscle": "胸鎖乳突筋・頭長筋",
+    "nerve": "副神経(第Ⅺ脳神経)・頸神経叢",
+    "root": "C2〜C3",
+    "grade": "G5/4/3",
+    "pos": "背臥位",
+    "image": "assets/cards/neck_flexion.jpg",
+    "vector": "↓ 前額部加圧",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード4〜5、前額部への抵抗に耐えて……",
+    "shimo": "顎を引いて頭部を浮かす頸部屈曲はどれ？"
+  },
+  {
+    "id": 2,
+    "imgId": "neck_flex_g2",
+    "title": "頸部屈曲 (G2/1)",
+    "region": "頸部",
+    "muscle": "胸鎖乳突筋",
+    "nerve": "副神経・頸神経叢",
+    "root": "C2〜C3",
+    "grade": "G2",
+    "pos": "背臥位",
+    "image": "assets/cards/neck_flexion.jpg",
+    "vector": "🔍 一部可動域 / 胸鎖乳突筋触診",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード2、抵抗なしで頭部をわずかに離床または……",
+    "shimo": "胸鎖乳突筋の収縮を触診する頸部屈曲はどれ？"
+  },
+  {
+    "id": 3,
+    "imgId": "trunk_flex_g5",
+    "title": "体幹屈曲 (G5)",
+    "region": "体幹",
+    "muscle": "腹直筋",
+    "nerve": "肋間神経",
+    "root": "Th7〜Th12",
+    "grade": "G5",
+    "pos": "背臥位",
+    "image": "assets/cards/trunk_flexion.jpg",
+    "vector": "⇡ 後頭部手組み・肩甲骨離床",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード5、両手を後頭部で組んだ状態で……",
+    "shimo": "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？"
+  },
+  {
+    "id": 4,
+    "imgId": "trunk_flex_g4",
+    "title": "体幹屈曲 (G4)",
+    "region": "体幹",
+    "muscle": "腹直筋",
+    "nerve": "肋間神経",
+    "root": "Th7〜Th12",
+    "grade": "G4",
+    "pos": "背臥位",
+    "image": "assets/cards/trunk_flexion_g4.jpg",
+    "vector": "⇡ 胸の前腕交差・肩甲骨離床",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード4、両腕を胸の前で交差させて……",
+    "shimo": "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？"
+  },
+  {
+    "id": 5,
+    "imgId": "trunk_flex_g3",
+    "title": "体幹屈曲 (G3)",
+    "region": "体幹",
+    "muscle": "腹直筋",
+    "nerve": "肋間神経",
+    "root": "Th7〜Th12",
+    "grade": "G3",
+    "pos": "背臥位",
+    "image": "assets/cards/trunk_flexion.jpg",
+    "vector": "⇡ 上肢前方伸展・肩甲骨離床",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード3、両腕を前方に伸ばした状態で……",
+    "shimo": "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？"
+  },
+  {
+    "id": 6,
+    "imgId": "trunk_flex_g2",
+    "title": "体幹屈曲 (G2/1)",
+    "region": "体幹",
+    "muscle": "腹直筋",
+    "nerve": "肋間神経",
+    "root": "Th7〜Th12",
+    "grade": "G2",
+    "pos": "背臥位",
+    "image": "assets/cards/trunk_flexion.jpg",
+    "vector": "🔍 頭部挙上・腹直筋触診",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード2、頭部挙上のみで肩甲骨は離床せず……",
+    "shimo": "白線両側の腹直筋収縮を触診する体幹屈曲はどれ？"
+  },
+  {
+    "id": 7,
+    "imgId": "trunk_ext_g54",
+    "title": "体幹伸展 (G5/4)",
+    "region": "体幹",
+    "muscle": "脊柱起立筋",
+    "nerve": "脊髄神経後枝",
+    "root": "Th1〜L5",
+    "grade": "G5/4",
+    "pos": "腹臥位",
+    "image": "assets/cards/trunk_extension.jpg",
+    "vector": "⇡ 後頭部手組み・胸部離床",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード5/4、後頭部手組みで下肢を固定され……",
+    "shimo": "剣状突起・胸部が浮くまで体幹を伸展するのはどれ？"
+  },
+  {
+    "id": 8,
+    "imgId": "trunk_ext_g3",
+    "title": "体幹伸展 (G3)",
+    "region": "体幹",
+    "muscle": "脊柱起立筋",
+    "nerve": "脊髄神経後枝",
+    "root": "Th1〜L5",
+    "grade": "G3",
+    "pos": "腹臥位",
+    "image": "assets/cards/trunk_extension.jpg",
+    "vector": "⇡ 上肢体側・胸部離床",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード3、両腕を体側に置いた状態で……",
+    "shimo": "剣状突起が浮くまで体幹を伸展するのはどれ？"
+  },
+  {
+    "id": 9,
+    "imgId": "trunk_ext_g2",
+    "title": "体幹伸展 (G2/1)",
+    "region": "体幹",
+    "muscle": "脊柱起立筋",
+    "nerve": "脊髄神経後枝",
+    "root": "Th1〜L5",
+    "grade": "G2",
+    "pos": "腹臥位",
+    "image": "assets/cards/trunk_extension.jpg",
+    "vector": "🔍 一部挙上・腰背部起立筋触診",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード2、胸部は浮かないが一部挙上または……",
+    "shimo": "脊柱両側の起立筋収縮を触診する体幹伸展はどれ？"
+  },
+  {
+    "id": 10,
+    "imgId": "scap_abd_g543",
+    "title": "肩甲骨外転・上方回旋",
+    "region": "上肢",
+    "muscle": "前鋸筋",
+    "nerve": "長胸神経",
+    "root": "C5〜C7",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "➔ 前方突き出し・手掌抵抗",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4〜5、肩関節130°屈曲位から前方へ突き出し……",
+    "shimo": "前鋸筋で肩甲骨を外転・上方回旋するのはどれ？"
+  },
+  {
+    "id": 11,
+    "imgId": "scap_abd_g2",
+    "title": "肩甲骨外転・上方回旋 (G2/1)",
+    "region": "上肢",
+    "muscle": "前鋸筋",
+    "nerve": "長胸神経",
+    "root": "C5〜C7",
+    "grade": "G2",
+    "pos": "端座位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "🔍 肩90°屈曲位保持・腋窩触診",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード2、検者が上肢を90°で支持しつつ……",
+    "shimo": "腋下胸郭側面の筋腹を触診する肩甲骨外転はどれ？"
+  },
+  {
+    "id": 12,
+    "imgId": "sh_flex_g543",
+    "title": "肩関節屈曲",
+    "region": "上肢",
+    "muscle": "三角筋前部・烏口腕筋",
+    "nerve": "腋窩神経・筋皮神経",
+    "root": "C5〜C6",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "↓ 上腕遠位加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4〜5、肩90度屈曲位で上腕遠位への抵抗に耐えて……",
+    "shimo": "肩関節を前方90度に屈曲するのはどれ？"
+  },
+  {
+    "id": 13,
+    "imgId": "sh_flex_g2",
+    "title": "肩関節屈曲 (G2/1)",
+    "region": "上肢",
+    "muscle": "三角筋前部",
+    "nerve": "腋窩神経",
+    "root": "C5〜C6",
+    "grade": "G2",
+    "pos": "側臥位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "➔ 水平屈曲スライド",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、検者が上肢を水平面で支持しながら……",
+    "shimo": "重力を除去して肩関節を屈曲するのはどれ？"
+  },
+  {
+    "id": 14,
+    "imgId": "sh_ext_g543",
+    "title": "肩関節伸展",
+    "region": "上肢",
+    "muscle": "広背筋・大円筋・三角筋後部",
+    "nerve": "胸背神経・肩甲下神経・腋窩神経",
+    "root": "C5〜C8",
+    "grade": "G5/4/3",
+    "pos": "腹臥位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "↓ 上肢後方挙上・上腕遠位加圧",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード4〜5、上肢を後上方へ持ち上げ抵抗に耐えて……",
+    "shimo": "肩関節を伸展（広背筋・大円筋）するのはどれ？"
+  },
+  {
+    "id": 15,
+    "imgId": "sh_ext_g2",
+    "title": "肩関節伸展 (G2/1)",
+    "region": "上肢",
+    "muscle": "広背筋・大円筋",
+    "nerve": "胸背神経・肩甲下神経",
+    "root": "C5〜C8",
+    "grade": "G2",
+    "pos": "側臥位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "➔ 水平後方スライド",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、検者の水平面支持で後方へ動かし……",
+    "shimo": "重力を除去して肩関節を伸展するのはどれ？"
+  },
+  {
+    "id": 16,
+    "imgId": "sh_abd_g543",
+    "title": "肩関節外転",
+    "region": "上肢",
+    "muscle": "三角筋中部・棘上筋",
+    "nerve": "腋窩神経・肩甲上神経",
+    "root": "C5〜C6",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/cards/shoulder_abduction.jpg",
+    "vector": "↓ 上腕遠位加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4〜5、真横90度外転で上腕遠位の抵抗に耐えて……",
+    "shimo": "肩関節を外転（三角筋中部）するのはどれ？"
+  },
+  {
+    "id": 17,
+    "imgId": "sh_abd_g2",
+    "title": "肩関節外転 (G2/1)",
+    "region": "上肢",
+    "muscle": "三角筋中部",
+    "nerve": "腋窩神経",
+    "root": "C5〜C6",
+    "grade": "G2",
+    "pos": "背臥位",
+    "image": "assets/cards/shoulder_abduction.jpg",
+    "vector": "➔ ベッド上水平外転スライド",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード2、ベッド上を水平に腕を外側へ滑らせて……",
+    "shimo": "重力を除いて肩関節を外転するのはどれ？"
+  },
+  {
+    "id": 18,
+    "imgId": "sh_er_g543",
+    "title": "肩関節外旋",
+    "region": "上肢",
+    "muscle": "棘下筋・小円筋",
+    "nerve": "肩甲上神経・腋窩神経",
+    "root": "C5〜C6",
+    "grade": "G5/4/3",
+    "pos": "腹臥位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "↓ 前腕遠位加圧（前方挙上）",
+    "kami": "腹臥位（肩外転90°肘90°）で……",
+    "naka": "グレード4〜5、前腕を天井方向へ挙上し手関節近位の抵抗に耐えて……",
+    "shimo": "肩関節を外旋（棘下筋・小円筋）するのはどれ？"
+  },
+  {
+    "id": 19,
+    "imgId": "sh_er_g2",
+    "title": "肩関節外旋 (G2/1)",
+    "region": "上肢",
+    "muscle": "棘下筋・小円筋",
+    "nerve": "肩甲上神経・腋窩神経",
+    "root": "C5〜C6",
+    "grade": "G2",
+    "pos": "腹臥位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "⤹ ベッド端下垂位での回旋",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード2、ベッド端から下垂した上腕を外側へ回旋させ……",
+    "shimo": "重力を除去して肩関節を外旋するのはどれ？"
+  },
+  {
+    "id": 20,
+    "imgId": "sh_ir_g543",
+    "title": "肩関節内旋",
+    "region": "上肢",
+    "muscle": "肩甲下筋・大胸筋・広背筋",
+    "nerve": "肩甲下神経・胸筋神経・胸背神経",
+    "root": "C5〜C8",
+    "grade": "G5/4/3",
+    "pos": "腹臥位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "↓ 前腕掌側加圧（後方挙上）",
+    "kami": "腹臥位（肩外転90°肘90°）で……",
+    "naka": "グレード4〜5、前腕を後上方へ挙上し掌側への抵抗に耐えて……",
+    "shimo": "肩関節を内旋（肩甲下筋）するのはどれ？"
+  },
+  {
+    "id": 21,
+    "imgId": "sh_ir_g2",
+    "title": "肩関節内旋 (G2/1)",
+    "region": "上肢",
+    "muscle": "肩甲下筋",
+    "nerve": "肩甲下神経",
+    "root": "C5〜C6",
+    "grade": "G2",
+    "pos": "腹臥位",
+    "image": "assets/cards/shoulder_flexion.jpg",
+    "vector": "⤹ ベッド端下垂位での内側回旋",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード2、ベッド端から下垂した上腕を内側へ回旋させ……",
+    "shimo": "重力を除去して肩関節を内旋するのはどれ？"
+  },
+  {
+    "id": 22,
+    "imgId": "elbow_flex_g543",
+    "title": "肘関節屈曲",
+    "region": "上肢",
+    "muscle": "上腕二頭筋・上腕筋・腕橈骨筋",
+    "nerve": "筋皮神経・橈骨神経",
+    "root": "C5〜C6",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/cards/elbow_flexion.jpg",
+    "vector": "↓ 前腕遠位抵抗",
+    "kami": "端座位（たんざい）回外位で……",
+    "naka": "グレード4〜5、前腕遠位への伸展抵抗に耐えて……",
+    "shimo": "肘関節を力強く屈曲するのはどれ？"
+  },
+  {
+    "id": 23,
+    "imgId": "elbow_flex_g2",
+    "title": "肘関節屈曲 (G2/1)",
+    "region": "上肢",
+    "muscle": "上腕二頭筋",
+    "nerve": "筋皮神経",
+    "root": "C5〜C6",
+    "grade": "G2",
+    "pos": "側臥位",
+    "image": "assets/cards/elbow_flexion.jpg",
+    "vector": "➔ 水平屈曲スライド",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、重力を除去した水平面上で検者の支持を受け……",
+    "shimo": "机上やシーツ上を滑らせて肘を屈曲するのはどれ？"
+  },
+  {
+    "id": 24,
+    "imgId": "elbow_ext_g543",
+    "title": "肘関節伸展",
+    "region": "上肢",
+    "muscle": "上腕三頭筋",
+    "nerve": "橈骨神経",
+    "root": "C6〜C8",
+    "grade": "G5/4/3",
+    "pos": "腹臥位",
+    "image": "assets/cards/elbow_flexion.jpg",
+    "vector": "↓ 前腕遠位加圧",
+    "kami": "腹臥位（肩外転90°）で……",
+    "naka": "グレード4〜5、下垂した前腕を水平まで伸展し抵抗に耐えて……",
+    "shimo": "肘関節を伸展（上腕三頭筋）するのはどれ？"
+  },
+  {
+    "id": 25,
+    "imgId": "elbow_ext_g2",
+    "title": "肘関節伸展 (G2/1)",
+    "region": "上肢",
+    "muscle": "上腕三頭筋",
+    "nerve": "橈骨神経",
+    "root": "C6〜C8",
+    "grade": "G2",
+    "pos": "端座位",
+    "image": "assets/cards/elbow_flexion.jpg",
+    "vector": "➔ 水平面上での肘伸展",
+    "kami": "端座位（肩外転90°）で……",
+    "naka": "グレード2、検者が上肢を水平面で支持しながら……",
+    "shimo": "重力を除いて机上水平面で肘を伸展するのはどれ？"
+  },
+  {
+    "id": 26,
+    "imgId": "wrist_ext_g543",
+    "title": "手関節伸展",
+    "region": "上肢",
+    "muscle": "長・短橈側手根伸筋・尺側手根伸筋",
+    "nerve": "橈骨神経",
+    "root": "C6〜C8",
+    "grade": "G5/4/3",
+    "pos": "前腕支持",
+    "image": "assets/cards/wrist_extension.jpg",
+    "vector": "↓ 手背加圧",
+    "kami": "前腕回内・机上支持で……",
+    "naka": "グレード4〜5、手背への下向き抵抗に耐えて……",
+    "shimo": "手関節を背屈・伸展するのはどれ？"
+  },
+  {
+    "id": 27,
+    "imgId": "wrist_ext_g2",
+    "title": "手関節伸展 (G2/1)",
+    "region": "上肢",
+    "muscle": "橈側手根伸筋群",
+    "nerve": "橈骨神経",
+    "root": "C6〜C7",
+    "grade": "G2",
+    "pos": "前腕中間位",
+    "image": "assets/cards/wrist_extension_g2.jpg",
+    "vector": "➔ 水平背屈スライド",
+    "kami": "前腕中間位（手刀姿勢）で……",
+    "naka": "グレード2、重力を除いて机上を水平に滑らせて……",
+    "shimo": "手関節を水平面で伸展するのはどれ？"
+  },
+  {
+    "id": 28,
+    "imgId": "hip_flex_g543",
+    "title": "股関節屈曲",
+    "region": "下肢",
+    "muscle": "腸腰筋",
+    "nerve": "大腿神経・腰神経叢",
+    "root": "L1〜L3",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/cards/hip_flexion.jpg",
+    "vector": "↓ 大腿遠位加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4〜5、大腿遠位への下向き抵抗に耐えて……",
+    "shimo": "股関節を座面から持ち上げて屈曲するのはどれ？"
+  },
+  {
+    "id": 29,
+    "imgId": "hip_flex_g2",
+    "title": "股関節屈曲 (G2/1)",
+    "region": "下肢",
+    "muscle": "腸腰筋",
+    "nerve": "大腿神経",
+    "root": "L1〜L3",
+    "grade": "G2",
+    "pos": "側臥位",
+    "image": "assets/cards/hip_flexion.jpg",
+    "vector": "➔ 水平屈曲スライド",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、検者が上側下肢を支持し水平面上で……",
+    "shimo": "重力を除いて大腿を前方へ水平屈曲するのはどれ？"
+  },
+  {
+    "id": 30,
+    "imgId": "hip_ext_g543",
+    "title": "股関節伸展",
+    "region": "下肢",
+    "muscle": "大殿筋・ハムストリングス",
+    "nerve": "下殿神経・坐骨神経",
+    "root": "L5〜S2",
+    "grade": "G5/4/3",
+    "pos": "腹臥位",
+    "image": "assets/cards/hip_flexion.jpg",
+    "vector": "↓ 大腿遠位後面加圧",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード4〜5、膝伸展位で下肢を天井へ挙上し抵抗に耐えて……",
+    "shimo": "股関節を伸展（大殿筋）するのはどれ？"
+  },
+  {
+    "id": 31,
+    "imgId": "hip_ext_g2",
+    "title": "股関節伸展 (G2/1)",
+    "region": "下肢",
+    "muscle": "大殿筋",
+    "nerve": "下殿神経",
+    "root": "L5〜S2",
+    "grade": "G2",
+    "pos": "側臥位",
+    "image": "assets/cards/hip_flexion.jpg",
+    "vector": "➔ 水平後方スライド",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、検者の水平面支持で下肢を後方へ引き……",
+    "shimo": "重力を除去して股関節を伸展するのはどれ？"
+  },
+  {
+    "id": 32,
+    "imgId": "hip_abd_g543",
+    "title": "股関節外転",
+    "region": "下肢",
+    "muscle": "中殿筋・小殿筋",
+    "nerve": "上殿神経",
+    "root": "L4〜S1",
+    "grade": "G5/4/3",
+    "pos": "側臥位",
+    "image": "assets/cards/hip_flexion.jpg",
+    "vector": "↓ 大腿遠位加圧",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード4〜5、上側の下肢を骨盤回旋なく上方へ挙上し……",
+    "shimo": "股関節を外転（中殿筋）するのはどれ？"
+  },
+  {
+    "id": 33,
+    "imgId": "hip_abd_g2",
+    "title": "股関節外転 (G2/1)",
+    "region": "下肢",
+    "muscle": "中殿筋",
+    "nerve": "上殿神経",
+    "root": "L4〜S1",
+    "grade": "G2",
+    "pos": "背臥位",
+    "image": "assets/cards/hip_flexion.jpg",
+    "vector": "➔ ベッド上水平外転スライド",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード2、ベッド面を水平に下肢を外側へ滑らせて……",
+    "shimo": "重力を除去して股関節を外転するのはどれ？"
+  },
+  {
+    "id": 34,
+    "imgId": "knee_flex_g543",
+    "title": "膝関節屈曲",
+    "region": "下肢",
+    "muscle": "ハムストリングス（大腿二頭筋・半腱様筋・半膜様筋）",
+    "nerve": "坐骨神経",
+    "root": "L5〜S2",
+    "grade": "G5/4/3",
+    "pos": "腹臥位",
+    "image": "assets/cards/knee_extension.jpg",
+    "vector": "↓ 下腿遠位後面へ伸展抵抗",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード4〜5、膝屈曲位で下腿遠位への伸展抵抗に耐えて……",
+    "shimo": "膝関節を屈曲（ハムストリングス）するのはどれ？"
+  },
+  {
+    "id": 35,
+    "imgId": "knee_flex_g2",
+    "title": "膝関節屈曲 (G2/1)",
+    "region": "下肢",
+    "muscle": "ハムストリングス",
+    "nerve": "坐骨神経",
+    "root": "L5〜S2",
+    "grade": "G2",
+    "pos": "側臥位",
+    "image": "assets/cards/knee_extension.jpg",
+    "vector": "➔ 水平面屈曲スライド",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、検者が下肢を支持した水平面上で……",
+    "shimo": "重力を除いて膝関節を屈曲するのはどれ？"
+  },
+  {
+    "id": 36,
+    "imgId": "knee_ext_g543",
+    "title": "膝関節伸展",
+    "region": "下肢",
+    "muscle": "大腿四頭筋",
+    "nerve": "大腿神経",
+    "root": "L2〜L4",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/cards/knee_extension.jpg",
+    "vector": "↓ 下腿遠位加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4〜5、下腿遠位への強力な抵抗に耐えて……",
+    "shimo": "膝関節を完全伸展（大腿四頭筋）するのはどれ？"
+  },
+  {
+    "id": 37,
+    "imgId": "knee_ext_g2",
+    "title": "膝関節伸展 (G2/1)",
+    "region": "下肢",
+    "muscle": "大腿四頭筋",
+    "nerve": "大腿神経",
+    "root": "L2〜L4",
+    "grade": "G2",
+    "pos": "側臥位",
+    "image": "assets/cards/knee_extension_g2.jpg",
+    "vector": "⤹ 屈曲位から前方伸展円弧",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、重力を除去した水平面上で検者の支持を受け……",
+    "shimo": "膝関節を前方へ伸展するのはどれ？"
+  },
+  {
+    "id": 38,
+    "imgId": "ankle_pf_g543",
+    "title": "足関節底屈",
+    "region": "下肢",
+    "muscle": "腓腹筋・ヒラメ筋",
+    "nerve": "脛骨神経",
+    "root": "S1〜S2",
+    "grade": "G5/4/3",
+    "pos": "立位",
+    "image": "assets/cards/ankle_plantar_g5.jpg",
+    "vector": "↑ 片脚立ち踵上げ（G5:25回/G4:2〜24回/G3:1回）",
+    "kami": "立位（りつい）片脚立ちで……",
+    "naka": "グレード5、自重で完全フォームの踵上げを……",
+    "shimo": "25回完遂する足関節底屈はどれ？"
+  },
+  {
+    "id": 39,
+    "imgId": "ankle_pf_g2",
+    "title": "足関節底屈 (G2/1)",
+    "region": "下肢",
+    "muscle": "腓腹筋・ヒラメ筋",
+    "nerve": "脛骨神経",
+    "root": "S1〜S2",
+    "grade": "G2",
+    "pos": "腹臥位",
+    "image": "assets/cards/ankle_plantar_g5.jpg",
+    "vector": "➔ ベッド端から下垂・底屈抵抗",
+    "kami": "腹臥位（足部ベッド端下垂）で……",
+    "naka": "グレード2、ベッド端から足部を出して底屈させ……",
+    "shimo": "重力を除いて足関節底屈を行うのはどれ？"
+  },
+  {
+    "id": 40,
+    "imgId": "ankle_df_g543",
+    "title": "足関節背屈・内反",
+    "region": "下肢",
+    "muscle": "前脛骨筋",
+    "nerve": "深腓骨神経",
+    "root": "L4〜L5",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/cards/ankle_dorsi_g5.jpg",
+    "vector": "↓ 前足部外返し方向加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4〜5、前足部外返し方向の抵抗に耐えて……",
+    "shimo": "足部を内反・背屈（前脛骨筋）するのはどれ？"
+  },
+  {
+    "id": 41,
+    "imgId": "ankle_df_g2",
+    "title": "足関節背屈・内反 (G2/1)",
+    "region": "下肢",
+    "muscle": "前脛骨筋",
+    "nerve": "深腓骨神経",
+    "root": "L4〜L5",
+    "grade": "G2",
+    "pos": "端座位",
+    "image": "assets/cards/ankle_dorsi_g5.jpg",
+    "vector": "🔍 部分可動域 / 前脛骨筋腱触診",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード2、部分的な可動域または……",
+    "shimo": "足関節前内側で前脛骨筋腱を触診するのはどれ？"
+  }
 ];
+
+
+// ============================================================================
+// 🎨 CustomImageDB (IndexedDB) & 共有画像解決エンジン
+// ダニエルズ原著スライド・キャプチャ画像の永続保持 ＆ Ctrl+Vペースト / 一括共有
+// ============================================================================
+
+const CustomImageDB = {
+  dbName: 'DanielsMmtImagesDB',
+  storeName: 'card_images',
+  version: 1,
+  _db: null,
+  async getDB() {
+    if (this._db) return this._db;
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(this.dbName, this.version);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(this.storeName)) {
+          db.createObjectStore(this.storeName);
+        }
+      };
+      req.onsuccess = (e) => {
+        this._db = e.target.result;
+        resolve(this._db);
+      };
+      req.onerror = (e) => reject(e.target.error);
+    });
+  },
+  async getImage(key) {
+    try {
+      const db = await this.getDB();
+      return new Promise((resolve) => {
+        const tx = db.transaction(this.storeName, 'readonly');
+        const req = tx.objectStore(this.storeName).get(String(key));
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => resolve(null);
+      });
+    } catch (e) {
+      return null;
+    }
+  },
+  async setImage(key, base64) {
+    const db = await this.getDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(this.storeName, 'readwrite');
+      const req = tx.objectStore(this.storeName).put(base64, String(key));
+      req.onsuccess = () => resolve(true);
+      req.onerror = (e) => reject(e.target.error);
+    });
+  },
+  async deleteImage(key) {
+    const db = await this.getDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(this.storeName, 'readwrite');
+      const req = tx.objectStore(this.storeName).delete(String(key));
+      req.onsuccess = () => resolve(true);
+      req.onerror = (e) => reject(e.target.error);
+    });
+  },
+  async getAllImages() {
+    const db = await this.getDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction(this.storeName, 'readonly');
+      const store = tx.objectStore(this.storeName);
+      const req = store.openCursor();
+      const results = {};
+      req.onsuccess = (e) => {
+        const cursor = e.target.result;
+        if (cursor) {
+          results[cursor.key] = cursor.value;
+          cursor.continue();
+        } else {
+          resolve(results);
+        }
+      };
+      req.onerror = () => resolve({});
+    });
+  },
+  async importAllImages(map) {
+    const db = await this.getDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(this.storeName, 'readwrite');
+      const store = tx.objectStore(this.storeName);
+      for (const [key, val] of Object.entries(map)) {
+        store.put(val, String(key));
+      }
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = (e) => reject(e.target.error);
+    });
+  }
+};
+
+const customImageCache = new Map();
+let selectedCardForPasteId = null;
+
+// IndexedDBキャッシュの事前読み込み
+async function preloadCustomImages() {
+  try {
+    const all = await CustomImageDB.getAllImages();
+    customImageCache.clear();
+    for (const [k, v] of Object.entries(all)) {
+      customImageCache.set(String(k), v);
+    }
+    console.log('🖼️ Preloaded', customImageCache.size, 'custom MMT images from IndexedDB');
+  } catch (err) {
+    console.warn('⚠️ CustomImageDB preload warning:', err);
+  }
+}
+
+// カードの図解画像パスを解決（IndexedDB ➔ local assets ➔ card.image ➔ fallback）
+function getCardResolvedImage(card) {
+  if (!card) return '';
+  if (card.imgId && customImageCache.has(card.imgId)) {
+    return customImageCache.get(card.imgId);
+  }
+  if (customImageCache.has(String(card.id))) {
+    return customImageCache.get(String(card.id));
+  }
+  return card.image || (card.imgId ? `assets/mmt/${card.imgId}.png` : '');
+}
+
+function hasCustomImage(card) {
+  if (!card) return false;
+  if (card.imgId && customImageCache.has(card.imgId)) return true;
+  if (customImageCache.has(String(card.id))) return true;
+  return false;
+}
+
+// カード画像タグ生成（乗算ブレンド＆コントラスト補正＋SVGフォールバック付き）
+function renderCardImageTag(card, extraClass = '', alt = '') {
+  if (!card) return '';
+  const src = getCardResolvedImage(card);
+  const title = alt || card.title || 'MMT検査';
+  const posText = encodeURIComponent(card.pos || 'MMT');
+  const fallbackSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'><rect width='160' height='100' fill='%23F4EFE6'/><text x='80' y='55' font-size='13' text-anchor='middle' fill='%2378716C' font-weight='bold'>${posText}</text></svg>`;
+  
+  if (!src) {
+    return `<div class="kc-art-placeholder">MMT<br>${card.pos}</div>`;
+  }
+  return `<img src="${src}" alt="${title}" class="mmt-blend-img ${extraClass}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackSvg}';">`;
+}
+
+// 画像リサイズ＆Base64変換 (Canvas: 最大幅480px, 画質0.85)
+async function processAndStoreImageForCard(fileOrBlob, cardId) {
+  const card = cardDatabase.find(c => c.id === cardId);
+  if (!card) return;
+  const targetKey = card.imgId || String(card.id);
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = async () => {
+        const maxWidth = 480;
+        let w = img.width;
+        let h = img.height;
+        if (w > maxWidth) {
+          h = Math.round((h * maxWidth) / w);
+          w = maxWidth;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+        await CustomImageDB.setImage(targetKey, dataUrl);
+        customImageCache.set(targetKey, dataUrl);
+        playSound('win');
+        renderEncyclopedia();
+        showPasteToast(`📸「${card.title}」に図解画像を登録しました！`);
+        resolve(dataUrl);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(fileOrBlob);
+  });
+}
+
+function showPasteToast(msg) {
+  let toast = document.getElementById('enc-paste-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'enc-paste-toast';
+    toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(30,27,24,0.92); color:#FFF; padding:10px 18px; border-radius:24px; font-size:0.85rem; font-weight:bold; z-index:99999; box-shadow:0 6px 20px rgba(0,0,0,0.3); transition:opacity 0.3s ease; pointer-events:none;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 2400);
+}
+
+// クリップボードからの直接画像ペースト (Ctrl+V)
+window.addEventListener('paste', async (e) => {
+  if (!selectedCardForPasteId) return;
+  const items = e.clipboardData && e.clipboardData.items;
+  if (!items) return;
+
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].type.indexOf('image') !== -1) {
+      const file = items[i].getAsFile();
+      if (file) {
+        e.preventDefault();
+        try {
+          await processAndStoreImageForCard(file, selectedCardForPasteId);
+        } catch (err) {
+          console.error('Image paste failed:', err);
+          alert('画像の貼り付けに失敗しました。');
+        }
+        return;
+      }
+    }
+  }
+});
+
+// JSON一括エクスポート
+async function exportCustomImagesJson() {
+  playSound('card');
+  const all = await CustomImageDB.getAllImages();
+  const count = Object.keys(all).length;
+  if (count === 0) {
+    alert("登録されている図解画像がまだありません。先に図鑑カードを選択してスクショを貼り付けてください。");
+    return;
+  }
+  const blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `daniels_mmt_custom_images_${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  alert(`📦 ${count}枚の図解画像をJSONとして書き出しました！\nこのファイルをクラスメイトに渡して「一括インポート」してもらえば、全員のスマホに一発で図解が同期されます。`);
+}
+
+// JSON一括インポート
+function triggerJsonImport() {
+  const input = document.getElementById('json-import-input');
+  if (input) input.click();
+}
+
+async function handleJsonFileImport(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if (typeof data !== 'object' || data === null) {
+      throw new Error('Invalid JSON');
+    }
+    await CustomImageDB.importAllImages(data);
+    await preloadCustomImages();
+    playSound('win');
+    renderEncyclopedia();
+    alert(`📥 ${Object.keys(data).length}枚の図解画像をインポート・同期しました！`);
+  } catch (err) {
+    console.error('Import failed:', err);
+    alert('JSONファイルの読み込みに失敗しました。フォーマットを確認してください。');
+  } finally {
+    event.target.value = '';
+  }
+}
+
+// カードの単独画像ファイル選択
+function triggerCardImageInput(cardId, event) {
+  if (event) event.stopPropagation();
+  selectedCardForPasteId = cardId;
+  const input = document.getElementById('card-img-input');
+  if (input) input.click();
+}
+
+async function handleCardImageFileInput(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file || !selectedCardForPasteId) return;
+  try {
+    await processAndStoreImageForCard(file, selectedCardForPasteId);
+  } catch (err) {
+    console.error('Card image file input failed:', err);
+  } finally {
+    event.target.value = '';
+  }
+}
+
+async function deleteCardImage(cardId, event) {
+  if (event) event.stopPropagation();
+  const card = cardDatabase.find(c => c.id === cardId);
+  if (!card) return;
+  const targetKey = card.imgId || String(card.id);
+  if (confirm(`「${card.title}」の登録画像をリセットしますか？`)) {
+    await CustomImageDB.deleteImage(targetKey);
+    customImageCache.delete(targetKey);
+    playSound('card');
+    renderEncyclopedia();
+    showPasteToast('🗑️ 画像をリセットしました');
+  }
+}
+
+
+// Global exports for HTML event handlers and testing
+window.CustomImageDB = CustomImageDB;
+window.preloadCustomImages = preloadCustomImages;
+window.getCardResolvedImage = getCardResolvedImage;
+window.hasCustomImage = hasCustomImage;
+window.renderEncyclopedia = renderEncyclopedia;
+window.filterEncyclopedia = filterEncyclopedia;
+window.exportCustomImagesJson = exportCustomImagesJson;
+window.handleJsonFileImport = handleJsonFileImport;
+window.triggerCardImageInput = triggerCardImageInput;
+window.handleCardImageFileInput = handleCardImageFileInput;
+window.deleteCardImage = deleteCardImage;
+window.handleCardSelectForPaste = handleCardSelectForPaste;
+window.processAndStoreImageForCard = processAndStoreImageForCard;
 
 const POSITIONS = ["背臥位", "腹臥位", "座位", "端座位", "側臥位", "前腕支持", "前腕中間位", "立位"];
 const SUB_REGIONS = ["上肢", "下肢", "体幹", "頸部"];
@@ -305,6 +1267,7 @@ function selectCpuPersona(personaKey) {
 
 // 外部JSON読み込み
 async function loadCardDatabase() {
+  await preloadCustomImages();
   try {
     const res = await fetch('data/cards.json');
     if (res.ok) {
@@ -1069,7 +2032,13 @@ function renderFlowChartContent() {
 // ============================================================================
 function updateWeakCount() {
   const countEl = document.getElementById('weak-count');
-  if (countEl) countEl.innerText = mistakeCardIds.size;
+  if (countEl) countEl.textContent = mistakeCardIds.size;
+
+  const customCountEl = document.getElementById('custom-count');
+  if (customCountEl) {
+    const customCount = cardDatabase.filter(c => hasCustomImage(c)).length;
+    customCountEl.textContent = customCount;
+  }
 }
 
 function filterEncyclopedia(filterType) {
@@ -1078,13 +2047,10 @@ function filterEncyclopedia(filterType) {
 
   const btnAll = document.getElementById('filter-all');
   const btnWeak = document.getElementById('filter-weak');
-  if (filterType === 'all') {
-    if (btnAll) btnAll.classList.add('active');
-    if (btnWeak) btnWeak.classList.remove('active');
-  } else {
-    if (btnAll) btnAll.classList.remove('active');
-    if (btnWeak) btnWeak.classList.add('active');
-  }
+  const btnCustom = document.getElementById('filter-custom');
+  if (btnAll) btnAll.classList.toggle('active', filterType === 'all');
+  if (btnWeak) btnWeak.classList.toggle('active', filterType === 'weak');
+  if (btnCustom) btnCustom.classList.toggle('active', filterType === 'custom');
 
   renderEncyclopedia();
 }
@@ -1095,18 +2061,24 @@ function flipCard(el) {
 }
 
 function renderEncyclopedia() {
+  updateWeakCount();
   const container = document.getElementById('encyclopedia-container');
   if (!container) return;
 
   let displayCards = cardDatabase;
   if (currentEncFilter === 'weak') {
     displayCards = cardDatabase.filter(c => mistakeCardIds.has(c.id));
+  } else if (currentEncFilter === 'custom') {
+    displayCards = cardDatabase.filter(c => hasCustomImage(c));
   }
 
   if (displayCards.length === 0) {
+    const emptyMsg = currentEncFilter === 'custom'
+      ? '📸 登録された図解画像はまだありません。<br>カードをクリックして【Ctrl+V】でスクショを貼り付けるか、「📷」ボタンから登録してください！'
+      : '🎉 要復習の代償ミスカードはありません！全問パーフェクト測定中！';
     container.innerHTML = `
-      <div style="grid-column: 1 / -1; padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
-        🎉 要復習の代償ミスカードはありません！全問パーフェクト測定中！
+      <div style="grid-column: 1 / -1; padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; line-height: 1.6;">
+        ${emptyMsg}
       </div>
     `;
     return;
@@ -1114,34 +2086,49 @@ function renderEncyclopedia() {
 
   container.innerHTML = displayCards.map(c => {
     const isWeak = mistakeCardIds.has(c.id);
+    const isSelected = (selectedCardForPasteId === c.id);
+    const isCustom = hasCustomImage(c);
+
     return `
-      <div class="k-card-flip-wrap ${isWeak ? 'weak-mark' : ''}" onclick="flipCard(this)" title="タップで裏面（支配神経・髄節）を表示">
+      <div class="k-card-flip-wrap ${isWeak ? 'weak-mark' : ''} ${isSelected ? 'selected-for-paste' : ''}" 
+           data-id="${c.id}"
+           onclick="handleCardSelectForPaste(${c.id}, this)"
+           ondragover="handleCardDragOver(event)"
+           ondrop="handleCardDrop(event, ${c.id})"
+           title="クリックして選択（Ctrl+Vで画像貼付） / タップで裏面">
         <div class="k-card-inner">
           <!-- 表面 (Front): 検査肢位・ROM・イラスト -->
           <div class="k-card-face k-card-front">
             <div class="kc-top">
               <span class="kc-region-badge">${c.region}</span>
-              <span class="kc-flip-hint">🔄 裏面</span>
+              ${isCustom 
+                ? `<span class="enc-custom-indicator" title="スライド図解登録済">🎨 実機図解</span>`
+                : `<span class="kc-flip-hint">🔄 裏面</span>`
+              }
               <span class="kc-grade-badge">${c.grade || 'G5'}</span>
             </div>
-            <div class="kc-art-window" style="height:62px;">
-              ${c.image 
-                ? `<img src="${c.image}" alt="${c.title}" loading="lazy">` 
-                : `<div class="kc-art-placeholder">MMT<br>${c.pos}</div>`
-              }
+            
+            <div class="kc-art-window" style="height:62px; position:relative;">
+              ${renderCardImageTag(c, '', c.title)}
+              
+              <div class="enc-card-overlay-actions">
+                <button type="button" class="enc-btn-paste-overlay" onclick="triggerCardImageInput(${c.id}, event)" title="スクショ画像ファイルを選択して登録">📷</button>
+                ${isCustom ? `<button type="button" class="enc-btn-paste-overlay btn-del" onclick="deleteCardImage(${c.id}, event)" title="登録画像をリセット">🗑️</button>` : ''}
+              </div>
             </div>
+
             <div class="kc-meta">
               <div class="kc-title">${c.title}</div>
               <div class="kc-muscle">${c.muscle}</div>
             </div>
             <div class="kc-footer">
-              <span>${c.vector || '標準'}</span>
+              <span style="font-size:0.68rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:130px;">${c.vector || '標準'}</span>
               <span class="kc-pos">${c.pos}</span>
             </div>
           </div>
 
           <!-- 裏面 (Back): 主動作筋 ＆ 支配神経・髄節レベル（国試・実習 必須知識） -->
-          <div class="k-card-face k-card-back">
+          <div class="k-card-face k-card-back" onclick="flipCardFromBack(this, event)">
             <div class="kcb-top">
               <span class="kcb-badge">🧠 神経・髄節</span>
               <span class="kcb-region">${c.region}</span>
@@ -1172,6 +2159,34 @@ function renderEncyclopedia() {
       </div>
     `;
   }).join('');
+}
+
+function handleCardSelectForPaste(cardId, el) {
+  selectedCardForPasteId = cardId;
+  document.querySelectorAll('.k-card-flip-wrap').forEach(wrap => {
+    wrap.classList.remove('selected-for-paste');
+  });
+  if (el) el.classList.add('selected-for-paste');
+  showPasteToast(`カードを選択しました (Ctrl+Vでスクショ貼付可能)`);
+}
+
+function handleCardDragOver(e) {
+  e.preventDefault();
+}
+
+async function handleCardDrop(e, cardId) {
+  e.preventDefault();
+  selectedCardForPasteId = cardId;
+  const files = e.dataTransfer && e.dataTransfer.files;
+  if (files && files[0] && files[0].type.startsWith('image/')) {
+    await processAndStoreImageForCard(files[0], cardId);
+  }
+}
+
+function flipCardFromBack(backEl, event) {
+  if (event) event.stopPropagation();
+  const wrap = backEl.closest('.k-card-flip-wrap');
+  if (wrap) flipCard(wrap);
 }
 
 // タブ切り替え関数
@@ -2132,7 +3147,7 @@ function renderKarutaZones() {
           ${karutaCurrentChoices.map((c) => `
             <button class="k-karuta-card-btn" data-id="${c.id}" onpointerdown="handleKarutaChoiceTap('${pKey}', ${c.id}, this)">
               <div class="k-illust-box">
-                <img src="${c.image}" alt="検査イラスト" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 160 100\\'><rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(c.pos)}</text></svg>'">
+                ${renderCardImageTag(c, '', '検査イラスト')}<rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(c.pos)}</text></svg>'">
               </div>
             </button>
           `).join('')}
@@ -2149,7 +3164,7 @@ function renderKarutaZones() {
         </div>
         <div class="k-single-illust-wrap">
           <div class="k-illust-card-c">
-            <img src="${karutaTargetCard.image}" alt="出題イラスト" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 160 100\\'><rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(karutaTargetCard.pos)}</text></svg>'">
+            ${renderCardImageTag(karutaTargetCard, '', '出題イラスト')}<rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(karutaTargetCard.pos)}</text></svg>'">
           </div>
           <div class="k-illust-guide-text">
             ◀ この検査の<br>「体位・Grade・運動」<br>を早押し！
