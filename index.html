@@ -27,69 +27,55 @@
 
   <!-- Main Dynamic Viewport -->
   <main class="main-viewport">
-    <!-- KARUTA TAB (対面・1台共有 早押しカルタ) -->
+    <!-- 1. KARUTA & QUIZ TAB (対面2Pスプリット・3行読み上げ＆イラスト4択バトル) -->
     <section id="tab-karuta" class="tab-pane">
-      <!-- 2P側スコアバー（180度反転で2Pから正対） -->
-      <div class="karuta-player-bar p2-bar">
-        <div class="k-p-info">
-          <span class="k-p-name">🔴 2P (上側)</span>
-          <div class="k-p-stars" id="karuta-p2-stars">
-            <span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span>
-          </div>
+      <!-- サブコントロールバー -->
+      <div class="karuta-subbar">
+        <div class="karuta-mode-tabs">
+          <button class="k-subtab active" id="btn-mode-karuta" onclick="setKarutaSubMode('karuta')">🎴 3行読み上げカルタ</button>
+          <button class="k-subtab" id="btn-mode-quiz" onclick="setKarutaSubMode('quiz')">🖼️ 画像➔4択ジャッジ</button>
         </div>
-        <span class="k-p-score" id="karuta-p2-score">0 / 5pt</span>
-      </div>
-
-      <!-- 中央：詠み札（お題エリア） -->
-      <div class="karuta-clue-card" id="karuta-clue-card">
-        <div class="k-clue-header">
-          <span class="k-clue-badge" id="karuta-clue-badge">お題</span>
-          <span class="k-clue-round" id="karuta-round-num">第 1 問</span>
-        </div>
-        <div class="k-clue-text" id="karuta-clue-text">
-          🛏️ 【側臥位】で測定する下肢の運動はどれだ！？
-        </div>
-        <div class="k-clue-sub" id="karuta-clue-sub">
-          正しい取り札を素早くタップ！
+        <div class="karuta-util-group">
+          <button class="k-subtab" id="btn-split-toggle" onclick="toggleKarutaSplit()">👥 対面2P</button>
+          <button class="k-subtab" id="btn-voice-toggle" onclick="toggleKarutaVoice()">🔊 読み上げ ON</button>
+          <button class="k-subtab" onclick="startKarutaRound()">🔄 次の札へ</button>
         </div>
       </div>
 
-      <!-- 中央：取り札グリッド（6枚） -->
-      <div class="karuta-field-grid" id="karuta-field-grid">
-        <!-- JSで6枚のカードを自動配札 -->
-      </div>
-
-      <!-- 判定フィードバックバナー -->
-      <div class="karuta-feedback-ticker" id="karuta-feedback-ticker" style="display:none;">
-        🎉 1Pが獲得！ (+1pt)
-      </div>
-
-      <!-- 1P側スコアバー（1Pから正対） -->
-      <div class="karuta-player-bar p1-bar">
-        <div class="k-p-info">
-          <span class="k-p-name">🔵 1P (下側)</span>
-          <div class="k-p-stars" id="karuta-p1-stars">
-            <span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span><span class="k-star">★</span>
-          </div>
+      <!-- 対面バトルアリーナ -->
+      <div class="karuta-arena" id="karuta-arena">
+        <!-- 2Pエリア（上半分：対面モード時は180度反転） -->
+        <div class="k-player-zone p2" id="k-zone-p2">
+          <!-- JSで動的レンダリング -->
         </div>
-        <span class="k-p-score" id="karuta-p1-score">0 / 5pt</span>
+
+        <!-- 中央ステータスバナー -->
+        <div class="k-center-banner" id="k-center-banner">
+          <span id="k-banner-text">準備完了！早押しスタート</span>
+          <button class="k-btn-next-round" id="k-btn-next-round" onclick="startKarutaRound()" style="display:none;">次の札へ ▶</button>
+        </div>
+
+        <!-- 1Pエリア（下半分：正面向き） -->
+        <div class="k-player-zone p1" id="k-zone-p1">
+          <!-- JSで動的レンダリング -->
+        </div>
       </div>
 
-      <!-- カルタ スタート画面 -->
+      <!-- カルタ スタート画面（初回ルール解説モーダル） -->
       <div class="karuta-overlay-screen" id="karuta-start-screen">
         <div class="karuta-modal-card">
           <div class="k-modal-icon">🎴 ⚡ 🤝</div>
-          <h2 class="k-modal-title">MMT 早押しカルタ</h2>
+          <h2 class="k-modal-title">MMT 対面スプリット早押し</h2>
           <p class="k-modal-desc">
-            スマホを机の中央に置き、2人で挟んで対戦！<br>
-            中央のお題に合致する札を先に叩いた方が得点！<br>
-            <span style="color:var(--accent-red); font-weight:800;">※上半分タップで2P、下半分タップで1P！お手つきは−1点！</span>
+            スマホやiPadを机に置き、2人で向かい合って対戦！<br>
+            上半分は2Pから正対する180度反転画面で不公平ゼロ！
           </p>
           <div class="k-modal-rules">
-            <span>🎯 5点先取でマッチ勝利！</span>
-            <span>🧠 肢位・主動作筋・支配神経から出題</span>
+            <span>📖 <strong>モードA：3行読み上げカルタ</strong><br>上の句(体位)➔中の句(Grade)➔下の句(筋名)。早い句で取ると高得点！(3pt / 2pt / 1pt)</span>
+            <span>🖼️ <strong>モードB：画像1枚➔4択ジャッジ</strong><br>イラストだけを見て、手元の4択から正解を早押し！(+2pt)</span>
+            <span>⚠️ <strong>お手つきは2.5秒間ロック！</strong></span>
           </div>
-          <button class="karuta-btn-start" onclick="startKarutaGame()">対戦スタート ［5点先取］</button>
+          <button class="karuta-btn-start" onclick="closeKarutaStartScreen()">対戦スタート！ ［5点先取］</button>
         </div>
       </div>
 
@@ -104,7 +90,7 @@
           <div class="karuta-final-scores" id="karuta-final-scores">
             🔵 1P: 5pt  vs  🔴 2P: 3pt
           </div>
-          <button class="karuta-btn-start" onclick="startKarutaGame()">🔄 もう一戦プレイ</button>
+          <button class="karuta-btn-start" onclick="resetKarutaGame()">🔄 もう一戦プレイ</button>
         </div>
       </div>
     </section>

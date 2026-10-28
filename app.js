@@ -5,21 +5,21 @@
 
 // 内蔵マスターカード（画像パス＋支配神経・髄節データ完備）
 const DEFAULT_CARDS = [
-  { id: 1, title: "頸部屈曲", region: "頸部", muscle: "胸鎖乳突筋", nerve: "副神経(第Ⅺ脳神経)・頸神経叢", root: "C2〜C3", grade: "G5/4", pos: "背臥位", image: "assets/cards/neck_flexion.jpg", vector: "↓ 前額部加圧" },
-  { id: 2, title: "頸部伸展", region: "頸部", muscle: "頭板状筋", nerve: "頸神経後枝", root: "C2〜C5", grade: "G5/4", pos: "腹臥位", image: "assets/cards/neck_extension.jpg", vector: "↓ 後頭部加圧" },
-  { id: 3, title: "体幹屈曲", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G5", pos: "背臥位", image: "assets/cards/trunk_flexion.jpg", vector: "⇡ 頭後ろ手組み" },
-  { id: 4, title: "体幹伸展", region: "体幹", muscle: "脊柱起立筋", nerve: "脊髄神経後枝", root: "Th1〜L5", grade: "G5", pos: "腹臥位", image: "assets/cards/trunk_extension.jpg", vector: "↓ 足首固定" },
-  { id: 5, title: "肩関節屈曲", region: "上肢", muscle: "三角筋前部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_flexion.jpg", vector: "↓ 上腕遠位加圧" },
-  { id: 6, title: "肩関節外転", region: "上肢", muscle: "三角筋中部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_abduction.jpg", vector: "↓ 上腕遠位加圧" },
-  { id: 7, title: "肘関節屈曲", region: "上肢", muscle: "上腕二頭筋", nerve: "筋皮神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/elbow_flexion.jpg", vector: "↓ 前腕遠位抵抗" },
-  { id: 8, title: "手関節伸展", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G5/4", pos: "前腕支持", image: "assets/cards/wrist_extension.jpg", vector: "↓ 手背面加圧" },
-  { id: 9, title: "股関節屈曲", region: "下肢", muscle: "腸腰筋", nerve: "大腿神経・腰神経叢", root: "L1〜L3", grade: "G5/4", pos: "端座位", image: "assets/cards/hip_flexion.jpg", vector: "↓ 大腿遠位加圧" },
-  { id: 10, title: "膝関節伸展", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G5/4", pos: "端座位", image: "assets/cards/knee_extension.jpg", vector: "↓ 下腿遠位加圧" },
-  { id: 11, title: "膝関節伸展 (G2)", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G2", pos: "側臥位", image: "assets/cards/knee_extension_g2.jpg", vector: "⤹ 屈曲位から前方伸展円弧" },
-  { id: 12, title: "手関節伸展 (G2)", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G2", pos: "前腕中間位", image: "assets/cards/wrist_extension_g2.jpg", vector: "➔ 水平背屈スライド" },
-  { id: 13, title: "体幹屈曲 (G4)", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G4", pos: "背臥位", image: "assets/cards/trunk_flexion_g4.jpg", vector: "⇡ 胸の前腕組み" },
-  { id: 14, title: "足関節底屈", region: "下肢", muscle: "下腿三頭筋", nerve: "脛骨神経", root: "S1〜S2", grade: "G5", pos: "立位", image: "assets/cards/ankle_plantar_g5.jpg", vector: "↑ 片脚立ち踵上げ25回" },
-  { id: 15, title: "足関節背屈", region: "下肢", muscle: "前脛骨筋", nerve: "深腓骨神経", root: "L4〜L5", grade: "G5/4", pos: "端座位", image: "assets/cards/ankle_dorsi_g5.jpg", vector: "↓ 前足部外返し加圧" }
+  { id: 1, title: "頸部屈曲", region: "頸部", muscle: "胸鎖乳突筋", nerve: "副神経(第Ⅺ脳神経)・頸神経叢", root: "C2〜C3", grade: "G5/4", pos: "背臥位", image: "assets/cards/neck_flexion.jpg", vector: "↓ 前額部加圧", kami: "背臥位（はいがい）で……", naka: "グレード4、前額への抵抗に耐えて……", shimo: "頸部を屈曲（胸鎖乳突筋）するのはどれ？" },
+  { id: 2, title: "頸部伸展", region: "頸部", muscle: "頭板状筋", nerve: "頸神経後枝", root: "C2〜C5", grade: "G5/4", pos: "腹臥位", image: "assets/cards/neck_extension.jpg", vector: "↓ 後頭部加圧", kami: "腹臥位（ふくがい）で……", naka: "グレード4、後頭部への抵抗に耐えて……", shimo: "頸部を伸展（頭板状筋）するのはどれ？" },
+  { id: 3, title: "体幹屈曲", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G5", pos: "背臥位", image: "assets/cards/trunk_flexion.jpg", vector: "⇡ 頭後ろ手組み", kami: "背臥位（はいがい）で……", naka: "グレード5、両手を後頭部で組んで……", shimo: "肩甲骨が浮くまで体幹を屈曲するのはどれ？" },
+  { id: 4, title: "体幹伸展", region: "体幹", muscle: "脊柱起立筋", nerve: "脊髄神経後枝", root: "Th1〜L5", grade: "G5", pos: "腹臥位", image: "assets/cards/trunk_extension.jpg", vector: "↓ 足首固定", kami: "腹臥位（ふくがい）で……", naka: "グレード5、下肢を固定されて背部を反らし……", shimo: "体幹を力強く伸展するのはどれ？" },
+  { id: 5, title: "肩関節屈曲", region: "上肢", muscle: "三角筋前部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_flexion.jpg", vector: "↓ 上腕遠位加圧", kami: "座位（ざい）で……", naka: "グレード4、上腕遠位への下向き抵抗に耐えて……", shimo: "肩関節を前方90度に屈曲するのはどれ？" },
+  { id: 6, title: "肩関節外転", region: "上肢", muscle: "三角筋中部", nerve: "腋窩神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/shoulder_abduction.jpg", vector: "↓ 上腕遠位加圧", kami: "座位（ざい）で……", naka: "グレード4、真横90度で上腕遠位の抵抗に耐えて……", shimo: "肩関節を外転（三角筋中部）するのはどれ？" },
+  { id: 7, title: "肘関節屈曲", region: "上肢", muscle: "上腕二頭筋", nerve: "筋皮神経", root: "C5〜C6", grade: "G5/4", pos: "座位", image: "assets/cards/elbow_flexion.jpg", vector: "↓ 前腕遠位抵抗", kami: "座位で前腕を回外（かいがい）させて……", naka: "グレード4、前腕遠位への伸展抵抗に耐えて……", shimo: "肘関節を屈曲（上腕二頭筋）するのはどれ？" },
+  { id: 8, title: "手関節伸展", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G5/4", pos: "前腕支持", image: "assets/cards/wrist_extension.jpg", vector: "↓ 手背面加圧", kami: "前腕回内の机上支持で……", naka: "グレード4、手背への下向き抵抗に耐えて……", shimo: "手関節を背屈・伸展するのはどれ？" },
+  { id: 9, title: "股関節屈曲", region: "下肢", muscle: "腸腰筋", nerve: "大腿神経・腰神経叢", root: "L1〜L3", grade: "G5/4", pos: "端座位", image: "assets/cards/hip_flexion.jpg", vector: "↓ 大腿遠位加圧", kami: "端座位（たんざい）で……", naka: "グレード4、大腿遠位への下向き抵抗に耐えて……", shimo: "股関節を座面から持ち上げて屈曲するのはどれ？" },
+  { id: 10, title: "膝関節伸展", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G5/4", pos: "端座位", image: "assets/cards/knee_extension.jpg", vector: "↓ 下腿遠位加圧", kami: "端座位（たんざい）で……", naka: "グレード5、下腿遠位への最大抵抗に耐えて……", shimo: "膝関節を完全伸展（大腿四頭筋）するのはどれ？" },
+  { id: 11, title: "膝関節伸展 (G2)", region: "下肢", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", grade: "G2", pos: "側臥位", image: "assets/cards/knee_extension_g2.jpg", vector: "⤹ 屈曲位から前方伸展円弧", kami: "側臥位（そくがい）で……", naka: "グレード2、重力を除去した水平面上で……", shimo: "検者の支持で膝を伸展するのはどれ？" },
+  { id: 12, title: "手関節伸展 (G2)", region: "上肢", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", grade: "G2", pos: "前腕中間位", image: "assets/cards/wrist_extension_g2.jpg", vector: "➔ 水平背屈スライド", kami: "前腕中間位（小指側接地・手刀）で……", naka: "グレード2、重力を除いて机上を水平に滑らせて……", shimo: "手関節を伸展するのはどれ？" },
+  { id: 13, title: "体幹屈曲 (G4)", region: "体幹", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", grade: "G4", pos: "背臥位", image: "assets/cards/trunk_flexion_g4.jpg", vector: "⇡ 胸の前腕組み", kami: "背臥位（はいがい）で……", naka: "グレード4、両腕を胸の前で組んで……", shimo: "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？" },
+  { id: 14, title: "足関節底屈", region: "下肢", muscle: "下腿三頭筋", nerve: "脛骨神経", root: "S1〜S2", grade: "G5", pos: "立位", image: "assets/cards/ankle_plantar_g5.jpg", vector: "↑ 片脚立ち踵上げ25回", kami: "立位（りつい）片脚立ちで……", naka: "グレード5、自重で完全フォームの踵上げを……", shimo: "25回完遂する足関節底屈はどれ？" },
+  { id: 15, title: "足関節背屈", region: "下肢", muscle: "前脛骨筋", nerve: "深腓骨神経", root: "L4〜L5", grade: "G5/4", pos: "端座位", image: "assets/cards/ankle_dorsi_g5.jpg", vector: "↓ 前足部外返し加圧", kami: "端座位（たんざい）で……", naka: "グレード4、前足部外返し方向の抵抗に耐えて……", shimo: "足部を内反・背屈（前脛骨筋）するのはどれ？" }
 ];
 
 const POSITIONS = ["背臥位", "腹臥位", "座位", "端座位", "側臥位", "前腕支持", "前腕中間位", "立位"];
@@ -313,9 +313,13 @@ async function loadCardDatabase() {
         cardDatabase = data.map(c => {
           const defaultRef = DEFAULT_CARDS.find(d => d.id === c.id) || {};
           return {
+            ...defaultRef,
             ...c,
             nerve: c.nerve || defaultRef.nerve || '—',
-            root: c.root || defaultRef.root || '—'
+            root: c.root || defaultRef.root || '—',
+            kami: c.kami || defaultRef.kami || '体位で……',
+            naka: c.naka || defaultRef.naka || '抵抗に耐えて……',
+            shimo: c.shimo || defaultRef.shimo || 'この運動を行うのはどれ？'
           };
         });
       }
@@ -2000,233 +2004,307 @@ window.addEventListener('keydown', (e) => {
 });
 
 // ============================================================================
-// 🎴 MMT 早押しカルタ（対面1台・反射神経バトル）エンジン
+// 🎴 対面2Pスプリット・3行読み上げカルタ ＆ イラスト4択バトル エンジン
 // ============================================================================
 
-let karutaP1Score = 0;
-let karutaP2Score = 0;
-let karutaRound = 0;
-let karutaTargetCard = null;
-let karutaFieldCards = [];
-let isKarutaPlaying = false;
-let isKarutaRoundEnding = false;
-let karutaP1Cooldown = false;
-let karutaP2Cooldown = false;
-let karutaCooldownTimerP1 = null;
-let karutaCooldownTimerP2 = null;
+let karutaSubMode = 'karuta'; // 'karuta' (3行読み上げカルタ) or 'quiz' (画像1枚➔4択ジャッジ)
+let isKarutaSplit = true;     // true: 対面2Pスプリット(2P 180度反転), false: 1Pソロ
+let karutaVoiceEnabled = true; // Web Speech API 音声読み上げ
+let karutaScores = { p1: 0, p2: 0 };
+let karutaCurrentChoices = []; // 場の4枚
+let karutaTargetCard = null;   // 正解カード
+let karutaCurrentStage = 1;    // 1: 上の句(+3pt), 2: 中の句(+2pt), 3: 下の句(+1pt)
+let isKarutaRoundActive = false;
+let karutaTimers = [];
+let karutaRoundCount = 0;
+let isKarutaLockedP1 = false;
+let isKarutaLockedP2 = false;
 
-function initKarutaTab() {
-  if (!isKarutaPlaying) {
-    const startScreen = document.getElementById('karuta-start-screen');
-    const resultScreen = document.getElementById('karuta-result-screen');
-    if (startScreen) startScreen.style.display = 'flex';
-    if (resultScreen) resultScreen.style.display = 'none';
+// 音声読み上げ（Web Speech API）
+function speakKarutaText(text) {
+  if (!karutaVoiceEnabled || !('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'ja-JP';
+    utter.rate = 1.15;
+    window.speechSynthesis.speak(utter);
+  } catch (e) {
+    console.log("SpeechSynthesis error:", e);
   }
 }
 
-function startKarutaGame() {
-  karutaP1Score = 0;
-  karutaP2Score = 0;
-  karutaRound = 0;
-  isKarutaPlaying = true;
-  isKarutaRoundEnding = false;
-  karutaP1Cooldown = false;
-  karutaP2Cooldown = false;
-
-  const startScreen = document.getElementById('karuta-start-screen');
-  const resultScreen = document.getElementById('karuta-result-screen');
-  if (startScreen) startScreen.style.display = 'none';
-  if (resultScreen) resultScreen.style.display = 'none';
-
-  updateKarutaScores();
-  playSound('deal');
-  loadKarutaRound();
+// 全タイマークリア
+function clearKarutaTimers() {
+  karutaTimers.forEach(t => clearTimeout(t));
+  karutaTimers = [];
+  if ('speechSynthesis' in window) {
+    try { window.speechSynthesis.cancel(); } catch(e){}
+  }
 }
 
-function updateKarutaScores() {
-  const p1ScoreEl = document.getElementById('karuta-p1-score');
-  const p2ScoreEl = document.getElementById('karuta-p2-score');
-  if (p1ScoreEl) p1ScoreEl.innerText = `${karutaP1Score} / 5pt`;
-  if (p2ScoreEl) p2ScoreEl.innerText = `${karutaP2Score} / 5pt`;
-
-  const p1Stars = document.querySelectorAll('#karuta-p1-stars .k-star');
-  p1Stars.forEach((star, idx) => {
-    if (idx < karutaP1Score) star.classList.add('active');
-    else star.classList.remove('active');
-  });
-
-  const p2Stars = document.querySelectorAll('#karuta-p2-stars .k-star');
-  p2Stars.forEach((star, idx) => {
-    if (idx < karutaP2Score) star.classList.add('active');
-    else star.classList.remove('active');
-  });
+// サブモード切替 (karuta / quiz)
+function setKarutaSubMode(mode) {
+  karutaSubMode = mode;
+  const btnK = document.getElementById('btn-mode-karuta');
+  const btnQ = document.getElementById('btn-mode-quiz');
+  if (btnK) btnK.classList.toggle('active', mode === 'karuta');
+  if (btnQ) btnQ.classList.toggle('active', mode === 'quiz');
+  playSound('card');
+  startKarutaRound();
 }
 
-function loadKarutaRound() {
-  karutaRound++;
-  isKarutaRoundEnding = false;
+// 対面スプリット切替 (2P対面 / 1Pソロ)
+function toggleKarutaSplit() {
+  isKarutaSplit = !isKarutaSplit;
+  const btn = document.getElementById('btn-split-toggle');
+  if (btn) {
+    btn.innerText = isKarutaSplit ? "👥 対面2P" : "👤 1Pソロ";
+    btn.classList.toggle('toggled-on', isKarutaSplit);
+  }
+  const zoneP2 = document.getElementById('k-zone-p2');
+  if (zoneP2) {
+    zoneP2.style.display = isKarutaSplit ? 'flex' : 'none';
+    zoneP2.classList.toggle('split-active', isKarutaSplit);
+  }
+  playSound('card');
+}
 
-  const ticker = document.getElementById('karuta-feedback-ticker');
-  if (ticker) ticker.style.display = 'none';
+// 音声読み上げトグル
+function toggleKarutaVoice() {
+  karutaVoiceEnabled = !karutaVoiceEnabled;
+  const btn = document.getElementById('btn-voice-toggle');
+  if (btn) {
+    btn.innerText = karutaVoiceEnabled ? "🔊 読み上げ ON" : "🔇 読み上げ OFF";
+    btn.classList.toggle('toggled-on', karutaVoiceEnabled);
+  }
+  if (!karutaVoiceEnabled && 'speechSynthesis' in window) {
+    try { window.speechSynthesis.cancel(); } catch(e){}
+  }
+  playSound('card');
+}
 
-  const roundEl = document.getElementById('karuta-round-num');
-  if (roundEl) roundEl.innerText = `第 ${karutaRound} 問`;
+// タイプライター風テキスト出力
+function typeKarutaLine(lineClass, text) {
+  const els = document.querySelectorAll('.' + lineClass);
+  els.forEach(el => el.textContent = '');
+  let i = 0;
+  function step() {
+    if (i <= text.length) {
+      els.forEach(el => el.textContent = text.slice(0, i));
+      i++;
+      karutaTimers.push(setTimeout(step, 36));
+    }
+  }
+  step();
+}
 
-  // 6枚をランダム選出
-  const pool = [...cardDatabase].sort(() => Math.random() - 0.5);
-  karutaFieldCards = pool.slice(0, 6);
-  karutaTargetCard = karutaFieldCards[Math.floor(Math.random() * karutaFieldCards.length)];
-  window.karutaTargetCard = karutaTargetCard;
-  window.karutaFieldCards = karutaFieldCards;
-
-  // お題タイプ決定: 0=肢位, 1=主動作筋, 2=支配神経
-  const clueTypes = ['pos', 'muscle'];
-  if (karutaTargetCard.nerve) clueTypes.push('nerve');
-  const selectedType = clueTypes[Math.floor(Math.random() * clueTypes.length)];
-
-  const badgeEl = document.getElementById('karuta-clue-badge');
-  const textEl = document.getElementById('karuta-clue-text');
-  const subEl = document.getElementById('karuta-clue-sub');
-
-  if (selectedType === 'pos') {
-    if (badgeEl) badgeEl.innerText = "🛏️ 測定肢位";
-    if (textEl) textEl.innerHTML = `【<strong>${karutaTargetCard.pos}</strong>】で測定する運動を取れ！`;
-    if (subEl) subEl.innerText = "正しい取り札を素早くタップ！";
-  } else if (selectedType === 'muscle') {
-    if (badgeEl) badgeEl.innerText = "💪 主動作筋";
-    if (textEl) textEl.innerHTML = `【<strong>${karutaTargetCard.muscle}</strong>】が働く運動を取れ！`;
-    if (subEl) subEl.innerText = "主動作筋に合致する札を奪取せよ！";
-  } else {
-    if (badgeEl) badgeEl.innerText = "🧠 支配神経・髄節";
-    const nerveText = karutaTargetCard.root ? `${karutaTargetCard.nerve}（${karutaTargetCard.root}）` : karutaTargetCard.nerve;
-    if (textEl) textEl.innerHTML = `【<strong>${nerveText}</strong>】支配の筋を取れ！`;
-    if (subEl) subEl.innerText = "国試頻出の神経支配カルタ！";
+// ゾーン（1P, 2P）の描画
+function renderKarutaZones() {
+  const zoneP2 = document.getElementById('k-zone-p2');
+  if (zoneP2) {
+    zoneP2.style.display = isKarutaSplit ? 'flex' : 'none';
+    zoneP2.classList.toggle('split-active', isKarutaSplit);
   }
 
-  // 取り札グリッドのレンダリング
-  const grid = document.getElementById('karuta-field-grid');
-  if (grid) {
-    grid.innerHTML = karutaFieldCards.map((card, idx) => {
-      const fallbackSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='80' viewBox='0 0 120 80'><rect width='120' height='80' fill='%23E7E5E4'/><text x='60' y='45' font-size='11' text-anchor='middle' fill='%2378716C' font-weight='bold'>${encodeURIComponent(card.region)}</text></svg>`;
-      return `
-        <div class="karuta-card" data-idx="${idx}" onpointerdown="handleKarutaCardTap(${idx}, event)">
-          <div class="karuta-card-img">
-            <img src="${card.image}" alt="${card.title}" onerror="this.onerror=null; this.src='${fallbackSvg}'">
-            <span class="karuta-card-badge">${card.grade}</span>
+  ['p1', 'p2'].forEach(pKey => {
+    const isP1 = pKey === 'p1';
+    const zone = document.getElementById(isP1 ? 'k-zone-p1' : 'k-zone-p2');
+    if (!zone) return;
+
+    zone.classList.remove('locked');
+
+    if (karutaSubMode === 'karuta') {
+      // モードA：3行読み上げ ➔ イラスト4枚（文字なし）から早押し
+      zone.innerHTML = `
+        <div class="k-p-header ${pKey}">
+          <div class="k-p-title">
+            <span>${isP1 ? '🔵 1P (あなた)' : '🔴 2P (対面相手)'}</span>
           </div>
-          <div class="karuta-card-title">${card.title}</div>
-          <div class="karuta-card-muscle">${card.muscle}</div>
-          <div class="karuta-card-pos">${card.pos}</div>
+          <span class="k-pt-badge">${karutaScores[pKey]} pt</span>
+        </div>
+        <div class="k-poem-box">
+          <div class="k-poem-line line-1"></div>
+          <div class="k-poem-line line-2"></div>
+          <div class="k-poem-line line-3"></div>
+        </div>
+        <div class="k-choices-grid">
+          ${karutaCurrentChoices.map((c) => `
+            <button class="k-karuta-card-btn" data-id="${c.id}" onpointerdown="handleKarutaChoiceTap('${pKey}', ${c.id}, this)">
+              <div class="k-illust-box">
+                <img src="${c.image}" alt="検査イラスト" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 160 100\\'><rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(c.pos)}</text></svg>'">
+              </div>
+            </button>
+          `).join('')}
         </div>
       `;
-    }).join('');
+    } else {
+      // モードB：中央にイラスト1枚（文字なし）➔ 手元に4択テキストボタン
+      zone.innerHTML = `
+        <div class="k-p-header ${pKey}">
+          <div class="k-p-title">
+            <span>${isP1 ? '🔵 1P (あなた)' : '🔴 2P (対面相手)'}</span>
+          </div>
+          <span class="k-pt-badge">${karutaScores[pKey]} pt</span>
+        </div>
+        <div class="k-single-illust-wrap">
+          <div class="k-illust-card-c">
+            <img src="${karutaTargetCard.image}" alt="出題イラスト" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 160 100\\'><rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(karutaTargetCard.pos)}</text></svg>'">
+          </div>
+          <div class="k-illust-guide-text">
+            ◀ この検査の<br>「体位・Grade・運動」<br>を早押し！
+          </div>
+        </div>
+        <div class="k-choices-grid">
+          ${karutaCurrentChoices.map(c => `
+            <button class="k-quiz-choice-btn" data-id="${c.id}" onpointerdown="handleKarutaChoiceTap('${pKey}', ${c.id}, this)">
+              <div class="k-c-header-row">
+                <span class="k-tag-pos">${c.pos}</span>
+                <span class="k-tag-grade">${c.grade}</span>
+              </div>
+              <div class="k-c-motion">${c.title}</div>
+              <div class="k-c-muscle">${c.muscle}</div>
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+  });
+}
+
+// ラウンド開始
+function startKarutaRound() {
+  clearKarutaTimers();
+  isKarutaRoundActive = true;
+  karutaCurrentStage = 1;
+  karutaRoundCount++;
+
+  const btnNext = document.getElementById('k-btn-next-round');
+  if (btnNext) btnNext.style.display = 'none';
+
+  // 正解カード選出
+  const pool = [...cardDatabase];
+  karutaTargetCard = pool[Math.floor(Math.random() * pool.length)];
+
+  // 決まり字ロジック：正解と同じ体位を持つ別のカードを最低1枚混ぜる
+  const samePosCards = pool.filter(c => c.pos === karutaTargetCard.pos && c.id !== karutaTargetCard.id);
+  const otherPosCards = pool.filter(c => c.pos !== karutaTargetCard.pos);
+
+  let choices = [karutaTargetCard];
+  if (samePosCards.length > 0) {
+    choices.push(samePosCards[Math.floor(Math.random() * samePosCards.length)]);
+  }
+  const remainingNeeded = 4 - choices.length;
+  const shuffledOthers = [...otherPosCards].sort(() => Math.random() - 0.5);
+  choices = choices.concat(shuffledOthers.slice(0, remainingNeeded));
+  karutaCurrentChoices = choices.sort(() => Math.random() - 0.5);
+
+  window.karutaTargetCard = karutaTargetCard;
+  window.karutaCurrentChoices = karutaCurrentChoices;
+
+  renderKarutaZones();
+
+  const bannerText = document.getElementById('k-banner-text');
+
+  if (karutaSubMode === 'karuta') {
+    if (bannerText) bannerText.innerHTML = '📖 <strong>第一句（体位）読み上げ中…</strong> (正解で+3pt)';
+    typeKarutaLine('line-1', '① ' + karutaTargetCard.kami);
+    speakKarutaText(karutaTargetCard.kami);
+
+    karutaTimers.push(setTimeout(() => {
+      if (!isKarutaRoundActive) return;
+      karutaCurrentStage = 2;
+      if (bannerText) bannerText.innerHTML = '📖 <strong>第二句（Grade・抵抗）読み上げ中…</strong> (正解で+2pt)';
+      typeKarutaLine('line-2', '② ' + karutaTargetCard.naka);
+      speakKarutaText(karutaTargetCard.naka);
+    }, 2400));
+
+    karutaTimers.push(setTimeout(() => {
+      if (!isKarutaRoundActive) return;
+      karutaCurrentStage = 3;
+      if (bannerText) bannerText.innerHTML = '📖 <strong>第三句（動作・主動作筋）確定！</strong> (正解で+1pt)';
+      typeKarutaLine('line-3', '③ ' + karutaTargetCard.shimo);
+      speakKarutaText(karutaTargetCard.shimo);
+    }, 5000));
+  } else {
+    if (bannerText) bannerText.innerHTML = '⚡ <strong>イラストを見て4択から早押し！</strong> (+2pt)';
   }
 }
 
-function showKarutaFeedback(msg) {
-  const ticker = document.getElementById('karuta-feedback-ticker');
-  if (ticker) {
-    ticker.innerHTML = msg;
-    ticker.style.display = 'block';
-  }
-}
+// 回答タップ判定
+function handleKarutaChoiceTap(player, cardId, btnEl) {
+  if (!isKarutaRoundActive) return;
 
-function handleKarutaCardTap(index, event) {
-  if (!isKarutaPlaying || isKarutaRoundEnding) return;
+  if (player === 'p1' && isKarutaLockedP1) return;
+  if (player === 'p2' && isKarutaLockedP2) return;
 
-  // タッチ・ポインタ座標からプレイヤーを判定（上半分: 2P, 下半分: 1P）
-  let clientY = 0;
-  if (event.clientY !== undefined) {
-    clientY = event.clientY;
-  } else if (event.touches && event.touches.length > 0) {
-    clientY = event.touches[0].clientY;
-  } else {
-    clientY = window.innerHeight / 2;
-  }
+  const bannerText = document.getElementById('k-banner-text');
+  const btnNext = document.getElementById('k-btn-next-round');
 
-  const cardEls = document.querySelectorAll('.karuta-card');
-  const targetEl = cardEls[index];
+  if (cardId === karutaTargetCard.id) {
+    // 正解！
+    isKarutaRoundActive = false;
+    clearKarutaTimers();
 
-  // カード内での相対タップ位置（上半分＝2P、下半分＝1P）でプレイヤーを正確に識別
-  let isPlayer2 = false;
-  if (targetEl) {
-    const rect = targetEl.getBoundingClientRect();
-    const relativeY = clientY - rect.top;
-    isPlayer2 = relativeY < (rect.height / 2);
-  } else {
-    isPlayer2 = clientY < (window.innerHeight / 2);
-  }
-
-  // クールダウンチェック
-  if (isPlayer2 && karutaP2Cooldown) {
-    showKarutaFeedback(`⚠️ 🔴 2Pはお手つきペナルティ中！`);
-    return;
-  }
-  if (!isPlayer2 && karutaP1Cooldown) {
-    showKarutaFeedback(`⚠️ 🔵 1Pはお手つきペナルティ中！`);
-    return;
-  }
-
-  const selectedCard = karutaFieldCards[index];
-
-  // 正解判定
-  if (selectedCard.id === karutaTargetCard.id) {
-    isKarutaRoundEnding = true;
+    const earned = karutaSubMode === 'karuta' ? (4 - karutaCurrentStage) : 2;
+    karutaScores[player] += earned;
     playSound('correct');
 
-    if (isPlayer2) {
-      karutaP2Score++;
-      if (targetEl) targetEl.classList.add('taken-p2');
-      showKarutaFeedback(`🎉 <strong>🔴 2Pが獲得！</strong> (+1pt)<br><span style="font-size:0.75rem;">正解: ${selectedCard.title}</span>`);
-    } else {
-      karutaP1Score++;
-      if (targetEl) targetEl.classList.add('taken-p1');
-      showKarutaFeedback(`🎉 <strong>🔵 1Pが獲得！</strong> (+1pt)<br><span style="font-size:0.75rem;">正解: ${selectedCard.title}</span>`);
+    // 両画面の正解ボタンをハイライト
+    document.querySelectorAll(`[data-id="${cardId}"]`).forEach(b => b.classList.add('correct'));
+
+    // 全文を開示
+    if (karutaSubMode === 'karuta') {
+      document.querySelectorAll('.line-1').forEach(el => el.textContent = '① ' + karutaTargetCard.kami);
+      document.querySelectorAll('.line-2').forEach(el => el.textContent = '② ' + karutaTargetCard.naka);
+      document.querySelectorAll('.line-3').forEach(el => el.textContent = '③ ' + karutaTargetCard.shimo);
     }
 
-    updateKarutaScores();
+    const pLabel = player === 'p1' ? '🔵 1P' : '🔴 2P';
+    const timingLabel = karutaSubMode === 'karuta' ? `（第${karutaCurrentStage}句で先取！）` : '';
+    if (bannerText) bannerText.innerHTML = `🎉 <strong>${pLabel} 正解！ +${earned}pt</strong> ${timingLabel}`;
+    if (btnNext) btnNext.style.display = 'inline-block';
 
-    if (karutaP1Score >= 5 || karutaP2Score >= 5) {
+    // スコアバッジ更新
+    document.querySelectorAll('.k-p-header.p1 .k-pt-badge').forEach(b => b.textContent = `${karutaScores.p1} pt`);
+    document.querySelectorAll('.k-p-header.p2 .k-pt-badge').forEach(b => b.textContent = `${karutaScores.p2} pt`);
+
+    // 5点先取でマッチ勝利判定
+    if (karutaScores.p1 >= 5 || karutaScores.p2 >= 5) {
       setTimeout(() => {
-        endKarutaGame(karutaP1Score >= 5 ? 1 : 2);
-      }, 700);
-    } else {
-      setTimeout(() => {
-        loadKarutaRound();
-      }, 750);
+        endKarutaGame(karutaScores.p1 >= 5 ? 1 : 2);
+      }, 1000);
     }
   } else {
-    // 不正解（お手つき）
+    // お手つき！
     playSound('wrong');
-    if (targetEl) {
-      targetEl.classList.add('fault');
-      setTimeout(() => targetEl.classList.remove('fault'), 350);
-    }
+    btnEl.classList.add('wrong');
+    setTimeout(() => btnEl.classList.remove('wrong'), 400);
 
-    if (isPlayer2) {
-      karutaP2Score = Math.max(0, karutaP2Score - 1);
-      karutaP2Cooldown = true;
-      showKarutaFeedback(`❌ <strong>🔴 2Pがお手つき！</strong> (-1pt & 1秒休止)`);
-      clearTimeout(karutaCooldownTimerP2);
-      karutaCooldownTimerP2 = setTimeout(() => {
-        karutaP2Cooldown = false;
-      }, 1000);
-    } else {
-      karutaP1Score = Math.max(0, karutaP1Score - 1);
-      karutaP1Cooldown = true;
-      showKarutaFeedback(`❌ <strong>🔵 1Pがお手つき！</strong> (-1pt & 1秒休止)`);
-      clearTimeout(karutaCooldownTimerP1);
-      karutaCooldownTimerP1 = setTimeout(() => {
-        karutaP1Cooldown = false;
-      }, 1000);
-    }
+    const isP1 = player === 'p1';
+    if (isP1) isKarutaLockedP1 = true;
+    else isKarutaLockedP2 = true;
 
-    updateKarutaScores();
+    const zone = document.getElementById(isP1 ? 'k-zone-p1' : 'k-zone-p2');
+    if (zone) zone.classList.add('locked');
+
+    if (bannerText) bannerText.innerHTML = `⚠️ <strong>${isP1 ? '🔵 1P' : '🔴 2P'} お手つき！（2.5秒ロック）</strong>`;
+
+    setTimeout(() => {
+      if (isP1) isKarutaLockedP1 = false;
+      else isKarutaLockedP2 = false;
+      if (zone) zone.classList.remove('locked');
+      if (isKarutaRoundActive && bannerText) {
+        bannerText.innerHTML = karutaSubMode === 'karuta' ? `📖 競技カルタ早押し中…` : `⚡ イラストを見て4択から早押し！`;
+      }
+    }, 2500);
   }
 }
 
+// ゲーム終了（5点先取勝利モーダル）
 function endKarutaGame(winner) {
-  isKarutaPlaying = false;
+  isKarutaRoundActive = false;
+  clearKarutaTimers();
   playSound('fever');
 
   const resultScreen = document.getElementById('karuta-result-screen');
@@ -2235,18 +2313,42 @@ function endKarutaGame(winner) {
   const scoresEl = document.getElementById('karuta-final-scores');
 
   if (winner === 1) {
-    if (titleEl) titleEl.innerText = "🔵 1P (下側) の完全勝利！！";
-    if (descEl) descEl.innerText = "驚異的な反応速度とMMT臨床知識でマッチを制しました！";
+    if (titleEl) titleEl.innerText = "🔵 1P の完全勝利！！";
+    if (descEl) descEl.innerText = "驚異的な反射神経とMMT臨床知識でマッチを制しました！";
   } else {
-    if (titleEl) titleEl.innerText = "🔴 2P (上側) の完全勝利！！";
+    if (titleEl) titleEl.innerText = "🔴 2P の完全勝利！！";
     if (descEl) descEl.innerText = "抜群の洞察力と解剖学的知識で相手を圧倒しました！";
   }
 
   if (scoresEl) {
-    scoresEl.innerText = `🔵 1P: ${karutaP1Score}pt  vs  🔴 2P: ${karutaP2Score}pt`;
+    scoresEl.innerText = `🔵 1P: ${karutaScores.p1}pt  vs  🔴 2P: ${karutaScores.p2}pt`;
   }
 
   if (resultScreen) resultScreen.style.display = 'flex';
+}
+
+// リセットして再戦
+function resetKarutaGame() {
+  karutaScores = { p1: 0, p2: 0 };
+  const resultScreen = document.getElementById('karuta-result-screen');
+  if (resultScreen) resultScreen.style.display = 'none';
+  startKarutaRound();
+}
+
+// スタートモーダルを閉じる
+function closeKarutaStartScreen() {
+  const startScreen = document.getElementById('karuta-start-screen');
+  if (startScreen) startScreen.style.display = 'none';
+  karutaScores = { p1: 0, p2: 0 };
+  startKarutaRound();
+}
+
+// タブ初期化
+function initKarutaTab() {
+  const startScreen = document.getElementById('karuta-start-screen');
+  if (!isKarutaRoundActive && karutaScores.p1 === 0 && karutaScores.p2 === 0) {
+    if (startScreen) startScreen.style.display = 'flex';
+  }
 }
 
 // 起動

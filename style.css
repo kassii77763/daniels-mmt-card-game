@@ -2419,157 +2419,374 @@ html, body {
   margin: 2px 0;
 }
 
-.k-clue-sub {
-  font-size: 0.62rem;
-  color: var(--text-muted);
-  font-weight: 700;
+/* ==========================================================================
+   対面2Pスプリット・3行読み上げカルタ＆イラスト4択バトル CSS
+   Warm Bone (#F9F8F6) ミニマリスト・エディトリアル完全準拠
+   ========================================================================== */
+
+#tab-karuta {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  background: var(--bg-bone);
+  position: relative;
 }
 
-/* 取り札グリッド（6枚） */
-.karuta-field-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+/* サブコントロールバー */
+.karuta-subbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 0.74rem;
+  z-index: 20;
   gap: 6px;
-  flex: 1;
-  padding: 4px 0;
-  min-height: 200px;
+  flex-wrap: wrap;
 }
 
-.karuta-card {
+.karuta-mode-tabs, .karuta-util-group {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.k-subtab {
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-bone);
+  color: var(--text-primary);
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+.k-subtab:active {
+  transform: scale(0.96);
+}
+
+.k-subtab.active {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border-color: var(--text-primary);
+}
+
+.k-subtab.toggled-on {
+  background: #EFF6FF;
+  border-color: #2563EB;
+  color: #2563EB;
+}
+
+/* 対面アリーナ全体 */
+.karuta-arena {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* プレイヤーゾーン（2P側は180度上下反転） */
+.k-player-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px 10px;
+  position: relative;
+  transition: background 0.2s, opacity 0.2s;
+  min-height: 0;
+}
+
+.k-player-zone.p2 {
+  border-bottom: 2px dashed #D6D3D1;
+  background: #F5F4F0;
+}
+
+.k-player-zone.p2.split-active {
+  transform: rotate(180deg);
+}
+
+.k-player-zone.locked {
+  opacity: 0.35;
+  pointer-events: none;
+  filter: grayscale(0.6);
+}
+
+/* プレイヤーヘッダー */
+.k-p-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.k-p-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.k-pt-badge {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.k-p-header.p1 .k-pt-badge { background: #2563EB; }
+.k-p-header.p2 .k-pt-badge { background: #DC2626; }
+
+/* 3行読み上げボックス（上の句・中の句・下の句） */
+.k-poem-box {
   background: #FFFFFF;
   border: 1.5px solid var(--border-hairline);
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 5px 8px;
+  min-height: 52px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  cursor: pointer;
-  transition: transform 0.08s ease, box-shadow 0.1s ease;
-  position: relative;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  margin-bottom: 6px;
+}
+
+.k-poem-line {
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.25;
+  min-height: 1.15em;
+  color: var(--text-primary);
+  white-space: nowrap;
   overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
+  text-overflow: ellipsis;
 }
 
-.karuta-card:active {
-  transform: scale(0.94);
+.k-poem-line.line-1 { color: #EA580C; }
+.k-poem-line.line-2 { color: #DC2626; }
+.k-poem-line.line-3 { color: #2563EB; }
+
+/* モードB用：中央イラスト1枚表示枠（文字なし純粋イラスト） */
+.k-single-illust-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 3px 0 6px 0;
 }
 
-.karuta-card-img {
-  width: 100%;
-  flex: 1;
-  min-height: 80px;
-  border-radius: 4px;
+.k-illust-card-c {
+  width: 140px;
+  max-width: 45%;
+  aspect-ratio: 16 / 10;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-hairline);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  background: var(--bg-bone);
-  border: 1px solid var(--border-hairline);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   position: relative;
-  pointer-events: none;
 }
 
-.karuta-card-img img {
+.k-illust-card-c img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  pointer-events: none;
 }
 
-.karuta-card-badge {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  background: rgba(28, 25, 23, 0.85);
-  color: #FBBF24;
-  font-size: 0.54rem;
-  font-weight: 900;
-  padding: 1px 4px;
-  border-radius: 3px;
-  pointer-events: none;
+.k-illust-card-c svg {
+  width: 100%;
+  height: 100%;
 }
 
-.karuta-card-title {
+.k-illust-guide-text {
   font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* 4択グリッド（カルタ札 & クイズボタン） */
+.k-choices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* モードA：カルタ札（文字なし純粋イラスト） */
+.k-karuta-card-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-hairline);
+  border-radius: 8px;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.k-karuta-card-btn:active {
+  transform: scale(0.95);
+}
+
+.k-karuta-card-btn .k-illust-box {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-bone);
+  pointer-events: none;
+}
+
+.k-karuta-card-btn .k-illust-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.k-karuta-card-btn .k-illust-box svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* モードB：テキスト4択ボタン */
+.k-quiz-choice-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-hairline);
+  border-radius: 8px;
+  padding: 5px 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease, border-color 0.15s ease, background 0.15s ease;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.k-quiz-choice-btn:active {
+  transform: scale(0.95);
+}
+
+.k-c-header-row {
+  display: flex;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.k-tag-pos {
+  background: #FFF7ED;
+  color: #EA580C;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid #FED7AA;
+}
+
+.k-tag-grade {
+  color: #DC2626;
+  font-weight: 900;
+}
+
+.k-c-motion {
+  font-size: 0.78rem;
   font-weight: 900;
   color: var(--text-primary);
-  line-height: 1.2;
-  margin: 3px 0 1px 0;
+  line-height: 1.15;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  pointer-events: none;
+  max-width: 100%;
 }
 
-.karuta-card-muscle {
-  font-size: 0.58rem;
+.k-c-muscle {
+  font-size: 0.62rem;
+  color: #2563EB;
   font-weight: 700;
-  color: var(--accent-blue);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  pointer-events: none;
-  line-height: 1.1;
+  max-width: 100%;
 }
 
-.karuta-card-pos {
-  font-size: 0.58rem;
-  color: var(--accent-amber);
-  font-weight: 800;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  pointer-events: none;
-  margin-top: 1px;
+/* 正解・お手つきハイライト */
+.k-karuta-card-btn.correct, .k-quiz-choice-btn.correct {
+  border-color: #16A34A !important;
+  background: #DCFCE7 !important;
+  box-shadow: 0 0 12px rgba(22, 163, 74, 0.4) !important;
 }
 
-/* 正解・お手つきアニメーション */
-.karuta-card.taken-p1 {
-  border-color: #2563EB !important;
-  background: #EFF6FF !important;
-  box-shadow: 0 0 12px #2563EB !important;
-  animation: card-pop-vanish 0.6s forwards ease;
-}
-
-.karuta-card.taken-p2 {
+.k-karuta-card-btn.wrong, .k-quiz-choice-btn.wrong {
   border-color: #DC2626 !important;
-  background: #FFF5F5 !important;
-  box-shadow: 0 0 12px #DC2626 !important;
-  animation: card-pop-vanish 0.6s forwards ease;
-}
-
-@keyframes card-pop-vanish {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(0.4); opacity: 0; }
-}
-
-.karuta-card.fault {
-  border-color: #DC2626 !important;
+  background: #FEE2E2 !important;
   animation: card-shake-red 0.35s ease;
 }
 
-@keyframes card-shake-red {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-
-/* フィードバックティッカー */
-.karuta-feedback-ticker {
+/* 中央ステータスバナー */
+.k-center-banner {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(28, 25, 23, 0.92);
+  background: rgba(28, 25, 23, 0.94);
   color: #FFFFFF;
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: 999px;
-  font-size: 0.88rem;
   font-weight: 900;
-  z-index: 20;
-  pointer-events: none;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  animation: pop-in 0.2s ease;
+  font-size: 0.82rem;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.k-btn-next-round {
+  background: #EA580C;
+  color: #FFFFFF;
+  border: none;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.k-btn-next-round:active {
+  transform: scale(0.95);
 }
 
 /* カルタモーダル */
@@ -2584,7 +2801,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 30;
+  z-index: 35;
   padding: 12px;
 }
 
@@ -2621,15 +2838,16 @@ html, body {
 .k-modal-rules {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   background: var(--bg-bone);
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   margin-bottom: 14px;
   font-size: 0.7rem;
   font-weight: 800;
   color: var(--text-primary);
   text-align: left;
+  line-height: 1.4;
 }
 
 .karuta-btn-start {
@@ -2659,6 +2877,7 @@ html, body {
   border-radius: 8px;
   margin-bottom: 14px;
 }
+
 
 
 

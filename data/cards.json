@@ -6,10 +6,13 @@
     "muscle": "胸鎖乳突筋",
     "nerve": "副神経(第Ⅺ脳神経)・頸神経叢",
     "root": "C2〜C3",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "背臥位",
     "image": "assets/cards/neck_flexion.jpg",
-    "vector": "↓ 前額部加圧"
+    "vector": "↓ 前額部加圧",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード4、前額への抵抗に耐えて……",
+    "shimo": "頸部を屈曲（胸鎖乳突筋）するのはどれ？"
   },
   {
     "id": 2,
@@ -18,10 +21,13 @@
     "muscle": "頭板状筋",
     "nerve": "頸神経後枝",
     "root": "C2〜C5",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "腹臥位",
     "image": "assets/cards/neck_extension.jpg",
-    "vector": "↓ 後頭部加圧"
+    "vector": "↓ 後頭部加圧",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード4、後頭部への抵抗に耐えて……",
+    "shimo": "頸部を伸展（頭板状筋）するのはどれ？"
   },
   {
     "id": 3,
@@ -30,10 +36,13 @@
     "muscle": "腹直筋",
     "nerve": "肋間神経",
     "root": "Th7〜Th12",
-    "grade": "Grade 5",
+    "grade": "G5",
     "pos": "背臥位",
     "image": "assets/cards/trunk_flexion.jpg",
-    "vector": "⇡ 頭後ろ手組み"
+    "vector": "⇡ 頭後ろ手組み",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード5、両手を後頭部で組んで……",
+    "shimo": "肩甲骨が浮くまで体幹を屈曲するのはどれ？"
   },
   {
     "id": 4,
@@ -42,10 +51,13 @@
     "muscle": "脊柱起立筋",
     "nerve": "脊髄神経後枝",
     "root": "Th1〜L5",
-    "grade": "Grade 5",
+    "grade": "G5",
     "pos": "腹臥位",
     "image": "assets/cards/trunk_extension.jpg",
-    "vector": "↓ 足首固定"
+    "vector": "↓ 足首固定",
+    "kami": "腹臥位（ふくがい）で……",
+    "naka": "グレード5、下肢を固定されて背部を反らし……",
+    "shimo": "体幹を力強く伸展するのはどれ？"
   },
   {
     "id": 5,
@@ -54,10 +66,13 @@
     "muscle": "三角筋前部",
     "nerve": "腋窩神経",
     "root": "C5〜C6",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "座位",
     "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "↓ 上腕遠位加圧"
+    "vector": "↓ 上腕遠位加圧",
+    "kami": "座位（ざい）で……",
+    "naka": "グレード4、上腕遠位への下向き抵抗に耐えて……",
+    "shimo": "肩関節を前方90度に屈曲するのはどれ？"
   },
   {
     "id": 6,
@@ -66,10 +81,13 @@
     "muscle": "三角筋中部",
     "nerve": "腋窩神経",
     "root": "C5〜C6",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "座位",
     "image": "assets/cards/shoulder_abduction.jpg",
-    "vector": "↓ 上腕遠位加圧"
+    "vector": "↓ 上腕遠位加圧",
+    "kami": "座位（ざい）で……",
+    "naka": "グレード4、真横90度で上腕遠位の抵抗に耐えて……",
+    "shimo": "肩関節を外転（三角筋中部）するのはどれ？"
   },
   {
     "id": 7,
@@ -78,10 +96,13 @@
     "muscle": "上腕二頭筋",
     "nerve": "筋皮神経",
     "root": "C5〜C6",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "座位",
     "image": "assets/cards/elbow_flexion.jpg",
-    "vector": "↓ 前腕遠位抵抗"
+    "vector": "↓ 前腕遠位抵抗",
+    "kami": "座位で前腕を回外（かいがい）させて……",
+    "naka": "グレード4、前腕遠位への伸展抵抗に耐えて……",
+    "shimo": "肘関節を屈曲（上腕二頭筋）するのはどれ？"
   },
   {
     "id": 8,
@@ -90,10 +111,13 @@
     "muscle": "橈側手根伸筋群",
     "nerve": "橈骨神経",
     "root": "C6〜C7",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "前腕支持",
     "image": "assets/cards/wrist_extension.jpg",
-    "vector": "↓ 手背面加圧"
+    "vector": "↓ 手背面加圧",
+    "kami": "前腕回内の机上支持で……",
+    "naka": "グレード4、手背への下向き抵抗に耐えて……",
+    "shimo": "手関節を背屈・伸展するのはどれ？"
   },
   {
     "id": 9,
@@ -102,10 +126,13 @@
     "muscle": "腸腰筋",
     "nerve": "大腿神経・腰神経叢",
     "root": "L1〜L3",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "端座位",
     "image": "assets/cards/hip_flexion.jpg",
-    "vector": "↓ 大腿遠位加圧"
+    "vector": "↓ 大腿遠位加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4、大腿遠位への下向き抵抗に耐えて……",
+    "shimo": "股関節を座面から持ち上げて屈曲するのはどれ？"
   },
   {
     "id": 10,
@@ -114,10 +141,13 @@
     "muscle": "大腿四頭筋",
     "nerve": "大腿神経",
     "root": "L2〜L4",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "端座位",
     "image": "assets/cards/knee_extension.jpg",
-    "vector": "↓ 下腿遠位加圧"
+    "vector": "↓ 下腿遠位加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード5、下腿遠位への最大抵抗に耐えて……",
+    "shimo": "膝関節を完全伸展（大腿四頭筋）するのはどれ？"
   },
   {
     "id": 11,
@@ -126,10 +156,13 @@
     "muscle": "大腿四頭筋",
     "nerve": "大腿神経",
     "root": "L2〜L4",
-    "grade": "Grade 2",
+    "grade": "G2",
     "pos": "側臥位",
     "image": "assets/cards/knee_extension_g2.jpg",
-    "vector": "⤹ 屈曲位から前方伸展円弧"
+    "vector": "⤹ 屈曲位から前方伸展円弧",
+    "kami": "側臥位（そくがい）で……",
+    "naka": "グレード2、重力を除去した水平面上で……",
+    "shimo": "検者の支持で膝を伸展するのはどれ？"
   },
   {
     "id": 12,
@@ -138,10 +171,13 @@
     "muscle": "橈側手根伸筋群",
     "nerve": "橈骨神経",
     "root": "C6〜C7",
-    "grade": "Grade 2",
+    "grade": "G2",
     "pos": "前腕中間位",
     "image": "assets/cards/wrist_extension_g2.jpg",
-    "vector": "➔ 水平背屈スライド"
+    "vector": "➔ 水平背屈スライド",
+    "kami": "前腕中間位（小指側接地・手刀）で……",
+    "naka": "グレード2、重力を除いて机上を水平に滑らせて……",
+    "shimo": "手関節を伸展するのはどれ？"
   },
   {
     "id": 13,
@@ -150,10 +186,13 @@
     "muscle": "腹直筋",
     "nerve": "肋間神経",
     "root": "Th7〜Th12",
-    "grade": "Grade 4",
+    "grade": "G4",
     "pos": "背臥位",
     "image": "assets/cards/trunk_flexion_g4.jpg",
-    "vector": "⇡ 胸の前腕組み"
+    "vector": "⇡ 胸の前腕組み",
+    "kami": "背臥位（はいがい）で……",
+    "naka": "グレード4、両腕を胸の前で組んで……",
+    "shimo": "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？"
   },
   {
     "id": 14,
@@ -162,10 +201,13 @@
     "muscle": "下腿三頭筋",
     "nerve": "脛骨神経",
     "root": "S1〜S2",
-    "grade": "Grade 5",
+    "grade": "G5",
     "pos": "立位",
     "image": "assets/cards/ankle_plantar_g5.jpg",
-    "vector": "↑ 片脚立ち踵上げ25回"
+    "vector": "↑ 片脚立ち踵上げ25回",
+    "kami": "立位（りつい）片脚立ちで……",
+    "naka": "グレード5、自重で完全フォームの踵上げを……",
+    "shimo": "25回完遂する足関節底屈はどれ？"
   },
   {
     "id": 15,
@@ -174,9 +216,12 @@
     "muscle": "前脛骨筋",
     "nerve": "深腓骨神経",
     "root": "L4〜L5",
-    "grade": "Grade 5/4",
+    "grade": "G5/4",
     "pos": "端座位",
     "image": "assets/cards/ankle_dorsi_g5.jpg",
-    "vector": "↓ 前足部外返し加圧"
+    "vector": "↓ 前足部外返し加圧",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4、前足部外返し方向の抵抗に耐えて……",
+    "shimo": "足部を内反・背屈（前脛骨筋）するのはどれ？"
   }
 ]
