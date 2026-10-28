@@ -976,7 +976,7 @@ html, body {
   height: 100%;
   object-fit: contain;
   mix-blend-mode: multiply;
-  filter: contrast(1.15);
+  filter: contrast(1.18) brightness(1.05);
 }
 
 /* --------------------------------------------------------------------------
@@ -2501,7 +2501,7 @@ html, body {
    Warm Bone (#F9F8F6) ミニマリスト・エディトリアル完全準拠
    ========================================================================== */
 
-#tab-karuta {
+#tab-karuta.active {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -2959,3 +2959,9 @@ html, body {
 
 
 
+
+/* 非アクティブタブ内モーダルの非表示保証 */
+.tab-pane:not(.active) .karuta-overlay-screen,
+.tab-pane:not(.active) .judge-feedback-modal {
+  display: none !important;
+}

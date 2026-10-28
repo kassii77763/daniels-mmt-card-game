@@ -15,10 +15,10 @@ const DEFAULT_CARDS = [
     "root": "C2〜C3",
     "grade": "G5/4/3",
     "pos": "背臥位",
-    "image": "assets/cards/neck_flexion.jpg",
-    "vector": "↓ 前額部加圧",
+    "image": "assets/mmt/neck_flex_g543.png",
+    "vector": "↓ 前額部加圧（ブレイクテスト）",
     "kami": "背臥位（はいがい）で……",
-    "naka": "グレード4〜5、前額部への抵抗に耐えて……",
+    "naka": "グレード4〜5、前額部へのブレイクテストに耐えて……",
     "shimo": "顎を引いて頭部を浮かす頸部屈曲はどれ？"
   },
   {
@@ -31,10 +31,10 @@ const DEFAULT_CARDS = [
     "root": "C2〜C3",
     "grade": "G2",
     "pos": "背臥位",
-    "image": "assets/cards/neck_flexion.jpg",
-    "vector": "🔍 一部可動域 / 胸鎖乳突筋触診",
+    "image": "assets/mmt/neck_flex_g2.png",
+    "vector": "🔍 重力最小位で一部可動域 / 胸鎖乳突筋触診",
     "kami": "背臥位（はいがい）で……",
-    "naka": "グレード2、抵抗なしで頭部をわずかに離床または……",
+    "naka": "グレード2、重力を最小にして頭部をわずかに離床または……",
     "shimo": "胸鎖乳突筋の収縮を触診する頸部屈曲はどれ？"
   },
   {
@@ -47,8 +47,8 @@ const DEFAULT_CARDS = [
     "root": "Th7〜Th12",
     "grade": "G5",
     "pos": "背臥位",
-    "image": "assets/cards/trunk_flexion.jpg",
-    "vector": "⇡ 後頭部手組み・肩甲骨離床",
+    "image": "assets/mmt/trunk_flex_g5.png",
+    "vector": "⇡ 後頭部手組み・肩甲骨離床（自重）",
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード5、両手を後頭部で組んだ状態で……",
     "shimo": "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？"
@@ -63,8 +63,8 @@ const DEFAULT_CARDS = [
     "root": "Th7〜Th12",
     "grade": "G4",
     "pos": "背臥位",
-    "image": "assets/cards/trunk_flexion_g4.jpg",
-    "vector": "⇡ 胸の前腕交差・肩甲骨離床",
+    "image": "assets/mmt/trunk_flex_g4.png",
+    "vector": "⇡ 胸の前腕交差・肩甲骨離床（自重）",
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード4、両腕を胸の前で交差させて……",
     "shimo": "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？"
@@ -79,8 +79,8 @@ const DEFAULT_CARDS = [
     "root": "Th7〜Th12",
     "grade": "G3",
     "pos": "背臥位",
-    "image": "assets/cards/trunk_flexion.jpg",
-    "vector": "⇡ 上肢前方伸展・肩甲骨離床",
+    "image": "assets/mmt/trunk_flex_g3.png",
+    "vector": "⇡ 上肢前方伸展・肩甲骨離床（自重）",
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード3、両腕を前方に伸ばした状態で……",
     "shimo": "肩甲骨下角が浮くまで体幹を屈曲するのはどれ？"
@@ -95,8 +95,8 @@ const DEFAULT_CARDS = [
     "root": "Th7〜Th12",
     "grade": "G2",
     "pos": "背臥位",
-    "image": "assets/cards/trunk_flexion.jpg",
-    "vector": "🔍 頭部挙上・腹直筋触診",
+    "image": "assets/mmt/trunk_flex_g2.png",
+    "vector": "🔍 重力最小位で頭部挙上・腹直筋触診",
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード2、頭部挙上のみで肩甲骨は離床せず……",
     "shimo": "白線両側の腹直筋収縮を触診する体幹屈曲はどれ？"
@@ -106,13 +106,13 @@ const DEFAULT_CARDS = [
     "imgId": "trunk_ext_g54",
     "title": "体幹伸展 (G5/4)",
     "region": "体幹",
-    "muscle": "脊柱起立筋",
+    "muscle": "脊柱起立筋（最長筋・腸肋筋・棘筋）",
     "nerve": "脊髄神経後枝",
     "root": "Th1〜L5",
     "grade": "G5/4",
     "pos": "腹臥位",
-    "image": "assets/cards/trunk_extension.jpg",
-    "vector": "⇡ 後頭部手組み・胸部離床",
+    "image": "assets/mmt/trunk_ext_g54.png",
+    "vector": "⇡ 後頭部手組み・胸部離床（自重抵抗）",
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード5/4、後頭部手組みで下肢を固定され……",
     "shimo": "剣状突起・胸部が浮くまで体幹を伸展するのはどれ？"
@@ -127,8 +127,8 @@ const DEFAULT_CARDS = [
     "root": "Th1〜L5",
     "grade": "G3",
     "pos": "腹臥位",
-    "image": "assets/cards/trunk_extension.jpg",
-    "vector": "⇡ 上肢体側・胸部離床",
+    "image": "assets/mmt/trunk_ext_g3.png",
+    "vector": "⇡ 上肢体側・胸部離床（自重）",
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード3、両腕を体側に置いた状態で……",
     "shimo": "剣状突起が浮くまで体幹を伸展するのはどれ？"
@@ -143,8 +143,8 @@ const DEFAULT_CARDS = [
     "root": "Th1〜L5",
     "grade": "G2",
     "pos": "腹臥位",
-    "image": "assets/cards/trunk_extension.jpg",
-    "vector": "🔍 一部挙上・腰背部起立筋触診",
+    "image": "assets/mmt/trunk_ext_g2.png",
+    "vector": "🔍 重力最小位で一部挙上・腰背部起立筋触診",
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード2、胸部は浮かないが一部挙上または……",
     "shimo": "脊柱両側の起立筋収縮を触診する体幹伸展はどれ？"
@@ -159,8 +159,8 @@ const DEFAULT_CARDS = [
     "root": "C5〜C7",
     "grade": "G5/4/3",
     "pos": "端座位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "➔ 前方突き出し・手掌抵抗",
+    "image": "assets/mmt/scap_abd_g543.png",
+    "vector": "➔ 肩130°屈曲位から前方突き出し（手掌抵抗）",
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、肩関節130°屈曲位から前方へ突き出し……",
     "shimo": "前鋸筋で肩甲骨を外転・上方回旋するのはどれ？"
@@ -175,46 +175,62 @@ const DEFAULT_CARDS = [
     "root": "C5〜C7",
     "grade": "G2",
     "pos": "端座位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "🔍 肩90°屈曲位保持・腋窩触診",
+    "image": "assets/mmt/scap_abd_g2.png",
+    "vector": "🔍 肩90°支持位で重力最小運動・腋窩触診",
     "kami": "端座位（たんざい）で……",
-    "naka": "グレード2、検者が上肢を90°で支持しつつ……",
+    "naka": "グレード2、検者が上肢を90°で支持し重力を最小にして……",
     "shimo": "腋下胸郭側面の筋腹を触診する肩甲骨外転はどれ？"
   },
   {
     "id": 12,
+    "imgId": "scap_dep_g543",
+    "title": "肩甲骨下制・内転",
+    "region": "上肢",
+    "muscle": "僧帽筋下部線維",
+    "nerve": "副神経・頸神経叢",
+    "root": "C3〜C4",
+    "grade": "G5/4/3",
+    "pos": "腹臥位",
+    "image": "assets/mmt/scap_dep_g543.png",
+    "vector": "↓ 前腕遠位部への下向き抵抗（第10版基準）",
+    "kami": "腹臥位（肩145°外転・親指天井）で……",
+    "naka": "グレード4〜5、第10版基準の前腕遠位への抵抗に耐えて……",
+    "shimo": "肩甲骨を下制・内転（僧帽筋下部）するのはどれ？"
+  },
+  {
+    "id": 13,
     "imgId": "sh_flex_g543",
     "title": "肩関節屈曲",
+    "region": "上肢",
+    "muscle": "三角筋前部・棘上筋・烏口腕筋",
+    "nerve": "腋窩神経・肩甲上神経・筋皮神経",
+    "root": "C5〜C6",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/mmt/sh_flex_g543.png",
+    "vector": "↓ 上腕遠位加圧（ブレイクテスト）",
+    "kami": "端座位（たんざい）で……",
+    "naka": "グレード4〜5、肩90度屈曲位で上腕遠位のブレイクテストに耐えて……",
+    "shimo": "肩関節を前方90度に屈曲（三角筋前部・棘上筋）するのはどれ？"
+  },
+  {
+    "id": 14,
+    "imgId": "sh_flex_g2",
+    "title": "肩関節屈曲 (G2/1)",
     "region": "上肢",
     "muscle": "三角筋前部・烏口腕筋",
     "nerve": "腋窩神経・筋皮神経",
     "root": "C5〜C6",
-    "grade": "G5/4/3",
-    "pos": "端座位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "↓ 上腕遠位加圧",
-    "kami": "端座位（たんざい）で……",
-    "naka": "グレード4〜5、肩90度屈曲位で上腕遠位への抵抗に耐えて……",
-    "shimo": "肩関節を前方90度に屈曲するのはどれ？"
-  },
-  {
-    "id": 13,
-    "imgId": "sh_flex_g2",
-    "title": "肩関節屈曲 (G2/1)",
-    "region": "上肢",
-    "muscle": "三角筋前部",
-    "nerve": "腋窩神経",
-    "root": "C5〜C6",
     "grade": "G2",
     "pos": "側臥位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "➔ 水平屈曲スライド",
+    "image": "assets/mmt/sh_flex_g2.png",
+    "vector": "➔ 重力を最小にした側臥位での水平屈曲",
     "kami": "側臥位（そくがい）で……",
-    "naka": "グレード2、検者が上肢を水平面で支持しながら……",
-    "shimo": "重力を除去して肩関節を屈曲するのはどれ？"
+    "naka": "グレード2、第10版基準の側臥位で重力を最小にして……",
+    "shimo": "検者の水平面支持で肩関節を屈曲するのはどれ？"
   },
   {
-    "id": 14,
+    "id": 15,
     "imgId": "sh_ext_g543",
     "title": "肩関節伸展",
     "region": "上肢",
@@ -223,14 +239,14 @@ const DEFAULT_CARDS = [
     "root": "C5〜C8",
     "grade": "G5/4/3",
     "pos": "腹臥位",
-    "image": "assets/cards/shoulder_flexion.jpg",
+    "image": "assets/mmt/sh_ext_g543.png",
     "vector": "↓ 上肢後方挙上・上腕遠位加圧",
     "kami": "腹臥位（ふくがい）で……",
-    "naka": "グレード4〜5、上肢を後上方へ持ち上げ抵抗に耐えて……",
+    "naka": "グレード4〜5、上肢を後上方へ持ち上げ上腕遠位抵抗に耐えて……",
     "shimo": "肩関節を伸展（広背筋・大円筋）するのはどれ？"
   },
   {
-    "id": 15,
+    "id": 16,
     "imgId": "sh_ext_g2",
     "title": "肩関節伸展 (G2/1)",
     "region": "上肢",
@@ -239,14 +255,14 @@ const DEFAULT_CARDS = [
     "root": "C5〜C8",
     "grade": "G2",
     "pos": "側臥位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "➔ 水平後方スライド",
+    "image": "assets/mmt/sh_ext_g2.png",
+    "vector": "➔ 重力最小位（側臥位）での後方スライド",
     "kami": "側臥位（そくがい）で……",
-    "naka": "グレード2、検者の水平面支持で後方へ動かし……",
-    "shimo": "重力を除去して肩関節を伸展するのはどれ？"
+    "naka": "グレード2、側臥位で検者の水平面支持を受けながら後方へ……",
+    "shimo": "重力を最小にして肩関節を伸展するのはどれ？"
   },
   {
-    "id": 16,
+    "id": 17,
     "imgId": "sh_abd_g543",
     "title": "肩関節外転",
     "region": "上肢",
@@ -255,14 +271,14 @@ const DEFAULT_CARDS = [
     "root": "C5〜C6",
     "grade": "G5/4/3",
     "pos": "端座位",
-    "image": "assets/cards/shoulder_abduction.jpg",
-    "vector": "↓ 上腕遠位加圧",
+    "image": "assets/mmt/sh_abd_g543.png",
+    "vector": "↓ 上腕遠位加圧（ブレイクテスト）",
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、真横90度外転で上腕遠位の抵抗に耐えて……",
-    "shimo": "肩関節を外転（三角筋中部）するのはどれ？"
+    "shimo": "肩関節を外転（三角筋中部・棘上筋）するのはどれ？"
   },
   {
-    "id": 17,
+    "id": 18,
     "imgId": "sh_abd_g2",
     "title": "肩関節外転 (G2/1)",
     "region": "上肢",
@@ -271,14 +287,14 @@ const DEFAULT_CARDS = [
     "root": "C5〜C6",
     "grade": "G2",
     "pos": "背臥位",
-    "image": "assets/cards/shoulder_abduction.jpg",
-    "vector": "➔ ベッド上水平外転スライド",
+    "image": "assets/mmt/sh_abd_g2.png",
+    "vector": "➔ 重力最小位（背臥位）でのベッド上水平スライド",
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード2、ベッド上を水平に腕を外側へ滑らせて……",
-    "shimo": "重力を除いて肩関節を外転するのはどれ？"
+    "shimo": "重力を最小にして肩関節を外転するのはどれ？"
   },
   {
-    "id": 18,
+    "id": 19,
     "imgId": "sh_er_g543",
     "title": "肩関節外旋",
     "region": "上肢",
@@ -286,15 +302,15 @@ const DEFAULT_CARDS = [
     "nerve": "肩甲上神経・腋窩神経",
     "root": "C5〜C6",
     "grade": "G5/4/3",
-    "pos": "腹臥位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "↓ 前腕遠位加圧（前方挙上）",
-    "kami": "腹臥位（肩外転90°肘90°）で……",
-    "naka": "グレード4〜5、前腕を天井方向へ挙上し手関節近位の抵抗に耐えて……",
+    "pos": "端座位",
+    "image": "assets/mmt/sh_er_g543.png",
+    "vector": "➔ 前腕遠位外側へ内旋抵抗（第10版標準：端座位、別法：腹臥位）",
+    "kami": "端座位（第10版標準：肘90°体側）で……",
+    "naka": "グレード4〜5、前腕を外側へ動かし検者の内旋抵抗に耐えて……",
     "shimo": "肩関節を外旋（棘下筋・小円筋）するのはどれ？"
   },
   {
-    "id": 19,
+    "id": 20,
     "imgId": "sh_er_g2",
     "title": "肩関節外旋 (G2/1)",
     "region": "上肢",
@@ -302,31 +318,31 @@ const DEFAULT_CARDS = [
     "nerve": "肩甲上神経・腋窩神経",
     "root": "C5〜C6",
     "grade": "G2",
-    "pos": "腹臥位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "⤹ ベッド端下垂位での回旋",
-    "kami": "腹臥位（ふくがい）で……",
-    "naka": "グレード2、ベッド端から下垂した上腕を外側へ回旋させ……",
-    "shimo": "重力を除去して肩関節を外旋するのはどれ？"
-  },
-  {
-    "id": 20,
-    "imgId": "sh_ir_g543",
-    "title": "肩関節内旋",
-    "region": "上肢",
-    "muscle": "肩甲下筋・大胸筋・広背筋",
-    "nerve": "肩甲下神経・胸筋神経・胸背神経",
-    "root": "C5〜C8",
-    "grade": "G5/4/3",
-    "pos": "腹臥位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "↓ 前腕掌側加圧（後方挙上）",
-    "kami": "腹臥位（肩外転90°肘90°）で……",
-    "naka": "グレード4〜5、前腕を後上方へ挙上し掌側への抵抗に耐えて……",
-    "shimo": "肩関節を内旋（肩甲下筋）するのはどれ？"
+    "pos": "端座位",
+    "image": "assets/mmt/sh_er_g2.png",
+    "vector": "➔ 重力を最小にした机上水平回旋（別法：腹臥位下垂）",
+    "kami": "端座位（第10版：机上支持）で……",
+    "naka": "グレード2、重力を最小にして机上水平面で前腕を外旋させて……",
+    "shimo": "肩関節を外旋（棘下筋）するのはどれ？"
   },
   {
     "id": 21,
+    "imgId": "sh_ir_g543",
+    "title": "肩関節内旋",
+    "region": "上肢",
+    "muscle": "肩甲下筋・大胸筋・広背筋・大円筋",
+    "nerve": "肩甲下神経・胸筋神経・胸背神経",
+    "root": "C5〜C8",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/mmt/sh_ir_g543.png",
+    "vector": "➔ 前腕遠位内側へ外旋抵抗（第10版標準：端座位、別法：腹臥位）",
+    "kami": "端座位（第10版標準：肘90°体側）で……",
+    "naka": "グレード4〜5、前腕をお腹へ引き寄せ検者の外旋抵抗に耐えて……",
+    "shimo": "肩関節を内旋（肩甲下筋）するのはどれ？"
+  },
+  {
+    "id": 22,
     "imgId": "sh_ir_g2",
     "title": "肩関節内旋 (G2/1)",
     "region": "上肢",
@@ -334,15 +350,15 @@ const DEFAULT_CARDS = [
     "nerve": "肩甲下神経",
     "root": "C5〜C6",
     "grade": "G2",
-    "pos": "腹臥位",
-    "image": "assets/cards/shoulder_flexion.jpg",
-    "vector": "⤹ ベッド端下垂位での内側回旋",
-    "kami": "腹臥位（ふくがい）で……",
-    "naka": "グレード2、ベッド端から下垂した上腕を内側へ回旋させ……",
-    "shimo": "重力を除去して肩関節を内旋するのはどれ？"
+    "pos": "端座位",
+    "image": "assets/mmt/sh_ir_g2.png",
+    "vector": "➔ 重力を最小にした机上水平回旋（別法：腹臥位下垂）",
+    "kami": "端座位（第10版：机上支持）で……",
+    "naka": "グレード2、重力を最小にして机上水平面でお腹側へ内旋させて……",
+    "shimo": "肩関節を内旋（肩甲下筋）するのはどれ？"
   },
   {
-    "id": 22,
+    "id": 23,
     "imgId": "elbow_flex_g543",
     "title": "肘関節屈曲",
     "region": "上肢",
@@ -351,14 +367,14 @@ const DEFAULT_CARDS = [
     "root": "C5〜C6",
     "grade": "G5/4/3",
     "pos": "端座位",
-    "image": "assets/cards/elbow_flexion.jpg",
-    "vector": "↓ 前腕遠位抵抗",
-    "kami": "端座位（たんざい）回外位で……",
-    "naka": "グレード4〜5、前腕遠位への伸展抵抗に耐えて……",
-    "shimo": "肘関節を力強く屈曲するのはどれ？"
+    "image": "assets/mmt/elbow_flex_g543.png",
+    "vector": "↓ 前腕遠位伸展抵抗（ブレイクテスト）",
+    "kami": "端座位（たんざい）前腕回外位で……",
+    "naka": "グレード4〜5、前腕遠位への伸展ブレイクテストに耐えて……",
+    "shimo": "肘関節を力強く屈曲（上腕二頭筋）するのはどれ？"
   },
   {
-    "id": 23,
+    "id": 24,
     "imgId": "elbow_flex_g2",
     "title": "肘関節屈曲 (G2/1)",
     "region": "上肢",
@@ -367,14 +383,14 @@ const DEFAULT_CARDS = [
     "root": "C5〜C6",
     "grade": "G2",
     "pos": "側臥位",
-    "image": "assets/cards/elbow_flexion.jpg",
-    "vector": "➔ 水平屈曲スライド",
+    "image": "assets/mmt/elbow_flex_g2.png",
+    "vector": "➔ 重力最小位（側臥位または机上支持）での水平屈曲",
     "kami": "側臥位（そくがい）で……",
-    "naka": "グレード2、重力を除去した水平面上で検者の支持を受け……",
+    "naka": "グレード2、重力を最小にした水平面上で検者の支持を受け……",
     "shimo": "机上やシーツ上を滑らせて肘を屈曲するのはどれ？"
   },
   {
-    "id": 24,
+    "id": 25,
     "imgId": "elbow_ext_g543",
     "title": "肘関節伸展",
     "region": "上肢",
@@ -383,14 +399,14 @@ const DEFAULT_CARDS = [
     "root": "C6〜C8",
     "grade": "G5/4/3",
     "pos": "腹臥位",
-    "image": "assets/cards/elbow_flexion.jpg",
-    "vector": "↓ 前腕遠位加圧",
+    "image": "assets/mmt/elbow_ext_g543.png",
+    "vector": "↓ 前腕遠位加圧（肩90°外転位）",
     "kami": "腹臥位（肩外転90°）で……",
     "naka": "グレード4〜5、下垂した前腕を水平まで伸展し抵抗に耐えて……",
     "shimo": "肘関節を伸展（上腕三頭筋）するのはどれ？"
   },
   {
-    "id": 25,
+    "id": 26,
     "imgId": "elbow_ext_g2",
     "title": "肘関節伸展 (G2/1)",
     "region": "上肢",
@@ -399,14 +415,30 @@ const DEFAULT_CARDS = [
     "root": "C6〜C8",
     "grade": "G2",
     "pos": "端座位",
-    "image": "assets/cards/elbow_flexion.jpg",
-    "vector": "➔ 水平面上での肘伸展",
+    "image": "assets/mmt/elbow_ext_g2.png",
+    "vector": "➔ 重力最小位（端座位・肩90°水平面支持）での肘伸展",
     "kami": "端座位（肩外転90°）で……",
-    "naka": "グレード2、検者が上肢を水平面で支持しながら……",
-    "shimo": "重力を除いて机上水平面で肘を伸展するのはどれ？"
+    "naka": "グレード2、検者が上肢を水平面で支持し重力を最小にして……",
+    "shimo": "机上水平面で肘を伸展するのはどれ？"
   },
   {
-    "id": 26,
+    "id": 27,
+    "imgId": "forearm_pron_sup_g5432",
+    "title": "前腕回外・回内",
+    "region": "上肢",
+    "muscle": "回外筋・上腕二頭筋 ／ 円回内筋・方形回内筋",
+    "nerve": "橈骨神経・筋皮神経 ／ 正中神経",
+    "root": "C5〜C8",
+    "grade": "G5/4/3",
+    "pos": "端座位",
+    "image": "assets/mmt/forearm_pron_sup_g5432.png",
+    "vector": "➔ 橈骨遠位への回旋抵抗（第10版：全Grade端座位・肘90°統一）",
+    "kami": "端座位（肘90°体側・第10版統一）で……",
+    "naka": "グレード4〜5、手首を回す回旋抵抗に耐えて……",
+    "shimo": "前腕を回外・回内するのはどれ？"
+  },
+  {
+    "id": 28,
     "imgId": "wrist_ext_g543",
     "title": "手関節伸展",
     "region": "上肢",
@@ -415,14 +447,14 @@ const DEFAULT_CARDS = [
     "root": "C6〜C8",
     "grade": "G5/4/3",
     "pos": "前腕支持",
-    "image": "assets/cards/wrist_extension.jpg",
-    "vector": "↓ 手背加圧",
+    "image": "assets/mmt/wrist_ext_g543.png",
+    "vector": "↓ 手背加圧（回内位机上支持）",
     "kami": "前腕回内・机上支持で……",
-    "naka": "グレード4〜5、手背への下向き抵抗に耐えて……",
+    "naka": "グレード4〜5、手背への下向きブレイクテストに耐えて……",
     "shimo": "手関節を背屈・伸展するのはどれ？"
   },
   {
-    "id": 27,
+    "id": 29,
     "imgId": "wrist_ext_g2",
     "title": "手関節伸展 (G2/1)",
     "region": "上肢",
@@ -431,30 +463,30 @@ const DEFAULT_CARDS = [
     "root": "C6〜C7",
     "grade": "G2",
     "pos": "前腕中間位",
-    "image": "assets/cards/wrist_extension_g2.jpg",
-    "vector": "➔ 水平背屈スライド",
+    "image": "assets/mmt/wrist_ext_g2.png",
+    "vector": "➔ 重力最小位（前腕中間位・手刀）での水平背屈スライド",
     "kami": "前腕中間位（手刀姿勢）で……",
-    "naka": "グレード2、重力を除いて机上を水平に滑らせて……",
+    "naka": "グレード2、重力を最小にして机上を水平に滑らせて……",
     "shimo": "手関節を水平面で伸展するのはどれ？"
   },
   {
-    "id": 28,
+    "id": 30,
     "imgId": "hip_flex_g543",
     "title": "股関節屈曲",
     "region": "下肢",
-    "muscle": "腸腰筋",
+    "muscle": "腸腰筋（大腰筋・腸骨筋）",
     "nerve": "大腿神経・腰神経叢",
     "root": "L1〜L3",
     "grade": "G5/4/3",
     "pos": "端座位",
-    "image": "assets/cards/hip_flexion.jpg",
-    "vector": "↓ 大腿遠位加圧",
+    "image": "assets/mmt/hip_flex_g543.png",
+    "vector": "↓ 大腿遠位加圧（ブレイクテスト）",
     "kami": "端座位（たんざい）で……",
-    "naka": "グレード4〜5、大腿遠位への下向き抵抗に耐えて……",
-    "shimo": "股関節を座面から持ち上げて屈曲するのはどれ？"
+    "naka": "グレード4〜5、大腿遠位への下向きブレイクテストに耐えて……",
+    "shimo": "股関節を座面から持ち上げて屈曲（腸腰筋）するのはどれ？"
   },
   {
-    "id": 29,
+    "id": 31,
     "imgId": "hip_flex_g2",
     "title": "股関節屈曲 (G2/1)",
     "region": "下肢",
@@ -463,14 +495,14 @@ const DEFAULT_CARDS = [
     "root": "L1〜L3",
     "grade": "G2",
     "pos": "側臥位",
-    "image": "assets/cards/hip_flexion.jpg",
-    "vector": "➔ 水平屈曲スライド",
+    "image": "assets/mmt/hip_flex_g2.png",
+    "vector": "➔ 重力最小位（側臥位）での大腿前方水平屈曲",
     "kami": "側臥位（そくがい）で……",
-    "naka": "グレード2、検者が上側下肢を支持し水平面上で……",
-    "shimo": "重力を除いて大腿を前方へ水平屈曲するのはどれ？"
+    "naka": "グレード2、検者が上側下肢を支持し重力を最小にして……",
+    "shimo": "大腿を前方へ水平屈曲するのはどれ？"
   },
   {
-    "id": 30,
+    "id": 32,
     "imgId": "hip_ext_g543",
     "title": "股関節伸展",
     "region": "下肢",
@@ -479,14 +511,14 @@ const DEFAULT_CARDS = [
     "root": "L5〜S2",
     "grade": "G5/4/3",
     "pos": "腹臥位",
-    "image": "assets/cards/hip_flexion.jpg",
+    "image": "assets/mmt/hip_ext_g543.png",
     "vector": "↓ 大腿遠位後面加圧",
     "kami": "腹臥位（ふくがい）で……",
-    "naka": "グレード4〜5、膝伸展位で下肢を天井へ挙上し抵抗に耐えて……",
-    "shimo": "股関節を伸展（大殿筋）するのはどれ？"
+    "naka": "グレード4〜5、下肢を天井へ挙上し大腿後面抵抗に耐えて……",
+    "shimo": "股関節を力強く伸展（大殿筋）するのはどれ？"
   },
   {
-    "id": 31,
+    "id": 33,
     "imgId": "hip_ext_g2",
     "title": "股関節伸展 (G2/1)",
     "region": "下肢",
@@ -495,14 +527,14 @@ const DEFAULT_CARDS = [
     "root": "L5〜S2",
     "grade": "G2",
     "pos": "側臥位",
-    "image": "assets/cards/hip_flexion.jpg",
-    "vector": "➔ 水平後方スライド",
+    "image": "assets/mmt/hip_ext_g2.png",
+    "vector": "➔ 重力最小位（側臥位）での後方水平伸展",
     "kami": "側臥位（そくがい）で……",
-    "naka": "グレード2、検者の水平面支持で下肢を後方へ引き……",
-    "shimo": "重力を除去して股関節を伸展するのはどれ？"
+    "naka": "グレード2、検者の水平面支持で重力を最小にして後方へ……",
+    "shimo": "股関節を水平面で伸展するのはどれ？"
   },
   {
-    "id": 32,
+    "id": 34,
     "imgId": "hip_abd_g543",
     "title": "股関節外転",
     "region": "下肢",
@@ -511,14 +543,14 @@ const DEFAULT_CARDS = [
     "root": "L4〜S1",
     "grade": "G5/4/3",
     "pos": "側臥位",
-    "image": "assets/cards/hip_flexion.jpg",
-    "vector": "↓ 大腿遠位加圧",
+    "image": "assets/mmt/hip_abd_g543.png",
+    "vector": "↓ 膝関節外側・大腿遠位加圧",
     "kami": "側臥位（そくがい）で……",
     "naka": "グレード4〜5、上側の下肢を骨盤回旋なく上方へ挙上し……",
     "shimo": "股関節を外転（中殿筋）するのはどれ？"
   },
   {
-    "id": 33,
+    "id": 35,
     "imgId": "hip_abd_g2",
     "title": "股関節外転 (G2/1)",
     "region": "下肢",
@@ -527,14 +559,14 @@ const DEFAULT_CARDS = [
     "root": "L4〜S1",
     "grade": "G2",
     "pos": "背臥位",
-    "image": "assets/cards/hip_flexion.jpg",
-    "vector": "➔ ベッド上水平外転スライド",
+    "image": "assets/mmt/hip_abd_g2.png",
+    "vector": "➔ 重力最小位（背臥位）でのベッド面水平スライド",
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード2、ベッド面を水平に下肢を外側へ滑らせて……",
-    "shimo": "重力を除去して股関節を外転するのはどれ？"
+    "shimo": "重力を最小にして股関節を外転するのはどれ？"
   },
   {
-    "id": 34,
+    "id": 36,
     "imgId": "knee_flex_g543",
     "title": "膝関節屈曲",
     "region": "下肢",
@@ -543,14 +575,14 @@ const DEFAULT_CARDS = [
     "root": "L5〜S2",
     "grade": "G5/4/3",
     "pos": "腹臥位",
-    "image": "assets/cards/knee_extension.jpg",
+    "image": "assets/mmt/knee_flex_g543.png",
     "vector": "↓ 下腿遠位後面へ伸展抵抗",
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、膝屈曲位で下腿遠位への伸展抵抗に耐えて……",
     "shimo": "膝関節を屈曲（ハムストリングス）するのはどれ？"
   },
   {
-    "id": 35,
+    "id": 37,
     "imgId": "knee_flex_g2",
     "title": "膝関節屈曲 (G2/1)",
     "region": "下肢",
@@ -559,30 +591,30 @@ const DEFAULT_CARDS = [
     "root": "L5〜S2",
     "grade": "G2",
     "pos": "側臥位",
-    "image": "assets/cards/knee_extension.jpg",
-    "vector": "➔ 水平面屈曲スライド",
+    "image": "assets/mmt/knee_flex_g2.png",
+    "vector": "➔ 重力最小位（側臥位）での水平面膝屈曲",
     "kami": "側臥位（そくがい）で……",
     "naka": "グレード2、検者が下肢を支持した水平面上で……",
-    "shimo": "重力を除いて膝関節を屈曲するのはどれ？"
+    "shimo": "重力を最小にして膝関節を屈曲するのはどれ？"
   },
   {
-    "id": 36,
+    "id": 38,
     "imgId": "knee_ext_g543",
     "title": "膝関節伸展",
     "region": "下肢",
-    "muscle": "大腿四頭筋",
+    "muscle": "大腿四頭筋（大腿直筋・内側広筋・外側広筋・中間広筋）",
     "nerve": "大腿神経",
     "root": "L2〜L4",
     "grade": "G5/4/3",
     "pos": "端座位",
-    "image": "assets/cards/knee_extension.jpg",
-    "vector": "↓ 下腿遠位加圧",
+    "image": "assets/mmt/knee_ext_g543.png",
+    "vector": "↓ 下腿遠位加圧（ブレイクテスト）",
     "kami": "端座位（たんざい）で……",
-    "naka": "グレード4〜5、下腿遠位への強力な抵抗に耐えて……",
+    "naka": "グレード4〜5、下腿遠位への強力なブレイクテストに耐えて……",
     "shimo": "膝関節を完全伸展（大腿四頭筋）するのはどれ？"
   },
   {
-    "id": 37,
+    "id": 39,
     "imgId": "knee_ext_g2",
     "title": "膝関節伸展 (G2/1)",
     "region": "下肢",
@@ -591,14 +623,14 @@ const DEFAULT_CARDS = [
     "root": "L2〜L4",
     "grade": "G2",
     "pos": "側臥位",
-    "image": "assets/cards/knee_extension_g2.jpg",
-    "vector": "⤹ 屈曲位から前方伸展円弧",
+    "image": "assets/mmt/knee_ext_g2.png",
+    "vector": "➔ 重力最小位（側臥位）での屈曲位から前方伸展円弧",
     "kami": "側臥位（そくがい）で……",
-    "naka": "グレード2、重力を除去した水平面上で検者の支持を受け……",
+    "naka": "グレード2、重力を最小にした水平面上で検者の支持を受け……",
     "shimo": "膝関節を前方へ伸展するのはどれ？"
   },
   {
-    "id": 38,
+    "id": 40,
     "imgId": "ankle_pf_g543",
     "title": "足関節底屈",
     "region": "下肢",
@@ -607,14 +639,14 @@ const DEFAULT_CARDS = [
     "root": "S1〜S2",
     "grade": "G5/4/3",
     "pos": "立位",
-    "image": "assets/cards/ankle_plantar_g5.jpg",
+    "image": "assets/mmt/ankle_pf_g543.png",
     "vector": "↑ 片脚立ち踵上げ（G5:25回/G4:2〜24回/G3:1回）",
     "kami": "立位（りつい）片脚立ちで……",
     "naka": "グレード5、自重で完全フォームの踵上げを……",
     "shimo": "25回完遂する足関節底屈はどれ？"
   },
   {
-    "id": 39,
+    "id": 41,
     "imgId": "ankle_pf_g2",
     "title": "足関節底屈 (G2/1)",
     "region": "下肢",
@@ -623,41 +655,41 @@ const DEFAULT_CARDS = [
     "root": "S1〜S2",
     "grade": "G2",
     "pos": "腹臥位",
-    "image": "assets/cards/ankle_plantar_g5.jpg",
-    "vector": "➔ ベッド端から下垂・底屈抵抗",
+    "image": "assets/mmt/ankle_pf_g2.png",
+    "vector": "➔ 重力最小位（腹臥位・足部下垂）での底屈",
     "kami": "腹臥位（足部ベッド端下垂）で……",
-    "naka": "グレード2、ベッド端から足部を出して底屈させ……",
-    "shimo": "重力を除いて足関節底屈を行うのはどれ？"
+    "naka": "グレード2、ベッド端から足部を出して重力を最小にして底屈させ……",
+    "shimo": "足関節底屈を行うのはどれ？"
   },
   {
-    "id": 40,
-    "imgId": "ankle_df_g543",
+    "id": 42,
+    "imgId": "ankle_df_g5432",
     "title": "足関節背屈・内反",
     "region": "下肢",
     "muscle": "前脛骨筋",
     "nerve": "深腓骨神経",
     "root": "L4〜L5",
     "grade": "G5/4/3",
-    "pos": "端座位",
-    "image": "assets/cards/ankle_dorsi_g5.jpg",
-    "vector": "↓ 前足部外返し方向加圧",
-    "kami": "端座位（たんざい）で……",
+    "pos": "背臥位",
+    "image": "assets/mmt/ankle_df_g5432.png",
+    "vector": "↓ 前足部外返し方向加圧（第10版標準：背臥位、別法：端座位）",
+    "kami": "背臥位（第10版標準肢位）で……",
     "naka": "グレード4〜5、前足部外返し方向の抵抗に耐えて……",
     "shimo": "足部を内反・背屈（前脛骨筋）するのはどれ？"
   },
   {
-    "id": 41,
-    "imgId": "ankle_df_g2",
+    "id": 43,
+    "imgId": "ankle_df_g5432",
     "title": "足関節背屈・内反 (G2/1)",
     "region": "下肢",
     "muscle": "前脛骨筋",
     "nerve": "深腓骨神経",
     "root": "L4〜L5",
     "grade": "G2",
-    "pos": "端座位",
-    "image": "assets/cards/ankle_dorsi_g5.jpg",
-    "vector": "🔍 部分可動域 / 前脛骨筋腱触診",
-    "kami": "端座位（たんざい）で……",
+    "pos": "背臥位",
+    "image": "assets/mmt/ankle_df_g5432.png",
+    "vector": "🔍 重力最小位で部分可動域 / 前脛骨筋腱触診",
+    "kami": "背臥位（第10版標準肢位）で……",
     "naka": "グレード2、部分的な可動域または……",
     "shimo": "足関節前内側で前脛骨筋腱を触診するのはどれ？"
   }
@@ -775,13 +807,18 @@ async function preloadCustomImages() {
 // カードの図解画像パスを解決（IndexedDB ➔ local assets ➔ card.image ➔ fallback）
 function getCardResolvedImage(card) {
   if (!card) return '';
+  // 1. IndexedDBキャッシュ
   if (card.imgId && customImageCache.has(card.imgId)) {
     return customImageCache.get(card.imgId);
   }
   if (customImageCache.has(String(card.id))) {
     return customImageCache.get(String(card.id));
   }
-  return card.image || (card.imgId ? `assets/mmt/${card.imgId}.png` : '');
+  // 2. assets/mmt/{imgId}.png (自動クロップ済み原著イラスト)
+  if (card.imgId) {
+    return `assets/mmt/${card.imgId}.png`;
+  }
+  return card.image || '';
 }
 
 function hasCustomImage(card) {
@@ -990,15 +1027,116 @@ const SUB_MOTIONS = ["屈曲", "伸展", "外転", "底屈", "背屈"];
 
 // フローチャート用関節マスター（支配神経・髄節完備）
 const FLOW_JOINTS_DATA = [
-  { id: "knee_ext", name: "膝関節伸展", muscle: "大腿四頭筋", nerve: "大腿神経", root: "L2〜L4", agPos: "端座位（下腿前上方伸展）", gePos: "側臥位（下腿を検者が支持）", palpation: "大腿四頭筋腱 / 膝蓋骨上部" },
-  { id: "shoulder_abd", name: "肩関節外転", muscle: "三角筋中部", nerve: "腋窩神経", root: "C5〜C6", agPos: "座位（腕を真横90°挙上）", gePos: "背臥位（机・シーツ上を水平スライド）", palpation: "三角筋中部（肩峰外側直下）" },
-  { id: "elbow_flex", name: "肘関節屈曲", muscle: "上腕二頭筋", nerve: "筋皮神経", root: "C5〜C6", agPos: "座位（前腕回外位で屈曲）", gePos: "座位（前腕を机上支持して水平屈曲）", palpation: "上腕二頭筋腱（肘窩中央深部）" },
-  { id: "hip_flex", name: "股関節屈曲", muscle: "腸腰筋", nerve: "大腿神経・腰神経叢", root: "L1〜L3", agPos: "端座位（大腿を座面から持ち上げる）", gePos: "側臥位（検者が上肢・対側下肢を支持）", palpation: "鼠径靭帯直下（大腿三角）" },
-  { id: "wrist_ext", name: "手関節伸展", muscle: "橈側手根伸筋群", nerve: "橈骨神経", root: "C6〜C7", agPos: "前腕支持（手首を机から反らす）", gePos: "前腕中間位（小指側接地・手刀姿勢で背屈）", palpation: "手関節背側橈側（長・短橈側手根伸筋腱）" },
-  { id: "ankle_plantar", name: "足関節底屈", muscle: "下腿三頭筋", nerve: "脛骨神経", root: "S1〜S2", agPos: "立位（片脚立ち踵上げ25回）", gePos: "腹臥位 / 側臥位（足関節底屈）", palpation: "アキレス腱 / 腓腹筋筋腹" },
-  { id: "ankle_dorsi", name: "足関節背屈", muscle: "前脛骨筋", nerve: "深腓骨神経", root: "L4〜L5", agPos: "端座位（つま先を内反・背屈）", gePos: "側臥位（足部を検者が支持）", palpation: "前脛骨筋腱（足関節前内側）" },
-  { id: "neck_flex", name: "頸部屈曲", muscle: "胸鎖乳突筋", nerve: "副神経・頸神経叢", root: "C2〜C3", agPos: "背臥位（顎を引いて頭部を浮かす）", gePos: "側臥位（頭部を検者が支持）", palpation: "胸鎖乳突筋前縁（頸部側面前方）" },
-  { id: "trunk_flex", name: "体幹屈曲", muscle: "腹直筋", nerve: "肋間神経", root: "Th7〜Th12", agPos: "背臥位（頭の後ろ手組み・肩甲骨離床）", gePos: "背臥位（骨盤前傾アシスト）", palpation: "腹直筋筋腹（正中線両側）" }
+  {
+    "id": "knee_ext",
+    "name": "膝関節伸展",
+    "muscle": "大腿四頭筋",
+    "nerve": "大腿神経",
+    "root": "L2〜L4",
+    "agPos": "端座位（下腿前上方伸展）",
+    "gePos": "側臥位（下腿を検者が支持）",
+    "palpation": "大腿四頭筋腱 / 膝蓋骨上部"
+  },
+  {
+    "id": "shoulder_abd",
+    "name": "肩関節外転",
+    "muscle": "三角筋中部・棘上筋",
+    "nerve": "腋窩神経・肩甲上神経",
+    "root": "C5〜C6",
+    "agPos": "端座位（腕を真横90°挙上）",
+    "gePos": "背臥位（机・シーツ上を水平スライド）",
+    "palpation": "三角筋中部（肩峰外側直下）"
+  },
+  {
+    "id": "shoulder_er",
+    "name": "肩関節外旋",
+    "muscle": "棘下筋・小円筋",
+    "nerve": "肩甲上神経・腋窩神経",
+    "root": "C5〜C6",
+    "agPos": "端座位（肘90°屈曲・前腕外側回旋 第10版標準）",
+    "gePos": "端座位（机上支持水平外旋）",
+    "palpation": "肩甲棘下窩（棘下筋筋腹）"
+  },
+  {
+    "id": "shoulder_ir",
+    "name": "肩関節内旋",
+    "muscle": "肩甲下筋",
+    "nerve": "肩甲下神経",
+    "root": "C5〜C6",
+    "agPos": "端座位（肘90°屈曲・前腕内側回旋 第10版標準）",
+    "gePos": "端座位（机上支持水平内旋）",
+    "palpation": "腋窩深部（肩甲下筋）"
+  },
+  {
+    "id": "elbow_flex",
+    "name": "肘関節屈曲",
+    "muscle": "上腕二頭筋・上腕筋・腕橈骨筋",
+    "nerve": "筋皮神経・橈骨神経",
+    "root": "C5〜C6",
+    "agPos": "端座位（前腕回外位で屈曲）",
+    "gePos": "側臥位／端座位（前腕机上支持で水平屈曲）",
+    "palpation": "上腕二頭筋腱（肘窩中央深部）"
+  },
+  {
+    "id": "hip_flex",
+    "name": "股関節屈曲",
+    "muscle": "腸腰筋",
+    "nerve": "大腿神経・腰神経叢",
+    "root": "L1〜L3",
+    "agPos": "端座位（大腿を座面から持ち上げる）",
+    "gePos": "側臥位（検者が上肢・対側下肢を支持）",
+    "palpation": "鼠径靭帯直下（大腿三角）"
+  },
+  {
+    "id": "wrist_ext",
+    "name": "手関節伸展",
+    "muscle": "橈側手根伸筋群",
+    "nerve": "橈骨神経",
+    "root": "C6〜C7",
+    "agPos": "前腕回内支持（手首を机から反らす）",
+    "gePos": "前腕中間位（小指側接地・手刀姿勢で背屈）",
+    "palpation": "手関節背側橈側（長・短橈側手根伸筋腱）"
+  },
+  {
+    "id": "ankle_plantar",
+    "name": "足関節底屈",
+    "muscle": "下腿三頭筋（腓腹筋・ヒラメ筋）",
+    "nerve": "脛骨神経",
+    "root": "S1〜S2",
+    "agPos": "立位（片脚立ち踵上げ25回）",
+    "gePos": "腹臥位（足部ベッド端下垂で底屈）",
+    "palpation": "アキレス腱 / 腓腹筋筋腹"
+  },
+  {
+    "id": "ankle_dorsi",
+    "name": "足関節背屈・内反",
+    "muscle": "前脛骨筋",
+    "nerve": "深腓骨神経",
+    "root": "L4〜L5",
+    "agPos": "背臥位（第10版標準：つま先を内反・背屈）",
+    "gePos": "背臥位（重力最小位で前脛骨筋腱触診）",
+    "palpation": "前脛骨筋腱（足関節前内側）"
+  },
+  {
+    "id": "neck_flex",
+    "name": "頸部屈曲",
+    "muscle": "胸鎖乳突筋・頭長筋",
+    "nerve": "副神経・頸神経叢",
+    "root": "C2〜C3",
+    "agPos": "背臥位（顎を引いて頭部を浮かす）",
+    "gePos": "背臥位（重力最小位で胸鎖乳突筋触診）",
+    "palpation": "胸鎖乳突筋前縁（頸部側面前方）"
+  },
+  {
+    "id": "trunk_flex",
+    "name": "体幹屈曲",
+    "muscle": "腹直筋",
+    "nerve": "肋間神経",
+    "root": "Th7〜Th12",
+    "agPos": "背臥位（頭の後ろ手組み・肩甲骨離床）",
+    "gePos": "背臥位（頭部挙上・腹直筋触診）",
+    "palpation": "腹直筋筋腹（正中線両側）"
+  }
 ];
 
 let selectedFlowJointId = "knee_ext";
@@ -3147,7 +3285,7 @@ function renderKarutaZones() {
           ${karutaCurrentChoices.map((c) => `
             <button class="k-karuta-card-btn" data-id="${c.id}" onpointerdown="handleKarutaChoiceTap('${pKey}', ${c.id}, this)">
               <div class="k-illust-box">
-                ${renderCardImageTag(c, '', '検査イラスト')}<rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(c.pos)}</text></svg>'">
+                ${renderCardImageTag(c, '', '検査イラスト')}
               </div>
             </button>
           `).join('')}
@@ -3164,7 +3302,7 @@ function renderKarutaZones() {
         </div>
         <div class="k-single-illust-wrap">
           <div class="k-illust-card-c">
-            ${renderCardImageTag(karutaTargetCard, '', '出題イラスト')}<rect width=\\'160\\' height=\\'100\\' fill=\\'%23EDE8DF\\'/><text x=\\'80\\' y=\\'55\\' font-size=\\'14\\' text-anchor=\\'middle\\' fill=\\'%2378716C\\' font-weight=\\'bold\\'>${encodeURIComponent(karutaTargetCard.pos)}</text></svg>'">
+            ${renderCardImageTag(karutaTargetCard, '', '出題イラスト')}
           </div>
           <div class="k-illust-guide-text">
             ◀ この検査の<br>「体位・Grade・運動」<br>を早押し！
