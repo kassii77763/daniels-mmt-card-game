@@ -3,6 +3,10 @@
    Warm Bone Editorial Aesthetics & Tactile Karuta Card Physics
    ========================================================================== */
 
+[hidden] {
+  display: none !important;
+}
+
 :root {
   --bg-bone: #F9F8F6;
   --bg-card: #FFFFFF;

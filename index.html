@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261029_pure_pose_v2">
+<link rel="stylesheet" href="style.css?v=20261029_pure_pose_v3">
 </head>
 <body>
 
@@ -80,7 +80,7 @@
       </div>
 
       <!-- カルタ リザルト画面 -->
-      <div class="karuta-overlay-screen" id="karuta-result-screen" style="display:none;">
+      <div class="karuta-overlay-screen" id="karuta-result-screen" style="display:none;" hidden>
         <div class="karuta-modal-card">
           <div class="k-modal-icon" id="karuta-winner-icon">🏆</div>
           <h2 class="k-modal-title" id="karuta-winner-title">🔵 1Pの完全勝利！！</h2>
@@ -210,7 +210,7 @@
         </div>
 
         <!-- Miss Feedback Modal / Overlay (Only shown on wrong / timeout) -->
-        <div class="judge-feedback-modal" id="judge-feedback-modal" style="display:none;">
+        <div class="judge-feedback-modal" id="judge-feedback-modal" style="display:none;" hidden>
           <div class="feedback-card">
             <div class="feedback-badge" id="feedback-badge">❌ 不正解！</div>
             <div class="feedback-correct-row">
@@ -374,7 +374,7 @@
         </div>
 
         <!-- Carry Over Notification Banner -->
-        <div class="carry-over-badge" id="carry-over-badge" style="display:none;">
+        <div class="carry-over-badge" id="carry-over-badge" style="display:none;" hidden>
           🔥 CARRY OVER!! 次ターン勝利で ★<span id="carry-over-stars">2</span>個 獲得！
         </div>
 
@@ -448,9 +448,9 @@
             <div class="branch-step-box">
               <span class="branch-action">徒手抵抗を追加</span>
               <ul class="grade-result-list">
-                <li><span class="grade-pill g5">Grade 5 (Normal)</span> 最大抵抗に耐える</li>
-                <li><span class="grade-pill g4">Grade 4 (Good)</span> 中等度抵抗に耐える</li>
-                <li><span class="grade-pill g3">Grade 3 (Fair)</span> 抵抗には負ける（自重のみ）</li>
+                <li><span class="grade-pill g5">Grade 5</span> 最大抵抗に耐える</li>
+                <li><span class="grade-pill g4">Grade 4</span> 中等度抵抗に耐える</li>
+                <li><span class="grade-pill g3">Grade 3</span> 抵抗には負ける（自重のみ）</li>
               </ul>
             </div>
           </div>
@@ -464,7 +464,7 @@
                 重力除去肢位: <strong id="flow-ge-pos">側臥位（下腿支持）</strong>
               </div>
               <ul class="grade-result-list">
-                <li><span class="grade-pill g2">Grade 2 (Poor)</span> 重力除去で全ROM動く</li>
+                <li><span class="grade-pill g2">Grade 2</span> 重力を最小にした肢位で関節運動（一部〜全可動域）が可能</li>
               </ul>
               
               <!-- 分岐C: 重力除去でも動かない ➔ 触診 -->
@@ -474,8 +474,8 @@
                   触診対象: <strong id="flow-palpation">大腿四頭筋腱 / 膝蓋骨上部</strong>
                 </div>
                 <ul class="grade-result-list">
-                  <li><span class="grade-pill g1">Grade 1 (Trace)</span> 筋収縮（ピクッ）あり</li>
-                  <li><span class="grade-pill g0">Grade 0 (Zero)</span> 完全収縮なし（麻痺）</li>
+                  <li><span class="grade-pill g1">Grade 1</span> 筋収縮（ピクッ）あり</li>
+                  <li><span class="grade-pill g0">Grade 0</span> 完全収縮なし（麻痺）</li>
                 </ul>
               </div>
             </div>
@@ -518,7 +518,7 @@
 </div>
 
 <!-- 🔍 画像拡大モーダルポップアップ -->
-<div id="image-modal-overlay" class="image-modal-overlay" onclick="handleModalOverlayClick(event)" style="display:none;">
+<div id="image-modal-overlay" class="image-modal-overlay" onclick="handleModalOverlayClick(event)" style="display:none;" hidden>
   <div class="image-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-card-title">
     <button class="image-modal-close" onclick="closeImageModal()" aria-label="閉じる">✕</button>
     <div class="image-modal-header">
@@ -552,6 +552,6 @@
   </div>
 </div>
 
-<script src="app.js?v=20261029_pure_pose_v2"></script>
+<script src="app.js?v=20261029_pure_pose_v3"></script>
 </body>
 </html>
