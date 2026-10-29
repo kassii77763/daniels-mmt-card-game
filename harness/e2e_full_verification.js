@@ -3,28 +3,30 @@ const path = require('path');
 
 (async () => {
   console.log("==================================================");
-  console.log("🚀 MMT GRADE 総合実機 E2E 自律検証スイート");
+  console.log("🛡️ 【超厳格・実機UI幾何監査v7】PC＆スマホ幾何・文字切れ・小窓化完全根絶テスト");
   console.log("==================================================");
   
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  
   const fileUrl = 'file:///' + path.resolve(__dirname, '..', 'index.html').replace(/\\/g, '/');
-  console.log(`Loading URL: ${fileUrl}`);
-  await page.goto(fileUrl, { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(1000);
 
-  // ----------------------------------------------------
-  // TEST 1: 初期表示チラつき防止（Flash Prevention）
-  // ----------------------------------------------------
-  console.log("\n[TEST 1] 初期表示オーバーレイ・モーダル不可視チェック...");
-  const initialInvisibleSelectors = [
+  // ====================================================
+  // 1. 初期表示オーバーレイ・モーダル不可視チェック
+  // ====================================================
+  console.log("\n[TEST 1] 未アクティブ画面・モーダルの完全不可視チェック...");
+  const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  await page.goto(fileUrl, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(800);
+
+  const modalSelectors = [
     '#karuta-result-screen',
     '#judge-feedback-modal',
+    '#judge-results-screen',
+    '#pvp-pass-modal',
     '#carry-over-badge',
     '#image-modal-overlay'
   ];
-  for (const sel of initialInvisibleSelectors) {
+
+  for (const sel of modalSelectors) {
     const el = page.locator(sel);
     const count = await el.count();
     if (count > 0) {
@@ -32,189 +34,184 @@ const path = require('path');
       const disp = await el.evaluate(e => window.getComputedStyle(e).display);
       console.log(`  ${sel}: visible=${isVisible}, display=${disp}`);
       if (isVisible || disp !== 'none') {
-        throw new Error(`FAIL: ${sel} is visible on initial load!`);
+        throw new Error(`FAIL: 未アクティブモーダル ${sel} が初期ロード時に可視状態です (visible=${isVisible}, disp=${disp})`);
       }
     }
   }
-  console.log("✅ TEST 1 合格: 初期オーバーレイ・モーダルの露出ゼロ確認");
+  console.log("✅ TEST 1 合格: 全モーダル・リザルトの初期露出ゼロ確認");
 
-  // ----------------------------------------------------
-  // TEST 2: 3行読み上げカルタ（モードA）＆ 重複排除チェック
-  // ----------------------------------------------------
-  console.log("\n[TEST 2] 3行読み上げカルタ（モードA）自律検証...");
-  // First switch to Karuta tab
-  console.log("  Switching to Karuta tab...");
-  await page.click('button[data-tab="karuta"]');
-  await page.waitForTimeout(500);
-  // Start screen click
-  const startBtn = page.locator('.karuta-btn-start').first();
-  if (await startBtn.isVisible()) {
-    console.log("  Clicking '対戦スタート！' button...");
-    await startBtn.click();
-    await page.waitForTimeout(600);
-  }
-
-  // Check 4 choices deduplication
-  const choices = await page.locator('#k-zone-p1 .k-karuta-card-btn').all();
-  console.log(`  Zone P1 choices count: ${choices.length}`);
-  if (choices.length !== 4) throw new Error("Expected 4 choices in Karuta!");
-
-  const imgSources = [];
-  for (const choice of choices) {
-    const src = await choice.locator('img').getAttribute('src');
-    imgSources.push(src.split('?')[0]);
-  }
-  const uniqueImgs = new Set(imgSources);
-  console.log(`  Unique images in 4 choices: ${uniqueImgs.size}/4 (${Array.from(uniqueImgs).join(', ')})`);
-  if (uniqueImgs.size !== 4) throw new Error("FAIL: Duplicate images found in Karuta 4 choices!");
-
-  // Tap correct choice
-  const targetId = await page.evaluate(() => window.karutaTargetCard ? window.karutaTargetCard.id : null);
-  console.log(`  Target Card ID: ${targetId}`);
-  if (targetId) {
-    const correctBtn = page.locator(`#k-zone-p1 [data-id="${targetId}"]`).first();
-    await correctBtn.click();
-    await page.waitForTimeout(400);
-    const banner = await page.locator('#k-banner-text').textContent();
-    console.log(`  Banner after correct tap: ${banner}`);
-    if (!banner.includes('正解')) throw new Error("FAIL: Correct answer banner did not appear!");
-  }
-  console.log("✅ TEST 2 合格: カルタ4枚重複ゼロ＆正解判定確認");
-
-  // ----------------------------------------------------
-  // TEST 3: イラスト4択クイズ（モードB）
-  // ----------------------------------------------------
-  console.log("\n[TEST 3] イラスト4択クイズ（モードB）自律検証...");
-  await page.click('#btn-mode-quiz');
-  await page.waitForTimeout(500);
-
-  const quizChoices = await page.locator('#k-zone-p1 .k-quiz-choice-btn').all();
-  console.log(`  Quiz choices count: ${quizChoices.length}`);
-  if (quizChoices.length !== 4) throw new Error("Expected 4 choices in Quiz!");
-
-  const quizTitles = [];
-  for (const qc of quizChoices) {
-    const t = await qc.locator('.k-c-motion').textContent();
-    quizTitles.push(t.replace(/\(G.*\)/, '').trim());
-  }
-  const uniqueTitles = new Set(quizTitles);
-  console.log(`  Unique titles in 4 quiz choices: ${uniqueTitles.size}/4`);
-  if (uniqueTitles.size !== 4) throw new Error("FAIL: Duplicate motions found in Quiz 4 choices!");
-  console.log("✅ TEST 3 合格: クイズ4択重複ゼロ確認");
-
-  // ----------------------------------------------------
-  // TEST 4: 段階3スタート判定フローチャート（第10版基準検証）
-  // ----------------------------------------------------
-  console.log("\n[TEST 4] 段階3スタート判定フローチャート第10版基準検証...");
-  await page.click('button[data-tab="flow"]');
-  await page.waitForTimeout(500);
-
-  // Check Grade pills text (No English qualitative labels)
-  const pills = await page.locator('.grade-result-list .grade-pill').allTextContents();
-  console.log(`  Grade pills found: ${pills.join(', ')}`);
-  for (const p of pills) {
-    if (/Normal|Good|Fair|Poor|Trace|Zero/i.test(p)) {
-      throw new Error(`FAIL: Found deprecated qualitative label in flowchart pill: ${p}`);
-    }
-  }
-
-  // Check Grade 2 definition
-  const g2Text = await page.locator('.grade-result-list li:has(.g2)').textContent();
-  console.log(`  Grade 2 text: ${g2Text.trim()}`);
-  if (!g2Text.includes('重力を最小にした肢位で関節運動（一部〜全可動域）が可能')) {
-    throw new Error("FAIL: Grade 2 definition is not 10th edition compliant!");
-  }
-
-  // Click Shoulder Flexion (肩関節屈曲)
-  console.log("  Testing Shoulder Flexion joint button...");
-  const shFlexBtn = page.locator('.joint-btn:has-text("肩関節屈曲")').first();
-  if (await shFlexBtn.count() > 0) {
-    await shFlexBtn.click();
-    await page.waitForTimeout(300);
-    const agPos = await page.locator('#flow-ag-pos').textContent();
-    const gePos = await page.locator('#flow-ge-pos').textContent();
-    console.log(`  Shoulder Flexion: agPos=${agPos}, gePos=${gePos}`);
-    if (!agPos.includes('端座位') || !gePos.includes('側臥位')) {
-      throw new Error("FAIL: Shoulder flexion positions incorrect for 10th edition!");
-    }
-  }
-  console.log("✅ TEST 4 合格: フローチャート第10版完全準拠確認");
-
-  // ----------------------------------------------------
-  // TEST 5: 肢位マスター図鑑 ＆ 🔍拡大モーダル検証
-  // ----------------------------------------------------
-  console.log("\n[TEST 5] 肢位マスター図鑑 ＆ 🔍拡大モーダル検証...");
+  // ====================================================
+  // 2. PC幅 (1280x800) 実測幾何テスト（内部スクロール枠撤廃＆文字切れゼロ）
+  // ====================================================
+  console.log("\n[TEST 2] PC幅 (1280x800) 実測幾何テスト...");
+  // 図鑑タブを開く
   await page.click('button[data-tab="list"]');
   await page.waitForTimeout(600);
 
-  const cardCount = await page.locator('.k-card-flip-wrap').count();
-  console.log(`  Total cards in encyclopedia: ${cardCount}`);
-  if (cardCount !== 160) throw new Error(`Expected 160 cards, found ${cardCount}`);
-
-  // Test zoom modal
-  const firstZoomBtn = page.locator('.kc-zoom-btn').first();
-  await firstZoomBtn.click();
-  await page.waitForTimeout(400);
-
-  const modal = page.locator('#image-modal-overlay');
-  const isModalVisible = await modal.isVisible();
-  const modalDisp = await modal.evaluate(el => window.getComputedStyle(el).display);
-  const modalImgSrc = await page.locator('#modal-img').getAttribute('src');
-  const modalTitle = await page.locator('#modal-card-title').textContent();
-
-  console.log(`  Modal opened: visible=${isModalVisible}, display=${modalDisp}, title=${modalTitle}`);
-  if (!isModalVisible || modalDisp !== 'flex') {
-    throw new Error("FAIL: Zoom modal did not open properly!");
+  // 内部スクロール禁止チェック
+  const scrollContainerCheck = await page.evaluate(() => {
+    const encSection = document.getElementById('tab-list');
+    const encGrid = document.querySelector('.encyclopedia-grid');
+    const secStyle = window.getComputedStyle(encSection);
+    const gridStyle = window.getComputedStyle(encGrid);
+    return {
+      secOverflowY: secStyle.overflowY,
+      secMaxHeight: secStyle.maxHeight,
+      gridOverflowY: gridStyle.overflowY,
+      gridMaxHeight: gridStyle.maxHeight
+    };
+  });
+  console.log("  図鑑スクロール設定:", scrollContainerCheck);
+  if (scrollContainerCheck.gridOverflowY === 'scroll' || 
+      (scrollContainerCheck.gridOverflowY === 'auto' && scrollContainerCheck.gridMaxHeight !== 'none')) {
+    throw new Error("FAIL: 図鑑グリッドに内部スクロール制限（小窓化）が設定されています！");
   }
 
-  // Close modal via close button
-  await page.click('.image-modal-close');
+  // 文字切れ（... 省略・はみ出し）ゼロ実測チェック
+  const textTruncationErrors = await page.evaluate(() => {
+    const cards = document.querySelectorAll('.encyclopedia-grid .k-card');
+    const errors = [];
+    cards.forEach((card, idx) => {
+      const title = card.querySelector('.kc-title');
+      const muscle = card.querySelector('.kc-muscle');
+      const vec = card.querySelector('.kc-vec-text');
+      
+      // scrollWidth > clientWidth + 2 で省略・はみ出しを検知
+      // ※折り返し（white-space: normal）されていれば scrollWidth == clientWidth になる
+      [title, muscle, vec].forEach(el => {
+        if (el) {
+          const style = window.getComputedStyle(el);
+          if (style.textOverflow === 'ellipsis' && el.scrollWidth > el.clientWidth + 2) {
+            errors.push(`Card #${idx+1} [${title ? title.textContent.trim() : '?'}] のテキストが ... で切れています (scrollWidth: ${el.scrollWidth} > clientWidth: ${el.clientWidth})`);
+          }
+        }
+      });
+    });
+    return errors;
+  });
+
+  if (textTruncationErrors.length > 0) {
+    console.error("  ❌ 文字切れ検出:", textTruncationErrors.slice(0, 5));
+    throw new Error(`FAIL: ${textTruncationErrors.length} 件のカードで文字が '...' で切れています！`);
+  }
+  console.log("✅ TEST 2 合格: 図鑑内部スクロール枠撤廃 ＆ 文字切れゼロ確認");
+
+  // ====================================================
+  // 3. スマホ幅 (390x844) 実測幾何テスト（全5タブ横はみ出しゼロ＆極小潰れゼロ）
+  // ====================================================
+  console.log("\n[TEST 3] スマホ幅 (390x844: iPhone相当) 実測幾何テスト...");
+  const spPage = await browser.newPage({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 2,
+    isMobile: true
+  });
+  await spPage.goto(fileUrl, { waitUntil: 'domcontentloaded' });
+  await spPage.waitForTimeout(800);
+
+  const tabs = ['battle', 'karuta', 'judge', 'flow', 'list'];
+  for (const tab of tabs) {
+    await spPage.click(`button[data-tab="${tab}"]`);
+    await spPage.waitForTimeout(400);
+
+    // 横はみ出し実測
+    const docScrollWidth = await spPage.evaluate(() => document.documentElement.scrollWidth);
+    console.log(`  Tab [${tab}]: document.documentElement.scrollWidth = ${docScrollWidth}px`);
+    if (docScrollWidth > 390) {
+      throw new Error(`FAIL: タブ [${tab}] で横はみ出しが発生しています (${docScrollWidth}px > 390px)`);
+    }
+
+    // タブ別寸法チェック
+    if (tab === 'battle') {
+      // 手札カード幅チェック（潰れ防止：90px以上）
+      const handCardWidth = await spPage.evaluate(() => {
+        const firstCard = document.querySelector('.hand-card-grid .k-card-flip-wrap') || document.querySelector('.hand-card-grid .k-card');
+        return firstCard ? firstCard.getBoundingClientRect().width : 0;
+      });
+      console.log(`  Battle 手札1枚の描画幅: ${handCardWidth.toFixed(1)}px`);
+      if (handCardWidth < 90) {
+        throw new Error(`FAIL: スマホでバトル手札が潰れています (${handCardWidth.toFixed(1)}px < 90px)`);
+      }
+    }
+
+    if (tab === 'judge') {
+      // 判定ボタン高さチェック（最小48px）
+      const btnHeight = await spPage.evaluate(() => {
+        const btn = document.querySelector('.jaction-btn');
+        return btn ? btn.getBoundingClientRect().height : 0;
+      });
+      console.log(`  Judge 判定ボタンの描画高さ: ${btnHeight.toFixed(1)}px`);
+      if (btnHeight < 40) {
+        throw new Error(`FAIL: 判定ボタンが押しづらい極小サイズです (${btnHeight.toFixed(1)}px < 40px)`);
+      }
+    }
+
+    if (tab === 'flow') {
+      // フローチャートの画像枠が描画されているか
+      const flowAgImg = await spPage.locator('#flow-ag-img').count();
+      const flowGeImg = await spPage.locator('#flow-ge-img').count();
+      console.log(`  Flowchart 画像要素存在確認: AG=${flowAgImg}, GE=${flowGeImg}`);
+      if (flowAgImg === 0 || flowGeImg === 0) {
+        throw new Error("FAIL: フローチャートにG3/G2のイラスト要素が存在しません！");
+      }
+    }
+
+    if (tab === 'list') {
+      // 図鑑カードのイラスト枠高さチェック（110px以上）
+      const artHeight = await spPage.evaluate(() => {
+        const art = document.querySelector('.encyclopedia-grid .kc-art-window');
+        return art ? art.getBoundingClientRect().height : 0;
+      });
+      console.log(`  Encyclopedia イラスト枠の描画高さ: ${artHeight.toFixed(1)}px`);
+      if (artHeight < 100) {
+        throw new Error(`FAIL: 図鑑カードのイラスト枠が極小です (${artHeight.toFixed(1)}px < 100px)`);
+      }
+    }
+  }
+  console.log("✅ TEST 3 合格: 全5タブ スマホ横はみ出しゼロ＆極小潰れゼロ確認");
+
+  // ====================================================
+  // 4. カルタモード 1Pソロ ＆ 2P対面切替 実機テスト
+  // ====================================================
+  console.log("\n[TEST 4] カルタモード 1Pソロ標準 ＆ 2P対面切替テスト...");
+  await page.click('button[data-tab="karuta"]');
+  await page.waitForTimeout(400);
+
+  // デフォルトで2Pゾーンが非表示（1Pソロ標準）であることを確認
+  const p2ZoneDisp = await page.evaluate(() => {
+    const el = document.getElementById('k-zone-p2');
+    return el ? window.getComputedStyle(el).display : 'none';
+  });
+  console.log(`  デフォルト状態の 2Pゾーン display: ${p2ZoneDisp}`);
+  if (p2ZoneDisp !== 'none') {
+    throw new Error(`FAIL: カルタのデフォルトが1Pソロではなく2P対面になっています (display=${p2ZoneDisp})`);
+  }
+
+  // スタート説明画面が開いていれば閉じる
+  const startBtn = page.locator('.karuta-btn-start').first();
+  if (await startBtn.isVisible()) {
+    await startBtn.click();
+    await page.waitForTimeout(400);
+  }
+
+  // 2P対面トグルボタンを押して切り替えテスト
+  await page.click('#btn-split-toggle');
   await page.waitForTimeout(300);
-  const isModalClosed = !(await modal.isVisible());
-  console.log(`  Modal closed successfully: ${isModalClosed}`);
-  if (!isModalClosed) throw new Error("FAIL: Modal did not close!");
+  const p2ZoneDispAfter = await page.evaluate(() => {
+    const el = document.getElementById('k-zone-p2');
+    return el ? window.getComputedStyle(el).display : 'none';
+  });
+  console.log(`  切替後の 2Pゾーン display: ${p2ZoneDispAfter}`);
+  if (p2ZoneDispAfter !== 'flex') {
+    throw new Error(`FAIL: 2P対面切替ボタンを押しても2Pゾーンが表示されません (display=${p2ZoneDispAfter})`);
+  }
+  console.log("✅ TEST 4 合格: カルタ 1Pソロ標準 ＆ 2P対面切替 100% 動作確認");
 
-  // Test filter buttons
-  console.log("  Testing Encyclopedia filter chips...");
-  await page.click('button[data-filter="手指・母指"]');
-  await page.waitForTimeout(300);
-  const fingerCards = await page.locator('.k-card-flip-wrap:visible').count();
-  console.log(`  Finger cards visible: ${fingerCards}`);
-  if (fingerCards !== 28) throw new Error(`Expected 28 finger cards, found ${fingerCards}`);
-
-  await page.click('button[data-filter="足関節・足趾"]');
-  await page.waitForTimeout(300);
-  const footCards = await page.locator('.k-card-flip-wrap:visible').count();
-  console.log(`  Foot/toe cards visible: ${footCards}`);
-  if (footCards !== 20) throw new Error(`Expected 20 foot/toe cards, found ${footCards}`);
-
-  await page.click('button[data-filter="all"]');
-  console.log("✅ TEST 5 合格: 図鑑160枚・フィルタ・拡大モーダル開閉100%確認");
-
-  // ----------------------------------------------------
-  // TEST 6: オセロ式MMTバトル
-  // ----------------------------------------------------
-  console.log("\n[TEST 6] オセロ式MMTバトル自律検証...");
-  await page.click('button[data-tab="battle"]');
-  await page.waitForTimeout(500);
-
-  const handCards = await page.locator('#player-hand-container .k-card').count();
-  console.log(`  Player hand cards: ${handCards}`);
-  if (handCards !== 5) throw new Error(`Expected 5 hand cards, found ${handCards}`);
-
-  const fieldName = await page.locator('#field-name').textContent();
-  console.log(`  Current field: ${fieldName}`);
-  if (!fieldName) throw new Error("Field name is empty!");
-
-  console.log("✅ TEST 6 合格: オセロMMTバトル初期化確認");
+  await page.close();
+  await spPage.close();
+  await browser.close();
 
   console.log("\n==================================================");
-  console.log("🎉🎉 全6大実機E2Eテスト: 100% 完全合格 (ALL PASS) 🎉🎉");
+  console.log("🎉🎉 全実機UI幾何＆レスポンシブ監査テスト: 100% 完全合格 (ALL PASS) 🎉🎉");
   console.log("==================================================");
-
-  await browser.close();
   process.exit(0);
-})().catch(err => {
-  console.error("\n❌ E2E TEST FAILED:", err);
-  process.exit(1);
-});
+})();

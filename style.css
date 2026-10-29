@@ -163,13 +163,13 @@ html, body {
 }
 
 .tab-pane {
-  display: none;
+  display: none !important;
   flex-direction: column;
   width: 100%;
 }
 
 .tab-pane.active {
-  display: flex;
+  display: flex !important;
 }
 
 #tab-battle.active, #tab-karuta.active, #tab-judge.active {
@@ -3438,4 +3438,62 @@ html, body {
   .encyclopedia-grid .kc-art-window {
     height: 110px;
   }
+
+  /* スマホでのバトル手札：横スクロールカルーセル（手札1枚幅130px以上確保） */
+  .hand-card-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 8px !important;
+    padding: 6px 4px 10px 4px !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hand-card-grid .k-card-flip-wrap,
+  .hand-card-grid .k-card {
+    min-width: 130px !important;
+    max-width: 140px !important;
+    width: 130px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  .hand-card-grid .kc-art-window {
+    height: 75px !important;
+  }
+}
+
+/* 🔀 フローチャート内イラスト表示枠 */
+.flow-art-container {
+  margin: 10px 0 6px 0;
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.flow-art-img {
+  width: 100%;
+  max-width: 320px;
+  height: 140px;
+  object-fit: contain;
+  background: #FFFFFF;
+  border-radius: 4px;
+}
+.flow-art-caption {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+/* スワイプスタンプ：カード上の文字圧迫防止（通常時は非表示、ドラッグ中のみ表示） */
+.swipe-stamp {
+  display: none !important;
+}
+.swipe-stamp.visible {
+  display: block !important;
 }

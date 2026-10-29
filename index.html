@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261029_pure_pose_v6">
+<link rel="stylesheet" href="style.css?v=20261029_pure_pose_v7">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
           <button class="k-subtab" id="btn-mode-quiz" onclick="setKarutaSubMode('quiz')">🖼️ 画像➔4択ジャッジ</button>
         </div>
         <div class="karuta-util-group">
-          <button class="k-subtab" id="btn-split-toggle" onclick="toggleKarutaSplit()">👥 対面2P</button>
+          <button class="k-subtab" id="btn-split-toggle" onclick="toggleKarutaSplit()">👥 2P対面</button>
           <button class="k-subtab" id="btn-voice-toggle" onclick="toggleKarutaVoice()">🔊 読み上げ ON</button>
           <button class="k-subtab" onclick="startKarutaRound()">🔄 次の札へ</button>
         </div>
@@ -44,8 +44,8 @@
 
       <!-- 対面バトルアリーナ -->
       <div class="karuta-arena" id="karuta-arena">
-        <!-- 2Pエリア（上半分：対面モード時は180度反転） -->
-        <div class="k-player-zone p2" id="k-zone-p2">
+        <!-- 2Pエリア（上半分：対面モード時のみ表示） -->
+        <div class="k-player-zone p2" id="k-zone-p2" style="display:none;">
           <!-- JSで動的レンダリング -->
         </div>
 
@@ -226,7 +226,7 @@
         </div>
 
         <!-- Results Screen (Shown on 3 misses or 15 questions cleared) -->
-        <div class="judge-results-screen" id="judge-results-screen" style="display:none;">
+        <div class="judge-results-screen" id="judge-results-screen" style="display:none;" hidden>
           <div class="results-card">
             <div class="results-rank-badge" id="results-rank-icon">👑</div>
             <h2 class="results-rank-title" id="results-rank-title">伝説の指導者級</h2>
@@ -318,7 +318,7 @@
       </div>
 
       <!-- 2P対戦用 パス＆プレイ交代オーバーレイ（スマホ手渡し用） -->
-      <div class="pvp-pass-modal" id="pvp-pass-modal" style="display:none;">
+      <div class="pvp-pass-modal" id="pvp-pass-modal" style="display:none;" hidden>
         <div class="pvp-pass-card">
           <div class="pvp-pass-icon">📱 ➔ 🤝</div>
           <h3 class="pvp-pass-title" id="pvp-pass-title">1Pセット完了！</h3>
@@ -438,6 +438,10 @@
               🧠 支配神経・髄節: <strong id="flow-joint-nerve" style="color:var(--accent-blue);">大腿神経（L2〜L4）</strong>
             </div>
           </div>
+          <div class="flow-art-container" id="flow-ag-art-box">
+            <img id="flow-ag-img" class="flow-art-img" src="" alt="抗重力位手技図" />
+            <span class="flow-art-caption">【抗重力位 (G5/4/3)】標準測定肢位</span>
+          </div>
         </div>
 
         <!-- 3分岐コネクタ -->
@@ -462,6 +466,10 @@
               <span class="branch-action">🛏️ 重力除去位へ体位変換！</span>
               <div class="flow-ge-highlight">
                 重力除去肢位: <strong id="flow-ge-pos">側臥位（下腿支持）</strong>
+              </div>
+              <div class="flow-art-container" id="flow-ge-art-box">
+                <img id="flow-ge-img" class="flow-art-img" src="" alt="重力除去位手技図" />
+                <span class="flow-art-caption">【重力除去位 (G2)】体位変換手技図</span>
               </div>
               <ul class="grade-result-list">
                 <li><span class="grade-pill g2">Grade 2</span> 重力を最小にした肢位で関節運動（一部〜全可動域）が可能</li>
@@ -552,6 +560,6 @@
   </div>
 </div>
 
-<script src="app.js?v=20261029_pure_pose_v6"></script>
+<script src="app.js?v=20261029_pure_pose_v7"></script>
 </body>
 </html>
