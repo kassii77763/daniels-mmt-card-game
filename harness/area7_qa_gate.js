@@ -18,9 +18,10 @@ function runGate() {
     const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
     data.forEach(item => {
       if (item.image) {
-        const imgPath = path.join(__dirname, '..', item.image);
+        const cleanRelPath = item.image.split('?')[0];
+        const imgPath = path.join(__dirname, '..', cleanRelPath);
         if (!fs.existsSync(imgPath)) {
-          errors.push(`[ID:${item.id}] 画像アセット未配置: ${item.image}`);
+          errors.push(`[ID:${item.id}] 画像アセット未配置: ${cleanRelPath}`);
         } else {
           const stat = fs.statSync(imgPath);
           if (stat.size < 1000) {
