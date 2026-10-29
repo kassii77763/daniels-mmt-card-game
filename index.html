@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261029_v6">
+<link rel="stylesheet" href="style.css?v=20261029_full160">
 </head>
 <body>
 
@@ -492,10 +492,16 @@
             <h2>ダニエルズ徒手筋力検査法 肢位マスター図鑑</h2>
             <p>全動作の標準測定肢位・主動作筋・力学ベクトル（第10版完全準拠）</p>
           </div>
-          <div class="enc-toolbar-actions" style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-            <div class="enc-filter-bar">
-              <button class="enc-filter-btn active" id="filter-all" onclick="filterEncyclopedia('all')">全カード</button>
-              <button class="enc-filter-btn" id="filter-weak" onclick="filterEncyclopedia('weak')">⚠️ 要復習 (<span id="weak-count">0</span>)</button>
+          <div class="enc-toolbar-actions">
+            <div class="enc-filter-bar" id="enc-filter-bar">
+              <button class="enc-filter-btn active" data-filter="all" onclick="filterEncyclopedia('all')">すべて <span class="filter-chip-count">160</span></button>
+              <button class="enc-filter-btn" data-filter="頸部・体幹" onclick="filterEncyclopedia('頸部・体幹')">頸部・体幹 <span class="filter-chip-count">36</span></button>
+              <button class="enc-filter-btn" data-filter="肩甲帯・肩" onclick="filterEncyclopedia('肩甲帯・肩')">肩甲帯・肩 <span class="filter-chip-count">29</span></button>
+              <button class="enc-filter-btn" data-filter="肘・前腕・手関節" onclick="filterEncyclopedia('肘・前腕・手関節')">肘・前腕・手関節 <span class="filter-chip-count">20</span></button>
+              <button class="enc-filter-btn" data-filter="手指・母指" onclick="filterEncyclopedia('手指・母指')">手指・母指 <span class="filter-chip-count">28</span></button>
+              <button class="enc-filter-btn" data-filter="股・膝" onclick="filterEncyclopedia('股・膝')">股・膝 <span class="filter-chip-count">27</span></button>
+              <button class="enc-filter-btn" data-filter="足関節・足趾" onclick="filterEncyclopedia('足関節・足趾')">足関節・足趾 <span class="filter-chip-count">20</span></button>
+              <button class="enc-filter-btn filter-weak-btn" data-filter="weak" onclick="filterEncyclopedia('weak')">⚠️ 要復習 <span class="filter-chip-count" id="weak-count">0</span></button>
             </div>
           </div>
         </div>
@@ -546,6 +552,6 @@
   </div>
 </div>
 
-<script src="app.js?v=20261029_v6"></script>
+<script src="app.js?v=20261029_full160"></script>
 </body>
 </html>

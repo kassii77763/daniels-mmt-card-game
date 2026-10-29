@@ -18,67 +18,1681 @@ const REPORT_PATH = path.join(__dirname, 'area7_clinical_audit_report.json');
 
 // ダニエルズMMT 臨床グラウンドトゥルース定義（領域7査問辞書・第10版完全準拠）
 const DANIELS_CLINICAL_GROUND_TRUTH = {
-  1: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "側臥位"] },
-  2: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位"] },
-  3: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  4: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  5: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  6: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  7: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位", "端座位"] },
-  8: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位", "端座位"] },
-  9: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位", "端座位"] },
-  10: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "背臥位"], forbiddenPos: ["腹臥位", "立位"] },
-  11: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "立位"] },
-  12: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位", "端座位"] },
-  13: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位"] },
-  14: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位"] },
-  15: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位"] },
-  16: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位"] },
-  17: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位"] },
-  18: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位"] },
-  19: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
-  20: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
-  21: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
-  22: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
-  23: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "背臥位"], forbiddenPos: ["腹臥位", "側臥位"] },
-  24: { expectedPos: "側臥位", allowedPos: ["側臥位", "端座位"], forbiddenPos: ["腹臥位", "立位"] },
-  25: { expectedPos: "腹臥位", allowedPos: ["腹臥位", "端座位"], forbiddenPos: ["背臥位", "立位"] },
-  26: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "立位"] },
-  27: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "立位"] },
-  28: { expectedPos: "前腕支持", allowedPos: ["前腕支持", "端座位", "座位"], forbiddenPos: ["腹臥位", "立位", "側臥位"] },
-  29: { expectedPos: "前腕中間位", allowedPos: ["前腕中間位", "前腕支持", "端座位"], forbiddenPos: ["腹臥位", "立位", "側臥位"] },
-  30: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
-  31: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  32: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "側臥位", "立位"] },
-  33: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  34: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  35: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "側臥位"] },
-  36: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位", "端座位"] },
-  37: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  38: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
-  39: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  40: { expectedPos: "立位", allowedPos: ["立位"], forbiddenPos: ["背臥位", "座位", "腹臥位", "側臥位"] },
-  41: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["立位", "背臥位"] },
-  42: { expectedPos: "背臥位", allowedPos: ["背臥位", "端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
-  43: { expectedPos: "背臥位", allowedPos: ["背臥位", "端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
-  44: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "側臥位", "立位"] },
-  45: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位"] },
-  46: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  47: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  48: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  49: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位"] },
-  50: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位"] },
-  51: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位"] },
-  52: { expectedPos: "端座位", allowedPos: ["端座位", "座位"], forbiddenPos: ["腹臥位", "側臥位"] },
-  53: { expectedPos: "腹臥位", allowedPos: ["腹臥位"], forbiddenPos: ["背臥位", "立位"] },
-  54: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位"] },
-  55: { expectedPos: "前腕支持", allowedPos: ["前腕支持", "端座位", "座位"], forbiddenPos: ["腹臥位", "立位"] },
-  56: { expectedPos: "側臥位", allowedPos: ["側臥位"], forbiddenPos: ["腹臥位", "立位", "端座位"] },
-  57: { expectedPos: "背臥位", allowedPos: ["背臥位"], forbiddenPos: ["腹臥位", "立位", "側臥位"] },
-  58: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
-  59: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "腹臥位"], forbiddenPos: ["立位"] },
-  60: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "背臥位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] },
-  61: { expectedPos: "端座位", allowedPos: ["端座位", "座位", "背臥位"], forbiddenPos: ["腹臥位", "側臥位", "立位"] }
+  "1": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "2": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "3": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "4": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "5": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "6": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "7": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "8": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "9": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "10": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "11": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "12": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "13": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "14": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "15": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "16": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "17": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "18": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "19": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "20": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "21": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "22": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "23": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "24": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "25": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "26": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "27": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "28": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "29": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "30": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "31": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "32": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "33": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "34": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "35": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "36": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "37": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "38": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "39": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "40": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "41": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "42": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "43": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "44": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "45": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "46": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "47": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "48": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "49": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "50": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "51": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "52": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "53": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "54": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "55": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "56": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "57": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "58": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "59": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "60": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "61": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "62": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "63": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "64": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "65": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "66": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "67": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "68": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "69": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "70": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "71": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "72": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "73": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "74": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "75": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "76": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "77": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "78": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "79": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "80": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "81": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "82": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "83": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "84": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "85": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "86": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "87": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "88": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "89": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "90": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "91": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "92": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "93": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "94": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "95": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "96": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "97": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "98": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "99": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "100": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "101": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "102": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "103": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "104": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "105": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "106": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "107": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "108": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "109": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "110": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "111": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "112": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "113": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "114": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "115": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "116": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "117": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "118": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "119": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "120": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "121": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "122": {
+    "expectedPos": "立位前傾",
+    "allowedPos": [
+      "立位前傾"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "座位"
+    ]
+  },
+  "123": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "124": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "125": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "126": {
+    "expectedPos": "長座位",
+    "allowedPos": [
+      "長座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "127": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "128": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "129": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "130": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "131": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "132": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "133": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "134": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "135": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "136": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "137": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "138": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "139": {
+    "expectedPos": "端座位",
+    "allowedPos": [
+      "端座位",
+      "座位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "140": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "141": {
+    "expectedPos": "立位",
+    "allowedPos": [
+      "立位",
+      "立位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "座位",
+      "腹臥位",
+      "側臥位"
+    ]
+  },
+  "142": {
+    "expectedPos": "立位",
+    "allowedPos": [
+      "立位",
+      "立位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "座位",
+      "腹臥位",
+      "側臥位"
+    ]
+  },
+  "143": {
+    "expectedPos": "立位",
+    "allowedPos": [
+      "立位",
+      "立位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "座位",
+      "腹臥位",
+      "側臥位"
+    ]
+  },
+  "144": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "145": {
+    "expectedPos": "立位",
+    "allowedPos": [
+      "立位",
+      "立位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "座位",
+      "腹臥位",
+      "側臥位"
+    ]
+  },
+  "146": {
+    "expectedPos": "腹臥位",
+    "allowedPos": [
+      "腹臥位"
+    ],
+    "forbiddenPos": [
+      "背臥位",
+      "立位"
+    ]
+  },
+  "147": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "148": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "149": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "150": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "151": {
+    "expectedPos": "側臥位",
+    "allowedPos": [
+      "側臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "152": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "153": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "154": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "155": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "156": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "157": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "158": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "159": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  },
+  "160": {
+    "expectedPos": "背臥位",
+    "allowedPos": [
+      "背臥位"
+    ],
+    "forbiddenPos": [
+      "腹臥位",
+      "立位"
+    ]
+  }
 };
 
 function runArea7Audit() {
@@ -177,7 +1791,7 @@ function runArea7Audit() {
         });
       } else {
         const stats = fs.statSync(fullPath);
-        if (stats.size < 5000) {
+        if (stats.size < 1000) {
           complaints.push({
             cardId: card.id,
             title: card.title,

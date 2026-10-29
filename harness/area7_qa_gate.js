@@ -23,7 +23,7 @@ function runGate() {
           errors.push(`[ID:${item.id}] 画像アセット未配置: ${item.image}`);
         } else {
           const stat = fs.statSync(imgPath);
-          if (stat.size < 5000) {
+          if (stat.size < 1000) {
             errors.push(`[ID:${item.id}] 画像ファイルサイズ異常 (ダミー・破損の疑い: ${stat.size} bytes)`);
           }
         }

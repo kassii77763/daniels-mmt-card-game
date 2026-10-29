@@ -3179,3 +3179,87 @@ html, body {
   color: var(--text-primary);
   font-size: 0.82rem;
 }
+
+/* ============================================================================
+   Encyclopedia Region Filter Chips (Warm Bone Editorial Aesthetics)
+   ============================================================================ */
+.enc-toolbar-actions {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.enc-filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  overflow-x: auto;
+  padding: 4px 2px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.enc-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #57534E;
+  background: var(--bg-surface, #FFFFFF);
+  border: 1px solid var(--border-hairline, #E7E5E4);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.enc-filter-btn:hover {
+  background: #F5F4F0;
+  color: #1C1917;
+  border-color: #D6D3D1;
+}
+
+.enc-filter-btn.active {
+  background: #1C1917;
+  color: #FAF8F5;
+  border-color: #1C1917;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.filter-chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  border-radius: 999px;
+  background: #EFECE6;
+  color: #78716C;
+  min-width: 18px;
+}
+
+.enc-filter-btn.active .filter-chip-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+}
+
+.enc-filter-btn.filter-weak-btn {
+  color: #B45309;
+  border-color: #FDE68A;
+  background: #FFFBEB;
+}
+
+.enc-filter-btn.filter-weak-btn.active {
+  background: #D97706;
+  color: #FFFFFF;
+  border-color: #B45309;
+}
+
+.enc-filter-btn.filter-weak-btn.active .filter-chip-count {
+  background: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+}

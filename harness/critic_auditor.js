@@ -31,8 +31,8 @@ function runAudit() {
   const imageUsageMap = new Map(); // 画像ごとの使用状況追跡
 
   cards.forEach(c => {
-    // 肢位の有効性チェック
-    const validPositions = ["背臥位", "腹臥位", "座位", "端座位", "側臥位", "前腕支持", "前腕中間位", "立位"];
+    // 肢位の有効性チェック（ダニエルズ第10版 股関節屈曲拘縮時・TFL特殊肢位を含む）
+    const validPositions = ["背臥位", "腹臥位", "座位", "端座位", "側臥位", "前腕支持", "前腕中間位", "立位", "立位前傾", "長座位"];
     if (!validPositions.includes(c.pos)) {
       console.error(`❌ [ID:${c.id}] 不正な肢位: ${c.pos}`);
       errors++;
