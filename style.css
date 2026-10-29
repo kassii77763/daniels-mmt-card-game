@@ -1025,6 +1025,8 @@ html, body {
   padding-bottom: 40px;
   width: 100%;
   box-sizing: border-box;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 /* 図鑑カード本体の高さ自動伸長 */
@@ -1033,9 +1035,6 @@ html, body {
   height: auto;
   min-height: 290px;
   padding: 8px 8px 10px 8px;
-}
-  gap: 8px;
-  padding-bottom: 20px;
 }
 
 /* カード選択＆画像ペースト枠 */
