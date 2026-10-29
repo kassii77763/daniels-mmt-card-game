@@ -19,7 +19,7 @@
   {
     "id": 2,
     "imgId": "neck_cap_ext_g2",
-    "slide": 36,
+    "slide": 31,
     "title": "頭部伸展 (G2/1)",
     "region": "頸部・体幹",
     "muscle": "後頭下筋群・頭半棘筋",
@@ -36,7 +36,7 @@
   {
     "id": 3,
     "imgId": "neck_cerv_ext_g543",
-    "slide": 37,
+    "slide": 34,
     "title": "頸部伸展 (G5/4/3)",
     "region": "頸部・体幹",
     "muscle": "頸半棘筋・頸板状筋・頸最長筋・頸腸肋筋",
@@ -53,7 +53,7 @@
   {
     "id": 4,
     "imgId": "neck_cerv_ext_g2",
-    "slide": 38,
+    "slide": 35,
     "title": "頸部伸展 (G2/1)",
     "region": "頸部・体幹",
     "muscle": "頸半棘筋・頸板状筋",
@@ -70,7 +70,7 @@
   {
     "id": 5,
     "imgId": "neck_comb_ext_g543",
-    "slide": 39,
+    "slide": 36,
     "title": "頭頸部複合伸展 (G5/4/3)",
     "region": "頸部・体幹",
     "muscle": "僧帽筋上部・板状筋群・頭半棘筋・頸半棘筋",
@@ -87,7 +87,7 @@
   {
     "id": 6,
     "imgId": "neck_comb_ext_g2",
-    "slide": 40,
+    "slide": 37,
     "title": "頭頸部複合伸展 (G2/1)",
     "region": "頸部・体幹",
     "muscle": "僧帽筋上部・板状筋群",
@@ -104,7 +104,7 @@
   {
     "id": 7,
     "imgId": "neck_cap_flex_g543",
-    "slide": 41,
+    "slide": 39,
     "title": "頭部屈曲［チンタック］ (G5/4/3)",
     "region": "頸部・体幹",
     "muscle": "頭長筋・前頭直筋・外側頭直筋",
@@ -121,7 +121,7 @@
   {
     "id": 8,
     "imgId": "neck_cap_flex_g2",
-    "slide": 42,
+    "slide": 40,
     "title": "頭部屈曲［チンタック］ (G2/1)",
     "region": "頸部・体幹",
     "muscle": "頭長筋・前頭直筋",
@@ -223,7 +223,7 @@
   {
     "id": 14,
     "imgId": "neck_scm_iso_g2",
-    "slide": 48,
+    "slide": 47,
     "title": "胸鎖乳突筋 片側分離テスト (G2/1)",
     "region": "頸部・体幹",
     "muscle": "片側胸鎖乳突筋",
@@ -393,7 +393,7 @@
   {
     "id": 24,
     "imgId": "trunk_flex_g5",
-    "slide": 59,
+    "slide": 60,
     "title": "体幹屈曲 (G5)",
     "region": "頸部・体幹",
     "muscle": "腹直筋",
@@ -410,7 +410,7 @@
   {
     "id": 25,
     "imgId": "trunk_flex_g4",
-    "slide": 60,
+    "slide": 61,
     "title": "体幹屈曲 (G4)",
     "region": "頸部・体幹",
     "muscle": "腹直筋",
@@ -478,7 +478,7 @@
   {
     "id": 29,
     "imgId": "trunk_rot_g5",
-    "slide": 64,
+    "slide": 65,
     "title": "体幹回旋 (G5)",
     "region": "頸部・体幹",
     "muscle": "外腹斜筋（対側）・内腹斜筋（同側）",
@@ -495,7 +495,7 @@
   {
     "id": 30,
     "imgId": "trunk_rot_g4",
-    "slide": 65,
+    "slide": 66,
     "title": "体幹回旋 (G4)",
     "region": "頸部・体幹",
     "muscle": "外腹斜筋・内腹斜筋",
@@ -529,7 +529,7 @@
   {
     "id": 32,
     "imgId": "trunk_rot_g2",
-    "slide": 67,
+    "slide": 68,
     "title": "体幹回旋 (G2/1)",
     "region": "頸部・体幹",
     "muscle": "外腹斜筋・内腹斜筋",
@@ -614,7 +614,7 @@
   {
     "id": 37,
     "imgId": "scap_abd_g543",
-    "slide": 78,
+    "slide": 81,
     "title": "肩甲骨外転と上方回旋 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "前鋸筋",
@@ -631,7 +631,7 @@
   {
     "id": 38,
     "imgId": "scap_abd_g2",
-    "slide": 79,
+    "slide": 82,
     "title": "肩甲骨外転と上方回旋 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "前鋸筋",
@@ -648,7 +648,7 @@
   {
     "id": 39,
     "imgId": "scap_elev_g543",
-    "slide": 82,
+    "slide": 85,
     "title": "肩甲骨挙上 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "僧帽筋上部線維・肩甲挙筋",
@@ -665,7 +665,7 @@
   {
     "id": 40,
     "imgId": "scap_elev_g2",
-    "slide": 83,
+    "slide": 86,
     "title": "肩甲骨挙上 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "僧帽筋上部線維・肩甲挙筋",
@@ -682,7 +682,7 @@
   {
     "id": 41,
     "imgId": "scap_add_g543",
-    "slide": 86,
+    "slide": 89,
     "title": "肩甲骨内転 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "僧帽筋中部線維・大菱形筋",
@@ -699,7 +699,7 @@
   {
     "id": 42,
     "imgId": "scap_add_g2",
-    "slide": 87,
+    "slide": 89,
     "title": "肩甲骨内転 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "僧帽筋中部線維",
@@ -716,7 +716,7 @@
   {
     "id": 43,
     "imgId": "scap_dep_g543",
-    "slide": 90,
+    "slide": 92,
     "title": "肩甲骨下制と内転 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "僧帽筋下部線維",
@@ -733,7 +733,7 @@
   {
     "id": 44,
     "imgId": "scap_dep_g2",
-    "slide": 91,
+    "slide": 93,
     "title": "肩甲骨下制と内転 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "僧帽筋下部線維",
@@ -784,7 +784,7 @@
   {
     "id": 47,
     "imgId": "scap_dep_lat_g543",
-    "slide": 100,
+    "slide": 92,
     "title": "肩甲骨下制［広背筋・下部僧帽筋］ (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "広背筋・下部僧帽筋・小胸筋",
@@ -818,7 +818,7 @@
   {
     "id": 49,
     "imgId": "sh_flex_g543",
-    "slide": 104,
+    "slide": 102,
     "title": "肩関節屈曲 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "三角筋前部・烏口腕筋・大胸筋鎖骨部",
@@ -835,7 +835,7 @@
   {
     "id": 50,
     "imgId": "sh_flex_g2",
-    "slide": 105,
+    "slide": 102,
     "title": "肩関節屈曲 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "三角筋前部・烏口腕筋",
@@ -852,7 +852,7 @@
   {
     "id": 51,
     "imgId": "sh_ext_g543",
-    "slide": 108,
+    "slide": 105,
     "title": "肩関節伸展 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "広背筋・大円筋・三角筋後部",
@@ -869,7 +869,7 @@
   {
     "id": 52,
     "imgId": "sh_ext_g2",
-    "slide": 109,
+    "slide": 105,
     "title": "肩関節伸展 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "広背筋・大円筋・三角筋後部",
@@ -886,7 +886,7 @@
   {
     "id": 53,
     "imgId": "sh_abd_g543",
-    "slide": 112,
+    "slide": 110,
     "title": "肩関節外転 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "三角筋中部・棘上筋",
@@ -903,7 +903,7 @@
   {
     "id": 54,
     "imgId": "sh_abd_g2",
-    "slide": 113,
+    "slide": 111,
     "title": "肩関節外転 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "三角筋中部・棘上筋",
@@ -920,7 +920,7 @@
   {
     "id": 55,
     "imgId": "sh_habd_g543",
-    "slide": 116,
+    "slide": 114,
     "title": "肩関節水平外転 (G5/4/3)",
     "region": "肩甲帯・肩",
     "muscle": "三角筋後部",
@@ -937,7 +937,7 @@
   {
     "id": 56,
     "imgId": "sh_habd_g2",
-    "slide": 117,
+    "slide": 115,
     "title": "肩関節水平外転 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "三角筋後部",
@@ -1039,7 +1039,7 @@
   {
     "id": 62,
     "imgId": "sh_er_g2",
-    "slide": 124,
+    "slide": 123,
     "title": "肩関節外旋 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "棘下筋・小円筋",
@@ -1090,7 +1090,7 @@
   {
     "id": 65,
     "imgId": "sh_ir_g2",
-    "slide": 128,
+    "slide": 127,
     "title": "肩関節内旋 (G2/1)",
     "region": "肩甲帯・肩",
     "muscle": "肩甲下筋",
@@ -1107,7 +1107,7 @@
   {
     "id": 66,
     "imgId": "elbow_flex_biceps_g543",
-    "slide": 132,
+    "slide": 134,
     "title": "肘関節屈曲：上腕二頭筋 (G5/4/3)",
     "region": "肘・前腕・手関節",
     "muscle": "上腕二頭筋（長頭・短頭）",
@@ -1124,7 +1124,7 @@
   {
     "id": 67,
     "imgId": "elbow_flex_biceps_g2",
-    "slide": 133,
+    "slide": 134,
     "title": "肘関節屈曲：上腕二頭筋 (G2/1)",
     "region": "肘・前腕・手関節",
     "muscle": "上腕二頭筋",
@@ -1192,7 +1192,7 @@
   {
     "id": 71,
     "imgId": "elbow_flex_brachiorad_g2",
-    "slide": 137,
+    "slide": 138,
     "title": "肘関節屈曲：腕橈骨筋 (G2/1)",
     "region": "肘・前腕・手関節",
     "muscle": "腕橈骨筋",
@@ -1209,7 +1209,7 @@
   {
     "id": 72,
     "imgId": "elbow_ext_g543",
-    "slide": 138,
+    "slide": 134,
     "title": "肘関節伸展 (G5/4/3)",
     "region": "肘・前腕・手関節",
     "muscle": "上腕三頭筋（長頭・外側頭・内側頭）・肘筋",
@@ -1226,7 +1226,7 @@
   {
     "id": 73,
     "imgId": "elbow_ext_g2",
-    "slide": 139,
+    "slide": 135,
     "title": "肘関節伸展 (G2/1)",
     "region": "肘・前腕・手関節",
     "muscle": "上腕三頭筋",
@@ -1243,7 +1243,7 @@
   {
     "id": 74,
     "imgId": "forearm_sup_g543",
-    "slide": 142,
+    "slide": 139,
     "title": "前腕回外 (G5/4/3)",
     "region": "肘・前腕・手関節",
     "muscle": "回外筋・上腕二頭筋",
@@ -1260,7 +1260,7 @@
   {
     "id": 75,
     "imgId": "forearm_sup_g2",
-    "slide": 143,
+    "slide": 140,
     "title": "前腕回外 (G2/1)",
     "region": "肘・前腕・手関節",
     "muscle": "回外筋・上腕二頭筋",
@@ -1277,7 +1277,7 @@
   {
     "id": 76,
     "imgId": "forearm_pron_g543",
-    "slide": 144,
+    "slide": 142,
     "title": "前腕回内 (G5/4/3)",
     "region": "肘・前腕・手関節",
     "muscle": "円回内筋・方形回内筋",
@@ -1294,7 +1294,7 @@
   {
     "id": 77,
     "imgId": "forearm_pron_g2",
-    "slide": 145,
+    "slide": 143,
     "title": "前腕回内 (G2/1)",
     "region": "肘・前腕・手関節",
     "muscle": "円回内筋・方形回内筋",
@@ -1855,7 +1855,7 @@
   {
     "id": 110,
     "imgId": "thumb_add_g543",
-    "slide": 194,
+    "slide": 195,
     "title": "母指内転 (G5/4/3)",
     "region": "手指・母指",
     "muscle": "母指内転筋（横頭・斜頭）",
@@ -1923,7 +1923,7 @@
   {
     "id": 114,
     "imgId": "hip_flex_g543",
-    "slide": 200,
+    "slide": 199,
     "title": "股関節屈曲 (G5/4/3)",
     "region": "股・膝",
     "muscle": "腸腰筋（大腰筋・腸骨筋）",
@@ -1940,7 +1940,7 @@
   {
     "id": 115,
     "imgId": "hip_flex_g2",
-    "slide": 201,
+    "slide": 196,
     "title": "股関節屈曲 (G2/1)",
     "region": "股・膝",
     "muscle": "腸腰筋",
@@ -1957,7 +1957,7 @@
   {
     "id": 116,
     "imgId": "hip_sartorius_g543",
-    "slide": 202,
+    "slide": 199,
     "title": "縫工筋テスト［股屈曲・外転・外旋］ (G5/4/3)",
     "region": "股・膝",
     "muscle": "縫工筋",
@@ -1974,7 +1974,7 @@
   {
     "id": 117,
     "imgId": "hip_sartorius_g2",
-    "slide": 203,
+    "slide": 199,
     "title": "縫工筋テスト (G2/1)",
     "region": "股・膝",
     "muscle": "縫工筋",
@@ -1991,7 +1991,7 @@
   {
     "id": 118,
     "imgId": "hip_ext_comp_g543",
-    "slide": 204,
+    "slide": 203,
     "title": "股関節伸展：複合テスト (G5/4/3)",
     "region": "股・膝",
     "muscle": "大殿筋・ハムストリングス（半腱・半膜様筋・大腿二頭筋）",
@@ -2008,7 +2008,7 @@
   {
     "id": 119,
     "imgId": "hip_ext_comp_g2",
-    "slide": 205,
+    "slide": 204,
     "title": "股関節伸展：複合テスト (G2/1)",
     "region": "股・膝",
     "muscle": "大殿筋・ハムストリングス",
@@ -2025,7 +2025,7 @@
   {
     "id": 120,
     "imgId": "hip_ext_glute_g543",
-    "slide": 206,
+    "slide": 205,
     "title": "股関節伸展：大殿筋分離テスト (G5/4/3)",
     "region": "股・膝",
     "muscle": "大殿筋",
@@ -2042,7 +2042,7 @@
   {
     "id": 121,
     "imgId": "hip_ext_glute_g2",
-    "slide": 207,
+    "slide": 206,
     "title": "股関節伸展：大殿筋分離テスト (G2/1)",
     "region": "股・膝",
     "muscle": "大殿筋",
@@ -2059,7 +2059,7 @@
   {
     "id": 122,
     "imgId": "hip_ext_contracture_g543",
-    "slide": 208,
+    "slide": 209,
     "title": "股関節伸展：屈曲拘縮時別法 (G5/4/3)",
     "region": "股・膝",
     "muscle": "大殿筋・ハムストリングス",
@@ -2076,7 +2076,7 @@
   {
     "id": 123,
     "imgId": "hip_abd_g543",
-    "slide": 210,
+    "slide": 212,
     "title": "股関節外転 (G5/4/3)",
     "region": "股・膝",
     "muscle": "中殿筋・小殿筋",
@@ -2093,7 +2093,7 @@
   {
     "id": 124,
     "imgId": "hip_abd_g2",
-    "slide": 211,
+    "slide": 217,
     "title": "股関節外転 (G2/1)",
     "region": "股・膝",
     "muscle": "中殿筋・小殿筋",
@@ -2110,7 +2110,7 @@
   {
     "id": 125,
     "imgId": "hip_tfl_g543",
-    "slide": 212,
+    "slide": 214,
     "title": "大腿筋膜張筋テスト［TFL］ (G5/4/3)",
     "region": "股・膝",
     "muscle": "大腿筋膜張筋（TFL）",
@@ -2127,7 +2127,7 @@
   {
     "id": 126,
     "imgId": "hip_tfl_g2",
-    "slide": 213,
+    "slide": 216,
     "title": "大腿筋膜張筋テスト［TFL］ (G2/1)",
     "region": "股・膝",
     "muscle": "大腿筋膜張筋",
@@ -2144,7 +2144,7 @@
   {
     "id": 127,
     "imgId": "hip_add_g543",
-    "slide": 216,
+    "slide": 220,
     "title": "股関節内転 (G5/4/3)",
     "region": "股・膝",
     "muscle": "長内転筋・短内転筋・大内転筋・薄筋・恥骨筋",
@@ -2161,7 +2161,7 @@
   {
     "id": 128,
     "imgId": "hip_add_g2",
-    "slide": 217,
+    "slide": 220,
     "title": "股関節内転 (G2/1)",
     "region": "股・膝",
     "muscle": "内転筋群",
@@ -2178,7 +2178,7 @@
   {
     "id": 129,
     "imgId": "hip_er_g543",
-    "slide": 220,
+    "slide": 224,
     "title": "股関節外旋 (G5/4/3)",
     "region": "股・膝",
     "muscle": "外旋六筋（梨状筋・上/下双子筋・内/外閉鎖筋・大腿方形筋）・大殿筋",
@@ -2195,7 +2195,7 @@
   {
     "id": 130,
     "imgId": "hip_er_g2",
-    "slide": 221,
+    "slide": 225,
     "title": "股関節外旋 (G2/1)",
     "region": "股・膝",
     "muscle": "外旋六筋",
@@ -2212,7 +2212,7 @@
   {
     "id": 131,
     "imgId": "hip_ir_g543",
-    "slide": 222,
+    "slide": 227,
     "title": "股関節内旋 (G5/4/3)",
     "region": "股・膝",
     "muscle": "中殿筋前部・小殿筋・大腿筋膜張筋",
@@ -2229,7 +2229,7 @@
   {
     "id": 132,
     "imgId": "hip_ir_g2",
-    "slide": 223,
+    "slide": 228,
     "title": "股関節内旋 (G2/1)",
     "region": "股・膝",
     "muscle": "中殿筋前部・小殿筋",
@@ -2246,7 +2246,7 @@
   {
     "id": 133,
     "imgId": "knee_flex_comp_g543",
-    "slide": 226,
+    "slide": 231,
     "title": "膝関節屈曲：複合テスト (G5/4/3)",
     "region": "股・膝",
     "muscle": "ハムストリングス（大腿二頭筋・半腱様筋・半膜様筋）",
@@ -2263,7 +2263,7 @@
   {
     "id": 134,
     "imgId": "knee_flex_comp_g2",
-    "slide": 227,
+    "slide": 232,
     "title": "膝関節屈曲：複合テスト (G2/1)",
     "region": "股・膝",
     "muscle": "ハムストリングス",
@@ -2280,7 +2280,7 @@
   {
     "id": 135,
     "imgId": "knee_flex_med_g543",
-    "slide": 228,
+    "slide": 231,
     "title": "膝関節屈曲：内側ハムストリングス (G5/4/3)",
     "region": "股・膝",
     "muscle": "半腱様筋・半膜様筋",
@@ -2297,7 +2297,7 @@
   {
     "id": 136,
     "imgId": "knee_flex_med_g2",
-    "slide": 229,
+    "slide": 234,
     "title": "膝関節屈曲：内側ハムストリングス (G2/1)",
     "region": "股・膝",
     "muscle": "半腱様筋・半膜様筋",
@@ -2314,7 +2314,7 @@
   {
     "id": 137,
     "imgId": "knee_flex_lat_g543",
-    "slide": 230,
+    "slide": 231,
     "title": "膝関節屈曲：外側ハムストリングス (G5/4/3)",
     "region": "股・膝",
     "muscle": "大腿二頭筋（長頭・短頭）",
@@ -2331,7 +2331,7 @@
   {
     "id": 138,
     "imgId": "knee_flex_lat_g2",
-    "slide": 231,
+    "slide": 237,
     "title": "膝関節屈曲：外側ハムストリングス (G2/1)",
     "region": "股・膝",
     "muscle": "大腿二頭筋",
@@ -2348,7 +2348,7 @@
   {
     "id": 139,
     "imgId": "knee_ext_g543",
-    "slide": 234,
+    "slide": 237,
     "title": "膝関節伸展 (G5/4/3)",
     "region": "股・膝",
     "muscle": "大腿四頭筋（大腿直筋・外側広筋・中間広筋・内側広筋）",
@@ -2365,7 +2365,7 @@
   {
     "id": 140,
     "imgId": "knee_ext_g2",
-    "slide": 235,
+    "slide": 238,
     "title": "膝関節伸展 (G2/1)",
     "region": "股・膝",
     "muscle": "大腿四頭筋",
@@ -2382,7 +2382,7 @@
   {
     "id": 141,
     "imgId": "ankle_pf_g5",
-    "slide": 238,
+    "slide": 241,
     "title": "足関節底屈：腓腹筋＋ヒラメ筋 (G5)",
     "region": "足関節・足趾",
     "muscle": "腓腹筋（内側頭・外側頭）・ヒラメ筋",
@@ -2399,7 +2399,7 @@
   {
     "id": 142,
     "imgId": "ankle_pf_g4",
-    "slide": 238,
+    "slide": 241,
     "title": "足関節底屈：腓腹筋＋ヒラメ筋 (G4)",
     "region": "足関節・足趾",
     "muscle": "腓腹筋・ヒラメ筋",
@@ -2416,7 +2416,7 @@
   {
     "id": 143,
     "imgId": "ankle_pf_g3",
-    "slide": 238,
+    "slide": 241,
     "title": "足関節底屈：腓腹筋＋ヒラメ筋 (G3)",
     "region": "足関節・足趾",
     "muscle": "腓腹筋・ヒラメ筋",
@@ -2433,7 +2433,7 @@
   {
     "id": 144,
     "imgId": "ankle_pf_g2",
-    "slide": 239,
+    "slide": 242,
     "title": "足関節底屈：非立位テスト (G2/1)",
     "region": "足関節・足趾",
     "muscle": "腓腹筋・ヒラメ筋",
@@ -2450,7 +2450,7 @@
   {
     "id": 145,
     "imgId": "ankle_soleus_g543",
-    "slide": 240,
+    "slide": 241,
     "title": "足関節底屈：ヒラメ筋分離テスト (G5/4/3)",
     "region": "足関節・足趾",
     "muscle": "ヒラメ筋",
@@ -2467,7 +2467,7 @@
   {
     "id": 146,
     "imgId": "ankle_soleus_g2",
-    "slide": 241,
+    "slide": 245,
     "title": "足関節底屈：ヒラメ筋分離テスト (G2/1)",
     "region": "足関節・足趾",
     "muscle": "ヒラメ筋",
@@ -2484,7 +2484,7 @@
   {
     "id": 147,
     "imgId": "ankle_df_g5432",
-    "slide": 244,
+    "slide": 249,
     "title": "足関節背屈ならびに内反 (G5/4/3)",
     "region": "足関節・足趾",
     "muscle": "前脛骨筋",
@@ -2501,7 +2501,7 @@
   {
     "id": 148,
     "imgId": "ankle_df_g2",
-    "slide": 245,
+    "slide": 249,
     "title": "足関節背屈ならびに内反 (G2/1)",
     "region": "足関節・足趾",
     "muscle": "前脛骨筋",
@@ -2518,7 +2518,7 @@
   {
     "id": 149,
     "imgId": "foot_inv_g543",
-    "slide": 248,
+    "slide": 251,
     "title": "足部内反 (G5/4/3)",
     "region": "足関節・足趾",
     "muscle": "後脛骨筋",
@@ -2535,7 +2535,7 @@
   {
     "id": 150,
     "imgId": "foot_inv_g2",
-    "slide": 249,
+    "slide": 251,
     "title": "足部内反 (G2/1)",
     "region": "足関節・足趾",
     "muscle": "後脛骨筋",
@@ -2552,7 +2552,7 @@
   {
     "id": 151,
     "imgId": "foot_ev_g543",
-    "slide": 250,
+    "slide": 254,
     "title": "足部外反ならびに底屈 (G5/4/3)",
     "region": "足関節・足趾",
     "muscle": "長腓骨筋・短腓骨筋・第三腓骨筋",
@@ -2569,7 +2569,7 @@
   {
     "id": 152,
     "imgId": "foot_ev_g2",
-    "slide": 251,
+    "slide": 254,
     "title": "足部外反ならびに底屈 (G2/1)",
     "region": "足関節・足趾",
     "muscle": "長腓骨筋・短腓骨筋",
