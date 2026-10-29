@@ -60,6 +60,19 @@ for fname in sorted(png_files):
             if bottom_ink > 0.02:
                 errors.append(f"{fname}: 下端にキャプション文字混入の疑い (bottom ink {bottom_ink*100:.1f}%)")
 
+            # 輪郭解析による「連続手技線画の存在」と「純粋テキスト段落の排除」
+            import cv2
+            cv_img = cv2.imdecode(np.fromfile(fpath, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
+            if cv_img is not None:
+                _, thresh = cv2.threshold(cv_img, 220, 255, cv2.THRESH_BINARY_INV)
+                contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                max_bh = max([cv2.boundingRect(c)[3] for c in contours]) if contours else 0
+                text_cnt = sum([1 for c in contours if 6 <= cv2.boundingRect(c)[3] <= 38 and 4 <= cv2.boundingRect(c)[2] <= 100])
+                if max_bh < 60:
+                    errors.append(f"{fname}: 連続人体線画不在 (max_contour_h={max_bh} < 60px) 手技図ではなくテキスト段落または白紙の疑い")
+                elif max_bh < 80 and text_cnt > 30:
+                    errors.append(f"{fname}: テキスト段落過多混入 (max_h={max_bh}, text_cnt={text_cnt})")
+
     except Exception as e:
         errors.append(f"{fname}: ファイル読み込みエラー ({e})")
 
