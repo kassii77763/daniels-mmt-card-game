@@ -29,12 +29,12 @@ const DANIELS_CLINICAL_GROUND_TRUTH = {
     ]
   },
   "2": {
-    "expectedPos": "腹臥位",
+    "expectedPos": "背臥位",
     "allowedPos": [
+      "背臥位",
       "腹臥位"
     ],
     "forbiddenPos": [
-      "背臥位",
       "立位"
     ]
   },

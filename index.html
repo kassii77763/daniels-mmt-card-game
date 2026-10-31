@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261031_v10">
+<link rel="stylesheet" href="style.css?v=20261031_v11">
 </head>
 <body>
 
@@ -80,7 +80,7 @@
       </div>
 
       <!-- カルタ リザルト画面 -->
-      <div class="karuta-overlay-screen" id="karuta-result-screen" style="display:none;" hidden>
+      <div class="karuta-overlay-screen" id="karuta-result-screen" style="display:none;">
         <div class="karuta-modal-card">
           <div class="k-modal-icon" id="karuta-winner-icon">🏆</div>
           <h2 class="k-modal-title" id="karuta-winner-title">🔵 1Pの完全勝利！！</h2>
@@ -210,7 +210,7 @@
         </div>
 
         <!-- Miss Feedback Modal / Overlay (Only shown on wrong / timeout) -->
-        <div class="judge-feedback-modal" id="judge-feedback-modal" style="display:none;" hidden>
+        <div class="judge-feedback-modal" id="judge-feedback-modal" style="display:none;">
           <div class="feedback-card">
             <div class="feedback-badge" id="feedback-badge">❌ 不正解！</div>
             <div class="feedback-correct-row">
@@ -226,7 +226,7 @@
         </div>
 
         <!-- Results Screen (Shown on 3 misses or 15 questions cleared) -->
-        <div class="judge-results-screen" id="judge-results-screen" style="display:none;" hidden>
+        <div class="judge-results-screen" id="judge-results-screen" style="display:none;">
           <div class="results-card">
             <div class="results-rank-badge" id="results-rank-icon">👑</div>
             <h2 class="results-rank-title" id="results-rank-title">伝説の指導者級</h2>
@@ -451,6 +451,10 @@
             <div class="branch-tag tag-yes">YES（全可動域クリア）</div>
             <div class="branch-step-box">
               <span class="branch-action">徒手抵抗を追加</span>
+              <div class="flow-art-container" id="flow-g54-art-box">
+                <img id="flow-g54-img" class="flow-art-img" src="" alt="徒手抵抗負荷手技図" />
+                <span class="flow-art-caption">【抗重力＋抵抗 (G5/4)】徒手抵抗負荷手技図</span>
+              </div>
               <ul class="grade-result-list">
                 <li><span class="grade-pill g5">Grade 5</span> 最大抵抗に耐える</li>
                 <li><span class="grade-pill g4">Grade 4</span> 中等度抵抗に耐える</li>
@@ -555,11 +559,14 @@
           <span class="modal-meta-label">神経・髄節:</span>
           <span class="modal-meta-val" id="modal-card-nerve" style="color:#78716C;">—</span>
         </div>
+        <div class="modal-meta-row" id="modal-visual-note-row" style="margin-top:6px; padding:6px 8px; background:#FEF3C7; border:1px solid #F59E0B; border-radius:6px; display:none;">
+          <span style="font-size:0.75rem; color:#92400E; font-weight:800;" id="modal-card-visual-note">⚠️ 図解補足</span>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="app.js?v=20261031_v10"></script>
+<script src="app.js?v=20261031_v11"></script>
 </body>
 </html>

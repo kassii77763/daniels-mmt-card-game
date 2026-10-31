@@ -843,11 +843,11 @@ html, body {
   position: relative;
 }
 
-/* 図鑑カード内のイラスト枠：140px (aspect-ratio: 16/10) に拡大 */
+/* 図鑑カード内のイラスト枠：135px (aspect-ratio: 16/10) */
 .encyclopedia-grid .kc-art-window {
-  height: 140px;
+  height: 135px;
   aspect-ratio: 16 / 10;
-  margin: 6px 0;
+  margin: 4px 0;
 }
 
 .kc-art-window img {
@@ -863,6 +863,23 @@ html, body {
   color: var(--text-muted);
   text-align: center;
   line-height: 1.2;
+}
+
+/* ⚠️ 図解整合性注記バッジ（第10版基準・共用図の注意喚起） */
+.kc-visual-note {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #F59E0B;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 3px 0 4px 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  box-shadow: 0 1px 2px rgba(180, 83, 9, 0.08);
 }
 
 .kc-meta {
@@ -884,13 +901,13 @@ html, body {
 
 /* 図鑑カードの文字省略解除：2行折り返しで全文表示 */
 .encyclopedia-grid .kc-title {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 900;
-  line-height: 1.35;
+  line-height: 1.3;
   white-space: normal;
   overflow: visible;
   text-overflow: clip;
-  min-height: 2.3em;
+  min-height: 2.2em;
   margin-bottom: 2px;
 }
 
@@ -906,42 +923,48 @@ html, body {
 
 /* 図鑑カードの主動作筋省略解除：2行折り返しで全文表示 */
 .encyclopedia-grid .kc-muscle {
-  font-size: 0.70rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
   white-space: normal;
   overflow: visible;
   text-overflow: clip;
-  min-height: 2.4em;
+  min-height: 2.2em;
   margin-bottom: 4px;
 }
 
 .kc-footer {
   background: var(--bg-subtle);
   border-radius: 4px;
-  padding: 3px 6px;
+  padding: 4px 6px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
   font-size: 0.62rem;
+  overflow: visible;
 }
 
-/* 図鑑カードのフッター：加圧ベクトル全文表示 */
+/* 図鑑カードのフッター：加圧ベクトル全文表示＆見切れゼロ */
 .encyclopedia-grid .kc-footer {
-  padding: 5px 8px;
+  padding: 6px 8px;
   font-size: 0.68rem;
   align-items: flex-start;
+  min-height: 48px;
+  height: auto;
+  overflow: visible;
 }
 
 .kc-vec-text {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   color: var(--text-secondary);
   font-weight: 700;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.35;
+  font-size: 0.68rem;
 }
 
 .encyclopedia-grid .kc-vec-text {
@@ -972,15 +995,25 @@ html, body {
    Encyclopedia View (内部スクロール撤廃＆ワイドレスポンシブ)
    -------------------------------------------------------------------------- */
 .encyclopedia-header {
-  margin-bottom: 16px;
+  margin-top: 10px;
+  margin-bottom: 18px;
   width: 100%;
 }
 
 .enc-title-row {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
+}
+
+.enc-filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 2px 6px 2px;
+  margin-top: 4px;
 }
 
 .encyclopedia-header h2 {
@@ -1029,11 +1062,11 @@ html, body {
   overflow: visible !important;
 }
 
-/* 図鑑カード本体の高さ自動伸長 */
+/* 図鑑カード本体の高さ：注記バッジ・加圧ベクトル全文が完全に収まる十分な高さを確保 */
 .encyclopedia-grid .k-card-flip-wrap,
 .encyclopedia-grid .k-card {
   height: auto;
-  min-height: 290px;
+  min-height: 385px;
   padding: 8px 8px 10px 8px;
 }
 
@@ -3431,7 +3464,7 @@ html, body {
 
   .encyclopedia-grid .k-card-flip-wrap,
   .encyclopedia-grid .k-card {
-    min-height: 270px;
+    min-height: 380px;
   }
 
   .encyclopedia-grid .kc-art-window {
