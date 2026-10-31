@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261031_v14">
+<link rel="stylesheet" href="style.css?v=20261031_v15">
 </head>
 <body>
 
@@ -450,8 +450,9 @@
               🧠 支配神経・髄節: <strong id="flow-joint-nerve" style="color:var(--accent-blue);">大腿神経（L2〜L4）</strong>
             </div>
           </div>
-          <div class="flow-art-container" id="flow-ag-art-box">
+          <div class="flow-art-container" id="flow-ag-art-box" onclick="openFlowImageModal('ag', event)" title="クリックで画像を拡大">
             <img id="flow-ag-img" class="flow-art-img" src="" alt="抗重力位手技図" />
+            <button class="flow-art-zoom-btn" onclick="openFlowImageModal('ag', event)" title="画像を拡大表示">🔍 拡大</button>
             <span class="flow-art-caption">【抗重力位 (G5/4/3)】標準測定肢位</span>
           </div>
         </div>
@@ -470,8 +471,9 @@
                   <span class="grade-pill g5">Grade 5</span>
                   <span class="flow-grade-text" id="flow-g5-text">最大抵抗に耐える</span>
                 </div>
-                <div class="flow-art-container flow-art-stacked" id="flow-g54-art-box">
+                <div class="flow-art-container flow-art-stacked" id="flow-g54-art-box" onclick="openFlowImageModal('g5', event)" title="クリックで画像を拡大">
                   <img id="flow-g54-img" class="flow-art-img" src="" alt="Grade 5 手技図" />
+                  <button class="flow-art-zoom-btn" onclick="openFlowImageModal('g5', event)" title="画像を拡大表示">🔍 拡大</button>
                   <span class="flow-art-caption" id="flow-g5-caption">【Grade 5】手技図</span>
                 </div>
               </div>
@@ -482,8 +484,9 @@
                   <span class="grade-pill g4">Grade 4</span>
                   <span class="flow-grade-text" id="flow-g4-text">中等度抵抗に耐える</span>
                 </div>
-                <div class="flow-art-container flow-art-stacked" id="flow-g4-art-box">
+                <div class="flow-art-container flow-art-stacked" id="flow-g4-art-box" onclick="openFlowImageModal('g4', event)" title="クリックで画像を拡大">
                   <img id="flow-g4-img" class="flow-art-img" src="" alt="Grade 4 手技図" />
+                  <button class="flow-art-zoom-btn" onclick="openFlowImageModal('g4', event)" title="画像を拡大表示">🔍 拡大</button>
                   <span class="flow-art-caption" id="flow-g4-caption">【Grade 4】手技図</span>
                 </div>
               </div>
@@ -506,8 +509,9 @@
               <div class="flow-ge-highlight">
                 重力除去肢位: <strong id="flow-ge-pos">側臥位（下腿支持）</strong>
               </div>
-              <div class="flow-art-container" id="flow-ge-art-box">
+              <div class="flow-art-container" id="flow-ge-art-box" onclick="openFlowImageModal('ge', event)" title="クリックで画像を拡大">
                 <img id="flow-ge-img" class="flow-art-img" src="" alt="重力除去位手技図" />
+                <button class="flow-art-zoom-btn" onclick="openFlowImageModal('ge', event)" title="画像を拡大表示">🔍 拡大</button>
                 <span class="flow-art-caption">【重力除去位 (G2)】体位変換手技図</span>
               </div>
               <ul class="grade-result-list">
@@ -599,6 +603,6 @@
   </div>
 </div>
 
-<script src="app.js?v=20261031_v14"></script>
+<script src="app.js?v=20261031_v15"></script>
 </body>
 </html>

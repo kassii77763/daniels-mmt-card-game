@@ -3759,3 +3759,43 @@ html, body {
   color: #FFFFFF;
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
 }
+
+/* ============================================================================
+   🔍 フローチャート手技図 拡大ボタンスタイル
+   ============================================================================ */
+.flow-art-container {
+  position: relative !important;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.flow-art-container:hover {
+  border-color: var(--accent-blue, #2563EB) !important;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12) !important;
+}
+
+.flow-art-zoom-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.15s ease, transform 0.1s ease;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.flow-art-zoom-btn:hover {
+  background: rgba(15, 23, 42, 0.95);
+  transform: scale(1.05);
+}
