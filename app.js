@@ -29,8 +29,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、頭部をベッド端から出し後頭骨部への抵抗に抗して……",
     "shimo": "頭部を伸展（後頭下筋群）するのはどれ？",
-    "image": "assets/mmt/neck_cap_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_cap_ext_g543.png",
+    "archived": false,
+    "kami_adv": "後頭下神経障害、僧帽筋上部や頸部過伸展の代償を警戒しつつ……",
+    "kami_std": "顎を引いたまま後頭部を上に向けて反らすテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "後頭下筋群。",
+    "shimo_reading": "後頭下筋群。"
   },
   {
     "id": 2,
@@ -47,8 +53,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（頭部支持）で……",
     "naka": "グレード2、検者が頭部を支えた状態でわずかに後頭部を傾け……",
     "shimo": "頭部伸展の筋収縮を触診するのはどれ？",
-    "image": "assets/mmt/neck_cap_ext_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_cap_ext_g2.png",
+    "archived": false,
+    "kami_adv": "後頭下神経障害、僧帽筋上部や頸部過伸展の代償を警戒しつつ……",
+    "kami_std": "顎を引いたまま後頭部を上に向けて反らすテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "後頭下筋群。",
+    "shimo_reading": "後頭下筋群。"
   },
   {
     "id": 3,
@@ -65,8 +77,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、頸部を伸展して頭部を水平まで持ち上げ……",
     "shimo": "頸部伸展（頸半棘筋・板状筋）に抗するのはどれ？",
-    "image": "assets/mmt/neck_cerv_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_cerv_ext_g543.png",
+    "archived": false,
+    "kami_adv": "頸神経後枝障害、広背筋や肩甲骨引き込み代償を抑えつつ……",
+    "kami_std": "胸をつけ頭部を水平まで高く持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "頸半棘筋・板状筋。",
+    "shimo_reading": "頸半棘筋・板状筋。"
   },
   {
     "id": 4,
@@ -83,8 +101,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で頭部を支持され……",
     "naka": "グレード2、重力を除いた状態で頸部後方の筋肉を触診し……",
     "shimo": "頸部伸展筋の収縮を確認するのはどれ？",
-    "image": "assets/mmt/neck_cerv_ext_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_cerv_ext_g2.png",
+    "archived": false,
+    "kami_adv": "頸神経後枝障害、広背筋や肩甲骨引き込み代償を抑えつつ……",
+    "kami_std": "胸をつけ頭部を水平まで高く持ち上げるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "頸半棘筋・板状筋。",
+    "shimo_reading": "頸半棘筋・板状筋。"
   },
   {
     "id": 5,
@@ -101,8 +125,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、頭部と頸部を一括して最大伸展位まで反らし……",
     "shimo": "頭頸部を複合伸展するのはどれ？",
-    "image": "assets/mmt/neck_comb_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_comb_ext_g543.png",
+    "archived": false,
+    "kami_adv": "副神経・頸神経麻痺、肩甲骨挙上による代償を防ぎながら……",
+    "kami_std": "頭と首を一括して力強く後ろへ反らすテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "僧帽筋上部・板状筋群。",
+    "shimo_reading": "僧帽筋上部・板状筋群。"
   },
   {
     "id": 6,
@@ -119,8 +149,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（頭部両手支持）で……",
     "naka": "グレード2、頸部背側の僧帽筋上部や板状筋の収縮を触知して……",
     "shimo": "頭頸部複合伸展の触診を行うのはどれ？",
-    "image": "assets/mmt/neck_comb_ext_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_comb_ext_g2.png",
+    "archived": false,
+    "kami_adv": "副神経・頸神経麻痺、肩甲骨挙上による代償を防ぎながら……",
+    "kami_std": "頭と首を一括して力強く後ろへ反らすテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "僧帽筋上部・板状筋群。",
+    "shimo_reading": "僧帽筋上部・板状筋群。"
   },
   {
     "id": 7,
@@ -137,8 +173,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード4〜5、頭をベッドにつけたまま顎を引き下顎への抵抗に耐えて……",
     "shimo": "頭部屈曲［チンタック］を行うのはどれ？",
-    "image": "assets/mmt/neck_cap_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_cap_flex_g543.png",
+    "archived": false,
+    "kami_adv": "頸神経前枝障害、広頸筋の過剰収縮代償を抑えつつ……",
+    "kami_std": "頭をベッドにつけたまま顎を強く引き込むテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "頭長筋・前頭直筋。",
+    "shimo_reading": "頭長筋・前頭直筋。"
   },
   {
     "id": 8,
@@ -155,8 +197,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で頭部を動かさず……",
     "naka": "グレード2、わずかに顎を引く運動または深部の収縮を確認して……",
     "shimo": "頭部屈曲の微小可動域を判定するのはどれ？",
-    "image": "assets/mmt/neck_cap_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_cap_flex_g2.png",
+    "archived": false,
+    "kami_adv": "頸神経前枝障害、広頸筋の過剰収縮代償を抑えつつ……",
+    "kami_std": "頭をベッドにつけたまま顎を強く引き込むテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "頭長筋・前頭直筋。",
+    "shimo_reading": "頭長筋・前頭直筋。"
   },
   {
     "id": 9,
@@ -173,8 +221,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード4〜5、顎を突き出さずに首をまっすぐ持ち上げ……",
     "shimo": "頸部単独屈曲（頸長筋・斜角筋）を行うのはどれ？",
-    "image": "assets/mmt/neck_cerv_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_cerv_flex_g543.png",
+    "archived": false,
+    "kami_adv": "副神経障害、胸鎖乳突筋の代償や顎突き出しを警戒しつつ……",
+    "kami_std": "顎を引いたまま首を持ち上げてベッドから離すテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "胸鎖乳突筋・斜角筋群。",
+    "shimo_reading": "胸鎖乳突筋・斜角筋群。"
   },
   {
     "id": 10,
@@ -191,8 +245,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で頭部を支えられ……",
     "naka": "グレード2、首を持ち上げようとする際の深層筋収縮を触知して……",
     "shimo": "頸部屈曲筋群の収縮を触診するのはどれ？",
-    "image": "assets/mmt/neck_cerv_flex_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/neck_cerv_flex_g2.png",
+    "archived": true,
+    "kami_adv": "副神経障害、胸鎖乳突筋の代償や顎突き出しを警戒しつつ……",
+    "kami_std": "顎を引いたまま首を持ち上げてベッドから離すテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "胸鎖乳突筋・斜角筋群。",
+    "shimo_reading": "胸鎖乳突筋・斜角筋群。"
   },
   {
     "id": 11,
@@ -209,8 +269,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード4〜5、頭部を持ち上げ前頭部への強い下向き抵抗に耐えて……",
     "shimo": "頭頸部を複合屈曲（胸鎖乳突筋両側）するのはどれ？",
-    "image": "assets/mmt/neck_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_flex_g543.png",
+    "archived": false,
+    "kami_adv": "胸鎖乳突筋障害、体幹屈曲や腹筋群による引き込み代償を防ぎつつ……",
+    "kami_std": "頭部と首を同時に前上方へ持ち上げるテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "胸鎖乳突筋・前斜角筋。",
+    "shimo_reading": "胸鎖乳突筋・前斜角筋。"
   },
   {
     "id": 12,
@@ -227,8 +293,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（頭部ベッド上支持）で……",
     "naka": "グレード2、頭部を持ち上げられないため左右に回旋させて……",
     "shimo": "胸鎖乳突筋の収縮を触診するのはどれ？",
-    "image": "assets/mmt/neck_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_flex_g2.png",
+    "archived": false,
+    "kami_adv": "胸鎖乳突筋障害、体幹屈曲や腹筋群による引き込み代償を防ぎつつ……",
+    "kami_std": "頭部と首を同時に前上方へ持ち上げるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "胸鎖乳突筋・前斜角筋。",
+    "shimo_reading": "胸鎖乳突筋・前斜角筋。"
   },
   {
     "id": 13,
@@ -245,8 +317,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で顔を左に向け……",
     "naka": "グレード4〜5、頭部をベッドから持ち上げ側頭部への抵抗に抗して……",
     "shimo": "右胸鎖乳突筋を単独テストするのはどれ？",
-    "image": "assets/mmt/neck_scm_iso_g543.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/neck_scm_iso_g543.png",
+    "archived": true,
+    "kami_adv": "副神経・頸神経叢障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "胸鎖乳突筋 片側分離テストを観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "片側胸鎖乳突筋。",
+    "shimo_reading": "片側胸鎖乳突筋。"
   },
   {
     "id": 14,
@@ -263,8 +341,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で顔を横に向け……",
     "naka": "グレード2、頭部挙上は不能だが前頸部で筋腹が浮き上がるのを触知して……",
     "shimo": "片側胸鎖乳突筋を触診するのはどれ？",
-    "image": "assets/mmt/neck_scm_iso_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/neck_scm_iso_g2.png",
+    "archived": true,
+    "kami_adv": "副神経・頸神経叢障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "胸鎖乳突筋 片側分離テストを観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "片側胸鎖乳突筋。",
+    "shimo_reading": "片側胸鎖乳突筋。"
   },
   {
     "id": 15,
@@ -281,8 +365,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード4〜5、顔を横へ回旋させ下顎への押し戻し抵抗に抗して……",
     "shimo": "頸部回旋を行うのはどれ？",
-    "image": "assets/mmt/neck_rot_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/neck_rot_g543.png",
+    "archived": false,
+    "kami_adv": "副神経麻痺（胸鎖乳突筋単独麻痺）、頸部屈曲代償を抑えつつ……",
+    "kami_std": "仰向けで顔を真横へ力強く回旋させるテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "胸鎖乳突筋・板状筋。",
+    "shimo_reading": "胸鎖乳突筋・板状筋。"
   },
   {
     "id": 16,
@@ -299,8 +389,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（たんざい）で……",
     "naka": "グレード2、重力の影響が少ない座位で首を左右に回旋させて……",
     "shimo": "重力を除いて頸部回旋を行うのはどれ？",
-    "image": "assets/mmt/neck_rot_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/neck_rot_g2.png",
+    "archived": true,
+    "kami_adv": "副神経麻痺（胸鎖乳突筋単独麻痺）、頸部屈曲代償を抑えつつ……",
+    "kami_std": "仰向けで顔を真横へ力強く回旋させるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "胸鎖乳突筋・板状筋。",
+    "shimo_reading": "胸鎖乳突筋・板状筋。"
   },
   {
     "id": 17,
@@ -317,8 +413,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、両手を後頭部で組み臍が浮くまで体幹を持ち上げて……",
     "shimo": "腰椎部を力強く伸展するのはどれ？",
-    "image": "assets/mmt/trunk_ext_lumbar_g54.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_ext_lumbar_g54.png",
+    "archived": false,
+    "kami_adv": "脊髄後枝障害、大殿筋やハムストリングスの過剰代償を抑えつつ……",
+    "kami_std": "うつ伏せで両手を頭の後ろに組み上体を反らすテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "脊柱起立筋。",
+    "shimo_reading": "脊柱起立筋。"
   },
   {
     "id": 18,
@@ -335,8 +437,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で腕を体側に置き……",
     "naka": "グレード3、後頭部手組みは不能だが体幹をベッドから浮かせて……",
     "shimo": "自力で腰椎伸展を完遂するのはどれ？",
-    "image": "assets/mmt/trunk_ext_lumbar_g3.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_ext_lumbar_g3.png",
+    "archived": false,
+    "kami_adv": "脊髄後枝障害、大殿筋やハムストリングスの過剰代償を抑えつつ……",
+    "kami_std": "うつ伏せで両手を頭の後ろに組み上体を反らすテスト……",
+    "naka_short": "腹臥位で、グレード3。",
+    "naka_reading": "ふくがいで、グレードさん。",
+    "shimo_short": "脊柱起立筋。",
+    "shimo_reading": "脊柱起立筋。"
   },
   {
     "id": 19,
@@ -353,8 +461,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（骨盤固定）で……",
     "naka": "グレード2、離床はできないが腰部脊柱起立筋の緊張を触知して……",
     "shimo": "腰椎伸展筋の収縮を触診するのはどれ？",
-    "image": "assets/mmt/trunk_ext_lumbar_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_ext_lumbar_g2.png",
+    "archived": false,
+    "kami_adv": "脊髄後枝障害、大殿筋やハムストリングスの過剰代償を抑えつつ……",
+    "kami_std": "うつ伏せで両手を頭の後ろに組み上体を反らすテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "脊柱起立筋。",
+    "shimo_reading": "脊柱起立筋。"
   },
   {
     "id": 20,
@@ -371,8 +485,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位でベッド端から上体を出し……",
     "naka": "グレード4〜5、乳頭レベルまで体幹を出し水平位まで持ち上げて……",
     "shimo": "胸椎伸展筋（胸最長筋・棘筋）をテストするのはどれ？",
-    "image": "assets/mmt/trunk_ext_thoracic_g54.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_ext_thoracic_g54.png",
+    "archived": false,
+    "kami_adv": "脊髄後枝障害、大殿筋やハムストリングスの過剰代償を抑えつつ……",
+    "kami_std": "うつ伏せで両手を頭の後ろに組み上体を反らすテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "脊柱起立筋。",
+    "shimo_reading": "脊柱起立筋。"
   },
   {
     "id": 21,
@@ -389,8 +509,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で上体をベッド端から出し……",
     "naka": "グレード3、腕を体側に伸ばした状態で水平位まで体幹を持ち上げて……",
     "shimo": "自力で胸椎伸展を保持するのはどれ？",
-    "image": "assets/mmt/trunk_ext_thoracic_g3.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_ext_thoracic_g3.png",
+    "archived": false,
+    "kami_adv": "脊髄後枝障害、大殿筋やハムストリングスの過剰代償を抑えつつ……",
+    "kami_std": "うつ伏せで両手を頭の後ろに組み上体を反らすテスト……",
+    "naka_short": "腹臥位で、グレード3。",
+    "naka_reading": "ふくがいで、グレードさん。",
+    "shimo_short": "脊柱起立筋。",
+    "shimo_reading": "脊柱起立筋。"
   },
   {
     "id": 22,
@@ -407,8 +533,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（または立位）で……",
     "naka": "グレード4〜5、検者の強力な足牽引に抗して骨盤を引き上げて……",
     "shimo": "骨盤を挙上（腰方形筋）するのはどれ？",
-    "image": "assets/mmt/pelvis_elev_g54.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/pelvis_elev_g54.png",
+    "archived": false,
+    "kami_adv": "腰神経叢障害、広背筋や体幹側屈による引き上げ代償を警戒しつつ……",
+    "kami_std": "仰向けで骨盤を同側の肋骨方向へ引き上げるテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "腰方形筋。",
+    "shimo_reading": "腰方形筋。"
   },
   {
     "id": 23,
@@ -425,8 +557,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で下肢を支えられ……",
     "naka": "グレード2、ベッド面上で骨盤を胸郭に向かってわずかに滑らせて……",
     "shimo": "腰方形筋の収縮を触診するのはどれ？",
-    "image": "assets/mmt/pelvis_elev_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/pelvis_elev_g2.png",
+    "archived": false,
+    "kami_adv": "腰神経叢障害、広背筋や体幹側屈による引き上げ代償を警戒しつつ……",
+    "kami_std": "仰向けで骨盤を同側の肋骨方向へ引き上げるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "腰方形筋。",
+    "shimo_reading": "腰方形筋。"
   },
   {
     "id": 24,
@@ -443,8 +581,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で手を頭の後ろに組み……",
     "naka": "グレード5、両肘を開いたまま肩甲骨下角が完全に浮くまで起き上がって……",
     "shimo": "腹直筋（Grade 5）を判定するのはどれ？",
-    "image": "assets/mmt/trunk_flex_g5.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_flex_g5.png",
+    "archived": false,
+    "kami_adv": "胸神経障害（Beevor徴候）、腸腰筋の股関節屈曲代償を警戒しつつ……",
+    "kami_std": "仰向けで両手を頭の後ろに組み肩甲骨を浮かすテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "腹直筋。",
+    "shimo_reading": "腹直筋。"
   },
   {
     "id": 25,
@@ -461,8 +605,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で腕を胸の前で交差させ……",
     "naka": "グレード4、肩甲骨下角がベッドから完全に離れるまで丸めて……",
     "shimo": "腹直筋（Grade 4）を判定するのはどれ？",
-    "image": "assets/mmt/trunk_flex_g4.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_flex_g4.png",
+    "archived": false,
+    "kami_adv": "胸神経障害（Beevor徴候）、腸腰筋の股関節屈曲代償を警戒しつつ……",
+    "kami_std": "仰向けで両手を頭の後ろに組み肩甲骨を浮かすテスト……",
+    "naka_short": "背臥位で、グレード4。",
+    "naka_reading": "はいがいで、グレードよん。",
+    "shimo_short": "腹直筋。",
+    "shimo_reading": "腹直筋。"
   },
   {
     "id": 26,
@@ -479,8 +629,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で腕を前方に伸ばし……",
     "naka": "グレード3、腕を前に伸ばした状態で肩甲骨下角が浮くまでカールして……",
     "shimo": "腹直筋（Grade 3）を判定するのはどれ？",
-    "image": "assets/mmt/trunk_flex_g3.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_flex_g3.png",
+    "archived": false,
+    "kami_adv": "胸神経障害（Beevor徴候）、腸腰筋の股関節屈曲代償を警戒しつつ……",
+    "kami_std": "仰向けで両手を頭の後ろに組み肩甲骨を浮かすテスト……",
+    "naka_short": "背臥位で、グレード3。",
+    "naka_reading": "はいがいで、グレードさん。",
+    "shimo_short": "腹直筋。",
+    "shimo_reading": "腹直筋。"
   },
   {
     "id": 27,
@@ -497,8 +653,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で膝を立て……",
     "naka": "グレード2、肩甲骨下角は浮かないが頭部を浮かせ腹壁が硬くなるのを……",
     "shimo": "体幹屈曲（Grade 2）として確認するのはどれ？",
-    "image": "assets/mmt/trunk_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_flex_g2.png",
+    "archived": false,
+    "kami_adv": "胸神経障害（Beevor徴候）、腸腰筋の股関節屈曲代償を警戒しつつ……",
+    "kami_std": "仰向けで両手を頭の後ろに組み肩甲骨を浮かすテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "腹直筋。",
+    "shimo_reading": "腹直筋。"
   },
   {
     "id": 28,
@@ -515,8 +677,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で咳（せき）をしてもらい……",
     "naka": "グレード1、頭部挙上は不能だが咳嗽時に腹直筋腱画の緊張を触知して……",
     "shimo": "腹直筋の微小収縮を触診するのはどれ？",
-    "image": "assets/mmt/trunk_flex_g1.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/trunk_flex_g1.png",
+    "archived": false,
+    "kami_adv": "胸神経障害（Beevor徴候）、腸腰筋の股関節屈曲代償を警戒しつつ……",
+    "kami_std": "仰向けで両手を頭の後ろに組み肩甲骨を浮かすテスト……",
+    "naka_short": "背臥位で、グレード1。",
+    "naka_reading": "はいがいで、グレードいち。",
+    "shimo_short": "腹直筋。",
+    "shimo_reading": "腹直筋。"
   },
   {
     "id": 29,
@@ -533,8 +701,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で手を頭の後ろに組み……",
     "naka": "グレード5、右肘を左膝へ向けて対側肩甲骨が完全に浮くまで起き上がって……",
     "shimo": "体幹回旋（腹斜筋群 Grade 5）を行うのはどれ？",
-    "image": "assets/mmt/trunk_rot_g5.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/trunk_rot_g5.png",
+    "archived": true,
+    "kami_adv": "肋間神経障害、大胸筋や頸部屈筋群による引き寄せ代償を防ぎつつ……",
+    "kami_std": "対側の膝に向けて肩を持ち上げ体をひねるテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "外腹斜筋・内腹斜筋。",
+    "shimo_reading": "外腹斜筋・内腹斜筋。"
   },
   {
     "id": 30,
@@ -551,8 +725,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で胸の前で腕を組み……",
     "naka": "グレード4、肩甲骨下角が浮き上がるまで体幹を斜め上方へ持ち上げて……",
     "shimo": "体幹回旋（腹斜筋群 Grade 4）を行うのはどれ？",
-    "image": "assets/mmt/trunk_rot_g4.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/trunk_rot_g4.png",
+    "archived": true,
+    "kami_adv": "肋間神経障害、大胸筋や頸部屈筋群による引き寄せ代償を防ぎつつ……",
+    "kami_std": "対側の膝に向けて肩を持ち上げ体をひねるテスト……",
+    "naka_short": "背臥位で、グレード4。",
+    "naka_reading": "はいがいで、グレードよん。",
+    "shimo_short": "外腹斜筋・内腹斜筋。",
+    "shimo_reading": "外腹斜筋・内腹斜筋。"
   },
   {
     "id": 31,
@@ -569,8 +749,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で腕を斜め前方に伸ばし……",
     "naka": "グレード3、腕を前に伸ばして肩甲骨がベッドから離れるまで回旋させて……",
     "shimo": "自重で体幹回旋を完遂するのはどれ？",
-    "image": "assets/mmt/trunk_rot_g3.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/trunk_rot_g3.png",
+    "archived": true,
+    "kami_adv": "肋間神経障害、大胸筋や頸部屈筋群による引き寄せ代償を防ぎつつ……",
+    "kami_std": "対側の膝に向けて肩を持ち上げ体をひねるテスト……",
+    "naka_short": "背臥位で、グレード3。",
+    "naka_reading": "はいがいで、グレードさん。",
+    "shimo_short": "外腹斜筋・内腹斜筋。",
+    "shimo_reading": "外腹斜筋・内腹斜筋。"
   },
   {
     "id": 32,
@@ -587,8 +773,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で首を斜めに向け……",
     "naka": "グレード2、肩甲骨は浮かないが側腹部の腹斜筋が収縮するのを触知して……",
     "shimo": "腹斜筋群の収縮を触診するのはどれ？",
-    "image": "assets/mmt/trunk_rot_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/trunk_rot_g2.png",
+    "archived": true,
+    "kami_adv": "肋間神経障害、大胸筋や頸部屈筋群による引き寄せ代償を防ぎつつ……",
+    "kami_std": "対側の膝に向けて肩を持ち上げ体をひねるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "外腹斜筋・内腹斜筋。",
+    "shimo_reading": "外腹斜筋・内腹斜筋。"
   },
   {
     "id": 33,
@@ -605,8 +797,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕とつま先で床を押し……",
     "naka": "グレード5、第10版コアテストで一直線の姿勢を120秒間完全に保持して……",
     "shimo": "プローンプランクテストを行うのはどれ？",
-    "image": "assets/mmt/core_plank_g5.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/core_plank_g5.png",
+    "archived": true,
+    "kami_adv": "体幹運動神経複合障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "プローンプランクテストを観察する臨床テスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "体幹コア筋群。",
+    "shimo_reading": "体幹コア筋群。"
   },
   {
     "id": 34,
@@ -623,8 +821,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード4〜5、息を吸い込んだ際に心窩部（みぞおち）への下向き加圧に抗して……",
     "shimo": "横隔膜の吸気筋力をテストするのはどれ？",
-    "image": "assets/mmt/resp_diaphragm_g543.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/resp_diaphragm_g543.png",
+    "archived": true,
+    "kami_adv": "膈神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "安静吸気：横隔膜を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "横隔膜。",
+    "shimo_reading": "横隔膜。"
   },
   {
     "id": 35,
@@ -641,8 +845,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で静かに息を吸い……",
     "naka": "グレード2、抵抗には耐えられないが心窩部がわずかに膨らむのを触知して……",
     "shimo": "横隔膜の微小収縮を判定するのはどれ？",
-    "image": "assets/mmt/resp_diaphragm_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/resp_diaphragm_g2.png",
+    "archived": true,
+    "kami_adv": "膈神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "安静吸気：横隔膜を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "横隔膜。",
+    "shimo_reading": "横隔膜。"
   },
   {
     "id": 36,
@@ -659,8 +869,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（または座位）で……",
     "naka": "グレード4〜5、力強い咳嗽を行い腹壁が瞬間的に硬く収縮するのを確認して……",
     "shimo": "強制呼気筋力を判定するのはどれ？",
-    "image": "assets/mmt/resp_expiration_g543.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/resp_expiration_g543.png",
+    "archived": true,
+    "kami_adv": "肋間神経・腰神経叢障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "強制呼気を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "内肋間筋。",
+    "shimo_reading": "内肋間筋。"
   },
   {
     "id": 37,
@@ -677,8 +893,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、腕を130°前方へ突き出し手首への押し戻し抵抗に抗して……",
     "shimo": "肩甲骨を外転・上方回旋（前鋸筋）するのはどれ？",
-    "image": "assets/mmt/scap_abd_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_abd_g543.png",
+    "archived": false,
+    "kami_adv": "長胸神経麻痺（翼状肩甲）、大胸筋による上肢前方押し出し代償を抑えつつ……",
+    "kami_std": "腕を前方に伸ばし肩甲骨を胸郭前外側へ突き出すテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "前鋸筋。",
+    "shimo_reading": "前鋸筋。"
   },
   {
     "id": 38,
@@ -695,8 +917,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で腕を支えられ……",
     "naka": "グレード2、肩90°屈曲位からわずかに前方へ腕を突き出して……",
     "shimo": "前鋸筋の筋収縮を触診するのはどれ？",
-    "image": "assets/mmt/scap_abd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_abd_g2.png",
+    "archived": false,
+    "kami_adv": "長胸神経麻痺（翼状肩甲）、大胸筋による上肢前方押し出し代償を抑えつつ……",
+    "kami_std": "腕を前方に伸ばし肩甲骨を胸郭前外側へ突き出すテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "前鋸筋。",
+    "shimo_reading": "前鋸筋。"
   },
   {
     "id": 39,
@@ -713,8 +941,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、両肩を耳に近づけるようにすくめ下向きの強い加圧に耐えて……",
     "shimo": "肩甲骨を挙上（僧帽筋上部）するのはどれ？",
-    "image": "assets/mmt/scap_elev_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_elev_g543.png",
+    "archived": false,
+    "kami_adv": "副神経麻痺（下垂肩）、菱形筋による肩甲骨内転代償を抑えつつ……",
+    "kami_std": "両肩をすくめて耳に近づけるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "僧帽筋上部・肩甲挙筋。",
+    "shimo_reading": "僧帽筋上部・肩甲挙筋。"
   },
   {
     "id": 40,
@@ -731,8 +965,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（または背臥位）で……",
     "naka": "グレード2、重力を除いた水平面上で肩を耳へ向けて滑らせて……",
     "shimo": "重力を除いて肩甲骨を挙上するのはどれ？",
-    "image": "assets/mmt/scap_elev_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/scap_elev_g2.png",
+    "archived": true,
+    "kami_adv": "副神経麻痺（下垂肩）、菱形筋による肩甲骨内転代償を抑えつつ……",
+    "kami_std": "両肩をすくめて耳に近づけるテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "僧帽筋上部・肩甲挙筋。",
+    "shimo_reading": "僧帽筋上部・肩甲挙筋。"
   },
   {
     "id": 41,
@@ -749,8 +989,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、肩を90°真横に開き肘を持ち上げ肩甲骨を背骨に寄せて……",
     "shimo": "肩甲骨を内転（僧帽筋中部）するのはどれ？",
-    "image": "assets/mmt/scap_add_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_add_g543.png",
+    "archived": false,
+    "kami_adv": "副神経麻痺、広背筋や三角筋後部による水平外転代償を防ぎつつ……",
+    "kami_std": "うつ伏せで肘を直角に曲げ肩甲骨を背骨へ寄せるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "僧帽筋中部・菱形筋。",
+    "shimo_reading": "僧帽筋中部・菱形筋。"
   },
   {
     "id": 42,
@@ -767,8 +1013,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で腕の重さを支えられ……",
     "naka": "グレード2、肩甲骨の内側縁を脊柱に向かってわずかに引き寄せて……",
     "shimo": "僧帽筋中部線維の収縮を触診するのはどれ？",
-    "image": "assets/mmt/scap_add_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/scap_add_g2.png",
+    "archived": true,
+    "kami_adv": "副神経麻痺、広背筋や三角筋後部による水平外転代償を防ぎつつ……",
+    "kami_std": "うつ伏せで肘を直角に曲げ肩甲骨を背骨へ寄せるテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "僧帽筋中部・菱形筋。",
+    "shimo_reading": "僧帽筋中部・菱形筋。"
   },
   {
     "id": 43,
@@ -785,8 +1037,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で腕を耳の斜め上に伸ばし……",
     "naka": "グレード4〜5、親指を天井に向け腕を持ち上げ前腕への下向き抵抗に抗して……",
     "shimo": "肩甲骨を下制・内転（僧帽筋下部）するのはどれ？",
-    "image": "assets/mmt/scap_dep_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_dep_g543.png",
+    "archived": false,
+    "kami_adv": "副神経障害、広背筋の骨盤引き寄せ代償を警戒しつつ……",
+    "kami_std": "腕を斜め前方に伸ばしたまま肩甲骨を斜め下へ引くテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "僧帽筋下部。",
+    "shimo_reading": "僧帽筋下部。"
   },
   {
     "id": 44,
@@ -803,8 +1061,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で斜め上に腕を支えられ……",
     "naka": "グレード2、腕は自力で持ち上がらないが肩甲骨下角の内下方の収縮を触知して……",
     "shimo": "僧帽筋下部の筋収縮を触診するのはどれ？",
-    "image": "assets/mmt/scap_dep_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_dep_g2.png",
+    "archived": false,
+    "kami_adv": "副神経障害、広背筋の骨盤引き寄せ代償を警戒しつつ……",
+    "kami_std": "腕を斜め前方に伸ばしたまま肩甲骨を斜め下へ引くテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "僧帽筋下部。",
+    "shimo_reading": "僧帽筋下部。"
   },
   {
     "id": 45,
@@ -821,8 +1085,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で手背を腰に当て……",
     "naka": "グレード4〜5、肘を天井に向かって持ち上げ前腕への押し戻しに耐えて……",
     "shimo": "肩甲骨を内転・下方回旋（菱形筋群）するのはどれ？",
-    "image": "assets/mmt/scap_rhomb_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_rhomb_g543.png",
+    "archived": false,
+    "kami_adv": "肩甲背神経障害、僧帽筋中部による純粋内転代償を防ぎながら……",
+    "kami_std": "手を腰の後ろに回し肩甲骨を斜め上内側へ持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "菱形筋群。",
+    "shimo_reading": "菱形筋群。"
   },
   {
     "id": 46,
@@ -839,8 +1109,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で手背を腰に回し……",
     "naka": "グレード2、肩甲骨の内側縁深層にある菱形筋の収縮を触知して……",
     "shimo": "菱形筋群の収縮を触診するのはどれ？",
-    "image": "assets/mmt/scap_rhomb_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_rhomb_g2.png",
+    "archived": false,
+    "kami_adv": "肩甲背神経障害、僧帽筋中部による純粋内転代償を防ぎながら……",
+    "kami_std": "手を腰の後ろに回し肩甲骨を斜め上内側へ持ち上げるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "菱形筋群。",
+    "shimo_reading": "菱形筋群。"
   },
   {
     "id": 47,
@@ -857,8 +1133,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で腕を足のほうへ伸ばし……",
     "naka": "グレード4〜5、肩甲骨を骨盤に向かって力強く引き下げ頭方向への牽引に抗して……",
     "shimo": "肩甲骨を下制（広背筋・下部僧帽筋）するのはどれ？",
-    "image": "assets/mmt/scap_dep_lat_g543.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/scap_dep_lat_g543.png",
+    "archived": true,
+    "kami_adv": "胸背神経・副神経・内側胸筋神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "肩甲骨下制を観察する臨床テスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "広背筋。",
+    "shimo_reading": "広背筋。"
   },
   {
     "id": 48,
@@ -875,8 +1157,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で両手を座面に置き……",
     "naka": "グレード4〜5、手のひらで座面を力強く押し下げ殿部をベッドから持ち上げて……",
     "shimo": "プッシュアップで肩甲骨を下制するのはどれ？",
-    "image": "assets/mmt/scap_pushup_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/scap_pushup_g543.png",
+    "archived": false,
+    "kami_adv": "胸背神経・副神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "肩甲骨下制を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "広背筋。",
+    "shimo_reading": "広背筋。"
   },
   {
     "id": 49,
@@ -893,8 +1181,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、腕を前方に90°持ち上げ肘の上への強い下向き抵抗に耐えて……",
     "shimo": "肩関節を屈曲（三角筋前部）するのはどれ？",
-    "image": "assets/mmt/sh_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_flex_g543.png",
+    "archived": false,
+    "kami_adv": "腋窩神経麻痺、僧帽筋上部挙上や体幹後傾代償を警戒しつつ……",
+    "kami_std": "腕を親指上のまま前方水平まで持ち上げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "三角筋前部・烏口腕筋。",
+    "shimo_reading": "三角筋前部・烏口腕筋。"
   },
   {
     "id": 50,
@@ -911,8 +1205,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位（第10版標準肢位）で……",
     "naka": "グレード2、検者に腕を支えられた水平面上で腕を前方に滑らせて……",
     "shimo": "重力を除いて肩関節を屈曲するのはどれ？",
-    "image": "assets/mmt/sh_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_flex_g2.png",
+    "archived": false,
+    "kami_adv": "腋窩神経麻痺、僧帽筋上部挙上や体幹後傾代償を警戒しつつ……",
+    "kami_std": "腕を親指上のまま前方水平まで持ち上げるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "三角筋前部・烏口腕筋。",
+    "shimo_reading": "三角筋前部・烏口腕筋。"
   },
   {
     "id": 51,
@@ -929,8 +1229,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、腕を天井に向けて後方に持ち上げ肘上への押し戻し抵抗に抗して……",
     "shimo": "肩関節を伸展（広背筋・大円筋）するのはどれ？",
-    "image": "assets/mmt/sh_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_ext_g543.png",
+    "archived": false,
+    "kami_adv": "胸背神経・腋窩神経障害、体幹前傾や肩甲骨下方回旋代償を抑えつつ……",
+    "kami_std": "うつ伏せで腕を後上方へ高く持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "広背筋・三角筋後部。",
+    "shimo_reading": "広背筋・三角筋後部。"
   },
   {
     "id": 52,
@@ -947,8 +1253,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で腕の重さを支えられ……",
     "naka": "グレード2、水平面上で腕を後方に向かって滑らせて……",
     "shimo": "重力を除いて肩関節を伸展するのはどれ？",
-    "image": "assets/mmt/sh_ext_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_ext_g2.png",
+    "archived": false,
+    "kami_adv": "胸背神経・腋窩神経障害、体幹前傾や肩甲骨下方回旋代償を抑えつつ……",
+    "kami_std": "うつ伏せで腕を後上方へ高く持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "広背筋・三角筋後部。",
+    "shimo_reading": "広背筋・三角筋後部。"
   },
   {
     "id": 53,
@@ -965,8 +1277,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、腕を真横に90°外転させ肘の上への強い下向き抵抗に耐えて……",
     "shimo": "肩関節を外転（三角筋中部）するのはどれ？",
-    "image": "assets/mmt/sh_abd_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_abd_g543.png",
+    "archived": false,
+    "kami_adv": "腋窩神経麻痺、僧帽筋による肩すくめや体幹側屈代償を防ぎつつ……",
+    "kami_std": "腕を真横から肩の高さまで持ち上げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "三角筋中部・棘上筋。",
+    "shimo_reading": "三角筋中部・棘上筋。"
   },
   {
     "id": 54,
@@ -983,8 +1301,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード2、ベッドの面を滑らせて腕を真横に外転させて……",
     "shimo": "重力を除いて肩関節を外転するのはどれ？",
-    "image": "assets/mmt/sh_abd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_abd_g2.png",
+    "archived": false,
+    "kami_adv": "腋窩神経麻痺、僧帽筋による肩すくめや体幹側屈代償を防ぎつつ……",
+    "kami_std": "腕を真横から肩の高さまで持ち上げるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "三角筋中部・棘上筋。",
+    "shimo_reading": "三角筋中部・棘上筋。"
   },
   {
     "id": 55,
@@ -1001,8 +1325,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で腕をベッド端から下垂し……",
     "naka": "グレード4〜5、肘を曲げたまま上腕を天井へ引き上げ下向き抵抗に耐えて……",
     "shimo": "肩関節を水平外転（三角筋後部）するのはどれ？",
-    "image": "assets/mmt/sh_habd_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_habd_g543.png",
+    "archived": false,
+    "kami_adv": "腋窩神経障害、体幹回旋や僧帽筋中部による引き寄せ代償を抑えつつ……",
+    "kami_std": "うつ伏せで腕を横に開き後方へ引き上げるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "三角筋後部。",
+    "shimo_reading": "三角筋後部。"
   },
   {
     "id": 56,
@@ -1019,8 +1349,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で机の上に腕を乗せ……",
     "naka": "グレード2、テーブル面を水平に後方へ滑らせて……",
     "shimo": "重力を除いて肩関節を水平外転するのはどれ？",
-    "image": "assets/mmt/sh_habd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_habd_g2.png",
+    "archived": false,
+    "kami_adv": "腋窩神経障害、体幹回旋や僧帽筋中部による引き寄せ代償を抑えつつ……",
+    "kami_std": "うつ伏せで腕を横に開き後方へ引き上げるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "三角筋後部。",
+    "shimo_reading": "三角筋後部。"
   },
   {
     "id": 57,
@@ -1037,8 +1373,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で腕を斜め下から……",
     "naka": "グレード4〜5、対側の肩に向かって斜め上に腕を水平内転させて……",
     "shimo": "大胸筋鎖骨部を分離テストするのはどれ？",
-    "image": "assets/mmt/sh_hadd_clav_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_hadd_clav_g543.png",
+    "archived": false,
+    "kami_adv": "外側・内側胸筋神経障害、体幹回旋や前鋸筋突き出し代償を警戒しつつ……",
+    "kami_std": "仰向けで腕を胸の上を横切るように引き寄せるテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "大胸筋。",
+    "shimo_reading": "大胸筋。"
   },
   {
     "id": 58,
@@ -1055,8 +1397,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で腕をバンザイ気味から……",
     "naka": "グレード4〜5、対側の骨盤（ポケット）へ向かって斜め下に力強く引き下ろして……",
     "shimo": "大胸筋胸肋部を分離テストするのはどれ？",
-    "image": "assets/mmt/sh_hadd_stern_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_hadd_stern_g543.png",
+    "archived": false,
+    "kami_adv": "外側・内側胸筋神経障害、体幹回旋や前鋸筋突き出し代償を警戒しつつ……",
+    "kami_std": "仰向けで腕を胸の上を横切るように引き寄せるテスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "大胸筋。",
+    "shimo_reading": "大胸筋。"
   },
   {
     "id": 59,
@@ -1073,8 +1421,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で机の上に腕を預け……",
     "naka": "グレード2、机の面を滑らせて胸の前へ腕を抱き寄せて……",
     "shimo": "重力を除いて大胸筋をテストするのはどれ？",
-    "image": "assets/mmt/sh_hadd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_hadd_g2.png",
+    "archived": false,
+    "kami_adv": "外側・内側胸筋神経障害、体幹回旋や前鋸筋突き出し代償を警戒しつつ……",
+    "kami_std": "仰向けで腕を胸の上を横切るように引き寄せるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "大胸筋。",
+    "shimo_reading": "大胸筋。"
   },
   {
     "id": 60,
@@ -1091,8 +1445,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（第10版標準肢位）で……",
     "naka": "グレード4〜5、肘を体側につけたまま前腕を外側へ開き内向き抵抗に耐えて……",
     "shimo": "肩関節を外旋（棘下筋・小円筋）するのはどれ？",
-    "image": "assets/mmt/sh_er_seat_g543.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/sh_er_seat_g543.png",
+    "archived": true,
+    "kami_adv": "肩甲上神経障害、上腕二頭筋による前腕回外や肘屈曲代償を抑えつつ……",
+    "kami_std": "肘を直角に保ち前腕を外側へ回旋させるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "棘下筋・小円筋。",
+    "shimo_reading": "棘下筋・小円筋。"
   },
   {
     "id": 61,
@@ -1109,8 +1469,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（別法）で腕を垂らし……",
     "naka": "グレード4〜5、肩を90°横に出し前腕を天井へ向けて跳ね上げて……",
     "shimo": "腹臥位別法で肩関節を外旋するのはどれ？",
-    "image": "assets/mmt/sh_er_prone_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_er_prone_g543.png",
+    "archived": false,
+    "kami_adv": "肩甲上神経障害、上腕二頭筋による前腕回外や肘屈曲代償を抑えつつ……",
+    "kami_std": "肘を直角に保ち前腕を外側へ回旋させるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "棘下筋・小円筋。",
+    "shimo_reading": "棘下筋・小円筋。"
   },
   {
     "id": 62,
@@ -1127,8 +1493,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で机の上に前腕を乗せ……",
     "naka": "グレード2、机の上で前腕を外側へ滑らせて肩甲棘の下を触知して……",
     "shimo": "重力を除いて肩関節外旋を行うのはどれ？",
-    "image": "assets/mmt/sh_er_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/sh_er_g2.png",
+    "archived": true,
+    "kami_adv": "肩甲上神経障害、上腕二頭筋による前腕回外や肘屈曲代償を抑えつつ……",
+    "kami_std": "肘を直角に保ち前腕を外側へ回旋させるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "棘下筋・小円筋。",
+    "shimo_reading": "棘下筋・小円筋。"
   },
   {
     "id": 63,
@@ -1145,8 +1517,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（第10版標準肢位）で……",
     "naka": "グレード4〜5、肘を体側に固定し前腕をお腹へ向けて引き寄せ外向き抵抗に耐えて……",
     "shimo": "肩関節を内旋（肩甲下筋）するのはどれ？",
-    "image": "assets/mmt/sh_ir_seat_g543.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/sh_ir_seat_g543.png",
+    "archived": true,
+    "kami_adv": "肩甲下神経障害、大胸筋や円回内筋による前腕回内代償を防ぎつつ……",
+    "kami_std": "肘を直角に保ち前腕を内側後方へ回旋させるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "肩甲下筋。",
+    "shimo_reading": "肩甲下筋。"
   },
   {
     "id": 64,
@@ -1163,8 +1541,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（別法）で腕をベッドから垂らし……",
     "naka": "グレード4〜5、前腕を後方へ跳ね上げ手首への下向き抵抗に耐えて……",
     "shimo": "腹臥位別法で肩関節を内旋するのはどれ？",
-    "image": "assets/mmt/sh_ir_prone_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/sh_ir_prone_g543.png",
+    "archived": false,
+    "kami_adv": "肩甲下神経障害、大胸筋や円回内筋による前腕回内代償を防ぎつつ……",
+    "kami_std": "肘を直角に保ち前腕を内側後方へ回旋させるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "肩甲下筋。",
+    "shimo_reading": "肩甲下筋。"
   },
   {
     "id": 65,
@@ -1181,8 +1565,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で机の上に前腕を置き……",
     "naka": "グレード2、机の面をお腹に向かって前腕を滑らせて……",
     "shimo": "重力を除いて肩関節内旋を行うのはどれ？",
-    "image": "assets/mmt/sh_ir_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/sh_ir_g2.png",
+    "archived": true,
+    "kami_adv": "肩甲下神経障害、大胸筋や円回内筋による前腕回内代償を防ぎつつ……",
+    "kami_std": "肘を直角に保ち前腕を内側後方へ回旋させるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "肩甲下筋。",
+    "shimo_reading": "肩甲下筋。"
   },
   {
     "id": 66,
@@ -1199,8 +1589,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で手のひらを上に向け……",
     "naka": "グレード4〜5、前腕を完全回外して肘を曲げ手首への強力な引き下げに耐えて……",
     "shimo": "上腕二頭筋を単独テストするのはどれ？",
-    "image": "assets/mmt/elbow_flex_biceps_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/elbow_flex_biceps_g543.png",
+    "archived": false,
+    "kami_adv": "筋皮神経麻痺、腕橈骨筋による前腕中間位や手関節屈曲代償を抑えつつ……",
+    "kami_std": "前腕を回外して肘を力強く曲げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "上腕二頭筋・上腕筋。",
+    "shimo_reading": "上腕二頭筋・上腕筋。"
   },
   {
     "id": 67,
@@ -1217,8 +1613,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で腕を水平に支えられ……",
     "naka": "グレード2、手のひらを向けた回外位で肘を水平に曲げて……",
     "shimo": "重力を除いて上腕二頭筋をテストするのはどれ？",
-    "image": "assets/mmt/elbow_flex_biceps_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/elbow_flex_biceps_g2.png",
+    "archived": false,
+    "kami_adv": "筋皮神経麻痺、腕橈骨筋による前腕中間位や手関節屈曲代償を抑えつつ……",
+    "kami_std": "前腕を回外して肘を力強く曲げるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "上腕二頭筋・上腕筋。",
+    "shimo_reading": "上腕二頭筋・上腕筋。"
   },
   {
     "id": 68,
@@ -1235,8 +1637,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で手背を天井に向け……",
     "naka": "グレード4〜5、前腕を完全回内したまま肘を曲げ手首への伸展抵抗に耐えて……",
     "shimo": "上腕筋を単独テストするのはどれ？",
-    "image": "assets/mmt/elbow_flex_brachialis_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/elbow_flex_brachialis_g543.png",
+    "archived": false,
+    "kami_adv": "筋皮神経麻痺、腕橈骨筋による前腕中間位や手関節屈曲代償を抑えつつ……",
+    "kami_std": "前腕を回外して肘を力強く曲げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "上腕二頭筋・上腕筋。",
+    "shimo_reading": "上腕二頭筋・上腕筋。"
   },
   {
     "id": 69,
@@ -1253,8 +1661,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で前腕を回内させ……",
     "naka": "グレード2、重力を除いた水平面上で手背を向けたまま肘を曲げて……",
     "shimo": "重力を除いて上腕筋をテストするのはどれ？",
-    "image": "assets/mmt/elbow_flex_brachialis_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/elbow_flex_brachialis_g2.png",
+    "archived": true,
+    "kami_adv": "筋皮神経麻痺、腕橈骨筋による前腕中間位や手関節屈曲代償を抑えつつ……",
+    "kami_std": "前腕を回外して肘を力強く曲げるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "上腕二頭筋・上腕筋。",
+    "shimo_reading": "上腕二頭筋・上腕筋。"
   },
   {
     "id": 70,
@@ -1271,8 +1685,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で親指を上に向け……",
     "naka": "グレード4〜5、前腕中間位で肘を曲げ前腕遠位への引き下げ抵抗に耐えて……",
     "shimo": "腕橈骨筋を単独テストするのはどれ？",
-    "image": "assets/mmt/elbow_flex_brachiorad_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/elbow_flex_brachiorad_g543.png",
+    "archived": false,
+    "kami_adv": "筋皮神経麻痺、腕橈骨筋による前腕中間位や手関節屈曲代償を抑えつつ……",
+    "kami_std": "前腕を回外して肘を力強く曲げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "上腕二頭筋・上腕筋。",
+    "shimo_reading": "上腕二頭筋・上腕筋。"
   },
   {
     "id": 71,
@@ -1289,8 +1709,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で親指を上にしたまま……",
     "naka": "グレード2、水平面上で肘を曲げて前腕橈側の筋腹隆起を触知して……",
     "shimo": "重力を除いて腕橈骨筋をテストするのはどれ？",
-    "image": "assets/mmt/elbow_flex_brachiorad_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/elbow_flex_brachiorad_g2.png",
+    "archived": true,
+    "kami_adv": "筋皮神経麻痺、腕橈骨筋による前腕中間位や手関節屈曲代償を抑えつつ……",
+    "kami_std": "前腕を回外して肘を力強く曲げるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "上腕二頭筋・上腕筋。",
+    "shimo_reading": "上腕二頭筋・上腕筋。"
   },
   {
     "id": 72,
@@ -1307,8 +1733,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位（ふくがい）で……",
     "naka": "グレード4〜5、肩を横に出し肘を完全に伸ばし手首への強い屈曲加圧に耐えて……",
     "shimo": "肘関節を伸展（上腕三頭筋）するのはどれ？",
-    "image": "assets/mmt/elbow_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/elbow_ext_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経障害、肩関節外旋や水平内転の振り下ろし代償を警戒しつつ……",
+    "kami_std": "曲げた肘を後方または上方へ真っ直ぐ伸ばすテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "上腕三頭筋。",
+    "shimo_reading": "上腕三頭筋。"
   },
   {
     "id": 73,
@@ -1325,8 +1757,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で腕を横に支えられ……",
     "naka": "グレード2、重力を除いた水平面上で肘を曲げた状態からまっすぐ伸ばして……",
     "shimo": "重力を除いて上腕三頭筋をテストするのはどれ？",
-    "image": "assets/mmt/elbow_ext_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/elbow_ext_g2.png",
+    "archived": false,
+    "kami_adv": "橈骨神経障害、肩関節外旋や水平内転の振り下ろし代償を警戒しつつ……",
+    "kami_std": "曲げた肘を後方または上方へ真っ直ぐ伸ばすテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "上腕三頭筋。",
+    "shimo_reading": "上腕三頭筋。"
   },
   {
     "id": 74,
@@ -1343,8 +1781,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で肘を90度曲げ……",
     "naka": "グレード4〜5、親指上の位置から手のひらを上に向け回内方向の強い抵抗に耐えて……",
     "shimo": "前腕を回外（回外筋）するのはどれ？",
-    "image": "assets/mmt/forearm_sup_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/forearm_sup_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経障害、上腕二頭筋の屈曲や肩関節外旋代償を抑えつつ……",
+    "kami_std": "手のひらを下から上へクルリと向けるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "回外筋・上腕二頭筋。",
+    "shimo_reading": "回外筋・上腕二頭筋。"
   },
   {
     "id": 75,
@@ -1361,8 +1805,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で肘を曲げ……",
     "naka": "グレード2、抵抗には耐えられないが手のひらを上に向ける可動域を完遂して……",
     "shimo": "重力最小位で前腕回外を行うのはどれ？",
-    "image": "assets/mmt/forearm_sup_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/forearm_sup_g2.png",
+    "archived": false,
+    "kami_adv": "橈骨神経障害、上腕二頭筋の屈曲や肩関節外旋代償を抑えつつ……",
+    "kami_std": "手のひらを下から上へクルリと向けるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "回外筋・上腕二頭筋。",
+    "shimo_reading": "回外筋・上腕二頭筋。"
   },
   {
     "id": 76,
@@ -1379,8 +1829,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で肘を90度曲げ……",
     "naka": "グレード4〜5、手のひらを下に向けるように回し回外方向の強い抵抗に耐えて……",
     "shimo": "前腕を回内（円回内筋・方形回内筋）するのはどれ？",
-    "image": "assets/mmt/forearm_pron_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/forearm_pron_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経障害、肩関節外転や内旋による振り込み代償を防ぎつつ……",
+    "kami_std": "手のひらを上から下へ伏せるように回すテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "円回内筋・方形回内筋。",
+    "shimo_reading": "円回内筋・方形回内筋。"
   },
   {
     "id": 77,
@@ -1397,8 +1853,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で前腕を支えられ……",
     "naka": "グレード2、手のひらを下へ向ける回内運動を完了し円回内筋の緊張を触知して……",
     "shimo": "重力最小位で前腕回内を行うのはどれ？",
-    "image": "assets/mmt/forearm_pron_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/forearm_pron_g2.png",
+    "archived": false,
+    "kami_adv": "正中神経障害、肩関節外転や内旋による振り込み代償を防ぎつつ……",
+    "kami_std": "手のひらを上から下へ伏せるように回すテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "円回内筋・方形回内筋。",
+    "shimo_reading": "円回内筋・方形回内筋。"
   },
   {
     "id": 78,
@@ -1415,8 +1877,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕を回外して机に置き……",
     "naka": "グレード4〜5、手首を親指側に曲げながら掌屈し第2中手骨への伸展抵抗に耐えて……",
     "shimo": "橈側手根屈筋を単独テストするのはどれ？",
-    "image": "assets/mmt/wrist_flex_rad_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_flex_rad_g543.png",
+    "archived": false,
+    "kami_adv": "正中・尺骨神経障害、指屈筋群（浅・深指屈筋）の握り込み代償を抑えつつ……",
+    "kami_std": "指を脱力したまま手首を手のひら側へ曲げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "橈側手根屈筋・尺側手根屈筋。",
+    "shimo_reading": "橈側手根屈筋・尺側手根屈筋。"
   },
   {
     "id": 79,
@@ -1433,8 +1901,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕を中間位にして小指側を下に置き……",
     "naka": "グレード2、机の面を滑らせて手首を曲げ橈骨手根部の腱浮き上がりを触知して……",
     "shimo": "重力を除いて橈側手根屈筋をテストするのはどれ？",
-    "image": "assets/mmt/wrist_flex_rad_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_flex_rad_g2.png",
+    "archived": false,
+    "kami_adv": "正中・尺骨神経障害、指屈筋群（浅・深指屈筋）の握り込み代償を抑えつつ……",
+    "kami_std": "指を脱力したまま手首を手のひら側へ曲げるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "橈側手根屈筋・尺側手根屈筋。",
+    "shimo_reading": "橈側手根屈筋・尺側手根屈筋。"
   },
   {
     "id": 80,
@@ -1451,8 +1925,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕を回外して手首を小指側へ曲げ……",
     "naka": "グレード4〜5、尺屈位で手関節を屈曲させ第5中手骨への伸展抵抗に抗して……",
     "shimo": "尺側手根屈筋を単独テストするのはどれ？",
-    "image": "assets/mmt/wrist_flex_uln_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_flex_uln_g543.png",
+    "archived": false,
+    "kami_adv": "正中・尺骨神経障害、指屈筋群（浅・深指屈筋）の握り込み代償を抑えつつ……",
+    "kami_std": "指を脱力したまま手首を手のひら側へ曲げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "橈側手根屈筋・尺側手根屈筋。",
+    "shimo_reading": "橈側手根屈筋・尺側手根屈筋。"
   },
   {
     "id": 81,
@@ -1469,8 +1949,14 @@ const DEFAULT_CARDS = [
     "kami": "小指側を下にした中間位で……",
     "naka": "グレード2、手首を小指側へ滑らせて曲げ豆状骨の上で腱を触知して……",
     "shimo": "重力を除いて尺側手根屈筋をテストするのはどれ？",
-    "image": "assets/mmt/wrist_flex_uln_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_flex_uln_g2.png",
+    "archived": false,
+    "kami_adv": "正中・尺骨神経障害、指屈筋群（浅・深指屈筋）の握り込み代償を抑えつつ……",
+    "kami_std": "指を脱力したまま手首を手のひら側へ曲げるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "橈側手根屈筋・尺側手根屈筋。",
+    "shimo_reading": "橈側手根屈筋・尺側手根屈筋。"
   },
   {
     "id": 82,
@@ -1487,8 +1973,14 @@ const DEFAULT_CARDS = [
     "kami": "手のひらを下に向けて机に預け……",
     "naka": "グレード4〜5、手首を親指側へ反らせて手の甲への強い下向き抵抗に耐えて……",
     "shimo": "長・短橈側手根伸筋をテストするのはどれ？",
-    "image": "assets/mmt/wrist_ext_rad_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_ext_rad_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経麻痺（下垂手）、総指伸筋による指伸展代償を警戒しつつ……",
+    "kami_std": "指を軽く曲げたまま手首を手の甲側へ反らすテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "長短橈側手根伸筋・尺側手根伸筋。",
+    "shimo_reading": "長短橈側手根伸筋・尺側手根伸筋。"
   },
   {
     "id": 83,
@@ -1505,8 +1997,14 @@ const DEFAULT_CARDS = [
     "kami": "小指側を下にした肢位で……",
     "naka": "グレード2、手首を手の甲側へ滑らせて反らし橈骨背側の腱を触知して……",
     "shimo": "重力を除いて橈側手根伸筋をテストするのはどれ？",
-    "image": "assets/mmt/wrist_ext_rad_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_ext_rad_g2.png",
+    "archived": false,
+    "kami_adv": "橈骨神経麻痺（下垂手）、総指伸筋による指伸展代償を警戒しつつ……",
+    "kami_std": "指を軽く曲げたまま手首を手の甲側へ反らすテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "長短橈側手根伸筋・尺側手根伸筋。",
+    "shimo_reading": "長短橈側手根伸筋・尺側手根伸筋。"
   },
   {
     "id": 84,
@@ -1523,8 +2021,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕を回内し手首を小指側へ反らし……",
     "naka": "グレード4〜5、尺屈位で手関節を伸展させ第5中手骨背側への加圧に抗して……",
     "shimo": "尺側手根伸筋を単独テストするのはどれ？",
-    "image": "assets/mmt/wrist_ext_uln_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_ext_uln_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経麻痺（下垂手）、総指伸筋による指伸展代償を警戒しつつ……",
+    "kami_std": "指を軽く曲げたまま手首を手の甲側へ反らすテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "長短橈側手根伸筋・尺側手根伸筋。",
+    "shimo_reading": "長短橈側手根伸筋・尺側手根伸筋。"
   },
   {
     "id": 85,
@@ -1541,8 +2045,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕中間位で手首を滑らせ……",
     "naka": "グレード2、手首を小指・背屈側へ水平に動かし尺骨茎状突起近傍の腱を触知して……",
     "shimo": "重力を除いて尺側手根伸筋をテストするのはどれ？",
-    "image": "assets/mmt/wrist_ext_uln_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/wrist_ext_uln_g2.png",
+    "archived": false,
+    "kami_adv": "橈骨神経麻痺（下垂手）、総指伸筋による指伸展代償を警戒しつつ……",
+    "kami_std": "指を軽く曲げたまま手首を手の甲側へ反らすテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "長短橈側手根伸筋・尺側手根伸筋。",
+    "shimo_reading": "長短橈側手根伸筋・尺側手根伸筋。"
   },
   {
     "id": 86,
@@ -1559,8 +2069,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕回外で指先をピンと伸ばし……",
     "naka": "グレード4〜5、指の第1関節を曲げたまま（L字型）基節骨への伸展抵抗に耐えて……",
     "shimo": "手指MP屈曲（虫様筋・骨間筋）を行うのはどれ？",
-    "image": "assets/mmt/finger_mp_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_mp_flex_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経・尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "虫様筋。",
+    "shimo_reading": "虫様筋。"
   },
   {
     "id": 87,
@@ -1577,8 +2093,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕中間位で机に小指側を置き……",
     "naka": "グレード2、IP関節を伸ばしたままMP関節のみを曲げる運動を完遂して……",
     "shimo": "重力を除いて虫様筋テストを行うのはどれ？",
-    "image": "assets/mmt/finger_mp_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_mp_flex_g2.png",
+    "archived": false,
+    "kami_adv": "正中神経・尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "虫様筋。",
+    "shimo_reading": "虫様筋。"
   },
   {
     "id": 88,
@@ -1595,8 +2117,14 @@ const DEFAULT_CARDS = [
     "kami": "他の指をすべてベッドに押し広げて固定し……",
     "naka": "グレード4〜5、対象指の第2関節（PIP）だけを単独で曲げ下向き抵抗に抗して……",
     "shimo": "浅指屈筋を単独テストするのはどれ？",
-    "image": "assets/mmt/finger_pip_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_pip_flex_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指PIP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "浅指屈筋。",
+    "shimo_reading": "浅指屈筋。"
   },
   {
     "id": 89,
@@ -1613,8 +2141,14 @@ const DEFAULT_CARDS = [
     "kami": "他指をまっすぐ押さえられ……",
     "naka": "グレード2、対象指のPIP関節を自力で完全に屈曲させる可動域を確認して……",
     "shimo": "浅指屈筋の可動域を判定するのはどれ？",
-    "image": "assets/mmt/finger_pip_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_pip_flex_g2.png",
+    "archived": false,
+    "kami_adv": "正中神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指PIP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "浅指屈筋。",
+    "shimo_reading": "浅指屈筋。"
   },
   {
     "id": 90,
@@ -1631,8 +2165,14 @@ const DEFAULT_CARDS = [
     "kami": "指の第2関節をまっすぐ固定され……",
     "naka": "グレード4〜5、指先（第1関節・DIP）だけを曲げ爪の腹への伸展加圧に耐えて……",
     "shimo": "深指屈筋を単独テストするのはどれ？",
-    "image": "assets/mmt/finger_dip_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_dip_flex_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経（示・中指）・尺骨神経（環・小指）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指DIP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "深指屈筋。",
+    "shimo_reading": "深指屈筋。"
   },
   {
     "id": 91,
@@ -1649,8 +2189,14 @@ const DEFAULT_CARDS = [
     "kami": "中節骨をしっかり押さえられ……",
     "naka": "グレード2、抵抗には耐えられないが指先のDIP関節を完全に曲げて……",
     "shimo": "深指屈筋の可動域を判定するのはどれ？",
-    "image": "assets/mmt/finger_dip_flex_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/finger_dip_flex_g2.png",
+    "archived": true,
+    "kami_adv": "正中神経・尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指DIP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "深指屈筋。",
+    "shimo_reading": "深指屈筋。"
   },
   {
     "id": 92,
@@ -1667,8 +2213,14 @@ const DEFAULT_CARDS = [
     "kami": "手のひらを机に伏せ……",
     "naka": "グレード4〜5、手首を固定したまま指の付け根（MP）を反らせ背側加圧に耐えて……",
     "shimo": "総指伸筋をテストするのはどれ？",
-    "image": "assets/mmt/finger_mp_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_mp_ext_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経（後骨間神経）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指MP関節伸展を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "総指伸筋。",
+    "shimo_reading": "総指伸筋。"
   },
   {
     "id": 93,
@@ -1685,8 +2237,14 @@ const DEFAULT_CARDS = [
     "kami": "小指側を下にした肢位で……",
     "naka": "グレード2、机の上で指の付け根をまっすぐ後方に伸ばし手の甲の腱を触知して……",
     "shimo": "重力を除いて手指伸筋をテストするのはどれ？",
-    "image": "assets/mmt/finger_mp_ext_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/finger_mp_ext_g2.png",
+    "archived": true,
+    "kami_adv": "橈骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指MP関節伸展を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "総指伸筋。",
+    "shimo_reading": "総指伸筋。"
   },
   {
     "id": 94,
@@ -1703,8 +2261,14 @@ const DEFAULT_CARDS = [
     "kami": "手のひらを机に伏せて指を大きく開き……",
     "naka": "グレード4〜5、隣り合う指を閉じる方向への強い加圧に抗して指を開き続けて……",
     "shimo": "手指を外転（背側骨間筋）するのはどれ？",
-    "image": "assets/mmt/finger_abd_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_abd_g543.png",
+    "archived": false,
+    "kami_adv": "尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指外転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "背側骨間筋。",
+    "shimo_reading": "背側骨間筋。"
   },
   {
     "id": 95,
@@ -1721,8 +2285,14 @@ const DEFAULT_CARDS = [
     "kami": "机の上で脱力した状態から……",
     "naka": "グレード2、指を自力で大きく広げ親指と人差し指の間の筋腹隆起を触知して……",
     "shimo": "背側骨間筋の収縮を触診するのはどれ？",
-    "image": "assets/mmt/finger_abd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_abd_g2.png",
+    "archived": false,
+    "kami_adv": "尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指外転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "背側骨間筋。",
+    "shimo_reading": "背側骨間筋。"
   },
   {
     "id": 96,
@@ -1739,8 +2309,14 @@ const DEFAULT_CARDS = [
     "kami": "指と指の間に紙を1枚挟み……",
     "naka": "グレード4〜5、検者が紙を力強く引き抜こうとするのを指を密着させて保持して……",
     "shimo": "手指を内転（掌側骨間筋）するのはどれ？",
-    "image": "assets/mmt/finger_add_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_add_g543.png",
+    "archived": false,
+    "kami_adv": "尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指内転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "掌側骨間筋。",
+    "shimo_reading": "掌側骨間筋。"
   },
   {
     "id": 97,
@@ -1757,8 +2333,14 @@ const DEFAULT_CARDS = [
     "kami": "机の上で開いた指から……",
     "naka": "グレード2、中指に向かって自力で指を閉じ合わせる動作を完遂して……",
     "shimo": "掌側骨間筋の機能を判定するのはどれ？",
-    "image": "assets/mmt/finger_add_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/finger_add_g2.png",
+    "archived": false,
+    "kami_adv": "尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "手指内転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "掌側骨間筋。",
+    "shimo_reading": "掌側骨間筋。"
   },
   {
     "id": 98,
@@ -1775,8 +2357,14 @@ const DEFAULT_CARDS = [
     "kami": "手背を机につけ親指の先を伸ばし……",
     "naka": "グレード4〜5、親指の付け根（MP）だけを手掌を横切るように曲げ伸展加圧に耐えて……",
     "shimo": "短母指屈筋をテストするのはどれ？",
-    "image": "assets/mmt/thumb_mp_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_mp_flex_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経・尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "短母指屈筋。",
+    "shimo_reading": "短母指屈筋。"
   },
   {
     "id": 99,
@@ -1793,8 +2381,14 @@ const DEFAULT_CARDS = [
     "kami": "手背を机につけた肢位で……",
     "naka": "グレード2、母指の付け根を小指側へ滑らせて曲げ母指球の収縮を触知して……",
     "shimo": "短母指屈筋の収縮を確認するのはどれ？",
-    "image": "assets/mmt/thumb_mp_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_mp_flex_g2.png",
+    "archived": false,
+    "kami_adv": "正中神経・尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "短母指屈筋。",
+    "shimo_reading": "短母指屈筋。"
   },
   {
     "id": 100,
@@ -1811,8 +2405,14 @@ const DEFAULT_CARDS = [
     "kami": "親指の付け根をしっかり固定され……",
     "naka": "グレード4〜5、親指の第1関節（IP）だけを力強く曲げ指先への伸展抵抗に耐えて……",
     "shimo": "長母指屈筋をテストするのはどれ？",
-    "image": "assets/mmt/thumb_ip_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_ip_flex_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経（前骨間神経）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指IP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "長母指屈筋。",
+    "shimo_reading": "長母指屈筋。"
   },
   {
     "id": 101,
@@ -1829,8 +2429,14 @@ const DEFAULT_CARDS = [
     "kami": "基節骨を押さえられ……",
     "naka": "グレード2、親指の先端を自力で完全に折り曲げる可動域を確認して……",
     "shimo": "長母指屈筋の可動域を判定するのはどれ？",
-    "image": "assets/mmt/thumb_ip_flex_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/thumb_ip_flex_g2.png",
+    "archived": true,
+    "kami_adv": "正中神経（前骨間神経）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指IP関節屈曲を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "長母指屈筋。",
+    "shimo_reading": "長母指屈筋。"
   },
   {
     "id": 102,
@@ -1847,8 +2453,14 @@ const DEFAULT_CARDS = [
     "kami": "手掌を机に伏せ第1中手骨を固定し……",
     "naka": "グレード4〜5、親指の付け根（MP）を反らせ基節骨への押し下げ抵抗に耐えて……",
     "shimo": "短母指伸筋をテストするのはどれ？",
-    "image": "assets/mmt/thumb_mp_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_mp_ext_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経（後骨間神経）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指MP関節伸展を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "短母指伸筋。",
+    "shimo_reading": "短母指伸筋。"
   },
   {
     "id": 103,
@@ -1865,8 +2477,14 @@ const DEFAULT_CARDS = [
     "kami": "手首の親指側くぼみで……",
     "naka": "グレード2、親指の付け根を反らせた際に嗅覚窩の内側腱が緊張するのを触知して……",
     "shimo": "短母指伸筋腱を触診するのはどれ？",
-    "image": "assets/mmt/thumb_mp_ext_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/thumb_mp_ext_g2.png",
+    "archived": true,
+    "kami_adv": "橈骨神経（後骨間神経）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指MP関節伸展を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "短母指伸筋。",
+    "shimo_reading": "短母指伸筋。"
   },
   {
     "id": 104,
@@ -1883,8 +2501,14 @@ const DEFAULT_CARDS = [
     "kami": "親指の付け根を机に固定され……",
     "naka": "グレード4〜5、親指の先端（IP）をグッと反らせ爪への押し下げ加圧に耐えて……",
     "shimo": "長母指伸筋（EPL）をテストするのはどれ？",
-    "image": "assets/mmt/thumb_ip_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_ip_ext_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経（後骨間神経）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指IP関節伸展を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "長母指伸筋。",
+    "shimo_reading": "長母指伸筋。"
   },
   {
     "id": 105,
@@ -1901,8 +2525,14 @@ const DEFAULT_CARDS = [
     "kami": "親指を大きく反らせた際に……",
     "naka": "グレード2、手首背側のリスター結節を回り込む太い腱の浮き上がりを触知して……",
     "shimo": "長母指伸筋腱を触診するのはどれ？",
-    "image": "assets/mmt/thumb_ip_ext_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_ip_ext_g2.png",
+    "archived": false,
+    "kami_adv": "橈骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指IP関節伸展を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "長母指伸筋。",
+    "shimo_reading": "長母指伸筋。"
   },
   {
     "id": 106,
@@ -1919,8 +2549,14 @@ const DEFAULT_CARDS = [
     "kami": "手のひらを上に向け手背を机につけ……",
     "naka": "グレード4〜5、親指を手掌面から天井へ垂直に持ち上げ下向き加圧に耐えて……",
     "shimo": "短母指外転筋（掌側外転）をテストするのはどれ？",
-    "image": "assets/mmt/thumb_palmar_abd_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_palmar_abd_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指掌側外転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "短母指外転筋。",
+    "shimo_reading": "短母指外転筋。"
   },
   {
     "id": 107,
@@ -1937,8 +2573,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕中間位で親指を持ち上げ……",
     "naka": "グレード2、手のひらから垂直に親指を離す可動域と母指球外側の収縮を確認して……",
     "shimo": "掌側外転の筋収縮を触診するのはどれ？",
-    "image": "assets/mmt/thumb_palmar_abd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_palmar_abd_g2.png",
+    "archived": false,
+    "kami_adv": "正中神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指掌側外転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "短母指外転筋。",
+    "shimo_reading": "短母指外転筋。"
   },
   {
     "id": 108,
@@ -1955,8 +2597,14 @@ const DEFAULT_CARDS = [
     "kami": "小指側を下にした肢位で……",
     "naka": "グレード4〜5、手掌面と平行に親指を真横に開き第1中手骨への押し戻し抵抗に耐えて……",
     "shimo": "長母指外転筋（橈側外転）をテストするのはどれ？",
-    "image": "assets/mmt/thumb_radial_abd_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_radial_abd_g543.png",
+    "archived": false,
+    "kami_adv": "橈骨神経（後骨間神経）障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指橈側外転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "長母指外転筋。",
+    "shimo_reading": "長母指外転筋。"
   },
   {
     "id": 109,
@@ -1973,8 +2621,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕中間位で机に置き……",
     "naka": "グレード2、手首の親指側で最も掌側にある腱の浮き上がりを触知して……",
     "shimo": "長母指外転筋腱を触診するのはどれ？",
-    "image": "assets/mmt/thumb_radial_abd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_radial_abd_g2.png",
+    "archived": false,
+    "kami_adv": "橈骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指橈側外転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "長母指外転筋。",
+    "shimo_reading": "長母指外転筋。"
   },
   {
     "id": 110,
@@ -1991,8 +2645,14 @@ const DEFAULT_CARDS = [
     "kami": "手のひらを机に伏せ……",
     "naka": "グレード4〜5、親指を人差し指の付け根に強く押し付け引き離し抵抗に耐えて……",
     "shimo": "母指内転筋をテストするのはどれ？",
-    "image": "assets/mmt/thumb_add_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_add_g543.png",
+    "archived": false,
+    "kami_adv": "尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指内転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "母指内転筋。",
+    "shimo_reading": "母指内転筋。"
   },
   {
     "id": 111,
@@ -2009,8 +2669,14 @@ const DEFAULT_CARDS = [
     "kami": "親指を人差し指に引き寄せる動作で……",
     "naka": "グレード2、親指と人差し指の間の手掌側水かき深層にある筋腹を触知して……",
     "shimo": "母指内転筋の収縮を触診するのはどれ？",
-    "image": "assets/mmt/thumb_add_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_add_g2.png",
+    "archived": false,
+    "kami_adv": "尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指内転を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "母指内転筋。",
+    "shimo_reading": "母指内転筋。"
   },
   {
     "id": 112,
@@ -2027,8 +2693,14 @@ const DEFAULT_CARDS = [
     "kami": "手のひらを上に向け親指と小指を合わせ……",
     "naka": "グレード4〜5、指腹同士を力強く押し合わせ検者の引き離し加圧に耐えて……",
     "shimo": "母指・小指対立筋をテストするのはどれ？",
-    "image": "assets/mmt/thumb_opp_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_opp_g543.png",
+    "archived": false,
+    "kami_adv": "正中神経・尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指と小指の対立を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "母指対立筋。",
+    "shimo_reading": "母指対立筋。"
   },
   {
     "id": 113,
@@ -2045,8 +2717,14 @@ const DEFAULT_CARDS = [
     "kami": "前腕を机に乗せて……",
     "naka": "グレード2、抵抗には耐えられないが親指と小指の腹を向かい合わせて接触させ……",
     "shimo": "対立運動の可動域を確認するのはどれ？",
-    "image": "assets/mmt/thumb_opp_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/thumb_opp_g2.png",
+    "archived": false,
+    "kami_adv": "正中神経・尺骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母指と小指の対立を観察する臨床テスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "母指対立筋。",
+    "shimo_reading": "母指対立筋。"
   },
   {
     "id": 114,
@@ -2063,8 +2741,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、大腿を座面から持ち上げ膝のすぐ上への強力な下向き加圧に耐えて……",
     "shimo": "股関節を屈曲（腸腰筋）するのはどれ？",
-    "image": "assets/mmt/hip_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_flex_g543.png",
+    "archived": false,
+    "kami_adv": "大腿神経障害、縫工筋による外転外旋や大腿筋膜張筋代償を警戒しつつ……",
+    "kami_std": "座った姿勢で太ももを高く持ち上げるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "腸腰筋。",
+    "shimo_reading": "腸腰筋。"
   },
   {
     "id": 115,
@@ -2081,8 +2765,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位（そくがい）で……",
     "naka": "グレード2、検者が下肢の重さを支えた水平面上で膝を胸に引き寄せて……",
     "shimo": "重力を除いて股関節を屈曲するのはどれ？",
-    "image": "assets/mmt/hip_flex_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_flex_g2.png",
+    "archived": false,
+    "kami_adv": "大腿神経障害、縫工筋による外転外旋や大腿筋膜張筋代償を警戒しつつ……",
+    "kami_std": "座った姿勢で太ももを高く持ち上げるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "腸腰筋。",
+    "shimo_reading": "腸腰筋。"
   },
   {
     "id": 116,
@@ -2099,8 +2789,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で踵を反対側のすねに沿わせ……",
     "naka": "グレード4〜5、踵を膝に向かって滑り上げ大腿と足首への押し戻し抵抗に耐えて……",
     "shimo": "縫工筋を単独テストするのはどれ？",
-    "image": "assets/mmt/hip_sartorius_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_sartorius_g543.png",
+    "archived": false,
+    "kami_adv": "大腿神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "縫工筋テストを観察する臨床テスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "縫工筋。",
+    "shimo_reading": "縫工筋。"
   },
   {
     "id": 117,
@@ -2117,8 +2813,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード2、踵を反対側のすねに当てて膝まで滑り上げる動作を完遂して……",
     "shimo": "重力を除いて縫工筋テストを行うのはどれ？",
-    "image": "assets/mmt/hip_sartorius_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_sartorius_g2.png",
+    "archived": false,
+    "kami_adv": "大腿神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "縫工筋テストを観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "縫工筋。",
+    "shimo_reading": "縫工筋。"
   },
   {
     "id": 118,
@@ -2135,8 +2837,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で膝を伸ばしたまま……",
     "naka": "グレード4〜5、脚を天井に向けて持ち上げ太もも裏への強い押し下げ抵抗に耐えて……",
     "shimo": "股関節を伸展（大殿筋・ハム複合）するのはどれ？",
-    "image": "assets/mmt/hip_ext_comp_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_ext_comp_g543.png",
+    "archived": false,
+    "kami_adv": "下殿神経障害、腰椎過前弯やハムストリングスの代償を抑えつつ……",
+    "kami_std": "うつ伏せで太ももを後上方へ持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "大殿筋・ハムストリングス。",
+    "shimo_reading": "大殿筋・ハムストリングス。"
   },
   {
     "id": 119,
@@ -2153,8 +2861,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で下肢の重さを支えられ……",
     "naka": "グレード2、水平面上で膝を伸ばしたまま脚を後方へ滑らせて……",
     "shimo": "重力を除いて股関節伸展を行うのはどれ？",
-    "image": "assets/mmt/hip_ext_comp_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_ext_comp_g2.png",
+    "archived": false,
+    "kami_adv": "下殿神経障害、腰椎過前弯やハムストリングスの代償を抑えつつ……",
+    "kami_std": "うつ伏せで太ももを後上方へ持ち上げるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "大殿筋・ハムストリングス。",
+    "shimo_reading": "大殿筋・ハムストリングス。"
   },
   {
     "id": 120,
@@ -2171,8 +2885,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で膝を90度曲げ……",
     "naka": "グレード4〜5、ハムストリングスを弛緩させた状態で太ももを持ち上げ大殿筋に抗して……",
     "shimo": "大殿筋を単独分離テストするのはどれ？",
-    "image": "assets/mmt/hip_ext_glute_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_ext_glute_g543.png",
+    "archived": false,
+    "kami_adv": "下殿神経障害、腰椎過前弯やハムストリングスの代償を抑えつつ……",
+    "kami_std": "うつ伏せで太ももを後上方へ持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "大殿筋・ハムストリングス。",
+    "shimo_reading": "大殿筋・ハムストリングス。"
   },
   {
     "id": 121,
@@ -2189,8 +2909,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で膝を曲げたまま……",
     "naka": "グレード2、水平面上で脚を後方へ動かしお尻の筋肉の盛り上がりを触知して……",
     "shimo": "大殿筋の単独収縮を触診するのはどれ？",
-    "image": "assets/mmt/hip_ext_glute_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_ext_glute_g2.png",
+    "archived": false,
+    "kami_adv": "下殿神経障害、腰椎過前弯やハムストリングスの代償を抑えつつ……",
+    "kami_std": "うつ伏せで太ももを後上方へ持ち上げるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "大殿筋・ハムストリングス。",
+    "shimo_reading": "大殿筋・ハムストリングス。"
   },
   {
     "id": 122,
@@ -2207,8 +2933,14 @@ const DEFAULT_CARDS = [
     "kami": "ベッドに体幹を預けて前傾し……",
     "naka": "グレード4〜5、股関節屈曲拘縮がある患者で立位から脚を後方に持ち上げて……",
     "shimo": "屈曲拘縮時の別法で股関節伸展をテストするのはどれ？",
-    "image": "assets/mmt/hip_ext_contracture_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_ext_contracture_g543.png",
+    "archived": false,
+    "kami_adv": "下殿神経障害、腰椎過前弯やハムストリングスの代償を抑えつつ……",
+    "kami_std": "うつ伏せで太ももを後上方へ持ち上げるテスト……",
+    "naka_short": "立位前傾で、グレード5。",
+    "naka_reading": "立位前傾で、グレードご。",
+    "shimo_short": "大殿筋・ハムストリングス。",
+    "shimo_reading": "大殿筋・ハムストリングス。"
   },
   {
     "id": 123,
@@ -2225,8 +2957,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位（そくがい）で……",
     "naka": "グレード4〜5、骨盤を動かさずに上側の脚を真上に持ち上げ足首への強い加圧に耐えて……",
     "shimo": "股関節を外転（中殿筋）するのはどれ？",
-    "image": "assets/mmt/hip_abd_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_abd_g543.png",
+    "archived": false,
+    "kami_adv": "上殿神経麻痺（トレンデレンブルグ徴候）、大腿筋膜張筋の股屈曲代償を抑えつつ……",
+    "kami_std": "横向きで脚を骨盤より後方に保ち真横へ挙げるテスト……",
+    "naka_short": "側臥位で、グレード5。",
+    "naka_reading": "そくがいで、グレードご。",
+    "shimo_short": "中殿筋。",
+    "shimo_reading": "中殿筋。"
   },
   {
     "id": 124,
@@ -2243,8 +2981,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（はいがい）で……",
     "naka": "グレード2、ベッドの面を水平に外側へ脚を滑らせて……",
     "shimo": "重力を除いて股関節外転を行うのはどれ？",
-    "image": "assets/mmt/hip_abd_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_abd_g2.png",
+    "archived": false,
+    "kami_adv": "上殿神経麻痺（トレンデレンブルグ徴候）、大腿筋膜張筋の股屈曲代償を抑えつつ……",
+    "kami_std": "横向きで脚を骨盤より後方に保ち真横へ挙げるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "中殿筋。",
+    "shimo_reading": "中殿筋。"
   },
   {
     "id": 125,
@@ -2261,8 +3005,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で股関節を斜め前45度に曲げ……",
     "naka": "グレード4〜5、斜め前方から脚を真上に持ち上げ膝上への加圧に抗して……",
     "shimo": "大腿筋膜張筋（TFL）を分離テストするのはどれ？",
-    "image": "assets/mmt/hip_tfl_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_tfl_g543.png",
+    "archived": false,
+    "kami_adv": "上殿神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "大腿筋膜張筋テストを観察する臨床テスト……",
+    "naka_short": "側臥位で、グレード5。",
+    "naka_reading": "そくがいで、グレードご。",
+    "shimo_short": "大腿筋膜張筋。",
+    "shimo_reading": "大腿筋膜張筋。"
   },
   {
     "id": 126,
@@ -2279,8 +3029,14 @@ const DEFAULT_CARDS = [
     "kami": "長座位で上体を後ろに預け……",
     "naka": "グレード2、股関節を曲げた肢位からベッド上で脚を真横に滑らせて……",
     "shimo": "重力を除いて大腿筋膜張筋をテストするのはどれ？",
-    "image": "assets/mmt/hip_tfl_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_tfl_g2.png",
+    "archived": false,
+    "kami_adv": "上殿神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "大腿筋膜張筋テストを観察する臨床テスト……",
+    "naka_short": "長座位で、グレード2。",
+    "naka_reading": "長座位で、グレードに。",
+    "shimo_short": "大腿筋膜張筋。",
+    "shimo_reading": "大腿筋膜張筋。"
   },
   {
     "id": 127,
@@ -2297,8 +3053,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で上の脚を抱えられ……",
     "naka": "グレード4〜5、下の脚をベッドから天井に向かって持ち上げ膝上への抵抗に耐えて……",
     "shimo": "股関節を内転（内転筋群）するのはどれ？",
-    "image": "assets/mmt/hip_add_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_add_g543.png",
+    "archived": false,
+    "kami_adv": "閉鎖神経障害、股関節屈曲や骨盤後方回旋代償を防ぎつつ……",
+    "kami_std": "横向きで下側の脚をベッドから持ち上げるテスト……",
+    "naka_short": "側臥位で、グレード5。",
+    "naka_reading": "そくがいで、グレードご。",
+    "shimo_short": "内転筋群（大・長・短内転筋）。",
+    "shimo_reading": "内転筋群（大・長・短内転筋）。"
   },
   {
     "id": 128,
@@ -2315,8 +3077,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で脚を開いた状態から……",
     "naka": "グレード2、ベッドの面を滑らせて反対側の脚へ引き寄せて……",
     "shimo": "重力を除いて股関節内転を行うのはどれ？",
-    "image": "assets/mmt/hip_add_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_add_g2.png",
+    "archived": false,
+    "kami_adv": "閉鎖神経障害、股関節屈曲や骨盤後方回旋代償を防ぎつつ……",
+    "kami_std": "横向きで下側の脚をベッドから持ち上げるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "内転筋群（大・長・短内転筋）。",
+    "shimo_reading": "内転筋群（大・長・短内転筋）。"
   },
   {
     "id": 129,
@@ -2333,8 +3101,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で膝を90度曲げ……",
     "naka": "グレード4〜5、足先を内側へ振るようにして股関節を外旋させ外向き加圧に耐えて……",
     "shimo": "股関節を外旋（外旋六筋）するのはどれ？",
-    "image": "assets/mmt/hip_er_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_er_g543.png",
+    "archived": false,
+    "kami_adv": "仙骨神経叢障害、大腿二頭筋による膝屈曲代償を警戒しつつ……",
+    "kami_std": "座った姿勢で下腿を内側へ振り太ももを外旋させるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "深層外旋六筋・大殿筋。",
+    "shimo_reading": "深層外旋六筋・大殿筋。"
   },
   {
     "id": 130,
@@ -2351,8 +3125,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で脚をまっすぐ伸ばし……",
     "naka": "グレード2、つま先をベッドの外側へ倒すように回して大転子後方を触知して……",
     "shimo": "重力を除いて股関節外旋を行うのはどれ？",
-    "image": "assets/mmt/hip_er_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_er_g2.png",
+    "archived": false,
+    "kami_adv": "仙骨神経叢障害、大腿二頭筋による膝屈曲代償を警戒しつつ……",
+    "kami_std": "座った姿勢で下腿を内側へ振り太ももを外旋させるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "深層外旋六筋・大殿筋。",
+    "shimo_reading": "深層外旋六筋・大殿筋。"
   },
   {
     "id": 131,
@@ -2369,8 +3149,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位で膝を揃え……",
     "naka": "グレード4〜5、足先を外側へ振るようにして股関節を内旋させ内向き加圧に耐えて……",
     "shimo": "股関節を内旋（中殿筋前部・小殿筋）するのはどれ？",
-    "image": "assets/mmt/hip_ir_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_ir_g543.png",
+    "archived": false,
+    "kami_adv": "上殿神経障害、股関節内転や体幹傾斜代償を抑えつつ……",
+    "kami_std": "座った姿勢で下腿を外側へ振り太ももを内旋させるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "中殿筋前部・大腿筋膜張筋。",
+    "shimo_reading": "中殿筋前部・大腿筋膜張筋。"
   },
   {
     "id": 132,
@@ -2387,8 +3173,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で脚を伸ばし……",
     "naka": "グレード2、つま先を内側へ倒すように脚全体を内方に転がして……",
     "shimo": "重力を除いて股関節内旋を行うのはどれ？",
-    "image": "assets/mmt/hip_ir_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/hip_ir_g2.png",
+    "archived": false,
+    "kami_adv": "上殿神経障害、股関節内転や体幹傾斜代償を抑えつつ……",
+    "kami_std": "座った姿勢で下腿を外側へ振り太ももを内旋させるテスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "中殿筋前部・大腿筋膜張筋。",
+    "shimo_reading": "中殿筋前部・大腿筋膜張筋。"
   },
   {
     "id": 133,
@@ -2405,8 +3197,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で膝を直角に曲げ……",
     "naka": "グレード4〜5、下腿をまっすぐ保ち足首の上への引き下げ抵抗に力強く耐えて……",
     "shimo": "ハムストリングス全体をテストするのはどれ？",
-    "image": "assets/mmt/knee_flex_comp_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_flex_comp_g543.png",
+    "archived": false,
+    "kami_adv": "坐骨神経障害、股関節屈曲による骨盤引き上げ代償を警戒しつつ……",
+    "kami_std": "うつ伏せでかかとをお尻に引き寄せるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "ハムストリングス。",
+    "shimo_reading": "ハムストリングス。"
   },
   {
     "id": 134,
@@ -2423,8 +3221,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で脚を支えられ……",
     "naka": "グレード2、重力を除いた水平面上で踵をお尻に向かって引き寄せて……",
     "shimo": "重力を除いて膝関節屈曲を行うのはどれ？",
-    "image": "assets/mmt/knee_flex_comp_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_flex_comp_g2.png",
+    "archived": false,
+    "kami_adv": "坐骨神経障害、股関節屈曲による骨盤引き上げ代償を警戒しつつ……",
+    "kami_std": "うつ伏せでかかとをお尻に引き寄せるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "ハムストリングス。",
+    "shimo_reading": "ハムストリングス。"
   },
   {
     "id": 135,
@@ -2441,8 +3245,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位でつま先を内側に向け……",
     "naka": "グレード4〜5、下腿を内旋させた状態で膝を曲げ内側腱の緊張を保って抵抗に耐えて……",
     "shimo": "半腱様筋・半膜様筋を分離テストするのはどれ？",
-    "image": "assets/mmt/knee_flex_med_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_flex_med_g543.png",
+    "archived": false,
+    "kami_adv": "坐骨神経障害、股関節屈曲による骨盤引き上げ代償を警戒しつつ……",
+    "kami_std": "うつ伏せでかかとをお尻に引き寄せるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "ハムストリングス。",
+    "shimo_reading": "ハムストリングス。"
   },
   {
     "id": 136,
@@ -2459,8 +3269,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で下腿を内旋させ……",
     "naka": "グレード2、膝を曲げた際に膝裏の内側で太い索状腱を触知して……",
     "shimo": "内側ハムストリングス腱を触診するのはどれ？",
-    "image": "assets/mmt/knee_flex_med_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_flex_med_g2.png",
+    "archived": false,
+    "kami_adv": "坐骨神経障害、股関節屈曲による骨盤引き上げ代償を警戒しつつ……",
+    "kami_std": "うつ伏せでかかとをお尻に引き寄せるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "ハムストリングス。",
+    "shimo_reading": "ハムストリングス。"
   },
   {
     "id": 137,
@@ -2477,8 +3293,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位でつま先を外側に向け……",
     "naka": "グレード4〜5、下腿を外旋させたまま膝を曲げ腓骨頭へ向かう腱の抵抗に耐えて……",
     "shimo": "大腿二頭筋を単独分離テストするのはどれ？",
-    "image": "assets/mmt/knee_flex_lat_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_flex_lat_g543.png",
+    "archived": false,
+    "kami_adv": "坐骨神経障害、股関節屈曲による骨盤引き上げ代償を警戒しつつ……",
+    "kami_std": "うつ伏せでかかとをお尻に引き寄せるテスト……",
+    "naka_short": "腹臥位で、グレード5。",
+    "naka_reading": "ふくがいで、グレードご。",
+    "shimo_short": "ハムストリングス。",
+    "shimo_reading": "ハムストリングス。"
   },
   {
     "id": 138,
@@ -2495,8 +3317,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で下腿を外旋させ……",
     "naka": "グレード2、膝を曲げた際に膝裏の外側（腓骨頭）に向かう腱を触知して……",
     "shimo": "大腿二頭筋腱を触診するのはどれ？",
-    "image": "assets/mmt/knee_flex_lat_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_flex_lat_g2.png",
+    "archived": false,
+    "kami_adv": "坐骨神経障害、股関節屈曲による骨盤引き上げ代償を警戒しつつ……",
+    "kami_std": "うつ伏せでかかとをお尻に引き寄せるテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "ハムストリングス。",
+    "shimo_reading": "ハムストリングス。"
   },
   {
     "id": 139,
@@ -2513,8 +3341,14 @@ const DEFAULT_CARDS = [
     "kami": "端座位（たんざい）で……",
     "naka": "グレード4〜5、膝をまっすぐ前方に伸ばし足首の上への強力な押し戻しに耐えて……",
     "shimo": "膝関節を伸展（大腿四頭筋）するのはどれ？",
-    "image": "assets/mmt/knee_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_ext_g543.png",
+    "archived": false,
+    "kami_adv": "大腿神経麻痺、体幹後傾や大腿筋膜張筋代償を防ぎつつ……",
+    "kami_std": "座った姿勢で膝を前上方へピンと伸ばすテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "大腿四頭筋。",
+    "shimo_reading": "大腿四頭筋。"
   },
   {
     "id": 140,
@@ -2531,8 +3365,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位で脚を水平に支えられ……",
     "naka": "グレード2、膝を曲げた状態から前方へ向かってまっすぐ脚を伸ばして……",
     "shimo": "重力を除いて膝関節伸展を行うのはどれ？",
-    "image": "assets/mmt/knee_ext_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/knee_ext_g2.png",
+    "archived": false,
+    "kami_adv": "大腿神経麻痺、体幹後傾や大腿筋膜張筋代償を防ぎつつ……",
+    "kami_std": "座った姿勢で膝を前上方へピンと伸ばすテスト……",
+    "naka_short": "側臥位で、グレード2。",
+    "naka_reading": "そくがいで、グレードに。",
+    "shimo_short": "大腿四頭筋。",
+    "shimo_reading": "大腿四頭筋。"
   },
   {
     "id": 141,
@@ -2549,8 +3389,14 @@ const DEFAULT_CARDS = [
     "kami": "立位片脚立ち（膝完全伸展）で……",
     "naka": "グレード5、指先2本支持のみで完全な高さの踵上げを正確に25回完遂して……",
     "shimo": "足関節底屈（Grade 5）を達成するのはどれ？",
-    "image": "assets/mmt/ankle_pf_g5.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_pf_g5.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、長母趾屈筋や腓骨筋群による代償を防ぎつつ……",
+    "kami_std": "立位で踵を高く持ち上げるテスト……",
+    "naka_short": "立位で、グレード5。",
+    "naka_reading": "りついで、グレードご。",
+    "shimo_short": "腓腹筋・ヒラメ筋。",
+    "shimo_reading": "腓腹筋・ヒラメ筋。"
   },
   {
     "id": 142,
@@ -2567,8 +3413,14 @@ const DEFAULT_CARDS = [
     "kami": "立位片脚立ちで……",
     "naka": "グレード4、2回から24回の完全な踵上げを完遂し疲労でストップして……",
     "shimo": "足関節底屈（Grade 4）を判定するのはどれ？",
-    "image": "assets/mmt/ankle_pf_g4.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_pf_g4.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、長母趾屈筋や腓骨筋群による代償を防ぎつつ……",
+    "kami_std": "立位で踵を高く持ち上げるテスト……",
+    "naka_short": "立位で、グレード4。",
+    "naka_reading": "りついで、グレードよん。",
+    "shimo_short": "腓腹筋・ヒラメ筋。",
+    "shimo_reading": "腓腹筋・ヒラメ筋。"
   },
   {
     "id": 143,
@@ -2585,8 +3437,14 @@ const DEFAULT_CARDS = [
     "kami": "立位片脚立ちで……",
     "naka": "グレード3、正しいフォームで1回だけ完全な踵上げを達成して……",
     "shimo": "自重での足関節底屈（Grade 3）を行うのはどれ？",
-    "image": "assets/mmt/ankle_pf_g3.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_pf_g3.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、長母趾屈筋や腓骨筋群による代償を防ぎつつ……",
+    "kami_std": "立位で踵を高く持ち上げるテスト……",
+    "naka_short": "立位で、グレード3。",
+    "naka_reading": "りついで、グレードさん。",
+    "shimo_short": "腓腹筋・ヒラメ筋。",
+    "shimo_reading": "腓腹筋・ヒラメ筋。"
   },
   {
     "id": 144,
@@ -2603,8 +3461,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で足部をベッド端から出し……",
     "naka": "グレード2、立位不能患者で足底への押し上げ抵抗に抗してつま先を押し下げ……",
     "shimo": "非立位で足関節底屈をテストするのはどれ？",
-    "image": "assets/mmt/ankle_pf_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_pf_g2.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、長母趾屈筋や腓骨筋群による代償を防ぎつつ……",
+    "kami_std": "立位で踵を高く持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "腓腹筋・ヒラメ筋。",
+    "shimo_reading": "腓腹筋・ヒラメ筋。"
   },
   {
     "id": 145,
@@ -2621,8 +3485,14 @@ const DEFAULT_CARDS = [
     "kami": "片脚立ちで膝を軽く曲げ……",
     "naka": "グレード4〜5、腓腹筋を緩めた状態で膝屈曲位を保ちながら踵を持ち上げて……",
     "shimo": "ヒラメ筋を単独分離テストするのはどれ？",
-    "image": "assets/mmt/ankle_soleus_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_soleus_g543.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、長母趾屈筋や腓骨筋群による代償を防ぎつつ……",
+    "kami_std": "立位で踵を高く持ち上げるテスト……",
+    "naka_short": "立位で、グレード5。",
+    "naka_reading": "りついで、グレードご。",
+    "shimo_short": "腓腹筋・ヒラメ筋。",
+    "shimo_reading": "腓腹筋・ヒラメ筋。"
   },
   {
     "id": 146,
@@ -2639,8 +3509,14 @@ const DEFAULT_CARDS = [
     "kami": "腹臥位で膝を直角に曲げ……",
     "naka": "グレード2、膝屈曲位でつま先を天井へ向け押し出しアキレス腱深層を触知して……",
     "shimo": "非立位でヒラメ筋をテストするのはどれ？",
-    "image": "assets/mmt/ankle_soleus_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_soleus_g2.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、長母趾屈筋や腓骨筋群による代償を防ぎつつ……",
+    "kami_std": "立位で踵を高く持ち上げるテスト……",
+    "naka_short": "腹臥位で、グレード2。",
+    "naka_reading": "ふくがいで、グレードに。",
+    "shimo_short": "腓腹筋・ヒラメ筋。",
+    "shimo_reading": "腓腹筋・ヒラメ筋。"
   },
   {
     "id": 147,
@@ -2657,8 +3533,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位（第10版完全準拠）で……",
     "naka": "グレード4〜5、足首を反らしながら内返しし足先への強い押し下げに耐えて……",
     "shimo": "前脛骨筋をテストするのはどれ？",
-    "image": "assets/mmt/ankle_df_g5432.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_df_g5432.png",
+    "archived": false,
+    "kami_adv": "深腓骨神経麻痺（下垂足・鶏歩）、長母趾・長趾伸筋代償による趾背屈を抑えつつ……",
+    "kami_std": "足指を脱力したまま足首を手前へ反らし内反するテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "前脛骨筋。",
+    "shimo_reading": "前脛骨筋。"
   },
   {
     "id": 148,
@@ -2675,8 +3557,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で力を抜いた状態から……",
     "naka": "グレード2、抵抗には耐えられないがつま先を顔に向けて反らし太い腱を触知して……",
     "shimo": "前脛骨筋腱を触診するのはどれ？",
-    "image": "assets/mmt/ankle_df_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/ankle_df_g2.png",
+    "archived": false,
+    "kami_adv": "深腓骨神経麻痺（下垂足・鶏歩）、長母趾・長趾伸筋代償による趾背屈を抑えつつ……",
+    "kami_std": "足指を脱力したまま足首を手前へ反らし内反するテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "前脛骨筋。",
+    "shimo_reading": "前脛骨筋。"
   },
   {
     "id": 149,
@@ -2693,8 +3581,14 @@ const DEFAULT_CARDS = [
     "kami": "足の指の力を完全に抜いて……",
     "naka": "グレード4〜5、前足部を内側に向け親指の付け根への外返し加圧に力強く耐えて……",
     "shimo": "後脛骨筋を単独テストするのはどれ？",
-    "image": "assets/mmt/foot_inv_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/foot_inv_g543.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、前脛骨筋による足関節背屈代償を抑えつつ……",
+    "kami_std": "足首を底屈位に保ち足の裏を内側へ向けるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "後脛骨筋。",
+    "shimo_reading": "後脛骨筋。"
   },
   {
     "id": 150,
@@ -2711,8 +3605,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で足指を緩め……",
     "naka": "グレード2、足先を内側に向ける運動を行い内くるぶしのすぐ後ろで腱を触知して……",
     "shimo": "後脛骨筋腱を触診するのはどれ？",
-    "image": "assets/mmt/foot_inv_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/foot_inv_g2.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、前脛骨筋による足関節背屈代償を抑えつつ……",
+    "kami_std": "足首を底屈位に保ち足の裏を内側へ向けるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "後脛骨筋。",
+    "shimo_reading": "後脛骨筋。"
   },
   {
     "id": 151,
@@ -2729,8 +3629,14 @@ const DEFAULT_CARDS = [
     "kami": "側臥位（または背臥位）で……",
     "naka": "グレード4〜5、足の裏を外側へ向けて小指の付け根への内返し加圧に抗して……",
     "shimo": "長・短腓骨筋をテストするのはどれ？",
-    "image": "assets/mmt/foot_ev_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/foot_ev_g543.png",
+    "archived": false,
+    "kami_adv": "浅腓骨神経麻痺、長趾伸筋による趾背屈代償を警戒しつつ……",
+    "kami_std": "足首を下方に向けつつ足の裏を外側へ向けるテスト……",
+    "naka_short": "端座位で、グレード5。",
+    "naka_reading": "たんざいで、グレードご。",
+    "shimo_short": "長・短腓骨筋。",
+    "shimo_reading": "長・短腓骨筋。"
   },
   {
     "id": 152,
@@ -2747,8 +3653,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位でつま先を脱力し……",
     "naka": "グレード2、足先を外側にひねり外くるぶしの後ろを走る腓骨筋腱を触知して……",
     "shimo": "腓骨筋群を触診するのはどれ？",
-    "image": "assets/mmt/foot_ev_g2.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/foot_ev_g2.png",
+    "archived": false,
+    "kami_adv": "浅腓骨神経麻痺、長趾伸筋による趾背屈代償を警戒しつつ……",
+    "kami_std": "足首を下方に向けつつ足の裏を外側へ向けるテスト……",
+    "naka_short": "端座位で、グレード2。",
+    "naka_reading": "たんざいで、グレードに。",
+    "shimo_short": "長・短腓骨筋。",
+    "shimo_reading": "長・短腓骨筋。"
   },
   {
     "id": 153,
@@ -2765,8 +3677,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で足首を直角に保ち……",
     "naka": "グレード4〜5、足の親指の付け根（MP）を下へ曲げ基節骨への伸展抵抗に耐えて……",
     "shimo": "短母趾屈筋をテストするのはどれ？",
-    "image": "assets/mmt/toe_mp_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/toe_mp_flex_g543.png",
+    "archived": false,
+    "kami_adv": "内側足底神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母趾MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "短母趾屈筋。",
+    "shimo_reading": "短母趾屈筋。"
   },
   {
     "id": 154,
@@ -2783,8 +3701,14 @@ const DEFAULT_CARDS = [
     "kami": "足の力を抜いた状態から……",
     "naka": "グレード2、親指の付け根を自力で曲げる動作を完遂して足底の腱を触知して……",
     "shimo": "短母趾屈筋の収縮を確認するのはどれ？",
-    "image": "assets/mmt/toe_mp_flex_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/toe_mp_flex_g2.png",
+    "archived": true,
+    "kami_adv": "内側足底神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母趾MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "短母趾屈筋。",
+    "shimo_reading": "短母趾屈筋。"
   },
   {
     "id": 155,
@@ -2801,8 +3725,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で足の指先を伸ばし……",
     "naka": "グレード4〜5、足の指の付け根だけを下へ折り曲げ押し上げ抵抗に耐えて……",
     "shimo": "足趾MP屈曲（虫様筋）を行うのはどれ？",
-    "image": "assets/mmt/toes_mp_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/toes_mp_flex_g543.png",
+    "archived": false,
+    "kami_adv": "内側足底神経・外側足底神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "第2〜5趾MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "虫様筋。",
+    "shimo_reading": "虫様筋。"
   },
   {
     "id": 156,
@@ -2819,8 +3749,14 @@ const DEFAULT_CARDS = [
     "kami": "足指の力を抜いた肢位から……",
     "naka": "グレード2、足指の第1関節を伸ばしたまま付け根を自力で曲げて……",
     "shimo": "足趾虫様筋の機能を判定するのはどれ？",
-    "image": "assets/mmt/toes_mp_flex_g2.png?v=20261031_v15",
-    "archived": true
+    "image": "assets/mmt/toes_mp_flex_g2.png",
+    "archived": true,
+    "kami_adv": "内側・外側足底神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "第2〜5趾MP関節屈曲を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード2。",
+    "naka_reading": "はいがいで、グレードに。",
+    "shimo_short": "虫様筋。",
+    "shimo_reading": "虫様筋。"
   },
   {
     "id": 157,
@@ -2837,8 +3773,14 @@ const DEFAULT_CARDS = [
     "kami": "足の親指の付け根を押さえられ……",
     "naka": "グレード4〜5、親指の先端（IP）だけを力強く下へ曲げ爪の腹への加圧に抗して……",
     "shimo": "長母趾屈筋をテストするのはどれ？",
-    "image": "assets/mmt/toe_ip_flex_hallux_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/toe_ip_flex_hallux_g543.png",
+    "archived": false,
+    "kami_adv": "脛骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母趾IP関節屈曲を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "長母趾屈筋。",
+    "shimo_reading": "長母趾屈筋。"
   },
   {
     "id": 158,
@@ -2855,8 +3797,14 @@ const DEFAULT_CARDS = [
     "kami": "足の指をキュッと握るように……",
     "naka": "グレード4〜5、すべての足指の関節を下へ丸め指先を押し上げる抵抗に耐えて……",
     "shimo": "長・短趾屈筋をテストするのはどれ？",
-    "image": "assets/mmt/toes_ip_flex_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/toes_ip_flex_g543.png",
+    "archived": false,
+    "kami_adv": "脛骨神経・内側足底神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "足趾DIP/PIP関節屈曲を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "長趾屈筋。",
+    "shimo_reading": "長趾屈筋。"
   },
   {
     "id": 159,
@@ -2873,8 +3821,14 @@ const DEFAULT_CARDS = [
     "kami": "背臥位で足の親指を上に反らせ……",
     "naka": "グレード4〜5、親指を顔に向けてグッと引き上げ爪への下向き加圧に耐えて……",
     "shimo": "長・短母趾伸筋をテストするのはどれ？",
-    "image": "assets/mmt/toe_ext_hallux_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/toe_ext_hallux_g543.png",
+    "archived": false,
+    "kami_adv": "深腓骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "母趾IP・MP関節伸展を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "長母趾伸筋。",
+    "shimo_reading": "長母趾伸筋。"
   },
   {
     "id": 160,
@@ -2891,10 +3845,17 @@ const DEFAULT_CARDS = [
     "kami": "足の指全体を上に向かって反らし……",
     "naka": "グレード4〜5、指先を反らせた状態で4本の指の背への強い押し下げに耐えて……",
     "shimo": "長・短趾伸筋をテストするのはどれ？",
-    "image": "assets/mmt/toes_ext_g543.png?v=20261031_v15",
-    "archived": false
+    "image": "assets/mmt/toes_ext_g543.png",
+    "archived": false,
+    "kami_adv": "深腓骨神経障害、近隣筋の代償動作を警戒しつつ……",
+    "kami_std": "第2〜5趾MP・IP関節伸展を観察する臨床テスト……",
+    "naka_short": "背臥位で、グレード5。",
+    "naka_reading": "はいがいで、グレードご。",
+    "shimo_short": "長趾伸筋。",
+    "shimo_reading": "長趾伸筋。"
   }
-];
+]
+;
 
 
 // ============================================================================
@@ -3897,7 +4858,7 @@ function selectCpuPersona(personaKey) {
 // 外部JSON読み込み
 async function loadCardDatabase() {
   try {
-    const res = await fetch('data/cards.json?v=20261031_v15');
+    const res = await fetch('data/cards.json?v=20261031_v16');
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
@@ -3905,7 +4866,7 @@ async function loadCardDatabase() {
           const defaultRef = DEFAULT_CARDS.find(d => d.id === c.id) || {};
           const rawImg = c.image || defaultRef.image || '';
           const cleanImg = rawImg.split('?')[0];
-          const versionedImg = cleanImg ? `${cleanImg}?v=20261031_v15` : '';
+          const versionedImg = cleanImg ? `${cleanImg}?v=20261031_v16` : '';
           return {
             ...defaultRef,
             ...c,
@@ -3914,7 +4875,13 @@ async function loadCardDatabase() {
             root: c.root || defaultRef.root || '—',
             kami: c.kami || defaultRef.kami || '体位で……',
             naka: c.naka || defaultRef.naka || '抵抗に耐えて……',
-            shimo: c.shimo || defaultRef.shimo || 'この運動を行うのはどれ？'
+            shimo: c.shimo || defaultRef.shimo || 'この運動を行うのはどれ？',
+            kami_adv: c.kami_adv || defaultRef.kami_adv || '',
+            kami_std: c.kami_std || defaultRef.kami_std || '',
+            naka_short: c.naka_short || defaultRef.naka_short || '',
+            shimo_short: c.shimo_short || defaultRef.shimo_short || '',
+            naka_reading: c.naka_reading || defaultRef.naka_reading || '',
+            shimo_reading: c.shimo_reading || defaultRef.shimo_reading || ''
           };
         });
         window.cardDatabase = cardDatabase;
@@ -3922,6 +4889,9 @@ async function loadCardDatabase() {
     }
   } catch (e) {
     console.log("Using embedded card data:", e);
+  }
+  if (typeof renderRegionFilterBar === 'function') {
+    renderRegionFilterBar();
   }
 }
 
@@ -5744,6 +6714,7 @@ window.addEventListener('keydown', (e) => {
 let karutaSubMode = 'karuta'; // 'karuta' (3行読み上げカルタ) or 'quiz' (画像1枚➔4択ジャッジ)
 let isKarutaSplit = false;    // false: 1Pソロ標準, true: 対面2Pスプリット(2P 180度反転)
 let karutaVoiceEnabled = true; // Web Speech API 音声読み上げ
+let karutaDifficulty = 'clinical'; // 'clinical' (🩺 臨床実習級) or 'standard' (🔰 初級)
 let karutaScores = { p1: 0, p2: 0 };
 let karutaCurrentChoices = []; // 場の4枚
 let karutaTargetCard = null;   // 正解カード
@@ -5753,28 +6724,115 @@ let karutaTimers = [];
 let karutaRoundCount = 0;
 let isKarutaLockedP1 = false;
 let isKarutaLockedP2 = false;
+let karutaSequenceId = 0; // シーケンス識別トークン（非同期多重実行防止）
 
-// 音声読み上げ（Web Speech API）
-function speakKarutaText(text) {
-  if (!karutaVoiceEnabled || !('speechSynthesis' in window)) return;
-  try {
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'ja-JP';
-    utter.rate = 1.15;
-    window.speechSynthesis.speak(utter);
-  } catch (e) {
-    console.log("SpeechSynthesis error:", e);
-  }
+// 読み札データ取得ヘルパー（難易度連動）
+function getKarutaLine1(c, diff = karutaDifficulty) {
+  if (!c) return '';
+  return diff === 'clinical' ? (c.kami_adv || c.kami || '') : (c.kami_std || c.kami || '');
+}
+function getKarutaLine2(c) {
+  if (!c) return '';
+  return c.naka_short || c.naka || '';
+}
+function getKarutaLine2Reading(c) {
+  if (!c) return '';
+  return c.naka_reading || c.naka_short || c.naka || '';
+}
+function getKarutaLine3(c) {
+  if (!c) return '';
+  return c.shimo_short || c.shimo || '';
+}
+function getKarutaLine3Reading(c) {
+  if (!c) return '';
+  return c.shimo_reading || c.shimo_short || c.shimo || '';
 }
 
-// 全タイマークリア
+// 難易度切替（臨床実習級 ↔ 初級）
+function toggleKarutaDifficulty() {
+  karutaDifficulty = karutaDifficulty === 'clinical' ? 'standard' : 'clinical';
+  const btn = document.getElementById('btn-diff-toggle');
+  if (btn) {
+    const isClinical = karutaDifficulty === 'clinical';
+    btn.innerText = isClinical ? "🩺 臨床実習級" : "🔰 初級";
+    btn.classList.toggle('toggled-on', isClinical);
+  }
+  playSound('card');
+  startKarutaRound();
+}
+
+// 全タイマー・音声シーケンスの完全クリア
 function clearKarutaTimers() {
+  karutaSequenceId++; // 発行中の全非同期Promiseを無効化
   karutaTimers.forEach(t => clearTimeout(t));
   karutaTimers = [];
   if ('speechSynthesis' in window) {
     try { window.speechSynthesis.cancel(); } catch(e){}
   }
+}
+
+// 非同期ポーズ（間・静寂）
+function waitKarutaPause(ms, seqId) {
+  return new Promise((resolve) => {
+    const t = setTimeout(() => {
+      if (seqId === karutaSequenceId && isKarutaRoundActive) {
+        resolve();
+      }
+    }, ms);
+    karutaTimers.push(t);
+  });
+}
+
+// 音声読み上げ（onend連動 非同期Promise）
+function speakKarutaTextAsync(text, readingText, seqId) {
+  return new Promise((resolve) => {
+    if (!isKarutaRoundActive || seqId !== karutaSequenceId) {
+      resolve();
+      return;
+    }
+
+    if (!karutaVoiceEnabled || !('speechSynthesis' in window)) {
+      // 音声OFFまたは非対応時は文字数に応じた自然な待機時間
+      const duration = Math.max(1200, (text || '').length * 85);
+      const t = setTimeout(() => {
+        if (seqId === karutaSequenceId && isKarutaRoundActive) resolve();
+      }, duration);
+      karutaTimers.push(t);
+      return;
+    }
+
+    try {
+      window.speechSynthesis.cancel();
+      const utterText = readingText || text || '';
+      const utter = new SpeechSynthesisUtterance(utterText);
+      utter.lang = 'ja-JP';
+      utter.rate = 1.05; // 落ち着いたテンポ
+      utter.pitch = 1.0;
+
+      let resolved = false;
+      const done = () => {
+        if (!resolved) {
+          resolved = true;
+          if (seqId === karutaSequenceId && isKarutaRoundActive) {
+            resolve();
+          }
+        }
+      };
+
+      utter.onend = done;
+      utter.onerror = done;
+
+      // ブラウザ固有のonend不発防止（安全保険タイマー）
+      const maxDuration = Math.max(2600, utterText.length * 240 + 1500);
+      const safetyTimer = setTimeout(done, maxDuration);
+      karutaTimers.push(safetyTimer);
+
+      window.speechSynthesis.speak(utter);
+    } catch (e) {
+      console.log("SpeechSynthesis error:", e);
+      resolve();
+    }
+  });
 }
 
 // サブモード切替 (karuta / quiz)
@@ -5827,7 +6885,7 @@ function typeKarutaLine(lineClass, text) {
     if (i <= text.length) {
       els.forEach(el => el.textContent = text.slice(0, i));
       i++;
-      karutaTimers.push(setTimeout(step, 36));
+      karutaTimers.push(setTimeout(step, 30));
     }
   }
   step();
@@ -5907,12 +6965,57 @@ function renderKarutaZones() {
   });
 }
 
+// 3行読み上げ非同期シーケンサー（音声被り・途切れゼロ保証）
+async function runKarutaPoemSequence(card, seqId) {
+  if (!isKarutaRoundActive || seqId !== karutaSequenceId) return;
+
+  const bannerText = document.getElementById('k-banner-text');
+  const isClinical = karutaDifficulty === 'clinical';
+  const stage1Label = isClinical ? '臨床実習級（神経・代償ヒント）' : '初級（動作イメージ）';
+
+  // --- 第1句（上の句）---
+  karutaCurrentStage = 1;
+  const l1 = getKarutaLine1(card, karutaDifficulty);
+  if (bannerText) bannerText.innerHTML = `📖 <strong>第一句：${stage1Label} 読み上げ中…</strong> (正解で+3pt)`;
+  typeKarutaLine('line-1', '① ' + l1);
+  await speakKarutaTextAsync(l1, null, seqId);
+
+  if (!isKarutaRoundActive || seqId !== karutaSequenceId) return;
+
+  // 絶妙な静寂（間）850ms
+  await waitKarutaPause(850, seqId);
+  if (!isKarutaRoundActive || seqId !== karutaSequenceId) return;
+
+  // --- 第2句（中の句：体位＋Grade）---
+  karutaCurrentStage = 2;
+  const l2 = getKarutaLine2(card);
+  const l2Reading = getKarutaLine2Reading(card);
+  if (bannerText) bannerText.innerHTML = '📖 <strong>第二句：体位 ＆ Grade 読み上げ中…</strong> (正解で+2pt)';
+  typeKarutaLine('line-2', '② ' + l2);
+  await speakKarutaTextAsync(l2, l2Reading, seqId);
+
+  if (!isKarutaRoundActive || seqId !== karutaSequenceId) return;
+
+  // 絶妙な静寂（間）850ms
+  await waitKarutaPause(850, seqId);
+  if (!isKarutaRoundActive || seqId !== karutaSequenceId) return;
+
+  // --- 第3句（下の句：筋肉名）---
+  karutaCurrentStage = 3;
+  const l3 = getKarutaLine3(card);
+  const l3Reading = getKarutaLine3Reading(card);
+  if (bannerText) bannerText.innerHTML = '📖 <strong>第三句：主動作筋 確定！</strong> (正解で+1pt)';
+  typeKarutaLine('line-3', '③ ' + l3);
+  await speakKarutaTextAsync(l3, l3Reading, seqId);
+}
+
 // ラウンド開始
 function startKarutaRound() {
   clearKarutaTimers();
   isKarutaRoundActive = true;
   karutaCurrentStage = 1;
   karutaRoundCount++;
+  const thisSeqId = karutaSequenceId;
 
   const btnNext = document.getElementById('k-btn-next-round');
   if (btnNext) btnNext.style.display = 'none';
@@ -5970,25 +7073,7 @@ function startKarutaRound() {
   const bannerText = document.getElementById('k-banner-text');
 
   if (karutaSubMode === 'karuta') {
-    if (bannerText) bannerText.innerHTML = '📖 <strong>第一句（体位）読み上げ中…</strong> (正解で+3pt)';
-    typeKarutaLine('line-1', '① ' + karutaTargetCard.kami);
-    speakKarutaText(karutaTargetCard.kami);
-
-    karutaTimers.push(setTimeout(() => {
-      if (!isKarutaRoundActive) return;
-      karutaCurrentStage = 2;
-      if (bannerText) bannerText.innerHTML = '📖 <strong>第二句（Grade・抵抗）読み上げ中…</strong> (正解で+2pt)';
-      typeKarutaLine('line-2', '② ' + karutaTargetCard.naka);
-      speakKarutaText(karutaTargetCard.naka);
-    }, 2400));
-
-    karutaTimers.push(setTimeout(() => {
-      if (!isKarutaRoundActive) return;
-      karutaCurrentStage = 3;
-      if (bannerText) bannerText.innerHTML = '📖 <strong>第三句（動作・主動作筋）確定！</strong> (正解で+1pt)';
-      typeKarutaLine('line-3', '③ ' + karutaTargetCard.shimo);
-      speakKarutaText(karutaTargetCard.shimo);
-    }, 5000));
+    runKarutaPoemSequence(karutaTargetCard, thisSeqId);
   } else {
     if (bannerText) bannerText.innerHTML = '⚡ <strong>イラストを見て4択から早押し！</strong> (+2pt)';
   }
@@ -6018,9 +7103,12 @@ function handleKarutaChoiceTap(player, cardId, btnEl) {
 
     // 全文を開示
     if (karutaSubMode === 'karuta') {
-      document.querySelectorAll('.line-1').forEach(el => el.textContent = '① ' + karutaTargetCard.kami);
-      document.querySelectorAll('.line-2').forEach(el => el.textContent = '② ' + karutaTargetCard.naka);
-      document.querySelectorAll('.line-3').forEach(el => el.textContent = '③ ' + karutaTargetCard.shimo);
+      const l1 = getKarutaLine1(karutaTargetCard, karutaDifficulty);
+      const l2 = getKarutaLine2(karutaTargetCard);
+      const l3 = getKarutaLine3(karutaTargetCard);
+      document.querySelectorAll('.line-1').forEach(el => el.textContent = '① ' + l1);
+      document.querySelectorAll('.line-2').forEach(el => el.textContent = '② ' + l2);
+      document.querySelectorAll('.line-3').forEach(el => el.textContent = '③ ' + l3);
     }
 
     const pLabel = player === 'p1' ? '🔵 1P' : '🔴 2P';
@@ -6117,9 +7205,20 @@ function initKarutaTab() {
 // 起動
 (async function() {
   await loadCardDatabase();
+  if (typeof renderRegionFilterBar === 'function') {
+    renderRegionFilterBar();
+  }
   initGame();
   initFlowChart();
 })();
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof renderRegionFilterBar === 'function') {
+      renderRegionFilterBar();
+    }
+  });
+}
 
 // ============================================================================
 // 🔍 画像拡大モーダル制御ロジック

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261031_v15">
+<link rel="stylesheet" href="style.css?v=20261031_v16">
 </head>
 <body>
 
@@ -43,6 +43,7 @@
           <button class="k-subtab" id="btn-mode-quiz" onclick="setKarutaSubMode('quiz')">🖼️ 画像➔4択ジャッジ</button>
         </div>
         <div class="karuta-util-group">
+          <button class="k-subtab toggled-on" id="btn-diff-toggle" onclick="toggleKarutaDifficulty()" title="難易度切替（臨床実習級 / 初級）">🩺 臨床実習級</button>
           <button class="k-subtab" id="btn-split-toggle" onclick="toggleKarutaSplit()">👥 2P対面</button>
           <button class="k-subtab" id="btn-voice-toggle" onclick="toggleKarutaVoice()">🔊 読み上げ ON</button>
           <button class="k-subtab" onclick="startKarutaRound()">🔄 次の札へ</button>
@@ -603,6 +604,6 @@
   </div>
 </div>
 
-<script src="app.js?v=20261031_v15"></script>
+<script src="app.js?v=20261031_v16"></script>
 </body>
 </html>
