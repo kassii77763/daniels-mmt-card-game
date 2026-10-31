@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261031_v11">
+<link rel="stylesheet" href="style.css?v=20261031_v12">
 </head>
 <body>
 
@@ -24,6 +24,13 @@
       <button class="nav-btn" data-tab="list">📖 図鑑</button>
     </div>
   </header>
+
+  <!-- 全モード連動：出題・表示部位フィルタバー -->
+  <div class="deck-region-filter-bar" id="deck-region-filter-bar">
+    <span class="drf-label">🎯 出題部位:</span>
+    <div class="drf-chips" id="drf-chips"></div>
+    <span class="drf-count-badge" id="drf-count-badge"></span>
+  </div>
 
   <!-- Main Dynamic Viewport -->
   <main class="main-viewport">
@@ -293,7 +300,7 @@
           <span class="jbtn-label">G1</span>
           <span class="jbtn-sub">収縮のみ</span>
         </button>
-        <button class="jaction-btn btn-err" onclick="submitJudgeAnswer('ERROR')">
+        <button class="jaction-btn btn-err btn-error" onclick="submitJudgeAnswer('ERROR')">
           <span class="jbtn-key">E</span>
           <span class="jbtn-label">⚠️ 誤</span>
           <span class="jbtn-sub">肢位ミス</span>
@@ -451,14 +458,20 @@
             <div class="branch-tag tag-yes">YES（全可動域クリア）</div>
             <div class="branch-step-box">
               <span class="branch-action">徒手抵抗を追加</span>
-              <div class="flow-art-container" id="flow-g54-art-box">
-                <img id="flow-g54-img" class="flow-art-img" src="" alt="徒手抵抗負荷手技図" />
-                <span class="flow-art-caption">【抗重力＋抵抗 (G5/4)】徒手抵抗負荷手技図</span>
+              <div class="flow-art-dual-container">
+                <div class="flow-art-container flow-art-half" id="flow-g54-art-box">
+                  <img id="flow-g54-img" class="flow-art-img" src="" alt="Grade 5 手技図" />
+                  <span class="flow-art-caption" id="flow-g5-caption">【Grade 5】手技図</span>
+                </div>
+                <div class="flow-art-container flow-art-half" id="flow-g4-art-box">
+                  <img id="flow-g4-img" class="flow-art-img" src="" alt="Grade 4 手技図" />
+                  <span class="flow-art-caption" id="flow-g4-caption">【Grade 4】手技図</span>
+                </div>
               </div>
-              <ul class="grade-result-list">
-                <li><span class="grade-pill g5">Grade 5</span> 最大抵抗に耐える</li>
-                <li><span class="grade-pill g4">Grade 4</span> 中等度抵抗に耐える</li>
-                <li><span class="grade-pill g3">Grade 3</span> 抵抗には負ける（自重のみ）</li>
+              <ul class="grade-result-list" id="flow-yes-criteria-list">
+                <li><span class="grade-pill g5">Grade 5</span> <span id="flow-g5-text">最大抵抗に耐える</span></li>
+                <li><span class="grade-pill g4">Grade 4</span> <span id="flow-g4-text">中等度抵抗に耐える</span></li>
+                <li><span class="grade-pill g3">Grade 3</span> <span id="flow-g3-text">自重のみ（抵抗なし）で全可動域達成</span></li>
               </ul>
             </div>
           </div>
@@ -559,14 +572,11 @@
           <span class="modal-meta-label">神経・髄節:</span>
           <span class="modal-meta-val" id="modal-card-nerve" style="color:#78716C;">—</span>
         </div>
-        <div class="modal-meta-row" id="modal-visual-note-row" style="margin-top:6px; padding:6px 8px; background:#FEF3C7; border:1px solid #F59E0B; border-radius:6px; display:none;">
-          <span style="font-size:0.75rem; color:#92400E; font-weight:800;" id="modal-card-visual-note">⚠️ 図解補足</span>
         </div>
-      </div>
     </div>
   </div>
 </div>
 
-<script src="app.js?v=20261031_v11"></script>
+<script src="app.js?v=20261031_v12"></script>
 </body>
 </html>

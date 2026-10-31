@@ -3529,3 +3529,94 @@ html, body {
 .swipe-stamp.visible {
   display: block !important;
 }
+
+/* Region Filter Bar & Dual Flowchart Art */
+.deck-region-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card, #FFFFFF);
+  border: 1px solid var(--border, #E2E8F0);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 8px 12px 10px 12px;
+  max-width: calc(100% - 24px);
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.drf-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-primary, #1E293B);
+  white-space: nowrap;
+}
+.drf-chips {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 0;
+}
+.drf-chips::-webkit-scrollbar { display: none; }
+.drf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: 1px solid var(--border, #CBD5E1);
+  background: #F8FAFC;
+  color: #64748B;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.drf-chip:hover { background: #EDF2F7; color: #334155; }
+.drf-chip.active {
+  background: #2563EB;
+  border-color: #2563EB;
+  color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.2);
+}
+.drf-count-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #2563EB;
+  background: rgba(37, 99, 235, 0.08);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  margin-left: auto;
+}
+.flow-art-dual-container {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.flow-art-half {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px !important;
+}
+.flow-art-half .flow-art-img {
+  width: 100% !important;
+  max-width: 155px !important;
+  height: 95px !important;
+}
+.flow-art-half .flow-art-caption {
+  font-size: 0.65rem !important;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
