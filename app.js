@@ -2909,6 +2909,7 @@ const FLOW_JOINTS_DATA = [
 
 let selectedFlowJointId = "knee_ext";
 let cardDatabase = [...DEFAULT_CARDS];
+window.cardDatabase = cardDatabase;
 let drawDeck = [];
 let discardPile = [];
 let playerHand = [];
@@ -3194,6 +3195,7 @@ async function loadCardDatabase() {
             shimo: c.shimo || defaultRef.shimo || 'この運動を行うのはどれ？'
           };
         });
+        window.cardDatabase = cardDatabase;
       }
     }
   } catch (e) {
@@ -4413,6 +4415,8 @@ function startJudgeGame() {
   // 15問シャッフル選出（エラーひっかけも適度に混入）
   const shuffled = [...JUDGE_QUESTIONS_POOL].sort(() => Math.random() - 0.5);
   judgeQuestions = shuffled.slice(0, 15);
+  window.judgeQuestions = judgeQuestions;
+  window.judgeCurrentIndex = judgeCurrentIndex;
 
   const startScreen = document.getElementById('judge-start-screen');
   const cardWrap = document.getElementById('judge-card-wrapper');
@@ -4914,7 +4918,7 @@ window.addEventListener('keydown', (e) => {
     }
   }
 
-  // 数字キー & Eキーでのダイレクト判定
+  // 数字キー & Eキーでのダイレクト判定、および矢印キー（スワイプ同等）判定
   if (isJudgePlaying && !isJudgePaused) {
     if (key === '5') submitJudgeAnswer('G5');
     else if (key === '4') submitJudgeAnswer('G4');
@@ -4922,6 +4926,24 @@ window.addEventListener('keydown', (e) => {
     else if (key === '2') submitJudgeAnswer('G2');
     else if (key === '1') submitJudgeAnswer('G1');
     else if (key === 'e' || key === 'E' || key === '0') submitJudgeAnswer('ERROR');
+    // ⬆️ 矢印キー（スワイプ4方向と完全一致：G5/G4、G3、G2/G1、ERROR）
+    else if (key === 'ArrowUp') {
+      e.preventDefault();
+      const q = judgeQuestions[judgeCurrentIndex];
+      const autoAnswer = (q && q.correctAnswer === 'G4') ? 'G4' : 'G5';
+      submitJudgeAnswer(autoAnswer);
+    } else if (key === 'ArrowRight') {
+      e.preventDefault();
+      submitJudgeAnswer('G3');
+    } else if (key === 'ArrowLeft') {
+      e.preventDefault();
+      const q = judgeQuestions[judgeCurrentIndex];
+      const autoAnswer = (q && q.correctAnswer === 'G1') ? 'G1' : 'G2';
+      submitJudgeAnswer(autoAnswer);
+    } else if (key === 'ArrowDown') {
+      e.preventDefault();
+      submitJudgeAnswer('ERROR');
+    }
   }
 });
 

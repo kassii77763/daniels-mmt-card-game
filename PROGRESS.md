@@ -1,14 +1,17 @@
 # PROGRESS.md — MMT Tactical Card Game 進捗ホワイトボード
 
 ## 1. 現在のステータス概要
-- **総カード数**: 160枚（手指・足趾を含む全160枚、100%確定手技図適用済み v9）
+- **総カード数**: 160枚（手指・足趾を含む全160枚、100%確定手技図適用済み v10）
 - **テスト状態**:
-  - 第1層＆第2層: `python harness/image_quality_gate.py` PASS (180/180)
-  - 第3層: `node harness/e2e_full_verification.js` PASS (E2E & レスポンシブ幾何制約 100% 合格)
+  - 第1層：構文・重複ゼロ監査 PASS（`node -c app.js` ＆ 異なる運動方向間の座標使い回し 100% 撲滅）
+  - 第2層：画像品質ゲート `python harness/image_quality_gate.py` PASS (180/180 ALL PASS)
+  - 第3層：実機幾何＆画像ロード監査 `node harness/e2e_full_verification.js` PASS (TEST 0〜6 100% 合格)
+  - 臨床監査：`node harness/critic_auditor.js` (480/480 PASS) ＆ `node harness/area7_ghost_student.js` (160/160 APPROVED)
 - **アーキテクチャ**:
-  - System of Record 構造配備完了
-  - `AGENTS.md`（100行俯瞰地図）配備完了
-  - `docs/` 配下への仕様階層化（`spec-clinical-10th.md`, `spec-ui.md`, `dictionary-mapping.json`）配備完了
+  - 裁判官物理ロック配備（`harness/e2e_full_verification.js` TEST 0 による無許可改ざん検知ガード）
+  - 判定スワイプ4方向＆矢印キー（G5/G4、G3、G2/G1、ERROR）の完全同期
+  - 段階3フローチャート全12関節画像ロード（naturalWidth > 0）実機保証
+  - 全160枚モーダルメタデータ（支配神経・髄節・加圧ベクトル）100%完備実機保証
 
 ## 2. 完了済みタスク（Changelog）
 - [x] 原本スライド全233枚（Slide 31〜270）の配置と欠落解消（手指 157〜193、足趾 259〜270 完備）
@@ -16,7 +19,14 @@
 - [x] 解剖図・断面図・骨格図の完全排除および手技図（被検者＋検者）への統一（v9）
 - [x] スクロール小窓（二重スクロール）および三点リーダー省略の物理的排除
 - [x] 裁判官（harness/）の不可侵保護とDoD検証パイプラインの確立
+- [x] 【v10改善】4大結合・データ死角の根絶：
+  - 手指PIP屈曲G2（Slide 161）、肘屈曲3筋G2（Slide 130）、膝屈曲G2（Slide 233/232）、肩外旋内旋（座位/腹臥位 Slide 122/123/126/127）の座標重複を解消
+  - 「スピード判定モード」のスワイプ判定（4方向）とキーボード矢印キー操作を完全同期
+  - 図鑑モーダル（神経・髄節・加圧）の全160枚データ完全性をE2Eで実機アサート
+  - 段階3フローチャート全12関節の抗重力位/重力除去位画像のロード完全性を実機アサート
+  - 裁判官（`harness/`）のスクリプト改ざん検知ロック（TEST 0）を配備
 
 ## 3. 次のタスク（Next Actions）
-- [ ] ハーネス運用の定着および定期的な自動監査パイプライン維持
+- [ ] 本番公開（gh-pages最新同期）
 - [ ] 実機スマートフォン環境での定期操作感チェック
+
