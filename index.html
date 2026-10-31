@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261031_v13">
+<link rel="stylesheet" href="style.css?v=20261031_v14">
 </head>
 <body>
 
@@ -325,7 +325,7 @@
       </div>
 
       <!-- 2P対戦用 パス＆プレイ交代オーバーレイ（スマホ手渡し用） -->
-      <div class="pvp-pass-modal" id="pvp-pass-modal" style="display:none;" hidden>
+      <div class="pvp-pass-modal" id="pvp-pass-modal" style="display:none;">
         <div class="pvp-pass-card">
           <div class="pvp-pass-icon">📱 ➔ 🤝</div>
           <h3 class="pvp-pass-title" id="pvp-pass-title">1Pセット完了！</h3>
@@ -426,9 +426,14 @@
       </div>
 
       <!-- 関節別ワンタップ連動セレクター -->
-      <div class="joint-selector-scroll">
-        <div class="joint-btn-bar" id="flow-joint-buttons">
-          <!-- JSで自動生成 -->
+      <div class="flow-selector-area">
+        <!-- 検査部位サブタブ -->
+        <div class="flow-region-tabs" id="flow-region-tabs"></div>
+        <!-- 選択中部位の関節ボタン一覧 -->
+        <div class="joint-selector-scroll">
+          <div class="joint-btn-bar" id="flow-joint-buttons">
+            <!-- JSで自動生成 -->
+          </div>
         </div>
       </div>
 
@@ -594,6 +599,6 @@
   </div>
 </div>
 
-<script src="app.js?v=20261031_v13"></script>
+<script src="app.js?v=20261031_v14"></script>
 </body>
 </html>
