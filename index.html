@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261031_v12">
+<link rel="stylesheet" href="style.css?v=20261031_v13">
 </head>
 <body>
 
@@ -453,26 +453,43 @@
 
         <!-- 3分岐コネクタ -->
         <div class="flow-branches-container">
-          <!-- 分岐A: YES (動く) -->
+                    <!-- 分岐A: YES (動く) -->
           <div class="flow-branch branch-yes">
             <div class="branch-tag tag-yes">YES（全可動域クリア）</div>
             <div class="branch-step-box">
               <span class="branch-action">徒手抵抗を追加</span>
-              <div class="flow-art-dual-container">
-                <div class="flow-art-container flow-art-half" id="flow-g54-art-box">
+
+              <!-- Grade 5 ブロック（上段） -->
+              <div class="flow-grade-section flow-grade-5-section">
+                <div class="flow-grade-lead">
+                  <span class="grade-pill g5">Grade 5</span>
+                  <span class="flow-grade-text" id="flow-g5-text">最大抵抗に耐える</span>
+                </div>
+                <div class="flow-art-container flow-art-stacked" id="flow-g54-art-box">
                   <img id="flow-g54-img" class="flow-art-img" src="" alt="Grade 5 手技図" />
                   <span class="flow-art-caption" id="flow-g5-caption">【Grade 5】手技図</span>
                 </div>
-                <div class="flow-art-container flow-art-half" id="flow-g4-art-box">
+              </div>
+
+              <!-- Grade 4 ブロック（中段） -->
+              <div class="flow-grade-section flow-grade-4-section">
+                <div class="flow-grade-lead">
+                  <span class="grade-pill g4">Grade 4</span>
+                  <span class="flow-grade-text" id="flow-g4-text">中等度抵抗に耐える</span>
+                </div>
+                <div class="flow-art-container flow-art-stacked" id="flow-g4-art-box">
                   <img id="flow-g4-img" class="flow-art-img" src="" alt="Grade 4 手技図" />
                   <span class="flow-art-caption" id="flow-g4-caption">【Grade 4】手技図</span>
                 </div>
               </div>
-              <ul class="grade-result-list" id="flow-yes-criteria-list">
-                <li><span class="grade-pill g5">Grade 5</span> <span id="flow-g5-text">最大抵抗に耐える</span></li>
-                <li><span class="grade-pill g4">Grade 4</span> <span id="flow-g4-text">中等度抵抗に耐える</span></li>
-                <li><span class="grade-pill g3">Grade 3</span> <span id="flow-g3-text">自重のみ（抵抗なし）で全可動域達成</span></li>
-              </ul>
+
+              <!-- Grade 3 ブロック（下段: 抵抗なし自重達成） -->
+              <div class="flow-grade-section flow-grade-3-section">
+                <div class="flow-grade-lead">
+                  <span class="grade-pill g3">Grade 3</span>
+                  <span class="flow-grade-text" id="flow-g3-text">自重のみ（抵抗なし）で全可動域達成</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -577,6 +594,6 @@
   </div>
 </div>
 
-<script src="app.js?v=20261031_v12"></script>
+<script src="app.js?v=20261031_v13"></script>
 </body>
 </html>
