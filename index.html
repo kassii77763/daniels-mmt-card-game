@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — 臨床MMTカードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261101_v17">
-<link rel="manifest" href="manifest.json?v=20261101_v17">
+<link rel="stylesheet" href="style.css?v=20261102_v18">
+<link rel="manifest" href="manifest.json?v=20261102_v18">
 <meta name="theme-color" content="#F9F8F6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -107,10 +107,35 @@
           <button class="karuta-btn-start" onclick="resetKarutaGame()">🔄 もう一戦プレイ</button>
         </div>
       </div>
+
+      <!-- ✍️ 自習ウォークスルー質問パネル -->
+      <div class="flow-walkthrough-panel" id="flow-walkthrough-panel" style="display:none;">
+        <div class="fw-panel-header">
+          <div class="fw-step-indicator" id="fw-step-indicator">STEP 1 / 4</div>
+          <h3 class="fw-step-title" id="fw-step-title">開始体位（Grade 3）を選択してください</h3>
+        </div>
+        <div class="fw-question-desc" id="fw-question-desc">
+          対象種目「<strong id="fw-target-name">体幹屈曲</strong>」の抗重力位（Grade 3）の正しい開始体位は？
+        </div>
+        <div class="fw-options-grid" id="fw-options-grid">
+          <!-- 選択肢ボタン動的生成 -->
+        </div>
+        <div class="fw-feedback-box" id="fw-feedback-box" style="display:none;">
+          <!-- フィードバック（正解・解説） -->
+        </div>
+      </div>
     </section>
 
     <!-- 0. 3-SECOND JUDGE TAB (新設: 高速スワイプ＆タップ臨床判定ゲーム) -->
     <section id="tab-judge" class="tab-pane">
+      <!-- 判定サブモード切替トグル -->
+      <div class="judge-submode-bar">
+        <button type="button" class="jsubmode-btn active" id="jsubmode-speed" onclick="setJudgeSubMode('speed')">⏱️ スピード判定（6択）</button>
+        <button type="button" class="jsubmode-btn" id="jsubmode-pairing" onclick="setJudgeSubMode('pairing')">🔄 体位変換特訓（G3➔G2）</button>
+      </div>
+
+      <!-- スピード判定コンテナ -->
+      <div id="judge-speed-container">
       <!-- Judge HUD Bar -->
       <div class="judge-hud">
         <div class="hud-item hud-score">
@@ -313,6 +338,89 @@
           <span class="jbtn-sub">肢位ミス</span>
         </button>
       </div>
+      </div><!-- /#judge-speed-container -->
+
+      <!-- 🔄 G3➔G2 体位変換ペアリング特訓コンテナ -->
+      <div id="judge-pairing-container" class="judge-pairing-container" style="display:none;">
+        <!-- スタート画面 -->
+        <div class="pairing-start-screen" id="pairing-start-screen">
+          <div class="pstart-card">
+            <div class="pstart-icon">🔄</div>
+            <h2>G3 ➔ G2 体位変換ペアリング特訓</h2>
+            <p class="pstart-desc">
+              「抗重力位（Grade 3）で全可動域動かない（G3未達）！」<br>
+              そのとき、重力除去位（Grade 2）へ正しく体位変換できますか？<br>
+              全10問の画像4択で、臨床で迷わない体位変換スキルを鍛え上げましょう！
+            </p>
+            <button type="button" class="btn-pairing-start" onclick="startPairingTraining()">特訓スタート（全10問）</button>
+          </div>
+        </div>
+
+        <!-- 特訓プレイ画面 -->
+        <div class="pairing-play-screen" id="pairing-play-screen" style="display:none;">
+          <!-- プログレスバー & カウンタ -->
+          <div class="pairing-hud">
+            <div class="phud-item">
+              <span class="phud-label">QUESTION</span>
+              <strong class="phud-val" id="pairing-q-num">1 / 10</strong>
+            </div>
+            <div class="phud-item">
+              <span class="phud-label">SCORE</span>
+              <strong class="phud-val" id="pairing-score-val">0問 正解</strong>
+            </div>
+          </div>
+
+          <!-- 出題カード：Grade 3 手技画像 ＆ 種目名 ＆ 開始体位 -->
+          <div class="pairing-prompt-card">
+            <div class="pprompt-header">
+              <span class="pprompt-badge">Grade 3 開始肢位</span>
+              <strong class="pprompt-joint" id="pairing-target-joint">肩関節 外転</strong>
+            </div>
+            <div class="pprompt-body">
+              <div class="pprompt-art">
+                <img id="pairing-g3-img" src="" alt="Grade 3 肢位">
+              </div>
+              <div class="pprompt-info">
+                <div class="pprompt-pos-box">
+                  <span class="ppos-label">G3 開始体位:</span>
+                  <strong class="ppos-val" id="pairing-g3-pos">端座位</strong>
+                </div>
+                <div class="pprompt-callout">
+                  ⚠️ 抗重力位で全可動域動かない（G3未達）！<br>
+                  <strong>重力除去位（Grade 2）の体位変換手技はどれ？</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 解答フィードバックトースト -->
+          <div class="pairing-feedback-toast" id="pairing-feedback-toast" style="display:none;"></div>
+
+          <!-- 4択画像カードグリッド -->
+          <div class="pairing-options-grid" id="pairing-options-grid">
+            <!-- JSで4枚生成 -->
+          </div>
+        </div>
+
+        <!-- 特訓リザルト画面 -->
+        <div class="pairing-result-screen" id="pairing-result-screen" style="display:none;">
+          <div class="presult-card">
+            <div class="presult-rank-icon" id="presult-rank-icon">👑</div>
+            <h2 class="presult-rank-title" id="presult-rank-title">RANK S: 体位変換マスター</h2>
+            <div class="presult-score-row">
+              <span class="pr-label">正解数</span>
+              <strong class="pr-score" id="presult-score-text">10 / 10 問正解</strong>
+            </div>
+            <p class="presult-comment" id="presult-comment">
+              完璧です！抗重力位から重力除去位への体位変換が完全に身体に染み付いています。
+            </p>
+            <div class="presult-actions">
+              <button type="button" class="btn-pairing-retry" onclick="startPairingTraining()">🔄 もう一度挑戦</button>
+              <button type="button" class="btn-pairing-back" onclick="setJudgeSubMode('speed')">⏱️ スピード判定へ</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- 1. BATTLE ARENA TAB -->
@@ -430,6 +538,23 @@
       <div class="flow-header">
         <h2>徒手筋力検査法 段階3スタート判定フローチャート</h2>
         <p>臨床の鉄則：まず「抗重力位（Grade 3）」から測定を開始し、成否で上下に分岐します</p>
+        
+        <!-- フローチャート表示モード切替 ＆ 自習進捗バー -->
+        <div class="flow-mode-toolbar">
+          <div class="flow-mode-switch">
+            <button type="button" class="fmode-btn active" id="fmode-btn-view" onclick="setFlowChartMode('view')">👀 閲覧（全表示）</button>
+            <button type="button" class="fmode-btn" id="fmode-btn-walkthrough" onclick="setFlowChartMode('walkthrough')">✍️ 自習ウォークスルー（穴埋め）</button>
+          </div>
+          <div class="flow-walkthrough-progress-wrap" id="flow-walkthrough-progress-wrap" style="display:none;">
+            <div class="fprogress-label-row">
+              <span class="fprogress-label">自習マスター進捗</span>
+              <strong class="fprogress-count" id="flow-walkthrough-count">0 / 30 種目達成</strong>
+            </div>
+            <div class="fprogress-track">
+              <div class="fprogress-bar" id="flow-walkthrough-bar" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 関節別ワンタップ連動セレクター -->
@@ -447,7 +572,7 @@
       <!-- 3分岐フローチャートボード -->
       <div class="flow-chart-card">
         <!-- START: Grade 3 -->
-        <div class="flow-node flow-start">
+        <div class="flow-node flow-start" id="flow-step1-node">
           <div class="flow-node-badge">STEP 1：測定開始</div>
           <div class="flow-node-title">【Grade 3】抗重力位で全可動域（ROM）動くか？</div>
           <div class="flow-node-desc">
@@ -467,7 +592,7 @@
         <!-- 3分岐コネクタ -->
         <div class="flow-branches-container">
                     <!-- 分岐A: YES (動く) -->
-          <div class="flow-branch branch-yes">
+          <div class="flow-branch branch-yes" id="flow-step2-node">
             <div class="branch-tag tag-yes">YES（全可動域クリア）</div>
             <div class="branch-step-box">
               <span class="branch-action">徒手抵抗を追加</span>
@@ -509,7 +634,7 @@
           </div>
 
           <!-- 分岐B: NO (動かない) ➔ 重力除去位 -->
-          <div class="flow-branch branch-no">
+          <div class="flow-branch branch-no" id="flow-step3-node">
             <div class="branch-tag tag-no">NO（動かない／部分可動）</div>
             <div class="branch-step-box">
               <span class="branch-action">🛏️ 重力除去位へ体位変換！</span>
@@ -526,7 +651,7 @@
               </ul>
               
               <!-- 分岐C: 重力除去でも動かない ➔ 触診 -->
-              <div class="sub-branch-touch">
+              <div class="sub-branch-touch" id="flow-step4-node">
                 <div class="touch-tag">さらに動かない場合 ➔ 🤏 筋・腱の触診</div>
                 <div class="touch-target-box">
                   触診対象: <strong id="flow-palpation">大腿四頭筋腱 / 膝蓋骨上部</strong>
@@ -610,7 +735,7 @@
   </div>
 </div>
 
-<script src="app.js?v=20261101_v17"></script>
+<script src="app.js?v=20261102_v18"></script>
 <script>
   // Service Worker Registration for PWA (v17)
   if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {

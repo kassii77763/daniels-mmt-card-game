@@ -373,6 +373,115 @@ const path = require('path');
 
   console.log("✅ TEST 6 合格: 画面上6ボタンのマウスクリック進行 ＆ フリーズゼロ完全確認");
 
+  // ====================================================
+  // 7. フローチャート「✍️ 自習ウォークスルー」穴埋め＆アンロック実機検証
+  // ====================================================
+  console.log("\n[TEST 7] フローチャート「✍️ 自習ウォークスルー」モード実機テスト...");
+  await page.click('button[data-tab="flow"]');
+  await page.waitForTimeout(400);
+
+  // モード切替ボタンをクリックしてウォークスルーモードへ
+  await page.click('#fmode-btn-walkthrough');
+  await page.waitForTimeout(300);
+
+  // ウォークスルーパネルおよび進捗バーが表示されているか確認
+  const isPanelVisible = await page.evaluate(() => {
+    const p = document.getElementById('flow-walkthrough-panel');
+    const b = document.getElementById('flow-walkthrough-progress-wrap');
+    return p && p.style.display !== 'none' && b && b.style.display !== 'none';
+  });
+  if (!isPanelVisible) throw new Error("FAIL: 自習ウォークスルーモード切替時にパネルまたは進捗バーが表示されていません");
+
+  // Step 1〜4 を実際に解き進めてアンロックを検証
+  for (let step = 1; step <= 4; step++) {
+    const stepIndText = await page.innerText('#fw-step-indicator');
+    console.log(`  自習ウォークスルー ${stepIndText} 選択肢探索中...`);
+
+    // 正解の選択肢ボタンをクリック（onclickに submitFlowWalkthroughAnswer(true, ...) が渡されているものを抽出）
+    const clicked = await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('#fw-options-grid .fw-opt-btn'));
+      const correctBtn = btns.find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes('submitFlowWalkthroughAnswer(true'));
+      if (correctBtn) {
+        correctBtn.click();
+        return true;
+      }
+      return false;
+    });
+
+    if (!clicked) throw new Error(`FAIL: 自習ウォークスルー Step ${step} の選択肢ボタンをクリックできませんでした`);
+    await page.waitForTimeout(800); // 遷移ウェイト
+  }
+
+  // Step 4 完了後の習得完了演出表示確認
+  const finalIndicator = await page.innerText('#fw-step-indicator');
+  const isLocalStorageSaved = await page.evaluate(() => {
+    const raw = localStorage.getItem('mmt_flow_walkthrough_cleared');
+    return raw && raw.length > 2;
+  });
+  console.log(`  全Stepクリア判定: ${finalIndicator}, localStorage保存確認: ${isLocalStorageSaved}`);
+  if (!finalIndicator.includes('🎉') || !isLocalStorageSaved) {
+    throw new Error("FAIL: 自習ウォークスルー全ステップ完了時の習得完了演出またはlocalStorage保存が不合格です");
+  }
+
+  // 閲覧モードへ復帰できることを確認
+  await page.click('#fmode-btn-view');
+  await page.waitForTimeout(300);
+  const isPanelHidden = await page.evaluate(() => {
+    const p = document.getElementById('flow-walkthrough-panel');
+    return p && p.style.display === 'none';
+  });
+  if (!isPanelHidden) throw new Error("FAIL: 閲覧モード復帰時にウォークスルーパネルが非表示になりません");
+  console.log("✅ TEST 7 合格: フロー自習ウォークスルーの4択穴埋め進行・アンロック・localStorage永続化を実機確認");
+
+  // ====================================================
+  // 8. 「🔄 G3 ➔ G2 体位変換ペアリング特訓」実機検証
+  // ====================================================
+  console.log("\n[TEST 8] 「🔄 G3 ➔ G2 体位変換ペアリング特訓」モード実機テスト...");
+  await page.click('button[data-tab="judge"]');
+  await page.waitForTimeout(400);
+
+  // サブモード切替トグルをクリックして体位変換特訓へ
+  await page.click('#jsubmode-pairing');
+  await page.waitForTimeout(300);
+
+  const isPairingContainerVisible = await page.evaluate(() => {
+    const c = document.getElementById('judge-pairing-container');
+    const s = document.getElementById('judge-speed-container');
+    return c && c.style.display !== 'none' && s && s.style.display === 'none';
+  });
+  if (!isPairingContainerVisible) throw new Error("FAIL: 体位変換特訓モード切替時にコンテナ表示が不正です");
+
+  // 特訓スタートボタンをクリック
+  await page.click('.btn-pairing-start');
+  await page.waitForTimeout(400);
+
+  // 4択画像カードから2問回答して進行を検証
+  for (let q = 1; q <= 2; q++) {
+    const qNumText = await page.innerText('#pairing-q-num');
+    console.log(`  体位変換特訓 Q#${q}: 表示確認 (${qNumText})`);
+
+    // 4枚の画像カードが存在するか確認
+    const cardCount = await page.locator('.pcard-opt').count();
+    if (cardCount !== 4) throw new Error(`FAIL: 体位変換特訓の4択画像カードが4枚ありません (実際: ${cardCount})`);
+
+    // 最初のカードをクリックして回答
+    await page.click('#popt-0');
+    await page.waitForTimeout(1350); // 次問遷移ウェイト
+  }
+
+  const qNumAfter = await page.innerText('#pairing-q-num');
+  console.log(`  回答後の進行確認: Q#3表示中 (${qNumAfter})`);
+
+  // スピード判定へ戻れることを確認
+  await page.click('#jsubmode-speed');
+  await page.waitForTimeout(300);
+  const isSpeedRestored = await page.evaluate(() => {
+    const s = document.getElementById('judge-speed-container');
+    return s && s.style.display !== 'none';
+  });
+  if (!isSpeedRestored) throw new Error("FAIL: スピード判定サブモードへの復帰が不正です");
+  console.log("✅ TEST 8 合格: G3➔G2体位変換特訓の4択画像出題・クリック回答・進行・モード復帰を実機確認");
+
   await page.close();
   await spPage.close();
   await browser.close();

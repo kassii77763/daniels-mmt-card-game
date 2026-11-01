@@ -3533,6 +3533,40 @@ html, body {
   .hand-card-grid .kc-art-window {
     height: 75px !important;
   }
+
+  /* 出題部位フィルターバー：スマホでは折り返して全8部位をスッキリ表示 */
+  .deck-region-filter-bar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    padding: 6px 10px !important;
+    margin: 6px 8px 8px 8px !important;
+    max-width: calc(100% - 16px) !important;
+    gap: 6px !important;
+    align-items: center !important;
+  }
+  .drf-label {
+    font-size: 0.72rem !important;
+  }
+  .drf-chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex: 1 1 100% !important;
+    overflow-x: visible !important;
+    gap: 4px !important;
+    width: 100% !important;
+    order: 3 !important;
+    padding: 2px 0 0 0 !important;
+  }
+  .drf-chip {
+    display: inline-flex !important;
+    padding: 3px 8px !important;
+    font-size: 0.68rem !important;
+  }
+  .drf-count-badge {
+    font-size: 0.68rem !important;
+    padding: 2px 7px !important;
+    margin-left: auto !important;
+  }
 }
 
 /* 🔀 フローチャート内イラスト表示枠 */
@@ -3798,4 +3832,562 @@ html, body {
 .flow-art-zoom-btn:hover {
   background: rgba(15, 23, 42, 0.95);
   transform: scale(1.05);
+}
+
+
+/* ============================================================================
+   ✍️ 自習ウォークスルー ＆ 🔄 体位変換特訓 スタイル (v18)
+   ============================================================================ */
+
+/* フローチャート モード切替ツールバー */
+.flow-mode-toolbar {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.flow-mode-switch {
+  display: inline-flex;
+  background: #E2E8F0;
+  padding: 3px;
+  border-radius: 9999px;
+  gap: 2px;
+}
+.fmode-btn {
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.fmode-btn:hover {
+  color: #1E293B;
+}
+.fmode-btn.active {
+  background: #FFFFFF;
+  color: #2563EB;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 進捗バー */
+.flow-walkthrough-progress-wrap {
+  width: 100%;
+  max-width: 480px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+.fprogress-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.fprogress-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748B;
+}
+.fprogress-count {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #2563EB;
+}
+.fprogress-track {
+  width: 100%;
+  height: 8px;
+  background: #F1F5F9;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.fprogress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6, #10B981);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* ウォークスルー ロック状態 */
+.flow-node-locked {
+  position: relative;
+  opacity: 0.32;
+  filter: blur(1.5px) grayscale(40%);
+  pointer-events: none;
+  transition: all 0.35s ease;
+  user-select: none;
+}
+.flow-node-locked::after {
+  content: "🔒 ロック中（クイズ正解で解除）";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(30, 41, 59, 0.88);
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  filter: none;
+}
+
+/* 自習ウォークスルー 質問パネル */
+.flow-walkthrough-panel {
+  margin: 16px auto;
+  max-width: 720px;
+  background: #FFFFFF;
+  border: 2px solid #3B82F6;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+  box-sizing: border-box;
+}
+.fw-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.fw-step-indicator {
+  background: #2563EB;
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.fw-step-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1E293B;
+}
+.fw-question-desc {
+  font-size: 0.85rem;
+  color: #334155;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.fw-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+@media (min-width: 600px) {
+  .fw-options-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.fw-opt-btn {
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1E293B;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.35;
+  min-height: 44px;
+}
+.fw-opt-btn:hover {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+}
+.fw-opt-btn.correct {
+  background: #ECFDF5;
+  border-color: #10B981;
+  color: #065F46;
+}
+.fw-opt-btn.wrong {
+  background: #FEF2F2;
+  border-color: #EF4444;
+  color: #991B1B;
+}
+.fw-feedback-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.fw-feedback-box.correct {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+.fw-feedback-box.wrong {
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+/* 判定タブ サブモード切替バー */
+.judge-submode-bar {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 4px 10px 12px 10px;
+}
+.jsubmode-btn {
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  border-radius: 9999px;
+  border: 1.5px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.jsubmode-btn:hover {
+  background: #F1F5F9;
+  color: #1E293B;
+}
+.jsubmode-btn.active {
+  background: #2563EB;
+  border-color: #2563EB;
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+/* 🔄 G3➔G2 体位変換ペアリング特訓 */
+.judge-pairing-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 10px 20px 10px;
+  box-sizing: border-box;
+}
+
+/* スタート画面 */
+.pairing-start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 360px;
+  padding: 20px 10px;
+}
+.pstart-card {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  max-width: 440px;
+  width: 100%;
+}
+.pstart-icon {
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+.pstart-card h2 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #1E293B;
+  margin: 0 0 10px 0;
+}
+.pstart-desc {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.btn-pairing-start {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transition: all 0.2s ease;
+}
+.btn-pairing-start:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
+}
+
+/* 特訓 HUD */
+.pairing-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+}
+.phud-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.phud-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #64748B;
+}
+.phud-val {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #2563EB;
+}
+
+/* 出題カード */
+.pairing-prompt-card {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.pprompt-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.pprompt-badge {
+  background: #D97706;
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.pprompt-joint {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+.pprompt-body {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+@media (max-width: 480px) {
+  .pprompt-body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+.pprompt-art {
+  flex: 0 0 160px;
+  height: 100px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pprompt-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pprompt-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pprompt-pos-box {
+  font-size: 0.8rem;
+  color: #334155;
+}
+.ppos-label {
+  font-weight: 700;
+  color: #64748B;
+  margin-right: 4px;
+}
+.pprompt-callout {
+  background: #FEF3C7;
+  border-left: 3px solid #D97706;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  color: #92400E;
+  line-height: 1.35;
+}
+
+/* 解答フィードバックトースト */
+.pairing-feedback-toast {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.pairing-feedback-toast.correct {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1.5px solid #10B981;
+}
+.pairing-feedback-toast.wrong {
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1.5px solid #EF4444;
+}
+
+/* 4択画像カードグリッド */
+.pairing-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.pcard-opt {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.pcard-opt:hover {
+  border-color: #3B82F6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+.pcard-opt.selected-correct {
+  border-color: #10B981 !important;
+  background: #ECFDF5 !important;
+  box-shadow: 0 0 0 2px #10B981;
+}
+.pcard-opt.selected-wrong {
+  border-color: #EF4444 !important;
+  background: #FEF2F2 !important;
+}
+.pcard-opt-art {
+  width: 100%;
+  height: 95px;
+  background: #F8FAFC;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pcard-opt-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pcard-opt-name {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 2px;
+  line-height: 1.25;
+}
+.pcard-opt-pos {
+  font-size: 0.65rem;
+  color: #64748B;
+  line-height: 1.2;
+}
+
+/* 特訓リザルト画面 */
+.pairing-result-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+}
+.presult-card {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  max-width: 440px;
+  width: 100%;
+}
+.presult-rank-icon {
+  font-size: 3rem;
+  margin-bottom: 6px;
+}
+.presult-rank-title {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+.presult-score-row {
+  background: #F1F5F9;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+.pr-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748B;
+  display: block;
+}
+.pr-score {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #2563EB;
+}
+.presult-comment {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.presult-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.btn-pairing-retry {
+  background: #2563EB;
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
+.btn-pairing-back {
+  background: #F1F5F9;
+  color: #475569;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  border: 1px solid #CBD5E1;
+  cursor: pointer;
 }

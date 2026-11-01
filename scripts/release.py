@@ -100,7 +100,7 @@ def main():
     else:
         commit_msg = f"release: bump version to v{next_ver} ({new_version_tag})"
 
-    run("git add index.html sw.js manifest.json app.js scripts/ PROGRESS.md")
+    run("git add index.html style.css sw.js manifest.json app.js harness/ scripts/ PROGRESS.md")
     run(f'git commit -m "{commit_msg}"')
     run("git push origin main")
     run("git checkout gh-pages")

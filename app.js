@@ -3872,7 +3872,7 @@ function getCardResolvedImage(card) {
     path = card.image || '';
   }
   if (!path) return '';
-  return path.includes('?') ? path : `${path}?v=20261101_v17`;
+  return path.includes('?') ? path : `${path}?v=20261102_v18`;
 }
 
 function hasCustomImage() {
@@ -4858,7 +4858,7 @@ function selectCpuPersona(personaKey) {
 // 外部JSON読み込み
 async function loadCardDatabase() {
   try {
-    const res = await fetch('data/cards.json?v=20261101_v17');
+    const res = await fetch('data/cards.json?v=20261102_v18');
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
@@ -4866,7 +4866,7 @@ async function loadCardDatabase() {
           const defaultRef = DEFAULT_CARDS.find(d => d.id === c.id) || {};
           const rawImg = c.image || defaultRef.image || '';
           const cleanImg = rawImg.split('?')[0];
-          const versionedImg = cleanImg ? `${cleanImg}?v=20261101_v17` : '';
+          const versionedImg = cleanImg ? `${cleanImg}?v=20261102_v18` : '';
           return {
             ...defaultRef,
             ...c,
@@ -5623,11 +5623,16 @@ function renderFlowJointButtons() {
     ? FLOW_JOINTS_DATA
     : FLOW_JOINTS_DATA.filter(j => j.region === selectedFlowRegion);
 
-  container.innerHTML = filteredJoints.map(j => `
+  const clearedIds = getFlowClearedIds();
+  container.innerHTML = filteredJoints.map(j => {
+    const isCleared = clearedIds.has(j.id);
+    const badge = isCleared ? '<span style="color:#10B981; margin-left:3px;">✅</span>' : '';
+    return `
     <button type="button" class="joint-btn ${j.id === selectedFlowJointId ? 'active' : ''}" onclick="selectFlowJoint('${j.id}')">
-      ${j.name}
+      ${j.name}${badge}
     </button>
-  `).join('');
+  `;
+  }).join('');
 
   // もし現在の選択種目がフィルター外なら、最初の要素を選択
   if (!filteredJoints.some(j => j.id === selectedFlowJointId) && filteredJoints.length > 0) {
@@ -5672,10 +5677,10 @@ function renderFlowChartContent() {
   const g4ImgEl = document.getElementById('flow-g4-img');
   const geImgEl = document.getElementById('flow-ge-img');
 
-  const g3Path = `assets/mmt/${joint.g3ImgId}.png?v=20261101_v17`;
-  const g5Path = `assets/mmt/${joint.g5ImgId}.png?v=20261101_v17`;
-  const g4Path = `assets/mmt/${joint.g4ImgId || joint.g5ImgId}.png?v=20261101_v17`;
-  const g2Path = `assets/mmt/${joint.g2ImgId}.png?v=20261101_v17`;
+  const g3Path = `assets/mmt/${joint.g3ImgId}.png?v=20261102_v18`;
+  const g5Path = `assets/mmt/${joint.g5ImgId}.png?v=20261102_v18`;
+  const g4Path = `assets/mmt/${joint.g4ImgId || joint.g5ImgId}.png?v=20261102_v18`;
+  const g2Path = `assets/mmt/${joint.g2ImgId}.png?v=20261102_v18`;
 
   if (agImgEl) {
     agImgEl.src = g3Path;
@@ -5701,6 +5706,8 @@ function renderFlowChartContent() {
   if (g5TextEl && joint.g5Criteria) g5TextEl.innerText = joint.g5Criteria;
   if (g4TextEl && joint.g4Criteria) g4TextEl.innerText = joint.g4Criteria;
   if (g3TextEl && joint.g3Criteria) g3TextEl.innerText = joint.g3Criteria;
+
+  updateFlowWalkthroughView();
 }
 
 // ============================================================================
@@ -5884,42 +5891,42 @@ const JUDGE_QUESTIONS_POOL = [
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "下腿遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "端座位での抗重力全域完遂＋最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261101_v17"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v18"
   },
   {
     id: 102, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える（最大抵抗で崩れる）",
     correctAnswer: "G4", explanation: "中等度抵抗に耐え、最大抵抗で保持できない場合は【Grade 4】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261101_v17"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v18"
   },
   {
     id: 103, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "徒手抵抗には負ける（自重のみ保持）",
     correctAnswer: "G3", explanation: "抗重力位で自重のみ全可動域動く場合は【Grade 3】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261101_v17"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v18"
   },
   {
     id: 104, cardId: 11, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "側臥位（下腿を検者が支持）", rom: "重力除去位で全ROM完遂", finding: "抵抗なし（摩擦低減）",
     correctAnswer: "G2", explanation: "重力除去肢位（側臥位）で全可動域動く場合は【Grade 2】です。",
-    image: "assets/mmt/knee_ext_g2.png?v=20261101_v17"
+    image: "assets/mmt/knee_ext_g2.png?v=20261102_v18"
   },
   {
     id: 105, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "側臥位（重力除去位）", rom: "関節運動なし", finding: "大腿四頭筋腱にわずかな収縮を触知",
     correctAnswer: "G1", explanation: "関節運動は起きず、筋腱の収縮のみ触知される場合は【Grade 1】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261101_v17"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v18"
   },
   {
     id: 106, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "⚠️ 背臥位（ベッド上で膝屈曲から伸展）", rom: "全可動域 完遂", finding: "最大抵抗に耐えた",
     correctAnswer: "ERROR", explanation: "💡 膝伸展の抗重力位（G5/G4/G3）は「端座位」です。背臥位では抗重力になりません！",
-    image: "assets/mmt/knee_ext_g543.png?v=20261101_v17"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v18"
   },
 
   // 2. 肩関節 外転 (三角筋中部)
@@ -5928,35 +5935,35 @@ const JUDGE_QUESTIONS_POOL = [
     title: "肩関節 外転（三角筋中部）",
     pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "上腕遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "座位で真横90°挙上し最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261101_v17"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v18"
   },
   {
     id: 108, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える",
     correctAnswer: "G4", explanation: "中等度抵抗に耐える場合は【Grade 4】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261101_v17"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v18"
   },
   {
     id: 109, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "自重のみ（徒手抵抗で落下）",
     correctAnswer: "G3", explanation: "自重のみ抗重力全域保持できる場合は【Grade 3】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261101_v17"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v18"
   },
   {
     id: 110, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "背臥位（机・シーツ上を水平スライド）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
     correctAnswer: "G2", explanation: "背臥位で水平スライド全可動域完遂は【Grade 2】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261101_v17"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v18"
   },
   {
     id: 111, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "⚠️ 立位（腕を体側に下垂したまま）", rom: "水平に動かした", finding: "重力除去位として判定",
     correctAnswer: "ERROR", explanation: "💡 肩外転の重力除去位（G2）は「背臥位」です。立位下垂位は誤りです！",
-    image: "assets/mmt/sh_abd_g543.png?v=20261101_v17"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v18"
   },
 
   // 3. 肘関節 屈曲 (上腕二頭筋)
@@ -5965,28 +5972,28 @@ const JUDGE_QUESTIONS_POOL = [
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "座位（前腕回外位で屈曲）", rom: "全可動域 完遂", finding: "前腕遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "座位・前腕回外位での最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261101_v17"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v18"
   },
   {
     id: 113, cardId: 7, region: "上肢",
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "座位（前腕回外位で屈曲）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える",
     correctAnswer: "G4", explanation: "中等度抵抗に耐える場合は【Grade 4】です。",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261101_v17"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v18"
   },
   {
     id: 114, cardId: 7, region: "上肢",
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "座位（机上に上腕を置き水平屈曲）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
     correctAnswer: "G2", explanation: "机上面での水平屈曲（重力除去位）完遂は【Grade 2】です。",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261101_v17"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v18"
   },
   {
     id: 115, cardId: 7, region: "上肢",
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "⚠️ 腹臥位（ベッド上で肘屈曲）", rom: "全可動域 完遂", finding: "最大抵抗に耐えた",
     correctAnswer: "ERROR", explanation: "💡 肘屈曲の抗重力位測定は「座位」で行います。腹臥位は誤りです！",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261101_v17"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v18"
   },
 
   // 4. 股関節 屈曲 (腸腰筋)
@@ -5995,14 +6002,14 @@ const JUDGE_QUESTIONS_POOL = [
     title: "股関節 屈曲（腸腰筋）",
     pos: "端座位（大腿を座面から挙上）", rom: "全可動域 完遂", finding: "大腿遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "端座位で大腿を浮かせ最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/hip_flex_g543.png?v=20261101_v17"
+    image: "assets/mmt/hip_flex_g543.png?v=20261102_v18"
   },
   {
     id: 117, cardId: 9, region: "下肢",
     title: "股関節 屈曲（腸腰筋）",
     pos: "側臥位（検者が上肢・対側下肢支持）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
     correctAnswer: "G2", explanation: "側臥位（重力除去位）での全可動域完遂は【Grade 2】です。",
-    image: "assets/mmt/hip_flex_g543.png?v=20261101_v17"
+    image: "assets/mmt/hip_flex_g543.png?v=20261102_v18"
   },
 
   // 5. 手関節 伸展 (橈側手根伸筋群)
@@ -6011,21 +6018,21 @@ const JUDGE_QUESTIONS_POOL = [
     title: "手関節 伸展（橈側手根伸筋群）",
     pos: "前腕支持（机上伏臥位で手首反らし）", rom: "全可動域 完遂", finding: "手背面への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "前腕支持で手背への最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261101_v17"
+    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261102_v18"
   },
   {
     id: 119, cardId: 12, region: "上肢",
     title: "手関節 伸展（橈側手根伸筋群）",
     pos: "前腕中間位（手刀姿勢・小指接地）", rom: "机上を水平背屈スライド", finding: "全可動域 完遂",
     correctAnswer: "G2", explanation: "前腕中間位（手刀姿勢）での重力除去背屈は【Grade 2】です。",
-    image: "assets/mmt/wrist_ext_rad_g2.png?v=20261101_v17"
+    image: "assets/mmt/wrist_ext_rad_g2.png?v=20261102_v18"
   },
   {
     id: 120, cardId: 8, region: "上肢",
     title: "手関節 伸展（橈側手根伸筋群）",
     pos: "前腕支持（机上伏臥位）", rom: "関節運動なし", finding: "橈側手根伸筋腱に収縮を触知",
     correctAnswer: "G1", explanation: "関節運動は起きず収縮触知のみは【Grade 1】です。",
-    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261101_v17"
+    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261102_v18"
   },
 
   // 6. 足関節 底屈 (下腿三頭筋)
@@ -6034,21 +6041,21 @@ const JUDGE_QUESTIONS_POOL = [
     title: "足関節 底屈（下腿三頭筋）",
     pos: "立位（片脚立ち踵上げ）", rom: "完全フォームで25回完遂", finding: "抵抗なし（自重25回）",
     correctAnswer: "G5", explanation: "標準MMT基準では立位・片脚立ち踵上げ25回完遂が【Grade 5】です。",
-    image: "assets/mmt/ankle_pf_g5.png?v=20261101_v17"
+    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v18"
   },
   {
     id: 122, cardId: 14, region: "下肢",
     title: "足関節 底屈（下腿三頭筋）",
     pos: "立位（片脚立ち踵上げ）", rom: "完全フォームで12回で疲労", finding: "10〜24回完遂",
     correctAnswer: "G4", explanation: "片脚立ち踵上げ10〜24回完遂は【Grade 4】です。",
-    image: "assets/mmt/ankle_pf_g5.png?v=20261101_v17"
+    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v18"
   },
   {
     id: 123, cardId: 14, region: "下肢",
     title: "足関節 底屈（下腿三頭筋）",
     pos: "腹臥位（足部ベッド端から下垂）", rom: "足底屈全可動域 完遂", finding: "重力除去位として完遂",
     correctAnswer: "G2", explanation: "腹臥位での底屈全ROM完遂は【Grade 2】です。",
-    image: "assets/mmt/ankle_pf_g5.png?v=20261101_v17"
+    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v18"
   },
 
   // 7. 体幹 屈曲 (腹直筋)
@@ -6057,28 +6064,28 @@ const JUDGE_QUESTIONS_POOL = [
     title: "体幹 屈曲（腹直筋）",
     pos: "背臥位（頭の後ろで手組み）", rom: "肩甲骨が完全に床から離床", finding: "完遂",
     correctAnswer: "G5", explanation: "背臥位・頭後ろ手組みでの体幹屈曲は【Grade 5】です。",
-    image: "assets/mmt/trunk_flex_g5.png?v=20261101_v17"
+    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v18"
   },
   {
     id: 125, cardId: 13, region: "体幹",
     title: "体幹 屈曲（腹直筋）",
     pos: "背臥位（胸の前で腕組み）", rom: "肩甲骨が完全に床から離床", finding: "完遂",
     correctAnswer: "G4", explanation: "背臥位・胸の前腕組みでの体幹屈曲は【Grade 4】です。",
-    image: "assets/mmt/trunk_flex_g4.png?v=20261101_v17"
+    image: "assets/mmt/trunk_flex_g4.png?v=20261102_v18"
   },
   {
     id: 126, cardId: 3, region: "体幹",
     title: "体幹 屈曲（腹直筋）",
     pos: "背臥位（両腕を前方に伸ばす）", rom: "肩甲骨下角が離床", finding: "完遂",
     correctAnswer: "G3", explanation: "両腕前腕伸ばしでの体幹屈曲は【Grade 3】です。",
-    image: "assets/mmt/trunk_flex_g5.png?v=20261101_v17"
+    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v18"
   },
   {
     id: 127, cardId: 3, region: "体幹",
     title: "体幹 屈曲（腹直筋）",
     pos: "⚠️ 腹臥位（頭の後ろ手組みで上体を反らす）", rom: "全可動域 完遂", finding: "最大抵抗クリア",
     correctAnswer: "ERROR", explanation: "💡 体幹「屈曲」は背臥位で行います。腹臥位は伸展（脊柱起立筋）の肢位です！",
-    image: "assets/mmt/trunk_flex_g5.png?v=20261101_v17"
+    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v18"
   },
 
   // 8. 頸部 屈曲 (胸鎖乳突筋)
@@ -6087,14 +6094,14 @@ const JUDGE_QUESTIONS_POOL = [
     title: "頸部 屈曲（胸鎖乳突筋）",
     pos: "背臥位（顎を引き頭部離床）", rom: "全可動域 完遂", finding: "前額部への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "背臥位で顎を引き、前額部最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/neck_flex_g543.png?v=20261101_v17"
+    image: "assets/mmt/neck_flex_g543.png?v=20261102_v18"
   },
   {
     id: 129, cardId: 1, region: "頸部",
     title: "頸部 屈曲（胸鎖乳突筋）",
     pos: "⚠️ 腹臥位（頭部を持ち上げる）", rom: "全可動域 完遂", finding: "後頭部抵抗クリア",
     correctAnswer: "ERROR", explanation: "💡 腹臥位＋後頭部抵抗は「頸部伸展」です。屈曲は背臥位で行います！",
-    image: "assets/mmt/neck_flex_g543.png?v=20261101_v17"
+    image: "assets/mmt/neck_flex_g543.png?v=20261102_v18"
   },
 
   // 9. 足関節 背屈 (前脛骨筋)
@@ -6103,7 +6110,7 @@ const JUDGE_QUESTIONS_POOL = [
     title: "足関節 背屈（前脛骨筋）",
     pos: "端座位（つま先内反・背屈）", rom: "全可動域 完遂", finding: "前足部外返し方向の最大抵抗に耐える",
     correctAnswer: "G5", explanation: "端座位で足部内反背屈、最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/ankle_df_g5432.png?v=20261101_v17"
+    image: "assets/mmt/ankle_df_g5432.png?v=20261102_v18"
   }
 ];
 
@@ -7340,7 +7347,7 @@ function openFlowImageModal(type, event) {
   let pos = '';
   let vector = '';
 
-  const cacheBust = '?v=20261101_v17';
+  const cacheBust = '?v=20261102_v18';
 
   if (type === 'ag') {
     imgSrc = `assets/mmt/${joint.g3ImgId}.png${cacheBust}`;
@@ -7393,3 +7400,409 @@ function openFlowImageModal(type, event) {
 }
 
 window.openFlowImageModal = openFlowImageModal;
+
+
+// ============================================================================
+// ✍️ フローチャート 自習ウォークスルー（穴埋め）ロジック (v18)
+// ============================================================================
+let flowChartMode = 'view'; // 'view' | 'walkthrough'
+let flowWalkthroughStep = 1; // 1: G3開始体位, 2: 徒手抵抗(G5/4), 3: G2体位変換, 4: 触診(G1/0)
+let flowWalkthroughTargetId = null;
+
+function getFlowClearedIds() {
+  try {
+    const raw = localStorage.getItem('mmt_flow_walkthrough_cleared');
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    return new Set(Array.isArray(parsed) ? parsed : []);
+  } catch (e) {
+    return new Set();
+  }
+}
+
+function saveFlowClearedId(jointId) {
+  const set = getFlowClearedIds();
+  set.add(jointId);
+  try {
+    localStorage.setItem('mmt_flow_walkthrough_cleared', JSON.stringify(Array.from(set)));
+  } catch (e) {}
+  updateFlowWalkthroughProgress();
+  renderFlowJointButtons();
+}
+
+function updateFlowWalkthroughProgress() {
+  const set = getFlowClearedIds();
+  const total = FLOW_JOINTS_DATA.length;
+  const count = set.size;
+  const pct = Math.min(100, Math.round((count / total) * 100));
+
+  const countEl = document.getElementById('flow-walkthrough-count');
+  const barEl = document.getElementById('flow-walkthrough-bar');
+  if (countEl) countEl.innerText = `${count} / ${total} 種目達成`;
+  if (barEl) barEl.style.width = `${pct}%`;
+}
+
+function setFlowChartMode(mode) {
+  flowChartMode = mode;
+  playSound('card');
+
+  const btnView = document.getElementById('fmode-btn-view');
+  const btnWalk = document.getElementById('fmode-btn-walkthrough');
+  const progressWrap = document.getElementById('flow-walkthrough-progress-wrap');
+  const panel = document.getElementById('flow-walkthrough-panel');
+
+  if (btnView) btnView.classList.toggle('active', mode === 'view');
+  if (btnWalk) btnWalk.classList.toggle('active', mode === 'walkthrough');
+  if (progressWrap) progressWrap.style.display = (mode === 'walkthrough') ? 'block' : 'none';
+  if (panel) panel.style.display = (mode === 'walkthrough') ? 'block' : 'none';
+
+  if (mode === 'walkthrough') {
+    flowWalkthroughStep = 1;
+    flowWalkthroughTargetId = selectedFlowJointId;
+    updateFlowWalkthroughProgress();
+  }
+
+  updateFlowWalkthroughView();
+}
+
+function updateFlowWalkthroughView() {
+  const step1Node = document.getElementById('flow-step1-node');
+  const step2Node = document.getElementById('flow-step2-node');
+  const step3Node = document.getElementById('flow-step3-node');
+  const step4Node = document.getElementById('flow-step4-node');
+
+  if (flowChartMode === 'view') {
+    [step1Node, step2Node, step3Node, step4Node].forEach(node => {
+      if (node) node.classList.remove('flow-node-locked');
+    });
+    const panel = document.getElementById('flow-walkthrough-panel');
+    if (panel) panel.style.display = 'none';
+    return;
+  }
+
+  // ウォークスルーモード
+  const panel = document.getElementById('flow-walkthrough-panel');
+  if (panel) panel.style.display = 'block';
+
+  // 選択種目が変わったらステップ1にリセット
+  if (flowWalkthroughTargetId !== selectedFlowJointId) {
+    flowWalkthroughTargetId = selectedFlowJointId;
+    flowWalkthroughStep = 1;
+  }
+
+  // ステップに応じたロック状態
+  if (step1Node) step1Node.classList.toggle('flow-node-locked', flowWalkthroughStep < 2);
+  if (step2Node) step2Node.classList.toggle('flow-node-locked', flowWalkthroughStep < 3);
+  if (step3Node) step3Node.classList.toggle('flow-node-locked', flowWalkthroughStep < 4);
+  if (step4Node) step4Node.classList.toggle('flow-node-locked', flowWalkthroughStep < 5);
+
+  renderFlowWalkthroughQuestion();
+}
+
+function renderFlowWalkthroughQuestion() {
+  const joint = FLOW_JOINTS_DATA.find(x => x.id === selectedFlowJointId) || FLOW_JOINTS_DATA[0];
+  const stepIndicator = document.getElementById('fw-step-indicator');
+  const stepTitle = document.getElementById('fw-step-title');
+  const targetName = document.getElementById('fw-target-name');
+  const questionDesc = document.getElementById('fw-question-desc');
+  const optionsGrid = document.getElementById('fw-options-grid');
+  const feedbackBox = document.getElementById('fw-feedback-box');
+
+  if (targetName) targetName.innerText = `${joint.name}（${joint.muscle}）`;
+  if (feedbackBox) {
+    feedbackBox.style.display = 'none';
+    feedbackBox.className = 'fw-feedback-box';
+    feedbackBox.innerHTML = '';
+  }
+
+  if (flowWalkthroughStep === 5) {
+    // 全ステップクリア
+    if (stepIndicator) stepIndicator.innerText = '🎉 習得完了！';
+    if (stepTitle) stepTitle.innerText = `${joint.name} のフロー手順を完全制覇！`;
+    if (questionDesc) questionDesc.innerHTML = `
+      お見事です！開始体位（G3）➔ 徒手抵抗（G5/4）➔ 重力除去体位（G2）➔ 触診部位（G1/0）の全手順をアンロックしました。<br>
+      左上の種目リストから次の種目に挑戦しましょう！
+    `;
+    if (optionsGrid) {
+      optionsGrid.innerHTML = `
+        <button type="button" class="fw-opt-btn correct" style="grid-column: 1 / -1; text-align: center; font-size: 0.95rem; padding: 12px;" onclick="resetFlowWalkthrough()">
+          🔄 この種目をもう一度おさらい
+        </button>
+      `;
+    }
+    return;
+  }
+
+  let title = '';
+  let desc = '';
+  let correctAnswer = '';
+  let choices = [];
+
+  if (flowWalkthroughStep === 1) {
+    title = 'Step 1: 開始体位（Grade 3）';
+    desc = `種目「${joint.name}」を抗重力位（Grade 3）で測定を開始する際の正しい体位はどれ？`;
+    correctAnswer = joint.agPos;
+
+    // 他種目の agPos から重複なく3つダミー抽出
+    const pool = Array.from(new Set(FLOW_JOINTS_DATA.map(j => j.agPos).filter(p => p !== correctAnswer)));
+    const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 3);
+    choices = [correctAnswer, ...distractors].sort(() => Math.random() - 0.5);
+
+  } else if (flowWalkthroughStep === 2) {
+    title = 'Step 2: 徒手抵抗（Grade 5 / 4）';
+    desc = `抗重力位で全可動域動いた（YES）！ Grade 5判定となる最大抵抗の基準はどれ？`;
+    correctAnswer = joint.g5Criteria || '最大抵抗に耐える';
+
+    const pool = Array.from(new Set(FLOW_JOINTS_DATA.map(j => j.g5Criteria).filter(c => c && c !== correctAnswer)));
+    const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 2);
+    choices = [correctAnswer, ...distractors].sort(() => Math.random() - 0.5);
+
+  } else if (flowWalkthroughStep === 3) {
+    title = 'Step 3: 重力除去位（Grade 2）への体位変換';
+    desc = `抗重力位で全可動域動かない（NO）！ 重力除去位（Grade 2）へ体位変換する際の正しい肢位はどれ？`;
+    correctAnswer = joint.gePos;
+
+    const pool = Array.from(new Set(FLOW_JOINTS_DATA.map(j => j.gePos).filter(p => p !== correctAnswer)));
+    const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 3);
+    choices = [correctAnswer, ...distractors].sort(() => Math.random() - 0.5);
+
+  } else if (flowWalkthroughStep === 4) {
+    title = 'Step 4: 触診対象（Grade 1 / 0）';
+    desc = `重力除去位でも関節運動が起こらない！ Grade 1/0 を判定するために触診する正しい筋・腱はどれ？`;
+    correctAnswer = joint.palpation;
+
+    const pool = Array.from(new Set(FLOW_JOINTS_DATA.map(j => j.palpation).filter(p => p !== correctAnswer)));
+    const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 2);
+    choices = [correctAnswer, ...distractors].sort(() => Math.random() - 0.5);
+  }
+
+  if (stepIndicator) stepIndicator.innerText = `STEP ${flowWalkthroughStep} / 4`;
+  if (stepTitle) stepTitle.innerText = title;
+  if (questionDesc) questionDesc.innerText = desc;
+
+  if (optionsGrid) {
+    optionsGrid.innerHTML = choices.map((choiceText, idx) => {
+      const isCorrect = (choiceText === correctAnswer);
+      return `
+        <button type="button" class="fw-opt-btn" onclick="submitFlowWalkthroughAnswer(${isCorrect}, '${encodeURIComponent(choiceText)}')">
+          ${choiceText}
+        </button>
+      `;
+    }).join('');
+  }
+}
+
+function submitFlowWalkthroughAnswer(isCorrect, encodedAnswer) {
+  const chosenText = decodeURIComponent(encodedAnswer);
+  const feedbackBox = document.getElementById('fw-feedback-box');
+  const joint = FLOW_JOINTS_DATA.find(x => x.id === selectedFlowJointId) || FLOW_JOINTS_DATA[0];
+
+  if (isCorrect) {
+    playSound('correct');
+    if (feedbackBox) {
+      feedbackBox.className = 'fw-feedback-box correct';
+      feedbackBox.style.display = 'block';
+      feedbackBox.innerHTML = `⭕ 正解！ 枠のロックを解除しました。`;
+    }
+
+    setTimeout(() => {
+      flowWalkthroughStep++;
+      if (flowWalkthroughStep === 5) {
+        playSound('win');
+        saveFlowClearedId(joint.id);
+      }
+      updateFlowWalkthroughView();
+    }, 700);
+
+  } else {
+    playSound('wrong');
+    if (feedbackBox) {
+      feedbackBox.className = 'fw-feedback-box wrong';
+      feedbackBox.style.display = 'block';
+      feedbackBox.innerHTML = `❌ 違います。もう一度選んでください！`;
+    }
+  }
+}
+
+function resetFlowWalkthrough() {
+  flowWalkthroughStep = 1;
+  updateFlowWalkthroughView();
+}
+
+
+// ============================================================================
+// 🔄 G3 ➔ G2 体位変換ペアリング特訓ロジック (v18)
+// ============================================================================
+let judgeSubMode = 'speed'; // 'speed' | 'pairing'
+let pairingQuestions = [];
+let pairingCurrentIndex = 0;
+let pairingScore = 0;
+let isPairingAnswering = false;
+
+function setJudgeSubMode(mode) {
+  judgeSubMode = mode;
+  playSound('card');
+
+  const btnSpeed = document.getElementById('jsubmode-speed');
+  const btnPairing = document.getElementById('jsubmode-pairing');
+  const speedContainer = document.getElementById('judge-speed-container');
+  const pairingContainer = document.getElementById('judge-pairing-container');
+
+  if (btnSpeed) btnSpeed.classList.toggle('active', mode === 'speed');
+  if (btnPairing) btnPairing.classList.toggle('active', mode === 'pairing');
+
+  if (mode === 'speed') {
+    if (speedContainer) speedContainer.style.display = 'block';
+    if (pairingContainer) pairingContainer.style.display = 'none';
+  } else {
+    if (speedContainer) speedContainer.style.display = 'none';
+    if (pairingContainer) pairingContainer.style.display = 'flex';
+    // スピード判定中のタイマー停止
+    if (typeof judgeTimerId !== 'undefined') clearInterval(judgeTimerId);
+    isJudgePlaying = false;
+  }
+}
+
+function startPairingTraining() {
+  playSound('bonus');
+
+  // G3とG2で体位が変わる種目を抽出
+  const pool = FLOW_JOINTS_DATA.filter(j => j.agPos !== j.gePos && j.g2ImgId && j.g3ImgId);
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  pairingQuestions = shuffled.slice(0, 10);
+  pairingCurrentIndex = 0;
+  pairingScore = 0;
+  isPairingAnswering = false;
+
+  const startScreen = document.getElementById('pairing-start-screen');
+  const playScreen = document.getElementById('pairing-play-screen');
+  const resultScreen = document.getElementById('pairing-result-screen');
+
+  if (startScreen) startScreen.style.display = 'none';
+  if (resultScreen) resultScreen.style.display = 'none';
+  if (playScreen) playScreen.style.display = 'block';
+
+  loadPairingQuestion();
+}
+
+function loadPairingQuestion() {
+  if (pairingCurrentIndex >= pairingQuestions.length) {
+    finishPairingTraining();
+    return;
+  }
+
+  isPairingAnswering = false;
+  const q = pairingQuestions[pairingCurrentIndex];
+
+  const qNumEl = document.getElementById('pairing-q-num');
+  const scoreValEl = document.getElementById('pairing-score-val');
+  const targetJointEl = document.getElementById('pairing-target-joint');
+  const g3ImgEl = document.getElementById('pairing-g3-img');
+  const g3PosEl = document.getElementById('pairing-g3-pos');
+  const toastEl = document.getElementById('pairing-feedback-toast');
+  const gridEl = document.getElementById('pairing-options-grid');
+
+  if (qNumEl) qNumEl.innerText = `${pairingCurrentIndex + 1} / ${pairingQuestions.length}`;
+  if (scoreValEl) scoreValEl.innerText = `${pairingScore}問 正解`;
+  if (targetJointEl) targetJointEl.innerText = `${q.name}（${q.muscle}）`;
+  if (g3PosEl) g3PosEl.innerText = q.agPos;
+
+  if (g3ImgEl) {
+    g3ImgEl.src = `assets/mmt/${q.g3ImgId}.png?v=20261102_v18`;
+    g3ImgEl.alt = `${q.name} Grade 3`;
+  }
+
+  if (toastEl) toastEl.style.display = 'none';
+
+  // 4択選択肢：該当種目のG2（正解） ＋ 他種目のG2（ダミー3枚）
+  const distractorPool = FLOW_JOINTS_DATA.filter(j => j.id !== q.id && j.g2ImgId);
+  const distractors = [...distractorPool].sort(() => Math.random() - 0.5).slice(0, 3);
+  const choices = [
+    { joint: q, isCorrect: true },
+    ...distractors.map(d => ({ joint: d, isCorrect: false }))
+  ].sort(() => Math.random() - 0.5);
+
+  if (gridEl) {
+    gridEl.innerHTML = choices.map((c, idx) => `
+      <div class="pcard-opt" id="popt-${idx}" onclick="submitPairingAnswer(${idx}, ${c.isCorrect})">
+        <div class="pcard-opt-art">
+          <img src="assets/mmt/${c.joint.g2ImgId}.png?v=20261102_v18" alt="${c.joint.name}">
+        </div>
+        <strong class="pcard-opt-name">${c.joint.name}</strong>
+        <span class="pcard-opt-pos">${c.joint.gePos.substring(0, 18)}...</span>
+      </div>
+    `).join('');
+  }
+}
+
+function submitPairingAnswer(optIdx, isCorrect) {
+  if (isPairingAnswering) return;
+  isPairingAnswering = true;
+
+  const q = pairingQuestions[pairingCurrentIndex];
+  const toastEl = document.getElementById('pairing-feedback-toast');
+  const optEl = document.getElementById(`popt-${optIdx}`);
+
+  if (isCorrect) {
+    playSound('correct');
+    pairingScore++;
+    if (optEl) optEl.classList.add('selected-correct');
+    if (toastEl) {
+      toastEl.className = 'pairing-feedback-toast correct';
+      toastEl.style.display = 'block';
+      toastEl.innerText = `⭕ 正解！ ${q.agPos.substring(0, 8)} ➔ ${q.gePos.substring(0, 8)} へ体位変換！`;
+    }
+  } else {
+    playSound('wrong');
+    if (optEl) optEl.classList.add('selected-wrong');
+    if (toastEl) {
+      toastEl.className = 'pairing-feedback-toast wrong';
+      toastEl.style.display = 'block';
+      toastEl.innerText = `❌ 不正解！ 正解は「${q.name}」の重力除去肢位です。`;
+    }
+  }
+
+  const scoreValEl = document.getElementById('pairing-score-val');
+  if (scoreValEl) scoreValEl.innerText = `${pairingScore}問 正解`;
+
+  setTimeout(() => {
+    pairingCurrentIndex++;
+    loadPairingQuestion();
+  }, 1200);
+}
+
+function finishPairingTraining() {
+  playSound('win');
+
+  const playScreen = document.getElementById('pairing-play-screen');
+  const resultScreen = document.getElementById('pairing-result-screen');
+  if (playScreen) playScreen.style.display = 'none';
+  if (resultScreen) resultScreen.style.display = 'flex';
+
+  const rankIconEl = document.getElementById('presult-rank-icon');
+  const rankTitleEl = document.getElementById('presult-rank-title');
+  const scoreTextEl = document.getElementById('presult-score-text');
+  const commentEl = document.getElementById('presult-comment');
+
+  let rank = 'B';
+  let icon = '🌱';
+  let title = 'RANK B: 体位変換チャレンジャー';
+  let comment = '抗重力位と重力除去位の対応関係をもう一度復習して再挑戦しましょう！';
+
+  if (pairingScore >= 9) {
+    rank = 'S';
+    icon = '👑';
+    title = 'RANK S: 体位変換マスター級';
+    comment = '完璧です！抗重力位から重力除去位への体位変換が完全に身体に染み付いています。実習でも迷わず即応できます！';
+  } else if (pairingScore >= 7) {
+    rank = 'A';
+    icon = '🎖️';
+    title = 'RANK A: 臨床実践クラス';
+    comment = '素晴らしい理解度です！主要な体位変換手順を的確に把握できています。満点を目指してもう一度挑戦しましょう！';
+  }
+
+  if (rankIconEl) rankIconEl.innerText = icon;
+  if (rankTitleEl) rankTitleEl.innerText = title;
+  if (scoreTextEl) scoreTextEl.innerText = `${pairingScore} / 10 問正解`;
+  if (commentEl) commentEl.innerText = comment;
+}
