@@ -1,7 +1,7 @@
 {
-  "name": "MMT GRADE — ダニエルズ臨床カードバトル",
+  "name": "MMT GRADE — 臨床MMTカードバトル",
   "short_name": "MMT GRADE",
-  "description": "ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床学習Webカードゲーム",
+  "description": "徒手筋力検査法（MMT）準拠 160枚完備の臨床学習Webカードゲーム",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F9F8F6",

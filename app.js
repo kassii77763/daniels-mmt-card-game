@@ -6033,7 +6033,7 @@ const JUDGE_QUESTIONS_POOL = [
     id: 121, cardId: 14, region: "下肢",
     title: "足関節 底屈（下腿三頭筋）",
     pos: "立位（片脚立ち踵上げ）", rom: "完全フォームで25回完遂", finding: "抵抗なし（自重25回）",
-    correctAnswer: "G5", explanation: "Daniels基準では立位・片脚立ち踵上げ25回完遂が【Grade 5】です。",
+    correctAnswer: "G5", explanation: "標準MMT基準では立位・片脚立ち踵上げ25回完遂が【Grade 5】です。",
     image: "assets/mmt/ankle_pf_g5.png?v=20261101_v17"
   },
   {
