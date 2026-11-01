@@ -1,6 +1,11 @@
 # PROGRESS.md — MMT Tactical Card Game 進捗ホワイトボード
 
-## 1. 現在のステータス概要 (v16 決定版)
+## 1. 現在のステータス概要 (v17 PWA対応決定版)
+- **PWA（Progressive Web App）化完全対応**:
+  - iOS（Safari）「ホーム画面に追加」およびAndroid（Chrome）でのネイティブアプリ同様のスタンドアロン全画面起動（URLバー非表示・`display: standalone`）。
+  - Warm Bone調（`#F9F8F6`、`#1E293B`、`#D97706`）に調和した高精細アプリアイコン自動生成・完備（192px / 512px / 180px apple-touch-icon）。
+  - キャッシュ事故防止設計の Service Worker（`sw.js`）：コアファイル（HTML/JS/CSS/JSON）は **Network First**（オンライン時最新取得・オフライン時キャッシュ）、画像アセット群は **Cache First**（超高速ロード）。
+  - 古いキャッシュの一括削除・即時反映（`skipWaiting()` ＆ `clients.claim()`）。
 - **総カード数**: 160枚（実動アクティブデッキ 133枚 ＋ アーカイブ 27枚、手技図・肢位・グレード100%完全一致保証）
 - **カルタ読み札エンジン**:
   - **初級 ↔ 臨床実習級** サブバー難易度トグル新設
@@ -9,14 +14,45 @@
   - **第3句**: 筋肉名単語（例「大腿四頭筋。」）
   - **音声エンジン**: `SpeechSynthesis.onend` 連動 ＆ 850ms 静寂ポーズ制御による「音声被り・語尾ブツ切り」100% 根絶
 - **テスト状態**:
-  - 第1層：構文・データ完全性監査 PASS（`node -c app.js` 構文エラーゼロ）
+  - 第1層：構文・データ完全性監査 PASS（`node -c app.js`、`node -c sw.js`、`manifest.json` 構文エラーゼロ）
   - 第2層：画像品質ゲート `python harness/image_quality_gate.py` PASS (180/180 ALL PASS)
   - 第3層：実機幾何＆画像ロード監査 `node harness/e2e_full_verification.js` PASS (TEST 0〜6 100% 合格)
-- **キャッシュバスター**: `20261031_v16`
+  - PWA実機検証：Playwright + ローカルHTTPサーバーで `sw.js` (activated) ＆ PWAメタタグ・マニフェスト完全動作確認 PASS
+- **キャッシュバスター**: `20261101_v17`
 
 ---
 
-## 2. v16 実装・改修内容まとめ（カルタ読み札の臨床実習級二層化 ＆ 音声被り完全根絶）
+## 2. v17 実装・改修内容まとめ（PWAスタンドアロン対応 ＆ キャッシュ安全型オフライン起動）
+
+### ① 高精細アプリアイコン3種の配備（`assets/icons/`）
+- Warm Bone（`#F9F8F6`）と深層スレート（`#1E293B`）、アンバーゴールド（`#D97706`）の医療ゴニオメーター・力学アロー・二連カードをあしらった上質なミニマルアイコンを生成：
+  - `assets/icons/icon-192.png` (192×192px, Android PWA標準)
+  - `assets/icons/icon-512.png` (512×512px, スプラッシュ・高精細画面用)
+  - `assets/icons/apple-touch-icon.png` (180×180px, iOSホーム画面用)
+
+### ② Web App Manifest（`manifest.json`）の策定
+- `name`: "MMT GRADE — ダニエルズ臨床カードバトル"
+- `short_name`: "MMT GRADE"
+- `display`: "standalone"
+- `background_color`: "#F9F8F6"
+- `theme_color`: "#F9F8F6"
+- `orientation`: "portrait-primary"
+- `icons`: 192px / 512px（purpose: "any maskable"）
+
+### ③ キャッシュ汚染を防ぐ Service Worker（`sw.js`）
+- キャッシュ名: `mmt-grade-cache-v17`
+- **Network First**: `index.html`, `app.js`, `style.css`, `data/cards.json` 等のコアコードはオンライン時常に最新サーバーから取得し、キャッシュ汚染・古いコードの残留事故を100%防止。
+- **Cache First**: `assets/mmt/*.png` などの手技画像はキャッシュ優先でロードし、オフラインでも即時描画。
+- 古いバージョンのキャッシュの自動クリーンアップ ＆ `skipWaiting()` + `clients.claim()` による即時制御。
+
+### ④ `index.html` へのメタタグ追加 ＆ Service Worker 登録
+- iOS Safari 用メタタグ（`apple-mobile-web-app-capable`, `apple-mobile-web-app-status-bar-style`, `apple-mobile-web-app-title`, `apple-touch-icon`）および `theme-color`、`manifest` リンクを追記。
+- 安全なプロトコル判定（`http:` / `https:` のみ）と `catch()` エラーハンドリングを備えた登録コードを追加。
+- キャッシュバスターを一括 `20261101_v17` に刷新。
+
+---
+
+## 3. v16 実装・改修内容まとめ（カルタ読み札の臨床実習級二層化 ＆ 音声被り完全根絶）
 
 ### ① 読み札の3段構造刷新（第1句ヒント ➔ 第2句体位+Grade ➔ 第3句筋肉名）
 - **第1句（上の句）**:

@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — ダニエルズ臨床カードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261031_v16">
+<link rel="stylesheet" href="style.css?v=20261101_v17">
+<link rel="manifest" href="manifest.json?v=20261101_v17">
+<meta name="theme-color" content="#F9F8F6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MMT GRADE">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 </head>
 <body>
 
@@ -604,6 +610,20 @@
   </div>
 </div>
 
-<script src="app.js?v=20261031_v16"></script>
+<script src="app.js?v=20261101_v17"></script>
+<script>
+  // Service Worker Registration for PWA (v17)
+  if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((reg) => {
+          console.log('[PWA] Service Worker registered successfully, scope:', reg.scope);
+        })
+        .catch((err) => {
+          console.warn('[PWA] Service Worker registration failed:', err);
+        });
+    });
+  }
+</script>
 </body>
 </html>
