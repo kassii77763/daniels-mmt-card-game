@@ -1,62 +1,266 @@
 shard_code: MMT
-shard_name: MMT TACTICS (カード)
-file: shards/mmt_tactics.yaml
+shard_name: MMT Tactical Card Game (v21)
 tasks:
-- id: MMT-024
+- id: MMT-022
   project: MMT
-  priority: P1
-  title: 前鋸筋・僧帽筋下部カードの肩甲骨上方回旋シナジー＆翼状肩甲ペナルティ実装
-  column: inprogress
+  priority: P0
+  title: iPhone Safari および Android Chrome での PWA スタンドアロン起動・オフライン動作の実機検証
+  column: review
   phase: Phase 3
-  tokens: 150
-  scopeSize: 25m
+  tokens: 120
+  scopeSize: 15m
   agent: Antigravity
-  targetFile: src/mmt_battle_engine.js
-  updated: 1分前
-  commitHash: 8c339a1
+  targetFile: sw.js
+  updated: 検証中
+  commitHash: '6374155'
   gates:
     g1:
-      label: G1:JSON整合
+      label: G1:構文検査
       pass: true
-      detail: カードスキーマ PASS
+      detail: node -c sw.js & manifest.json 構文検査 PASS
     g2:
-      label: G2:D&W10版基準
+      label: G2:アイコン品質
       pass: true
-      detail: Daniels 10th Ed. Grade 3〜5 検査肢位照合 PASS
+      detail: assets/icons/ 192px/512px/180px 配備確認 PASS
     g3:
-      label: G3:実機UI
-      pass: null
-      detail: Playwright 対戦シミュレーション実行中...
+      label: G3:実機E2E
+      pass: true
+      detail: Playwright PWA 起動検証 PASS (実機最終確認待ち)
   remediation: null
   specs:
-  - Daniels基準の肩甲骨固定条件を満たさない場合に翼状肩甲デバフを発動
-  gitDiff: + if (card.muscle === 'serratus_anterior' && grade < 3) applyWingedScapula();
+  - iOS Safari で「ホーム画面に追加」時にスタンドアロン全画面起動すること
+  - オフライン時でも手技画像およびカードデータが高速表示されること
+  gitDiff: '# Working on PWA Service Worker caching (v21)'
 - id: MMT-023
   project: MMT
+  priority: P1
+  title: GitHub Pages (gh-pages ブランチ) への最新 v21 本番デプロイと公開URL動作確認
+  column: todo
+  phase: Phase 4
+  tokens: 100
+  scopeSize: 15m
+  agent: Antigravity
+  targetFile: index.html
+  updated: 待機中
+  commitHash: pending
+  gates:
+    g1:
+      label: G1:ビルド整合
+      pass: null
+      detail: 待機中
+    g2:
+      label: G2:キャッシュ
+      pass: null
+      detail: キャッシュバスター 20261102_v21 設定済
+    g3:
+      label: G3:公開URL
+      pass: null
+      detail: https://kassii77763.github.io/daniels-mmt-card-game/ 監査予定
+  remediation: null
+  specs:
+  - main ブランチの最新状態を gh-pages に反映し 404 エラーがないこと
+  - GitHub Actions または手動プッシュで公開ページが更新されること
+  gitDiff: '# Ready to deploy to gh-pages'
+- id: MMT-024
+  project: MMT
   priority: P2
-  title: 中殿筋・小殿筋（股関節外転 Grade 0〜5）大腿筋膜張筋代償トラップカード実装
+  title: 本番公開に向けた利用状況計測（匿名アクセスログ / 正答率統計）の準備
+  column: todo
+  phase: Phase 4
+  tokens: 110
+  scopeSize: 20m
+  agent: Antigravity
+  targetFile: index.html
+  updated: 待機中
+  commitHash: pending
+  gates:
+    g1:
+      label: G1:タグ設計
+      pass: null
+      detail: 未設定 (実ユーザー0名・リリース準備中)
+    g2:
+      label: G2:プライバシー
+      pass: null
+      detail: 個人情報取得ゼロ・匿名統計のみ
+    g3:
+      label: G3:通信負荷
+      pass: null
+      detail: PWA オフライン動作を阻害しない設計
+  remediation: null
+  specs:
+  - 実ユーザーが問題を解いた際の統計取得タグを準備（現在はリリース前のため0件）
+  gitDiff: '# Analytics setup pending'
+- id: MMT-021
+  project: MMT
+  priority: P0
+  title: 判定スタートボタン切断完全解消 ＆ ハーネスボタン全露出監査通過 (v21)
   column: done
-  phase: Phase 2
+  phase: Phase 3
+  tokens: 95
+  scopeSize: 完了
+  agent: Antigravity
+  targetFile: style.css
+  updated: 本日完了
+  commitHash: '6374155'
+  gates:
+    g1:
+      label: G1:構文検査
+      pass: true
+      detail: node -c app.js PASS
+    g2:
+      label: G2:画像品質
+      pass: true
+      detail: python harness/image_quality_gate.py PASS (180/180)
+    g3:
+      label: G3:実機幾何
+      pass: true
+      detail: node harness/e2e_full_verification.js ALL PASS
+  remediation: null
+  specs:
+  - スマホ・タブレット・PC全画面で判定開始ボタンが100%可視化されていること
+  gitDiff: commit 6374155
+- id: MMT-020
+  project: MMT
+  priority: P1
+  title: フローウォークスルーパネル配置是正 ＆ 判定モード初期化・ロック表示洗練 (v20)
+  column: done
+  phase: Phase 3
+  tokens: 90
+  scopeSize: 完了
+  agent: Antigravity
+  targetFile: app.js
+  updated: 本日完了
+  commitHash: eef7dac
+  gates:
+    g1:
+      label: G1:構文
+      pass: true
+      detail: PASS
+    g2:
+      label: G2:品質
+      pass: true
+      detail: PASS
+    g3:
+      label: G3:実機E2E
+      pass: true
+      detail: PASS
+  remediation: null
+  specs:
+  - フローチャート画面でYES/NO選択時のパネルレイアウト崩れを解消
+  gitDiff: commit eef7dac
+- id: MMT-019
+  project: MMT
+  priority: P1
+  title: 判定画面上下空隙解消 ＆ 体位変換特訓美配置 ＆ フロースマホ1列化 (v19)
+  column: done
+  phase: Phase 3
+  tokens: 90
+  scopeSize: 完了
+  agent: Antigravity
+  targetFile: style.css
+  updated: 本日完了
+  commitHash: 2c88a79
+  gates:
+    g1:
+      label: G1:構文
+      pass: true
+      detail: PASS
+    g2:
+      label: G2:品質
+      pass: true
+      detail: PASS
+    g3:
+      label: G3:実機幾何
+      pass: true
+      detail: PASS
+  remediation: null
+  specs:
+  - 体位変換特訓モードのカード余白と文字折返しを根絶
+  gitDiff: commit 2c88a79
+- id: MMT-017
+  project: MMT
+  priority: P0
+  title: PWAスタンドアロン対応 ＆ 高精細アプリアイコン配備 ＆ Service Worker (v17)
+  column: done
+  phase: Phase 3
   tokens: 105
   scopeSize: 完了
-  agent: Claude Code
-  targetFile: src/data/mmt_gluteus.json
-  updated: 昨日
+  agent: Antigravity
+  targetFile: manifest.json
+  updated: 昨日完了
   commitHash: 7b4412c
   gates:
     g1:
-      label: G1:JSON整合
+      label: G1:Manifest
       pass: true
-      detail: PASS
+      detail: manifest.json 正常定義 PASS
     g2:
-      label: G2:D&W10版基準
+      label: G2:SWキャッシュ
       pass: true
-      detail: PASS
+      detail: sw.js Network First / Cache First 動作確認 PASS
+    g3:
+      label: G3:実機起動
+      pass: true
+      detail: Playwright PWA 起動テスト PASS
+  remediation: null
+  specs:
+  - 192px/512px/180px アイコン配備、standalone 起動設定完了
+  gitDiff: commit 7b4412c
+- id: MMT-016
+  project: MMT
+  priority: P1
+  title: カルタ読み札3段構造（臨床実習級/初級）＆ 音声合成エンジン連携 (v16)
+  column: done
+  phase: Phase 2
+  tokens: 95
+  scopeSize: 完了
+  agent: Antigravity
+  targetFile: app.js
+  updated: 完了
+  commitHash: 4d21e09
+  gates:
+    g1:
+      label: G1:音声API
+      pass: true
+      detail: SpeechSynthesis.onend 850ms 静寂制御 PASS
+    g2:
+      label: G2:読み札階層
+      pass: true
+      detail: 第1句(臨床ヒント) ➔ 第2句(肢位/Grade) ➔ 第3句(筋名) PASS
     g3:
       label: G3:実機UI
       pass: true
       detail: PASS
   remediation: null
   specs:
-  - 股関節屈曲・内旋位での代償動作をトラップ判定として実装完了
-  gitDiff: commit 7b4412c
+  - 音声被り・語尾ブツ切れを完全根絶したカルタ読み上げ機能の実装
+  gitDiff: commit 4d21e09
+- id: MMT-012
+  project: MMT
+  priority: P0
+  title: 160枚全カードの手技図・肢位・グレード完全一致保証 ＆ 27枚アーカイブ整理 (v12)
+  column: done
+  phase: Phase 1
+  tokens: 110
+  scopeSize: 完了
+  agent: Antigravity
+  targetFile: data/dictionary-mapping.json
+  updated: 完了
+  commitHash: 1e45f92
+  gates:
+    g1:
+      label: G1:辞書マッピング
+      pass: true
+      detail: 160枚確定座標カタログ PASS
+    g2:
+      label: G2:画像クロップ
+      pass: true
+      detail: フォールバックすり替えゼロ・実体画像 100% 整合 PASS
+    g3:
+      label: G3:整合性検査
+      pass: true
+      detail: アクティブ133枚 + アーカイブ27枚 確定
+  remediation: null
+  specs:
+  - Three Inviolable Rules 準拠、別画像すり替え完全禁止で確定
+  gitDiff: commit 1e45f92

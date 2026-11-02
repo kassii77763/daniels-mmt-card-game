@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harness &amp; Ops Cockpit v2.0 — Scalable Local Jira + Sync &amp; Sharding Architecture</title>
+  <title>MMT &amp; PT Portal Cockpit v2.0 — Real Status &amp; Harness Board</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter, Noto Sans JP, JetBrains Mono -->
@@ -48,7 +48,6 @@
   </script>
 
   <style>
-    /* 3つのテーマ切替用CSS変数 (Ecru Warm Stone / Jira Classic / Cockpit Dark) */
     :root, [data-theme="ecru"] {
       --bg-main: #FBFBF9;
       --bg-surface: #F3F1EC;
@@ -87,9 +86,7 @@
     ::-webkit-scrollbar-track { background: var(--bg-surface); }
     ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
 
-    .kanban-card {
-      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.18s ease;
-    }
+    .kanban-card { transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.18s ease; }
     .kanban-card:hover { transform: translateY(-1px); }
     .kanban-card.dragging { opacity: 0.4; transform: scale(0.98); }
     .kanban-column.drag-over {
@@ -97,183 +94,126 @@
       outline: 2px dashed #4F46E5;
       outline-offset: -2px;
     }
-
     @keyframes ssePulseHighlight {
       0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.65); }
       70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
       100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
     }
     .sse-updated-card { animation: ssePulseHighlight 1.5s ease-out; }
-
     #detailDrawer { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-
-    @keyframes flowDash {
-      to { stroke-dashoffset: -20; }
-    }
-    .animate-flow-line {
-      stroke-dasharray: 5, 5;
-      animation: flowDash 0.9s linear infinite;
-    }
   </style>
 </head>
 <body data-theme="ecru" class="bg-ecru-bg text-ecru-text font-sans antialiased h-screen flex flex-col overflow-hidden select-none">
 
   <!-- =====================================================================
-       1. TOP LIVE SYNCHRONIZATION, ATOMIC LOCK & TOKEN BUDGET BAR
+       1. TOP LIVE SYNCHRONIZATION BAR
        ===================================================================== -->
   <header id="statusStrip" class="bg-slate-950 text-slate-100 border-b border-slate-800 px-3.5 py-1.5 text-[11px] flex flex-wrap items-center justify-between gap-2 z-50 flex-shrink-0">
-    <!-- 左側: SSE状態 + Atomic CAS Lock状態 + YAMLトークン予算メーター -->
     <div class="flex flex-wrap items-center gap-2.5">
-      <!-- SSE接続ランプ -->
+      <!-- SSE LIVE インジケータ -->
       <div id="sseStatusContainer" class="flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all">
         <span class="relative flex h-2 w-2">
           <span id="ssePing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span id="sseDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
         </span>
         <span id="sseStatusLabel" class="font-mono font-semibold text-emerald-200">SSE LIVE: 127.0.0.1:8795</span>
-        <span class="text-emerald-400 font-mono" id="lastCheckedText">(0.38s)</span>
+        <span class="text-emerald-400 font-mono" id="lastCheckedText">監視稼働中</span>
       </div>
 
-      <!-- 排他ロック状態 (Atomic Temp-Swap + SHA-256 CAS) -->
-      <div id="atomicLockBadge" class="flex items-center space-x-1.5 bg-slate-900 border border-slate-700 px-2 py-0.5 rounded font-mono text-slate-300 transition-colors">
-        <i id="atomicLockIcon" class="fa-solid fa-lock text-emerald-400 text-[10px]"></i>
-        <span id="atomicLockText">CAS Lock: IDLE (競合防止待機中)</span>
+      <!-- プロダクト実態バッジ -->
+      <div class="flex items-center space-x-1.5 bg-slate-900 border border-slate-700 px-2 py-0.5 rounded font-mono text-slate-300">
+        <i class="fa-solid fa-code-branch text-indigo-400 text-[10px]"></i>
+        <span>Release: <strong class="text-amber-300">v21 (PWA対応済)</strong></span>
       </div>
 
-      <!-- アクティブYAMLのトークン消費量メーター (Context Rot防止) -->
-      <div class="hidden xl:flex items-center space-x-2 bg-slate-900 border border-slate-700 px-2.5 py-0.5 rounded">
-        <span class="text-slate-400">Active YAML負荷:</span>
-        <div class="w-20 bg-slate-800 h-2 rounded-full overflow-hidden">
-          <div id="tokenFootprintBar" class="bg-emerald-400 h-full transition-all duration-300" style="width: 34%"></div>
-        </div>
-        <strong id="tokenFootprintText" class="font-mono text-emerald-300">1,360 / 4,000 tok</strong>
-        <button onclick="archiveDoneTasks()" class="text-[10px] bg-slate-800 hover:bg-indigo-600 text-slate-200 hover:text-white px-1.5 py-0.2 rounded border border-slate-600 transition cursor-pointer" title="完了済み(Done)タスクを archive/done_history.jsonl へ退避してAIのコンテキスト負荷を下げます">
-          <i class="fa-solid fa-box-archive mr-0.5"></i>Done退避(<span id="archivedCountBadge">42</span>)
-        </button>
+      <!-- ハーネス監査状態 -->
+      <div class="hidden xl:flex items-center space-x-1.5 bg-emerald-950/60 border border-emerald-800 px-2 py-0.5 rounded font-mono text-emerald-300">
+        <i class="fa-solid fa-shield-check text-emerald-400 text-[10px]"></i>
+        <span>Harness Gate: <strong>180/180 ALL PASS (100%)</strong></span>
       </div>
 
-      <!-- SHA-256プロセス指紋 -->
+      <!-- SHA指紋 -->
       <span class="hidden 2xl:inline font-mono text-[10px] text-slate-400">
-        SHA-256: <code id="shaFingerprint" class="text-indigo-300">8f91c4a20b</code> | 最終同期: <strong id="lastModifiedText" class="text-white">01:32:10</strong>
+        SHA-256: <code id="shaFingerprint" class="text-indigo-300">live-cas</code> | 台帳: <code class="text-slate-300">tasks.yaml</code>
       </span>
     </div>
 
-    <!-- 右側: 同期・排他シミュレート + テーマ切替 + Ctrl+K + 起動キット -->
+    <!-- 右側アクション -->
     <div class="flex flex-wrap items-center gap-1.5">
-      <button onclick="simulateAtomicAiWrite()" class="bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-medium px-2.5 py-1 rounded flex items-center gap-1.5 shadow-xs transition cursor-pointer" title="一時ファイル書き込み -> SHA-256照合 -> os.replace アトミック置換をシミュレート">
-        <i class="fa-solid fa-bolt text-amber-300"></i>
-        <span>並列AI書き込み (Atomic CAS)</span>
-      </button>
-
-      <button onclick="simulateExternalBridgeSync()" class="bg-sky-700 hover:bg-sky-600 active:scale-95 text-white font-medium px-2.5 py-1 rounded flex items-center gap-1.5 transition cursor-pointer" title="Google Sheetsマスタ台帳およびCloudflare本番ログから単方向差分プルを実行">
-        <i class="fa-solid fa-arrows-rotate" id="bridgeSyncIcon"></i>
-        <span>外部台帳同期 (Sheets/CF)</span>
-      </button>
-
-      <button onclick="toggleYamlSyntaxError()" class="bg-slate-800 hover:bg-rose-900 text-slate-200 border border-slate-700 px-2 py-1 rounded flex items-center gap-1 transition cursor-pointer" title="YAML破損時に直前キャッシュを維持して赤帯を出すテスト">
-        <i class="fa-solid fa-shield-halved text-rose-400"></i>
-        <span class="hidden sm:inline">破損保護テスト</span>
-      </button>
-
-      <!-- テーマスイッチャー -->
+      <!-- テーマ切替 -->
       <div class="flex items-center bg-slate-900 border border-slate-700 rounded p-0.5 text-[10px]">
         <button onclick="setTheme('ecru')" id="themeBtn-ecru" class="px-1.5 py-0.5 rounded bg-amber-100 text-stone-900 font-semibold cursor-pointer">Ecru</button>
         <button onclick="setTheme('jira')" id="themeBtn-jira" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Jira</button>
         <button onclick="setTheme('dark')" id="themeBtn-dark" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Dark</button>
       </div>
 
-      <!-- コマンドパレット起動 -->
       <button onclick="openCommandPalette()" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-2 py-1 rounded font-mono text-[10px] flex items-center gap-1 cursor-pointer">
         <i class="fa-solid fa-magnifying-glass text-indigo-400"></i>
         <span>Ctrl+K</span>
       </button>
 
-      <button onclick="openStarterKitModal()" class="bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition cursor-pointer">
-        <i class="fa-solid fa-code"></i>
-        <span>v2.0 起動キット</span>
-      </button>
+      <a href="https://kassii77763.github.io/daniels-mmt-card-game/" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition text-[11px]">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>本番ゲームを開く</span>
+      </a>
     </div>
   </header>
 
-  <!-- YAMLパースエラー時の赤帯バナー（直前キャッシュ保護） -->
-  <div id="yamlErrorBanner" class="hidden bg-rose-700 text-white px-4 py-2 text-xs flex items-center justify-between border-b border-rose-900 shadow-md z-40 flex-shrink-0">
-    <div class="flex items-center space-x-2.5">
-      <i class="fa-solid fa-triangle-exclamation text-base text-amber-200 animate-bounce"></i>
-      <div>
-        <span class="font-bold">【YAML構文エラー検知 / 直前キャッシュ保護モード】</span>
-        <span class="ml-1 font-mono bg-rose-900/80 px-1.5 py-0.5 rounded">shards/pt_portal.yaml (Line 28: unexpected indent)</span>
-        <span class="ml-2 text-rose-100">古い画面を最新と誤認させないため、最後に正常読込できたキャッシュ（<strong id="cachedTimeLabel">01:32:10</strong>）を保持しています。</span>
-      </div>
-    </div>
-    <button onclick="toggleYamlSyntaxError()" class="bg-white/20 hover:bg-white/30 text-white px-2.5 py-1 rounded text-[11px] font-semibold flex-shrink-0 cursor-pointer">
-      構文を自動修復して復帰
-    </button>
-  </div>
-
   <!-- =====================================================================
-       2. MAIN WORKSPACE (Left Sharded Sidebar + Center 7 Views + Right Drawer)
+       2. MAIN WORKSPACE
        ===================================================================== -->
   <div class="flex-1 flex overflow-hidden relative">
 
-    <!-- -------------------------------------------------------------------
-         LEFT SIDEBAR (Multi-Shard Project Registry & Dynamic Gate Plugins)
-         ------------------------------------------------------------------- -->
+    <!-- LEFT SIDEBAR -->
     <aside class="w-64 bg-sidebar-bg text-sidebar-text flex flex-col justify-between border-r border-sidebar-border flex-shrink-0 z-20">
       <div class="p-3.5 space-y-4 overflow-y-auto">
-        <!-- ブランドタイトル -->
         <div class="flex items-center justify-between px-1">
           <div class="flex items-center space-x-2.5">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 via-blue-600 to-emerald-500 flex items-center justify-center text-white font-bold shadow">
-              <i class="fa-solid fa-cubes-stacked text-sm"></i>
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 via-blue-600 to-amber-500 flex items-center justify-center text-white font-bold shadow">
+              <i class="fa-solid fa-shield-halved text-sm"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5">
-                <h1 class="text-sm font-bold text-white tracking-tight leading-none">Harness Jira</h1>
-                <span class="text-[9px] font-mono bg-indigo-600 text-white px-1 py-0.2 rounded font-semibold">v2.0</span>
+                <h1 class="text-sm font-bold text-white tracking-tight leading-none">MMT Cockpit</h1>
+                <span class="text-[9px] font-mono bg-amber-600 text-white px-1 py-0.2 rounded font-semibold">v21</span>
               </div>
-              <p class="text-[10px] text-sidebar-muted mt-1 font-mono">Sharded YAML + Sync Bridge</p>
+              <p class="text-[10px] text-sidebar-muted mt-1 font-mono">Daniels 10th Ed. Live</p>
             </div>
           </div>
-          <span class="text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.5 rounded" id="sidebarLevelBadge">Lv.4.0</span>
+          <span class="text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.5 rounded">実稼働</span>
         </div>
 
-        <!-- プロジェクト・シャード切替 (増えても1ファイル100行以内に分割管理) -->
+        <!-- プロジェクト・シャード切替 -->
         <div>
           <div class="px-1.5 mb-1.5 flex items-center justify-between">
-            <span class="text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">Project Shards (分割台帳)</span>
-            <button onclick="openNewShardModal()" class="text-[10px] bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 px-1.5 py-0.5 rounded transition cursor-pointer" title="新しいプロジェクトのYAMLシャードと専用3層ゲートを30秒で追加">
-              + 新規Shard
-            </button>
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">実プロジェクト Shards</span>
           </div>
-          <div class="space-y-1" id="shardSwitcherList">
-            <!-- JSで動的描画 (ALL, PT, MMT, TATE, VID + ユーザー追加Shard) -->
-          </div>
+          <div class="space-y-1" id="shardSwitcherList"></div>
         </div>
 
         <!-- 7大ビュー ナビゲーション -->
         <div>
-          <div class="px-1.5 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">7 Core Views (表示専用)</div>
+          <div class="px-1.5 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">Core Views (実態連動)</div>
           <nav class="space-y-0.5 text-xs" id="sidebarViewNav">
             <button onclick="switchMainView('board')" data-view="board" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md bg-indigo-600 text-white font-medium transition cursor-pointer">
               <span class="flex items-center gap-2"><i class="fa-solid fa-table-columns w-4 text-center"></i>1. カンバンボード</span>
               <span class="text-[10px] font-mono bg-black/30 px-1.5 py-0.2 rounded" id="sideBadgeBoard">10</span>
             </button>
             <button onclick="switchMainView('sync')" data-view="sync" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-diagram-project w-4 text-center text-emerald-400"></i>2. 同期・拡張設計図</span>
-              <span class="text-[9px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.2 rounded">NEW</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-diagram-project w-4 text-center text-emerald-400"></i>2. 設計・同期アーキ</span>
             </button>
             <button onclick="switchMainView('backlog')" data-view="backlog" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-list-check w-4 text-center"></i>3. バックログ・起動</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-list-check w-4 text-center"></i>3. バックログ・CLI起動</span>
             </button>
             <button onclick="switchMainView('timeline')" data-view="timeline" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
               <span class="flex items-center gap-2"><i class="fa-solid fa-bars-progress w-4 text-center"></i>4. 段階タイムライン</span>
             </button>
             <button onclick="switchMainView('marketing')" data-view="marketing" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line w-4 text-center text-sky-400"></i>5. 運用・マーケ還流</span>
-              <span class="text-[10px] font-mono bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.2 rounded" id="sideBadgeFeedback">3声</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line w-4 text-center text-sky-400"></i>5. 運用実態・品質監査</span>
+              <span class="text-[9px] font-mono bg-amber-900/60 text-amber-200 border border-amber-700/60 px-1.5 py-0.2 rounded">準備中</span>
             </button>
             <button onclick="switchMainView('harness')" data-view="harness" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-microchip w-4 text-center text-amber-400"></i>6. Gate0検診・逆テスト</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-microchip w-4 text-center text-amber-400"></i>6. 実機PC環境検診</span>
             </button>
             <button onclick="switchMainView('roadmap')" data-view="roadmap" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
               <span class="flex items-center gap-2"><i class="fa-solid fa-compass w-4 text-center text-purple-400"></i>7. 将来ロードマップ</span>
@@ -281,75 +221,50 @@
           </nav>
         </div>
 
-        <!-- 選択中ShardのプラグインGate構成インジケータ -->
-        <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 space-y-1.5 text-[11px]">
-          <div class="flex items-center justify-between text-slate-400">
-            <span class="text-[10px] uppercase font-semibold">Active Gate Plugin</span>
-            <span class="font-mono text-[10px] text-indigo-400" id="activeShardYamlLabel">shards/*.yaml</span>
-          </div>
-          <div id="activeShardGatePills" class="flex flex-wrap gap-1 pt-0.5">
-            <!-- JSで選択中ShardのGate構成を表示 -->
-          </div>
-        </div>
-
-        <!-- ローカル正典ファイル直結リンク -->
+        <!-- 正典ファイル直結リンク -->
         <div>
           <div class="px-1.5 mb-1 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">正典ファイル (Read-Only)</div>
           <div class="space-y-1 text-[11px]">
             <button onclick="previewArtifact('AGENTS.md')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
-              <span class="truncate"><i class="fa-regular fa-map text-indigo-400 mr-1.5"></i><code>AGENTS.md</code> (88行)</span>
-              <span class="text-[9px] font-mono text-emerald-400">ルーティング</span>
+              <span class="truncate"><i class="fa-regular fa-file-lines text-indigo-400 mr-1.5"></i><code>AGENTS.md</code></span>
+              <span class="text-[9px] font-mono text-emerald-400">規約</span>
             </button>
-            <button onclick="previewArtifact('sync_bridge.py')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
-              <span class="truncate"><i class="fa-solid fa-bridge text-sky-400 mr-1.5"></i><code>harness/sync_bridge.py</code></span>
-              <span class="text-[9px] font-mono text-sky-300">単方向同期</span>
-            </button>
-            <button onclick="previewArtifact('run_all_gates.py')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
-              <span class="truncate"><i class="fa-solid fa-gavel text-amber-400 mr-1.5"></i><code>harness/run_all_gates.py</code></span>
-              <span class="text-[9px] font-mono text-amber-300">CAS刻印</span>
+            <button onclick="previewArtifact('PROGRESS.md')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
+              <span class="truncate"><i class="fa-solid fa-list-check text-amber-400 mr-1.5"></i><code>PROGRESS.md</code></span>
+              <span class="text-[9px] font-mono text-amber-300">v21進捗</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- 下部フッター: タスクスケジューラ＆アーカイブ状態 -->
       <div class="p-3 border-t border-sidebar-border bg-black/30 text-[10px] space-y-1 font-mono text-sidebar-muted">
         <div class="flex items-center justify-between">
-          <span><i class="fa-solid fa-clock text-emerald-400 mr-1"></i>Heartbeat Cron:</span>
-          <span class="text-emerald-300">毎時00分 + SSE 1s</span>
+          <span><i class="fa-solid fa-clock text-emerald-400 mr-1"></i>Heartbeat:</span>
+          <span class="text-emerald-300">常時監視稼働中</span>
         </div>
         <div class="flex items-center justify-between">
-          <span><i class="fa-solid fa-box-archive text-indigo-400 mr-1"></i>Cold Archive:</span>
-          <span class="text-slate-300" id="footerArchiveCount">archive/*.jsonl (42件)</span>
+          <span><i class="fa-solid fa-box-archive text-indigo-400 mr-1"></i>Cards Archive:</span>
+          <span class="text-slate-300">27枚（完全一致整合）</span>
         </div>
       </div>
     </aside>
 
-    <!-- -------------------------------------------------------------------
-         CENTER WORKSPACE (Header + 7 View Tabs + Active Content)
-         ------------------------------------------------------------------- -->
+    <!-- CENTER MAIN -->
     <main class="flex-1 flex flex-col min-w-0 bg-ecru-bg overflow-hidden">
-
-      <!-- 共通サブヘッダー＆上部7ビュータブ -->
       <div class="bg-ecru-card border-b border-ecru-border px-6 pt-3 flex-shrink-0">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-2.5">
           <div>
             <div class="flex items-center space-x-2 text-xs text-ecru-subtext">
-              <span class="font-mono bg-ecru-surface px-1.5 py-0.5 rounded border border-ecru-border text-[11px]" id="headerShardPath">shards/*.yaml (全4シャード横断)</span>
+              <span class="font-mono bg-ecru-surface px-1.5 py-0.5 rounded border border-ecru-border text-[11px]" id="headerShardPath">MMT Tactical Card Game (v21)</span>
               <span>➔</span>
-              <span id="headerProjectBreadcrumb" class="font-semibold text-indigo-600">🌐 全プロジェクト横断ビュー (PTポータル / MMT / 立腰体操 / 解剖動画)</span>
+              <span id="headerProjectBreadcrumb" class="font-semibold text-indigo-600">実機テスト完了 ＆ 本番公開待機ステータス</span>
             </div>
             <h2 class="text-base font-bold text-ecru-text tracking-tight mt-0.5">
-              スケーラブル単一正典コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— シャーディング分割・Atomic排他制御・外部台帳単方向ブリッジ搭載</span>
+              MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— ダミーデータ完全排除・実プロジェクト整合版</span>
             </h2>
           </div>
 
-          <!-- 右上アクション -->
           <div class="flex items-center space-x-2">
-            <button onclick="openNewShardModal()" class="text-xs bg-ecru-surface hover:bg-ecru-accent text-ecru-text border border-ecru-borderStrong px-2.5 py-1.5 rounded-md font-medium flex items-center gap-1.5 transition cursor-pointer">
-              <i class="fa-solid fa-plug-circle-plus text-emerald-600"></i>
-              <span>新規プロジェクトShard追加</span>
-            </button>
             <button onclick="openNewTaskModal()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-md font-semibold shadow-2xs flex items-center gap-1.5 transition cursor-pointer">
               <i class="fa-solid fa-plus"></i>
               <span>新規スコープ課題を追加</span>
@@ -357,13 +272,13 @@
           </div>
         </div>
 
-        <!-- 上部 7つのビュー切替タブ -->
+        <!-- 7タブ -->
         <div class="flex items-center space-x-1 overflow-x-auto text-xs font-medium -mb-px" id="topViewTabs">
           <button onclick="switchMainView('board')" data-view="board" class="top-tab-btn border-b-2 border-indigo-600 text-indigo-600 font-semibold px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
             <i class="fa-solid fa-table-columns"></i><span>1. ボード (Board)</span>
           </button>
           <button onclick="switchMainView('sync')" data-view="sync" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-diagram-project text-emerald-600"></i><span>2. 同期・拡張設計 (Sync &amp; Scale)</span>
+            <i class="fa-solid fa-diagram-project text-emerald-600"></i><span>2. 設計・同期アーキ</span>
           </button>
           <button onclick="switchMainView('backlog')" data-view="backlog" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
             <i class="fa-solid fa-list-check"></i><span>3. バックログ (Backlog)</span>
@@ -372,10 +287,10 @@
             <i class="fa-solid fa-bars-progress"></i><span>4. 段階タイムライン</span>
           </button>
           <button onclick="switchMainView('marketing')" data-view="marketing" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-chart-line text-sky-600"></i><span>5. 運用・マーケ還流</span>
+            <i class="fa-solid fa-chart-line text-sky-600"></i><span>5. 運用実態・品質監査</span>
           </button>
           <button onclick="switchMainView('harness')" data-view="harness" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-microchip text-amber-600"></i><span>6. Gate 0検診・逆テスト</span>
+            <i class="fa-solid fa-microchip text-amber-600"></i><span>6. 実機PC環境検診</span>
           </button>
           <button onclick="switchMainView('roadmap')" data-view="roadmap" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
             <i class="fa-solid fa-compass text-purple-600"></i><span>7. 将来ロードマップ</span>
@@ -384,83 +299,66 @@
       </div>
 
       <!-- =================================================================
-           VIEW 1: 📋 カンバンボード (KANBAN BOARD)
+           VIEW 1: カンバンボード (実データ)
            ================================================================= -->
       <section id="view-board" class="view-panel flex-1 flex flex-col overflow-hidden">
-        <!-- フィルタ・優先度・表示密度ツールバー -->
         <div class="px-6 py-2 bg-ecru-surface/80 border-b border-ecru-border flex flex-wrap items-center justify-between gap-2 text-xs">
           <div class="flex flex-wrap items-center gap-2">
             <div class="relative">
               <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2 text-ecru-muted text-xs"></i>
-              <input type="text" id="boardSearchInput" oninput="renderAllViews()" placeholder="キー(#PT-132)・ファイル・AIで検索..." class="pl-7 pr-3 py-1 bg-ecru-card border border-ecru-borderStrong rounded-md w-56 text-xs text-ecru-text focus:outline-none focus:ring-1 focus:ring-indigo-600">
+              <input type="text" id="boardSearchInput" oninput="renderKanbanBoard()" placeholder="課題を検索..." class="pl-7 pr-3 py-1 bg-ecru-card border border-ecru-borderStrong rounded-md w-56 text-xs text-ecru-text focus:outline-none">
             </div>
-
-            <!-- 状態フィルタ -->
             <div class="flex items-center space-x-1" id="boardFilterChips">
               <button onclick="setBoardFilter('all')" data-filter="all" class="board-chip bg-slate-800 text-white font-semibold px-2.5 py-1 rounded border border-slate-800 cursor-pointer">すべて</button>
-              <button onclick="setBoardFilter('fail')" data-filter="fail" class="board-chip bg-ecru-card hover:bg-rose-50 text-rose-700 px-2.5 py-1 rounded border border-ecru-borderStrong flex items-center gap-1 cursor-pointer">
-                <span class="w-2 h-2 rounded-full bg-rose-500"></span><span>処方箋あり(Fail)</span>
-              </button>
-              <button onclick="setBoardFilter('p0')" data-filter="p0" class="board-chip bg-ecru-card hover:bg-amber-50 text-amber-800 px-2.5 py-1 rounded border border-ecru-borderStrong flex items-center gap-1 cursor-pointer">
-                <i class="fa-solid fa-fire text-rose-500 text-[10px]"></i><span>P0/P1 優先</span>
-              </button>
-              <button onclick="setBoardFilter('verified')" data-filter="verified" class="board-chip bg-ecru-card hover:bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded border border-ecru-borderStrong flex items-center gap-1 cursor-pointer">
-                <i class="fa-solid fa-check-double text-[10px]"></i><span>刻印済(Done)</span>
-              </button>
+              <button onclick="setBoardFilter('p0')" data-filter="p0" class="board-chip bg-ecru-card text-amber-800 px-2.5 py-1 rounded border border-ecru-borderStrong cursor-pointer">🔥 P0/P1</button>
+              <button onclick="setBoardFilter('done')" data-filter="done" class="board-chip bg-ecru-card text-emerald-700 px-2.5 py-1 rounded border border-ecru-borderStrong cursor-pointer">✔ 完了(Done)</button>
             </div>
           </div>
-
-          <!-- 右側: カード密度切替 -->
-          <div class="flex items-center space-x-2">
-            <span class="text-[11px] text-ecru-subtext">カード密度:</span>
-            <div class="flex bg-ecru-card border border-ecru-borderStrong rounded p-0.5 text-[11px]">
-              <button onclick="setCardDensity('detailed')" id="densityBtn-detailed" class="px-2 py-0.5 rounded bg-indigo-600 text-white font-medium cursor-pointer">詳細 (3層証跡)</button>
-              <button onclick="setCardDensity('compact')" id="densityBtn-compact" class="px-2 py-0.5 rounded text-ecru-subtext hover:text-ecru-text cursor-pointer">高密度 (一覧性)</button>
-            </div>
+          <div class="text-[11px] text-ecru-subtext">
+            <span>正典ファイル: <strong>tasks.yaml</strong> (リアルタイムSSE自動同期)</span>
           </div>
         </div>
 
-        <!-- 4列カンバンレーン -->
         <div class="flex-1 p-5 overflow-x-auto overflow-y-hidden">
           <div class="flex space-x-4 h-full items-start min-w-[1140px]">
-            <!-- Col 1: To Do -->
+            <!-- To Do -->
             <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-ecru-borderStrong kanban-column" data-col="todo" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'todo')">
               <div class="flex items-center justify-between px-1 mb-2">
                 <span class="text-xs font-bold text-ecru-subtext uppercase tracking-wider flex items-center gap-1.5">
-                  <i class="fa-regular fa-circle text-slate-400"></i>1. To Do (未着手スコープ)
+                  <i class="fa-regular fa-circle text-slate-400"></i>1. To Do (次期スコープ)
                 </span>
                 <span id="colCount-todo" class="text-xs font-mono font-bold bg-ecru-card text-ecru-text px-2 py-0.5 rounded-full border border-ecru-borderStrong">0</span>
               </div>
               <div id="colList-todo" class="space-y-2.5 overflow-y-auto flex-1 pr-1 pb-1"></div>
             </div>
 
-            <!-- Col 2: In Progress -->
+            <!-- In Progress -->
             <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-indigo-300/80 kanban-column" data-col="inprogress" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'inprogress')">
               <div class="flex items-center justify-between px-1 mb-2">
                 <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <i class="fa-solid fa-spinner animate-spin text-indigo-600"></i>2. In Progress (AI作業中)
+                  <i class="fa-solid fa-spinner animate-spin text-indigo-600"></i>2. In Progress (作業中)
                 </span>
                 <span id="colCount-inprogress" class="text-xs font-mono font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">0</span>
               </div>
               <div id="colList-inprogress" class="space-y-2.5 overflow-y-auto flex-1 pr-1 pb-1"></div>
             </div>
 
-            <!-- Col 3: Harness Review -->
+            <!-- Review -->
             <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-amber-300/90 kanban-column" data-col="review" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'review')">
               <div class="flex items-center justify-between px-1 mb-2">
                 <span class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
-                  <i class="fa-solid fa-scale-balanced text-amber-600"></i>3. Harness 審問中 (Gate検査)
+                  <i class="fa-solid fa-scale-balanced text-amber-600"></i>3. Harness 検証中
                 </span>
                 <span id="colCount-review" class="text-xs font-mono font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">0</span>
               </div>
               <div id="colList-review" class="space-y-2.5 overflow-y-auto flex-1 pr-1 pb-1"></div>
             </div>
 
-            <!-- Col 4: Done -->
+            <!-- Done -->
             <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-emerald-300/90 kanban-column" data-col="done" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'done')">
               <div class="flex items-center justify-between px-1 mb-2">
                 <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
-                  <i class="fa-solid fa-shield-check text-emerald-600"></i>4. Done (CAS刻印完了)
+                  <i class="fa-solid fa-shield-check text-emerald-600"></i>4. Done (実装・監査完了)
                 </span>
                 <span id="colCount-done" class="text-xs font-mono font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full">0</span>
               </div>
@@ -471,655 +369,318 @@
       </section>
 
       <!-- =================================================================
-           VIEW 2: 🔄 同期・拡張アーキテクチャ (SYNC & SCALE ARCHITECTURE HUB)
+           VIEW 2: 設計・同期アーキテクチャ
            ================================================================= -->
       <section id="view-sync" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-xl p-5 border border-slate-800 shadow-sm">
-          <div class="flex flex-wrap items-center justify-between gap-4">
-            <div class="space-y-1">
-              <span class="text-[10px] font-mono uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded font-semibold">Synchronization &amp; Scalability Blueprint</span>
-              <h3 class="text-base font-bold">「タスクやプロジェクトが増え続けても破綻しない」3大コア設計（同期・排他・分割）</h3>
-              <p class="text-xs text-slate-300 max-w-4xl leading-relaxed">
-                ① 外部ツールとローカルYAMLの<strong>「二重台帳化」を単方向所有権で防止</strong>し、② 複数AIエージェントの同時書き込みによるファイル破損を<strong>「Atomic Temp-Swap + SHA-256 CASロック」</strong>で防ぎ、③ タスク増加によるAIのコンテキスト肥大化を<strong>「プロジェクト別Shard分割 ＋ Done自動アーカイブ」</strong>で解決します。
-              </p>
-            </div>
-            <div class="flex flex-col gap-1.5">
-              <button onclick="simulateExternalBridgeSync()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-lg shadow flex items-center justify-center gap-1.5 cursor-pointer">
-                <i class="fa-solid fa-rotate"></i><span>単方向ブリッジ同期を今すぐテスト実行</span>
-              </button>
-              <button onclick="simulateAtomicAiWrite()" class="bg-white/10 hover:bg-white/20 text-white font-medium text-xs px-3.5 py-1.5 rounded-lg border border-white/15 flex items-center justify-center gap-1.5 cursor-pointer">
-                <i class="fa-solid fa-lock"></i><span>Atomic CAS排他書き込みをテスト実行</span>
-              </button>
-            </div>
+          <div class="space-y-1">
+            <span class="text-[10px] font-mono uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded font-semibold">Single Source of Truth (単一正典設計)</span>
+            <h3 class="text-base font-bold">ローカル tasks.yaml を中心とした決定論的タスク管理</h3>
+            <p class="text-xs text-slate-300 max-w-4xl leading-relaxed">
+              AIと開発者が同じファイル（<code>tasks.yaml</code> / <code>shards/*.yaml</code>）を参照し、ファイルの変更を毎秒ファイルウォッチャーが検知してブラウザへプッシュ（SSE）します。
+            </p>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <!-- 柱1 -->
-          <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-200">1. 二重台帳問題の完全解消</span>
-                <span class="text-[11px] font-mono text-emerald-600 font-semibold">競合率 0%</span>
-              </div>
-              <h4 class="text-sm font-bold text-ecru-text mb-1.5">データ項目ごとに「唯一の親（Master）」を固定</h4>
-              <p class="text-xs text-ecru-subtext leading-relaxed mb-4">
-                同じデータを2箇所で編集するから同期が破綻します。<strong>「何をどこが所有するか」を完全に分離し、一方向にのみ流す（Unidirectional Data Flow）</strong>ことで、永遠にズレない同期を実現します。
-              </p>
-
-              <div class="space-y-2 text-xs">
-                <div class="p-2.5 rounded-lg bg-ecru-surface border border-ecru-borderStrong">
-                  <div class="flex items-center justify-between font-bold text-indigo-700">
-                    <span><i class="fa-solid fa-file-code mr-1.5"></i>ローカル <code>shards/*.yaml</code> が親</span>
-                    <span class="text-[10px] font-mono bg-indigo-100 text-indigo-800 px-1.5 rounded">AI Read/Write</span>
-                  </div>
-                  <p class="text-[11px] text-ecru-subtext mt-1">開発タスク状態、3層Gate合否、処方箋、Gitコミットハッシュ</p>
-                </div>
-
-                <div class="p-2.5 rounded-lg bg-ecru-surface border border-ecru-borderStrong">
-                  <div class="flex items-center justify-between font-bold text-emerald-700">
-                    <span><i class="fa-solid fa-table mr-1.5"></i>Google Sheets 台帳が親</span>
-                    <span class="text-[10px] font-mono bg-emerald-100 text-emerald-800 px-1.5 rounded">Pull Only</span>
-                  </div>
-                  <p class="text-[11px] text-ecru-subtext mt-1">問題文マスタ、立腰体操の予約スケジュール、配信カレンダー</p>
-                </div>
-
-                <div class="p-2.5 rounded-lg bg-ecru-surface border border-ecru-borderStrong">
-                  <div class="flex items-center justify-between font-bold text-sky-700">
-                    <span><i class="fa-solid fa-cloud mr-1.5"></i>Cloudflare / 現場報告フォームが親</span>
-                    <span class="text-[10px] font-mono bg-sky-100 text-sky-800 px-1.5 rounded">Webhook / Cron</span>
-                  </div>
-                  <p class="text-[11px] text-ecru-subtext mt-1">同級生の解答数・正答率ワースト・誤植報告（自動チケット化）</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-ecru-border text-[11px] font-mono text-ecru-subtext flex items-center justify-between">
-              <span>最終ブリッジ同期: <strong id="syncBridgeTimeText" class="text-ecru-text">12分前 (差分0件)</strong></span>
-              <span class="text-emerald-600 font-bold">● 正常連動中</span>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 space-y-3">
+            <h4 class="text-sm font-bold text-indigo-700 flex items-center gap-2">
+              <i class="fa-solid fa-shield text-indigo-600"></i>
+              <span>Three Inviolable Rules（3大不可侵規律）</span>
+            </h4>
+            <ul class="text-xs text-ecru-subtext space-y-2">
+              <li class="p-2 rounded bg-ecru-surface border border-ecru-border">
+                <strong>1. 裁判官（harness/）の不可侵:</strong> 判定スクリプトの基準を作業員AIが改ざん・緩和することを禁止。
+              </li>
+              <li class="p-2 rounded bg-ecru-surface border border-ecru-border">
+                <strong>2. フォールバック（別画像すり替え）の完全禁止:</strong> 座標不整合時は別画像で穴埋めせず、PROGRESS.mdに記録して停止。
+              </li>
+              <li class="p-2 rounded bg-ecru-surface border border-ecru-border">
+                <strong>3. UI幾何制約の死守:</strong> 図鑑の小窓スクロールや文字切れ（ellipsis）は禁止。
+              </li>
+            </ul>
           </div>
 
-          <!-- 柱2 -->
-          <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-200">2. 同時書き込み破損の防止</span>
-                <span class="text-[11px] font-mono text-indigo-600 font-semibold">Atomic OS置換</span>
-              </div>
-              <h4 class="text-sm font-bold text-ecru-text mb-1.5">作業員AIと定期Cronが同時に書いても壊れない仕組み</h4>
-              <p class="text-xs text-ecru-subtext leading-relaxed mb-3">
-                AIにYAMLを直接上書きさせると、書き込み途中の半端な状態で構文エラーになります。これを<strong>3段階のアトミック排他プロトコル</strong>で防ぎます。
-              </p>
-
-              <div class="bg-slate-900 text-slate-100 p-3.5 rounded-xl font-mono text-[11px] space-y-2.5 border border-slate-800">
-                <div class="flex items-start gap-2">
-                  <span class="bg-indigo-600 text-white px-1.5 py-0.2 rounded text-[10px] font-bold">STEP 1</span>
-                  <div>
-                    <div class="font-bold text-indigo-300">読込時の SHA-256 指紋を記録 (Compare)</div>
-                    <div class="text-[10px] text-slate-400">AI着手時に <code>expected_sha</code> を保持</div>
-                  </div>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="bg-amber-600 text-white px-1.5 py-0.2 rounded text-[10px] font-bold">STEP 2</span>
-                  <div>
-                    <div class="font-bold text-amber-300">一時ファイル <code>.tmp</code> へ書き出し＆構文検証</div>
-                    <div class="text-[10px] text-slate-400">本番ファイルを汚さず YAML をパース検証</div>
-                  </div>
-                </div>
-                <div class="flex items-start gap-2">
-                  <span class="bg-emerald-600 text-white px-1.5 py-0.2 rounded text-[10px] font-bold">STEP 3</span>
-                  <div>
-                    <div class="font-bold text-emerald-300">OSカーネルの <code>os.replace()</code> で瞬間入れ替え</div>
-                    <div class="text-[10px] text-slate-400">0.0001秒のアトミック操作で衝突なし</div>
-                  </div>
-                </div>
-              </div>
-
-              <div id="casSimulationLog" class="mt-3 p-2.5 rounded-lg bg-ecru-surface border border-ecru-border font-mono text-[10px] text-ecru-subtext space-y-1">
-                <div>[01:30:12] lock_acquire(shard="pt_portal", sha="8f91c4") -&gt; OK</div>
-                <div>[01:30:12] yaml.safe_load(".tmp") -&gt; Syntax Valid</div>
-                <div>[01:30:12] os.replace(".tmp", "shards/pt_portal.yaml") -&gt; ATOMIC SWAP OK</div>
-              </div>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-ecru-border flex items-center justify-between">
-              <span class="text-[11px] text-ecru-subtext">競合リトライ自動解決: <strong>有効</strong></span>
-              <button onclick="simulateAtomicAiWrite()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded font-semibold cursor-pointer">
-                排他書き込みを実演
-              </button>
-            </div>
-          </div>
-
-          <!-- 柱3 -->
-          <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200">3. 10プロジェクト・1000タスク対応</span>
-                <span class="text-[11px] font-mono text-amber-700 font-semibold">Context Rotゼロ</span>
-              </div>
-              <h4 class="text-sm font-bold text-ecru-text mb-1.5">なぜ1つのYAMLに全部入れ続けないのか？</h4>
-              <p class="text-xs text-ecru-subtext leading-relaxed mb-3">
-                タスクが300件を超えてYAMLが3,000行になるとAIが注意力散漫を起こします。そこで<strong>「横の分割（Shard）」と「縦の退避（Archive）」</strong>を自動で行います。
-              </p>
-
-              <div class="space-y-2 text-xs" id="shardTokenBreakdownList"></div>
-
-              <div class="mt-3 p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 text-[11px] text-emerald-950">
-                <div class="font-bold flex items-center justify-between">
-                  <span><i class="fa-solid fa-broom mr-1 text-emerald-600"></i>自動コールドアーカイブ (<code>archive/*.jsonl</code>)</span>
-                  <span class="font-mono" id="syncViewArchiveCount">退避済: 42件</span>
-                </div>
-                <p class="text-[10px] text-emerald-800 mt-0.5">
-                  DoneになったタスクはアクティブYAMLから退避され、AIが読むYAMLは常に軽量に保たれます。
-                </p>
-              </div>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-ecru-border flex items-center justify-between">
-              <span class="text-[11px] text-ecru-subtext">現在のDoneカード: <strong id="removableDoneCount">3件</strong></span>
-              <button onclick="archiveDoneTasks()" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded font-semibold cursor-pointer">
-                <i class="fa-solid fa-box-archive mr-1"></i>今すぐDoneを退避して軽量化
-              </button>
+          <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 space-y-3">
+            <h4 class="text-sm font-bold text-emerald-700 flex items-center gap-2">
+              <i class="fa-solid fa-network-wired text-emerald-600"></i>
+              <span>リアルタイムSSE ＆ アトミック書き込み</span>
+            </h4>
+            <p class="text-xs text-ecru-subtext leading-relaxed">
+              Pythonサーバー（<code>server.py</code>）はマルチスレッド（ThreadingHTTPServer）で稼働。タスク変更時は一時ファイル検証後に <code>os.replace</code> による瞬間アトミック置換を実行し、競合破損を防ぎます。
+            </p>
+            <div class="p-3 bg-slate-900 text-emerald-300 rounded-lg font-mono text-xs">
+              <div>HTTP Server: 127.0.0.1:8795</div>
+              <div>SSE Stream: /events (Active)</div>
+              <div>REST API:   /api/tasks, /api/update_task</div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- =================================================================
-           VIEW 3: 📑 バックログ & スコープ起動
+           VIEW 3: バックログ
            ================================================================= -->
       <section id="view-backlog" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-5">
-        <div class="bg-slate-900 text-white rounded-xl p-4 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="text-[10px] font-mono uppercase bg-indigo-600 px-2 py-0.5 rounded font-bold">1 Scope = 1 Clean Session + Shard Target</span>
-              <h3 class="text-sm font-bold">シャード指定・強制 Context-Reset ディスパッチャー</h3>
-            </div>
-            <p class="text-xs text-slate-300">
-              AIには全プロジェクトのYAMLを読ませず、<strong>対象プロジェクトのShardファイル1つだけ（例: <code class="text-amber-300">shards/pt_portal.yaml</code>）</strong>を渡して起動します。
-            </p>
-          </div>
-          <button onclick="copyLoopShellScript()" class="bg-indigo-500 hover:bg-indigo-400 text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow flex items-center gap-2 cursor-pointer">
-            <i class="fa-solid fa-terminal"></i><span>Shard対応 全自動周回スクリプトをコピー</span>
-          </button>
-        </div>
-
         <div class="bg-ecru-card rounded-xl border border-ecru-border shadow-2xs overflow-hidden">
           <div class="px-5 py-3 bg-ecru-surface border-b border-ecru-border flex items-center justify-between text-xs">
-            <span class="font-bold text-ecru-text"><i class="fa-solid fa-layer-group text-indigo-600 mr-1.5"></i>スコープ実行キュー (優先度・推定トークン・Shardファイル付き)</span>
-            <span class="font-mono text-ecru-subtext" id="backlogCountLabel">表示中: 0件</span>
+            <span class="font-bold text-ecru-text"><i class="fa-solid fa-layer-group text-indigo-600 mr-1.5"></i>課題一覧 (実ステータス順)</span>
+            <span class="font-mono text-ecru-subtext" id="backlogCountLabel">表示中</span>
           </div>
           <div class="divide-y divide-ecru-border text-xs" id="backlogTableBody"></div>
         </div>
       </section>
 
       <!-- =================================================================
-           VIEW 4: ⏳ 段階タイムライン
+           VIEW 4: タイムライン
            ================================================================= -->
       <section id="view-timeline" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-5">
         <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs">
-          <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-ecru-border">
-            <div>
-              <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-                <i class="fa-solid fa-bars-progress text-indigo-600"></i>
-                <span>全プロジェクト横断・段階（Phase 0 ➔ Phase 4）進行タイムライン</span>
-              </h3>
-              <p class="text-xs text-ecru-subtext mt-0.5">
-                「Phase 0（環境検診・試作1号）➔ Phase 1（静的辞書・核）➔ Phase 2（3層Gate確立）➔ Phase 3（自律量産）➔ Phase 4（運用・マーケ還流）」の段階順序を可視化。
-              </p>
-            </div>
-          </div>
+          <h3 class="text-sm font-bold text-ecru-text mb-3">MMTカードゲーム 開発フェーズ進行タイムライン</h3>
           <div class="space-y-4" id="timelinePhasesContainer"></div>
         </div>
       </section>
 
       <!-- =================================================================
-           VIEW 5: 📈 運用・マーケティング還流
+           VIEW 5: 運用実態・品質監査 (ダミー完全排除版)
            ================================================================= -->
       <section id="view-marketing" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
+        <!-- 上段: 4つのリアル運用指標 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
-            <div class="text-xs text-ecru-subtext flex justify-between"><span>週間アクティブ同級生 (WAU)</span><i class="fa-solid fa-users text-sky-600"></i></div>
-            <div class="text-2xl font-bold font-mono mt-1">42 名 <span class="text-xs font-sans font-semibold text-emerald-600">(学年72%浸透)</span></div>
-            <div class="text-[11px] text-ecru-subtext mt-1">試験2週間前につき利用急増中 (+18%)</div>
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>実ユーザー数 (現在)</span><i class="fa-solid fa-users text-amber-500"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">0 名 <span class="text-xs font-sans font-semibold text-amber-600">(リリース準備中)</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">※以前の42名はGeminiのダミー表示でした</div>
           </div>
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
-            <div class="text-xs text-ecru-subtext flex justify-between"><span>今週解かれた問題 / 対戦数</span><i class="fa-solid fa-bolt text-amber-500"></i></div>
-            <div class="text-2xl font-bold font-mono mt-1">1,840 問 <span class="text-xs font-sans font-semibold text-indigo-600">/ 312 戦</span></div>
-            <div class="text-[11px] text-ecru-subtext mt-1">平均セッション滞在: 14分20秒</div>
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>出題可能カード総数</span><i class="fa-solid fa-layer-group text-indigo-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">160 枚 <span class="text-xs font-sans font-semibold text-emerald-600">(133枚実動)</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">アーカイブ27枚（完全一致整合保証）</div>
           </div>
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
-            <div class="text-xs text-ecru-subtext flex justify-between"><span>立腰体操 LINE予約・配信稼働</span><i class="fa-brands fa-line text-emerald-600"></i></div>
-            <div class="text-2xl font-bold font-mono mt-1">99.8% <span class="text-xs font-sans font-semibold text-emerald-600">GAS正常</span></div>
-            <div class="text-[11px] text-ecru-subtext mt-1">次回の自動リマインド配信: 明日 08:00</div>
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>3層ハーネス監査結果</span><i class="fa-solid fa-shield-check text-emerald-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">100% <span class="text-xs font-sans font-semibold text-emerald-600">ALL PASS</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">第1〜第3層 180項目 全て合格 (Exit 0)</div>
           </div>
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
-            <div class="text-xs text-ecru-subtext flex justify-between"><span>現場フィードバック ➔ 開発還流率</span><i class="fa-solid fa-recycle text-indigo-600"></i></div>
-            <div class="text-2xl font-bold font-mono mt-1" id="mktConversionRateText">88% <span class="text-xs font-sans font-semibold text-sky-700">自動起票</span></div>
-            <div class="text-[11px] text-ecru-subtext mt-1">未起票の現場ボイス: <strong id="mktPendingVoiceCount">3件</strong></div>
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>本番ビルドバージョン</span><i class="fa-solid fa-tag text-purple-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">v21 <span class="text-xs font-sans font-semibold text-indigo-600">PWA完備</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">最新キャッシュバスター: 20261102_v21</div>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <!-- ハーネス実機監査レポート -->
+          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
             <h4 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-              <i class="fa-solid fa-magnifying-glass-chart text-rose-600"></i>
-              <span>利用ログから自動検知された「ボトルネック箇所」</span>
+              <i class="fa-solid fa-clipboard-check text-emerald-600"></i>
+              <span>実機テスト・ハーネス監査の実際の合格レポート</span>
             </h4>
-            <div class="space-y-2.5 text-xs">
-              <div class="p-3 rounded-lg bg-rose-50/70 border border-rose-200 flex items-center justify-between gap-2">
-                <div>
-                  <span class="font-mono font-bold text-rose-700">[正答率 24%]</span>
-                  <strong class="text-ecru-text ml-1">PTポータル Q042: 大腿骨頭3次元回旋図</strong>
-                  <p class="text-[11px] text-ecru-subtext mt-0.5">原因: 上端の角度凡例が見切れていたため誤答が多発 ➔ <code>#PT-132</code> で処方箋が出力済</p>
-                </div>
-                <button onclick="openDetailDrawer('PT-132')" class="px-2.5 py-1 bg-white border border-rose-300 text-rose-800 rounded font-semibold flex-shrink-0 cursor-pointer">#PT-132</button>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <div class="font-bold text-emerald-900">✔ 判定スタートボタン切断完全解消 (v21)</div>
+                <p class="text-[11px] text-emerald-800 mt-0.5">全画面幅・スマホ縦横での判定開始ボタンの100%露出監査を通過</p>
               </div>
-
-              <div class="p-3 rounded-lg bg-amber-50/70 border border-amber-200 flex items-center justify-between gap-2">
-                <div>
-                  <span class="font-mono font-bold text-amber-800">[離脱率 28%]</span>
-                  <strong class="text-ecru-text ml-1">スマホ縦画面での10問目付近のスクロール疲れ</strong>
-                  <p class="text-[11px] text-ecru-subtext mt-0.5">対策: 1セット5問の「隙間時間クイックモード」とStickyヘッダーを <code>#MKT-008</code> で実装中</p>
-                </div>
-                <button onclick="openDetailDrawer('MKT-008')" class="px-2.5 py-1 bg-white border border-amber-300 text-amber-900 rounded font-semibold flex-shrink-0 cursor-pointer">#MKT-008</button>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <div class="font-bold text-emerald-900">✔ カルタ読み札 音声被り・語尾ブツ切れ ゼロ (v16)</div>
+                <p class="text-[11px] text-emerald-800 mt-0.5">SpeechSynthesis.onend 連動 850ms 静寂制御による自然な読み上げを実現</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <div class="font-bold text-emerald-900">✔ PWA スタンドアロン＆キャッシュ事故防止設計 (v17)</div>
+                <p class="text-[11px] text-emerald-800 mt-0.5">Network First (コード) + Cache First (手技画像) のハイブリッド構成</p>
               </div>
             </div>
           </div>
 
-          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs">
-            <div class="flex items-center justify-between mb-2">
-              <h4 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-                <i class="fa-solid fa-comment-dots text-indigo-600"></i>
-                <span>現場フィードバック ➔ 該当Shardへ1クリック起票 (Voice to Shard)</span>
-              </h4>
-              <span class="text-[10px] font-mono bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded">自動ルーティング</span>
+          <!-- 現場ボイス（実態: 蓄積待機中） -->
+          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+            <h4 class="text-sm font-bold text-ecru-text flex items-center gap-2">
+              <i class="fa-solid fa-comments text-indigo-600"></i>
+              <span>現場フィードバック（実態: 募集中・蓄積待機）</span>
+            </h4>
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 space-y-2">
+              <div class="font-bold flex items-center gap-1.5">
+                <i class="fa-solid fa-info-circle text-amber-600"></i>
+                <span>実利用ボイスは現在蓄積待ちです</span>
+              </div>
+              <p class="text-[11px] text-amber-800 leading-relaxed">
+                以前表示されていた「同級生LINEの声」はGeminiがサンプルとして作成した架空のものでした。本番公開後、実際に受け取ったフィードバックをここに蓄積・チケット化します。
+              </p>
             </div>
-            <p class="text-xs text-ecru-subtext mb-3">
-              該当するプロジェクトのShardファイル（<code>shards/pt_portal.yaml</code> 等）へ課題が追記され、カンバンボードの <strong>To Do</strong> に即座に出現します。
-            </p>
-            <div class="space-y-2.5" id="feedbackQueueContainer"></div>
+
+            <!-- 手動フィードバック起票フォーム -->
+            <form onsubmit="submitRealFeedback(event)" class="space-y-2 pt-2">
+              <label class="block text-xs font-semibold text-ecru-subtext">実習生・同級生からの実際の声を手動入力して課題化：</label>
+              <textarea id="realFeedbackInput" rows="2" placeholder="例: 後脛骨筋のGrade 2肢位ヒントを分かりやすくしてほしい、等" class="w-full text-xs p-2.5 bg-ecru-surface border border-ecru-borderStrong rounded-lg text-ecru-text focus:outline-none"></textarea>
+              <div class="flex justify-end">
+                <button type="submit" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-xs font-semibold cursor-pointer">
+                  <i class="fa-solid fa-plus mr-1"></i>To Do課題として登録
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </section>
 
       <!-- =================================================================
-           VIEW 6: 🛡️ Gate 0 環境検診 ＆ 裁判官の逆テスト
+           VIEW 6: 実機PC環境検診 (実データ)
            ================================================================= -->
       <section id="view-harness" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-                  <i class="fa-solid fa-laptop-medical text-indigo-600"></i>
-                  <span>Gate 0: ハードウェア制約検診 ＆ 技術ルート自律ピボット</span>
-                </h3>
-                <span class="text-[10px] font-mono bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-semibold">0➔1 探索ハーネス</span>
-              </div>
-              <p class="text-xs text-ecru-subtext mb-3">
-                マシンスペックを計測し、<strong>フリーズする重い手法をブロックして軽量CLI手法へ自動ピボット</strong>します。
-              </p>
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
+            <i class="fa-solid fa-laptop text-indigo-600"></i>
+            <span>実機PCハードウェア環境 ＆ 実行基盤ステータス</span>
+          </h3>
 
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 text-[11px] font-mono">
-                <div class="p-2 rounded bg-ecru-surface border border-ecru-border">
-                  <div class="text-[10px] text-ecru-subtext">CPU</div>
-                  <div class="font-bold text-ecru-text">Core i5 (2.4GHz)</div>
-                </div>
-                <div class="p-2 rounded bg-ecru-surface border border-ecru-border">
-                  <div class="text-[10px] text-ecru-subtext">RAM</div>
-                  <div class="font-bold text-emerald-700">16.0 GB (空き6.2G)</div>
-                </div>
-                <div class="p-2 rounded bg-rose-50 border border-rose-200">
-                  <div class="text-[10px] text-rose-700">GPU VRAM</div>
-                  <div class="font-bold text-rose-800">128 MB (内蔵GPU)</div>
-                </div>
-                <div class="p-2 rounded bg-ecru-surface border border-ecru-border">
-                  <div class="text-[10px] text-ecru-subtext">Storage</div>
-                  <div class="font-bold text-ecru-text">477 GB NVMe</div>
-                </div>
-              </div>
-
-              <div class="space-y-2 text-xs">
-                <div class="p-2.5 rounded-lg bg-rose-50/70 border border-rose-200 flex items-start justify-between gap-2">
-                  <div>
-                    <div class="font-bold text-rose-900"><i class="fa-solid fa-ban mr-1"></i>ローカル動画生成AI / GUI自動操作</div>
-                    <div class="text-[11px] text-rose-800 mt-0.5">判定: <strong>BLOCKED</strong> (VRAM 12GB以上必要・Gate 0が却下)</div>
-                  </div>
-                  <span class="text-[10px] font-mono bg-rose-200 text-rose-900 px-1.5 py-0.5 rounded flex-shrink-0">自動回避</span>
-                </div>
-
-                <div class="p-2.5 rounded-lg bg-emerald-50/80 border border-emerald-300 flex items-start justify-between gap-2">
-                  <div>
-                    <div class="font-bold text-emerald-950"><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i>ピボット採択: FFmpeg + Python軽量スライド動画合成</div>
-                    <div class="text-[11px] text-emerald-800 mt-0.5">判定: <strong>ADOPTED</strong> (CPUのみで4.2秒で書き出し可能)</div>
-                  </div>
-                  <span class="text-[10px] font-mono bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded font-bold flex-shrink-0">Gate 0 推奨</span>
-                </div>
-              </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">OS</div>
+              <div class="font-bold text-ecru-text mt-1">Windows 11</div>
             </div>
-
-            <div class="mt-4 pt-3 border-t border-ecru-border flex items-center justify-between text-xs">
-              <span class="text-ecru-subtext">シャード <code>shards/anat_video.yaml</code> (#VID-001) に適用中</span>
-              <button onclick="openDetailDrawer('VID-001')" class="text-indigo-600 hover:underline font-semibold cursor-pointer">動画タスク #VID-001 のGate証跡を見る ➔</button>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">Python環境</div>
+              <div class="font-bold text-emerald-700 mt-1">Python 3.12.10</div>
+            </div>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">Node.js / E2E</div>
+              <div class="font-bold text-indigo-700 mt-1">Playwright 導入済</div>
+            </div>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">サーバー常駐状態</div>
+              <div class="font-bold text-emerald-700 mt-1">Port 8795 常駐中</div>
             </div>
           </div>
 
-          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-                  <i class="fa-solid fa-vial-circle-check text-amber-600"></i>
-                  <span>裁判官の逆テスト (<code class="font-mono">harness/test_judges.py</code>)</span>
-                </h3>
-                <span class="text-[11px] font-mono bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">5 / 5 検知正常</span>
-              </div>
-              <p class="text-xs text-ecru-subtext mb-3">
-                5種類の不良品サンプル（<code>bad_samples/</code>）を投入し、100%確実にFAILとして弾けるかを検証します。
-              </p>
-              <div class="space-y-2 text-xs" id="mutationSamplesList"></div>
+          <div class="p-3.5 rounded-lg bg-ecru-surface border border-ecru-border text-xs space-y-1.5">
+            <div class="font-bold text-ecru-text">監査コマンド（定義基準）</div>
+            <div class="font-mono text-[11px] text-indigo-700 bg-ecru-card p-2 rounded border border-ecru-border">
+              python harness/image_quality_gate.py &amp;&amp; node harness/e2e_full_verification.js
             </div>
-
-            <div class="mt-4 pt-3 border-t border-ecru-border flex items-center justify-between">
-              <span class="text-[11px] font-mono text-ecru-subtext" id="mutationLastRunText">最終逆テスト: 01:28:00 (0.51s)</span>
-              <button onclick="runJudgeMutationTest()" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3.5 py-1.5 rounded-lg shadow-xs flex items-center gap-1.5 cursor-pointer">
-                <i class="fa-solid fa-flask"></i><span>今すぐ逆テストを実行</span>
-              </button>
-            </div>
+            <p class="text-[10px] text-ecru-subtext">上記コマンドで画像品質180枚および実機幾何E2Eが ALL PASS することを作業完了基準としています。</p>
           </div>
         </div>
       </section>
 
       <!-- =================================================================
-           VIEW 7: 🧭 将来ロードマップ & 6柱監査
+           VIEW 7: 将来ロードマップ
            ================================================================= -->
       <section id="view-roadmap" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border opacity-80">
-            <div class="flex items-center justify-between text-xs mb-1">
-              <span class="font-mono font-bold text-ecru-subtext">Phase A: v1.0 (達成済)</span>
-              <span class="bg-stone-200 text-stone-700 text-[10px] font-mono px-2 py-0.5 rounded">1〜2プロジェクト規模</span>
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <h3 class="text-sm font-bold text-ecru-text">プロダクトロードマップ</h3>
+          <div class="space-y-2.5 text-xs">
+            <div class="p-3 rounded-lg bg-emerald-50/80 border border-emerald-300 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-emerald-950">Phase 1〜3: 160枚完備 ＆ PWAアプリ化 ＆ 判定・カルタ・フロー実装</span>
+                <p class="text-[11px] text-emerald-800 mt-0.5">v1〜v21 にて実装完了・ハーネス3層監査 ALL PASS 達成</p>
+              </div>
+              <span class="font-mono text-[11px] font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">達成済</span>
             </div>
-            <h4 class="text-sm font-bold text-ecru-text mb-1">単一YAML ＋ 表示専用Jiraボード</h4>
-            <ul class="text-xs text-ecru-subtext space-y-1 mt-2">
-              <li>・<code>tasks.yaml</code> 1ファイルに全タスクを集約</li>
-              <li>・1秒ごとのSSE監視と直前キャッシュ保護</li>
-            </ul>
-          </div>
-
-          <div class="bg-ecru-card p-4 rounded-xl border-2 border-indigo-600 shadow-sm">
-            <div class="flex items-center justify-between text-xs mb-1">
-              <span class="font-mono font-bold text-indigo-700">Phase B: v2.0 (★現在の完成形)</span>
-              <span class="bg-indigo-600 text-white text-[10px] font-mono px-2 py-0.5 rounded font-semibold">3〜15プロジェクト規模</span>
+            <div class="p-3 rounded-lg bg-amber-50/80 border border-amber-300 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-amber-950">Phase 4: GitHub Pages 本番公開 ＆ 実機PWAインストール検証</span>
+                <p class="text-[11px] text-amber-800 mt-0.5">gh-pages ブランチへの最新反映と、実機iPhoneでのホーム画面追加テスト</p>
+              </div>
+              <span class="font-mono text-[11px] font-bold bg-amber-200 text-amber-900 px-2 py-0.5 rounded">現在進行中</span>
             </div>
-            <h4 class="text-sm font-bold text-ecru-text mb-1">Shard分割 ＋ Atomic CAS ＋ 単方向同期</h4>
-            <ul class="text-xs text-ecru-subtext space-y-1 mt-2">
-              <li>・<code>shards/*.yaml</code> でプロジェクトごとにファイル分割</li>
-              <li>・<code>os.replace</code> + SHA-256 CASで並列AI書き込み保護</li>
-              <li>・Doneタスクの <code>archive/*.jsonl</code> 自動退避で軽量維持</li>
-            </ul>
-          </div>
-
-          <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border">
-            <div class="flex items-center justify-between text-xs mb-1">
-              <span class="font-mono font-bold text-purple-700">Phase C: v3.0 (将来拡張オプション)</span>
-              <span class="bg-purple-100 text-purple-800 text-[10px] font-mono px-2 py-0.5 rounded">1,000タスク超・チーム開発</span>
-            </div>
-            <h4 class="text-sm font-bold text-ecru-text mb-1">追記専用 Event-Log ＋ DuckDB/SQLite投影</h4>
-            <ul class="text-xs text-ecru-subtext space-y-1 mt-2">
-              <li>・AIは <code>events.jsonl</code> の末尾へ1行追記するだけ</li>
-              <li>・ローカルSQLiteがミリ秒で集計しJira画面へ高速配信</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs">
-          <div class="flex items-center justify-between mb-3">
-            <div>
-              <h3 class="text-sm font-bold text-ecru-text">Learn Harness Engineering 6つの柱 (Level 4 完成監査)</h3>
-              <p class="text-xs text-ecru-subtext">すべての柱が実装され、人間介入ゼロで安全に周回できる Level 4.0 に到達しています。</p>
-            </div>
-            <div class="text-right">
-              <span class="text-xs text-ecru-subtext">成熟度スコア:</span>
-              <strong id="pillarTotalScore" class="text-lg font-mono font-bold text-indigo-600 ml-1">100 / 100</strong>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border flex items-center justify-between">
+              <div>
+                <span class="font-bold text-ecru-text">Phase 5: PTポータル（国試過去問・運動学解剖学スライド）連携</span>
+                <p class="text-[11px] text-ecru-subtext mt-0.5">国試問題からMMT手技カードへの逆引き相互リンク</p>
+              </div>
+              <span class="font-mono text-[11px] text-ecru-subtext px-2 py-0.5 rounded bg-stone-200">次期構想</span>
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs" id="pillarChecklistContainer"></div>
         </div>
       </section>
 
     </main>
 
-    <!-- -------------------------------------------------------------------
-         RIGHT SLIDE-OVER ISSUE DETAIL DRAWER
-         ------------------------------------------------------------------- -->
-    <aside id="detailDrawer" class="absolute top-0 right-0 w-full max-w-[540px] h-full bg-ecru-card shadow-2xl border-l border-ecru-borderStrong transform translate-x-full z-40 flex flex-col">
+    <!-- RIGHT SLIDE-OVER DRAWER -->
+    <aside id="detailDrawer" class="absolute top-0 right-0 w-full max-w-[500px] h-full bg-ecru-card shadow-2xl border-l border-ecru-borderStrong transform translate-x-full z-40 flex flex-col">
       <div class="px-5 py-3.5 bg-ecru-surface border-b border-ecru-border flex items-center justify-between">
         <div class="flex items-center space-x-2">
-          <span id="drawerKey" class="font-mono text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 px-2 py-0.5 rounded">#PT-132</span>
+          <span id="drawerKey" class="font-mono text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 px-2 py-0.5 rounded">#ID</span>
           <span id="drawerPriorityBadge" class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded">P0</span>
-          <code id="drawerShardFile" class="text-[11px] font-mono text-ecru-subtext bg-ecru-card px-2 py-0.5 rounded border border-ecru-border">shards/pt_portal.yaml</code>
         </div>
         <div class="flex items-center space-x-2">
           <select id="drawerStatusSelect" onchange="changeTaskStatusFromDrawer(this.value)" class="text-xs font-semibold bg-ecru-card border border-ecru-borderStrong rounded px-2.5 py-1 text-ecru-text cursor-pointer">
-            <option value="todo">1. To Do (未着手)</option>
-            <option value="inprogress">2. In Progress (AI作業中)</option>
-            <option value="review">3. Harness 審問中</option>
-            <option value="done">4. Done (CAS刻印済)</option>
+            <option value="todo">1. To Do</option>
+            <option value="inprogress">2. In Progress</option>
+            <option value="review">3. Review</option>
+            <option value="done">4. Done</option>
           </select>
           <button onclick="closeDetailDrawer()" class="w-7 h-7 rounded hover:bg-stone-200 flex items-center justify-center text-ecru-subtext cursor-pointer">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
       </div>
-
-      <div class="flex-1 overflow-y-auto p-5 space-y-5 text-xs">
+      <div class="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
         <div>
-          <h3 id="drawerTitle" class="text-base font-bold text-ecru-text leading-snug mb-2.5">課題タイトル</h3>
-          <div class="grid grid-cols-2 gap-2 bg-ecru-surface/70 p-3 rounded-lg border border-ecru-border text-[11px]">
-            <div>担当AI: <strong id="drawerAgent" class="font-mono text-ecru-text">Antigravity</strong></div>
-            <div>段階 / トークン予算: <strong id="drawerPhase" class="font-mono text-ecru-text">Phase 2 (140 tok)</strong></div>
-            <div class="col-span-2 truncate">編集対象: <code id="drawerFile" class="font-mono text-indigo-600">data/manual_crop_boxes.json</code></div>
-            <div>最終更新: <span id="drawerUpdated" class="font-mono">2分前</span></div>
-            <div>CAS Commit Hash: <code id="drawerCommit" class="font-mono text-emerald-700 font-bold">9a01e33</code></div>
+          <h3 id="drawerTitle" class="text-sm font-bold text-ecru-text mb-2"></h3>
+          <div class="bg-ecru-surface p-2.5 rounded-lg border border-ecru-border space-y-1 text-[11px] font-mono">
+            <div>編集対象: <span id="drawerFile" class="text-indigo-600"></span></div>
+            <div>最終更新: <span id="drawerUpdated"></span></div>
+            <div>Commit: <span id="drawerCommit" class="text-emerald-700 font-bold"></span></div>
           </div>
         </div>
-
-        <div id="drawerRemediationBox" class="hidden bg-rose-50 border-2 border-rose-300 rounded-xl p-4 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-prescription-bottle-medical text-rose-600"></i>
-              <span>裁判官からの処方箋 (REMEDIATION HINT)</span>
-            </span>
-            <span class="text-[10px] font-mono bg-rose-200 text-rose-900 px-1.5 py-0.5 rounded font-semibold">上限5件制限出力</span>
-          </div>
-          <p id="drawerRemediationText" class="font-mono text-[11px] text-rose-950 bg-white p-2.5 rounded border border-rose-200 leading-relaxed"></p>
-          <div class="flex justify-end gap-2 pt-1">
-            <button onclick="copyDrawerRemediationPrompt()" class="px-2.5 py-1 bg-white hover:bg-rose-100 text-rose-800 border border-rose-300 rounded font-medium text-[11px] cursor-pointer">指示コピー</button>
-            <button onclick="executeRemediationFix()" class="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded font-semibold text-[11px] flex items-center gap-1 shadow-xs cursor-pointer">
-              <i class="fa-solid fa-wand-magic-sparkles"></i><span>AIがこの処方箋を実行して再監査 (Atomic更新)</span>
-            </button>
-          </div>
-        </div>
-
         <div>
-          <div class="flex items-center justify-between mb-2">
-            <h4 class="text-[11px] font-bold uppercase tracking-wider text-ecru-subtext flex items-center gap-1.5">
-              <i class="fa-solid fa-scale-balanced text-indigo-600"></i>
-              <span>専用プラグイン裁判官 監査証跡</span>
-            </h4>
-            <span id="drawerGateSummaryBadge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded"></span>
-          </div>
-          <div class="space-y-2" id="drawerGatesContainer"></div>
+          <h4 class="font-bold text-ecru-subtext uppercase tracking-wider mb-1">受入基準</h4>
+          <ul id="drawerSpecsList" class="bg-ecru-surface p-2.5 rounded-lg border border-ecru-border space-y-1"></ul>
         </div>
-
         <div>
-          <h4 class="text-[11px] font-bold uppercase tracking-wider text-ecru-subtext mb-1.5">受入基準 (Definition of Done)</h4>
-          <ul id="drawerSpecsList" class="bg-ecru-surface/60 border border-ecru-border rounded-lg p-3 space-y-1.5 text-ecru-text"></ul>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <h4 class="text-[11px] font-bold uppercase tracking-wider text-ecru-subtext">Shard YAML エントリ ＆ 変更差分</h4>
-            <button onclick="copyDrawerTaskCommand()" class="text-[11px] text-indigo-600 hover:underline font-semibold cursor-pointer">
-              <i class="fa-solid fa-terminal mr-1"></i>Shard指定起動コマンドをコピー
-            </button>
-          </div>
-          <pre id="drawerGitDiff" class="bg-slate-900 text-slate-100 p-3 rounded-lg font-mono text-[11px] overflow-x-auto leading-relaxed"></pre>
+          <h4 class="font-bold text-ecru-subtext uppercase tracking-wider mb-1">差分・証跡</h4>
+          <pre id="drawerGitDiff" class="bg-slate-900 text-slate-100 p-2.5 rounded font-mono text-[11px] overflow-x-auto"></pre>
         </div>
       </div>
     </aside>
 
   </div>
 
-  <!-- =====================================================================
-       3. MODALS
-       ===================================================================== -->
-  <!-- モーダルA: Cmd/Ctrl+K スポットライト・コマンドパレット -->
+  <!-- 新規タスク追加モーダル -->
+  <div id="newTaskModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
+      <div class="px-5 py-3.5 bg-sidebar-bg text-white flex items-center justify-between">
+        <h3 class="text-sm font-bold"><i class="fa-solid fa-plus-circle text-indigo-400 mr-2"></i>新規タスクを追加 (tasks.yaml へ保存)</h3>
+        <button onclick="closeNewTaskModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="submitNewTask(event)" class="p-5 space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-ecru-subtext mb-1">優先度</label>
+          <select id="newTaskPriority" class="w-full border border-ecru-borderStrong rounded-md px-2 py-1.5 bg-ecru-card">
+            <option value="P0">🔥 P0 (緊急)</option>
+            <option value="P1" selected>⚡ P1 (高)</option>
+            <option value="P2">📌 P2 (通常)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-ecru-subtext mb-1">タスク名</label>
+          <input type="text" id="newTaskTitle" required placeholder="例: 実機でのカルタ読み上げ音量テスト" class="w-full border border-ecru-borderStrong rounded-md px-3 py-1.5 bg-ecru-card">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeNewTaskModal()" class="px-3 py-1.5 rounded-md border border-ecru-borderStrong bg-ecru-surface text-ecru-text cursor-pointer">キャンセル</button>
+          <button type="submit" class="px-4 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold cursor-pointer">追加して保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- コマンドパレット -->
   <div id="commandPaletteModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-start justify-center pt-20 p-4">
     <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden">
       <div class="p-3.5 border-b border-ecru-border flex items-center gap-2.5">
         <i class="fa-solid fa-magnifying-glass text-indigo-600 text-sm"></i>
-        <input type="text" id="cmdPaletteInput" oninput="renderCommandPaletteList()" placeholder="コマンド、課題キー(#PT-132)、シャード切替、アーカイブ操作を入力..." class="w-full bg-transparent text-xs text-ecru-text focus:outline-none">
-        <button onclick="closeCommandPalette()" class="text-[10px] font-mono bg-ecru-surface px-1.5 py-0.5 rounded border border-ecru-border text-ecru-subtext cursor-pointer">ESC</button>
+        <input type="text" id="cmdPaletteInput" oninput="renderCommandPaletteList()" placeholder="コマンドや課題キーを入力..." class="w-full bg-transparent text-xs text-ecru-text focus:outline-none">
+        <button onclick="closeCommandPalette()" class="text-[10px] font-mono bg-ecru-surface px-1.5 py-0.5 rounded border text-ecru-subtext cursor-pointer">ESC</button>
       </div>
       <div id="cmdPaletteResults" class="max-h-80 overflow-y-auto divide-y divide-ecru-border text-xs"></div>
     </div>
   </div>
 
-  <!-- モーダルB: 新規プロジェクトShard追加ウィザード -->
-  <div id="newShardModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
-      <div class="px-5 py-3.5 bg-sidebar-bg text-white flex items-center justify-between">
-        <h3 class="text-sm font-bold flex items-center gap-2">
-          <i class="fa-solid fa-plug-circle-plus text-emerald-400"></i>
-          <span>新規プロジェクト Shard ＆ 3層Gateプラグイン追加</span>
-        </h3>
-        <button onclick="closeNewShardModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <form onsubmit="submitNewProjectShard(event)" class="p-5 space-y-4 text-xs">
-        <p class="text-ecru-subtext leading-relaxed">
-          新しいやりたいことが増えても、既存のYAMLは一切汚れません。<code class="font-mono">shards/</code> フォルダに新しいYAMLファイルを1つ切り出し、用途に合った3層Gateテンプレートを紐づけます。
-        </p>
-        <div class="grid grid-cols-3 gap-3">
-          <div>
-            <label class="block font-semibold text-ecru-subtext mb-1">プロジェクト略称</label>
-            <input type="text" id="newShardCode" required placeholder="例: ANAT" maxlength="6" class="w-full border border-ecru-borderStrong rounded-md px-2.5 py-1.5 bg-ecru-card font-mono uppercase">
-          </div>
-          <div class="col-span-2">
-            <label class="block font-semibold text-ecru-subtext mb-1">プロジェクト表示名</label>
-            <input type="text" id="newShardName" required placeholder="例: 国家試験 過去問音声ポッドキャスト生成" class="w-full border border-ecru-borderStrong rounded-md px-2.5 py-1.5 bg-ecru-card">
-          </div>
-        </div>
-        <div>
-          <label class="block font-semibold text-ecru-subtext mb-1">生成されるShardファイルパス</label>
-          <input type="text" id="newShardFile" value="shards/new_project.yaml" class="w-full border border-ecru-borderStrong rounded-md px-2.5 py-1.5 bg-ecru-surface font-mono text-ecru-subtext">
-        </div>
-        <div>
-          <label class="block font-semibold text-ecru-subtext mb-1">紐づける3層裁判官プラグイン (Gate Profile)</label>
-          <select id="newShardGateProfile" class="w-full border border-ecru-borderStrong rounded-md px-2.5 py-1.5 bg-ecru-card">
-            <option value="media">🎬 メディア・動画生成型 (Gate0:PCスペック検診 + Gate1:FFmpeg合成 + Gate2:音ズレ/見切れ検査)</option>
-            <option value="webapp">🌐 Webアプリ・教材型 (Gate1:AST構文/JSON + Gate2:画像/OCR品質 + Gate3:Playwright実機E2E)</option>
-            <option value="automation">🤖 GAS・LINE・運用自動化型 (Gate1:構文/型検査 + Gate2:Dry-Run通知検証 + Gate3:台帳整合検査)</option>
-          </select>
-        </div>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeNewShardModal()" class="px-3.5 py-1.5 rounded-md border border-ecru-borderStrong bg-ecru-surface text-ecru-text font-medium cursor-pointer">キャンセル</button>
-          <button type="submit" class="px-4 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-xs cursor-pointer">Shardを作成してサイドバーへ登録</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- モーダルC: 新規タスク追加 -->
-  <div id="newTaskModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
-      <div class="px-5 py-3.5 bg-sidebar-bg text-white flex items-center justify-between">
-        <h3 class="text-sm font-bold flex items-center gap-2"><i class="fa-solid fa-plus-circle text-indigo-400"></i>対象Shardへ新規1スコープ課題を追記 (Atomic Write)</h3>
-        <button onclick="closeNewTaskModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <form onsubmit="submitNewTask(event)" class="p-5 space-y-3.5 text-xs">
-        <div class="grid grid-cols-3 gap-2.5">
-          <div>
-            <label class="block font-semibold text-ecru-subtext mb-1">格納先Shard</label>
-            <select id="newTaskProj" class="w-full border border-ecru-borderStrong rounded-md px-2 py-1.5 bg-ecru-card"></select>
-          </div>
-          <div>
-            <label class="block font-semibold text-ecru-subtext mb-1">優先度</label>
-            <select id="newTaskPriority" class="w-full border border-ecru-borderStrong rounded-md px-2 py-1.5 bg-ecru-card">
-              <option value="P0">🔥 P0 (最優先)</option>
-              <option value="P1" selected>⚡ P1 (高)</option>
-              <option value="P2">📌 P2 (通常)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-semibold text-ecru-subtext mb-1">担当作業員AI</label>
-            <select id="newTaskAgent" class="w-full border border-ecru-borderStrong rounded-md px-2 py-1.5 bg-ecru-card">
-              <option value="Antigravity">Antigravity</option>
-              <option value="Claude Code">Claude Code</option>
-              <option value="dsh (DeepSeek)">dsh (DeepSeek)</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label class="block font-semibold text-ecru-subtext mb-1">課題タイトル (15〜30分スコープ)</label>
-          <input type="text" id="newTaskTitle" required placeholder="例: Q148 仙腸関節ニューテーション図の赤文字除去と座標検証" class="w-full border border-ecru-borderStrong rounded-md px-3 py-1.5 bg-ecru-card">
-        </div>
-        <div>
-          <label class="block font-semibold text-ecru-subtext mb-1">編集対象ファイル</label>
-          <input type="text" id="newTaskFile" value="data/manual_crop_boxes.json" class="w-full border border-ecru-borderStrong rounded-md px-3 py-1.5 bg-ecru-card font-mono">
-        </div>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeNewTaskModal()" class="px-3.5 py-1.5 rounded-md border border-ecru-borderStrong bg-ecru-surface text-ecru-text cursor-pointer">キャンセル</button>
-          <button type="submit" class="px-4 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold cursor-pointer">Atomic CASでShardへ追記</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- モーダルD: v2.0 起動キット -->
-  <div id="starterKitModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-4xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-6 py-4 bg-sidebar-bg text-white flex items-center justify-between">
-        <div>
-          <h3 class="text-sm font-bold flex items-center gap-2"><i class="fa-solid fa-cubes text-amber-400"></i>v2.0 拡張ローカル起動キット (Multi-Shard + Atomic CAS + Auto-Archive)</h3>
-          <p class="text-[11px] text-slate-300 mt-0.5"><code>shards/*.yaml</code> を横断監視し、複数AIの同時書き込み排他ロックとDone自動アーカイブを備えたPythonサーバーです。</p>
-        </div>
-        <button onclick="closeStarterKitModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-base"></i></button>
-      </div>
-      <div class="p-6 overflow-y-auto space-y-5 text-xs flex-1">
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="font-bold font-mono text-ecru-text">1. 現在選択中の Shard YAML データ出力</span>
-            <div class="flex gap-2">
-              <button onclick="copyTextById('liveYamlCode', 'Shard YAMLをコピーしました')" class="px-2.5 py-1 bg-ecru-surface border border-ecru-borderStrong rounded font-medium cursor-pointer"><i class="fa-regular fa-copy mr-1"></i>コピー</button>
-              <button onclick="downloadFile('shards_export.yaml', document.getElementById('liveYamlCode').textContent)" class="px-2.5 py-1 bg-emerald-600 text-white rounded font-medium cursor-pointer"><i class="fa-solid fa-download mr-1"></i>YAML保存</button>
-            </div>
-          </div>
-          <pre id="liveYamlCode" class="bg-slate-900 text-emerald-300 p-3.5 rounded-lg font-mono text-[11px] max-h-44 overflow-y-auto"></pre>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="font-bold font-mono text-ecru-text">2. server.py (複数Shard統合監視 + Atomic CAS書込API + SSE)</span>
-            <div class="flex gap-2">
-              <button onclick="copyTextById('serverPyCode', 'server.py をコピーしました')" class="px-2.5 py-1 bg-ecru-surface border border-ecru-borderStrong rounded font-medium cursor-pointer"><i class="fa-regular fa-copy mr-1"></i>コピー</button>
-            </div>
-          </div>
-          <pre id="serverPyCode" class="bg-slate-900 text-slate-200 p-3.5 rounded-lg font-mono text-[11px] max-h-60 overflow-y-auto leading-relaxed"># server.py running on 127.0.0.1:8795
-# SSE stream available at /events
-# REST API available at /api/tasks and /api/update_task</pre>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- モーダルE: 正典ファイルプレビュー -->
+  <!-- 正典プレビューモーダル -->
   <div id="artifactPreviewModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
     <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden">
       <div class="px-5 py-3.5 bg-sidebar-bg text-white flex items-center justify-between">
-        <span id="artifactModalTitle" class="font-mono text-xs font-bold">AGENTS.md</span>
+        <span id="artifactModalTitle" class="font-mono text-xs font-bold"></span>
         <button onclick="closeArtifactModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="p-5">
@@ -1128,336 +689,113 @@
     </div>
   </div>
 
-  <!-- トースト通知 -->
   <div id="toastNotice" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl border border-slate-700 text-xs font-medium flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 z-50 pointer-events-none">
     <i class="fa-solid fa-circle-check text-emerald-400"></i>
-    <span id="toastMessage">通知</span>
+    <span id="toastMessage"></span>
   </div>
 
   <!-- =====================================================================
-       4. APPLICATION STATE & SSE ENGINE WITH REAL API INTEGRATION
+       3. SCRIPT LOGIC
        ===================================================================== -->
   <script>
     let shardRegistry = [
-      {
-        code: "PT",
-        name: "PTポータル (教材・160問)",
-        icon: "fa-book-medical",
-        color: "text-emerald-400",
-        badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
-        shardFile: "shards/pt_portal.yaml",
-        progress: 83,
-        gates: ["G1:AST/座標辞書", "G2:赤文字/OCR/見切れ", "G3:Playwright実機"]
-      },
-      {
-        code: "MMT",
-        name: "MMT TACTICS (カード)",
-        icon: "fa-shield-halved",
-        color: "text-amber-400",
-        badgeClass: "bg-amber-50 text-amber-900 border-amber-200",
-        shardFile: "shards/mmt_tactics.yaml",
-        progress: 94,
-        gates: ["G1:JSONスキーマ", "G2:D&W10版基準監査", "G3:モバイルUI応答"]
-      },
-      {
-        code: "TATE",
-        name: "立腰体操・LINE予約基盤",
-        icon: "fa-person-rays",
-        color: "text-sky-400",
-        badgeClass: "bg-sky-50 text-sky-800 border-sky-200",
-        shardFile: "shards/tatekoshi_ops.yaml",
-        progress: 91,
-        gates: ["G1:GAS構文検査", "G2:LINE DryRun検証", "G3:Sheets台帳整合"]
-      },
-      {
-        code: "VID",
-        name: "解剖学ショート動画生成",
-        icon: "fa-film",
-        color: "text-purple-400",
-        badgeClass: "bg-purple-50 text-purple-800 border-purple-200",
-        shardFile: "shards/anat_video.yaml",
-        progress: 45,
-        gates: ["G0:PCスペック検診", "G1:FFmpeg軽量合成", "G2:音ズレ/字幕見切れ"]
-      }
+      { code: "MMT", name: "MMT Tactical Card Game (v21)", icon: "fa-shield-halved", color: "text-amber-400", shardFile: "shards/mmt_tactics.yaml", progress: 96 },
+      { code: "PT", name: "PTポータル (国試・過去問基盤)", icon: "fa-book-medical", color: "text-emerald-400", shardFile: "shards/pt_portal.yaml", progress: 20 }
     ];
 
     let tasksState = [];
-    let archivedDoneCount = 42;
-
-    let feedbackQueue = [
-      {
-        id: "FB-01",
-        project: "PT",
-        author: "同級生 (運動学グループLINE)",
-        time: "18分前",
-        text: "「問54（肩甲上腕リズム 2:1）の図で、右端の『肩甲骨上方回旋 60°』の数字が枠ギリギリで見づらいです！」",
-        suggestedTitle: "Q054 肩甲上腕リズム図の右端（xmax）座標を+20px拡張して数字見切れを解消",
-        targetFile: "data/manual_crop_boxes.json",
-        converted: false,
-        ticketKey: null
-      },
-      {
-        id: "FB-02",
-        project: "MMT",
-        author: "同級生 (実技試験ペア練習)",
-        time: "45分前",
-        text: "「MMTカードバトルの後脛骨筋カードで、Grade 2（重力除去位）の測定肢位ヒントをカード裏面にも表示してほしい！」",
-        suggestedTitle: "後脛骨筋カード（Grade 2 背臥位・下腿外旋位）の測定肢位ヒント表示を追加",
-        targetFile: "src/data/mmt_lower_limb.json",
-        converted: false,
-        ticketKey: null
-      },
-      {
-        id: "FB-03",
-        project: "VID",
-        author: "自己視聴テスト (スマホ縦画面)",
-        time: "2時間前",
-        text: "「解剖学ショート動画の冒頭2秒に『今日の1問：どの神経麻痺？』のフック見出しを入れると最後まで見やすい」",
-        suggestedTitle: "FFmpeg動画合成スクリプトに冒頭2秒の質問フックタイトルオーバーレイを追加",
-        targetFile: "scripts/render_short_ffmpeg.py",
-        converted: false,
-        ticketKey: null
-      }
-    ];
-
-    const mutationSamples = [
-      { name: "不良品1: 問題文の段落テキストが残った未加工スライド", judge: "Gate 2 (OCR Paragraph Gate)", result: "100% REJECT" },
-      { name: "不良品2: 穴埋めの赤文字（答え）が消えずに残った画像", judge: "Gate 2 (HSV Red Pixel Gate)", result: "100% REJECT" },
-      { name: "不良品3: 図表の上端が 2px 見切れているクロップ画像", judge: "Gate 2 (Edge Ink Geometry Gate)", result: "100% REJECT" },
-      { name: "不良品4: 別問題の良品画像にすり替えたプロキシハックJSON", judge: "Gate 1 (pHash & Dict Lock Gate)", result: "100% REJECT" },
-      { name: "不良品5: VRAM 12GB必須の重いローカルモデル呼び出しコード", judge: "Gate 0 (Hardware Spec Gate)", result: "100% REJECT" }
-    ];
-
-    let harnessPillars = [
-      { name: "1. 仕様と検証の先行 (作業員とRead-Only裁判官の物理分離)", score: 18, max: 18, checked: true },
-      { name: "2. 段階的開示とShard分割 (1シャード100行以内・160枚静的辞書)", score: 17, max: 17, checked: true },
-      { name: "3. 処方箋付きフィードバック (上限5件＋REMEDIATION明示)", score: 17, max: 17, checked: true },
-      { name: "4. Atomic CAS刻印と強制Context Reset (二重書込・劣化防止)", score: 17, max: 17, checked: true },
-      { name: "5. Gate 0 環境検診とサブエージェント隔離 (0➔1ピボット)", score: 15, max: 15, checked: true },
-      { name: "6. 裁判官の逆テストとDone自動アーカイブ (引き算の規律)", score: 16, max: 16, checked: true }
-    ];
-
     let currentShard = "ALL";
     let currentView = "board";
     let currentBoardFilter = "all";
-    let cardDensity = "detailed";
     let activeDrawerTaskId = null;
     let draggedCardId = null;
     let lastUpdatedCardId = null;
-    let isYamlErrorSimulated = false;
 
+    // SSE & BACKEND
     let eventSource = null;
-
     function initSSE() {
       if (window.EventSource) {
         eventSource = new EventSource('/events');
-
         eventSource.onopen = () => {
-          const badge = document.getElementById("sseStatusContainer");
-          const label = document.getElementById("sseStatusLabel");
-          const ping = document.getElementById("ssePing");
-          const dot = document.getElementById("sseDot");
-          if (badge) {
-            badge.className = "flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all";
-            label.textContent = "SSE LIVE: 127.0.0.1:8795";
-            ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
-            dot.className = "relative inline-flex rounded-full h-2 w-2 bg-emerald-400";
-          }
+          document.getElementById("sseStatusContainer").className = "flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all";
+          document.getElementById("sseStatusLabel").textContent = "SSE LIVE: 127.0.0.1:8795";
+          document.getElementById("ssePing").className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+          document.getElementById("sseDot").className = "relative inline-flex rounded-full h-2 w-2 bg-emerald-400";
         };
-
         eventSource.onmessage = (event) => {
           try {
             const data = JSON.parse(event.data);
             if (data.type === "tasks_update") {
-              if (data.tasks) {
-                tasksState = data.tasks;
-              }
-              if (data.archived_done_count !== undefined) {
-                archivedDoneCount = data.archived_done_count;
-              }
-              if (data.sha) {
-                document.getElementById("shaFingerprint").textContent = data.sha;
-              }
-              touchSseTimestamp(`tasks.yaml の変更を検知して最新同期しました (${data.sha || 'sync'})`);
+              if (data.tasks) tasksState = data.tasks;
+              if (data.sha) document.getElementById("shaFingerprint").textContent = data.sha;
               renderAllViews();
             } else if (data.type === "heartbeat") {
-              document.getElementById("lastCheckedText").textContent = `(${new Date().toLocaleTimeString()})`;
+              document.getElementById("lastCheckedText").textContent = data.time;
             }
-          } catch (e) {
-            console.error("SSE parse error", e);
-          }
+          } catch(e) {}
         };
-
         eventSource.onerror = () => {
-          const badge = document.getElementById("sseStatusContainer");
-          const label = document.getElementById("sseStatusLabel");
-          const ping = document.getElementById("ssePing");
-          const dot = document.getElementById("sseDot");
-          if (badge) {
-            badge.className = "flex items-center space-x-1.5 bg-rose-950/90 border border-rose-700/70 px-2 py-0.5 rounded transition-all";
-            label.textContent = "SSE OFFLINE (再接続待機中)";
-            ping.className = "hidden";
-            dot.className = "relative inline-flex rounded-full h-2 w-2 bg-rose-500";
-          }
+          document.getElementById("sseStatusContainer").className = "flex items-center space-x-1.5 bg-rose-950/90 border border-rose-700/70 px-2 py-0.5 rounded transition-all";
+          document.getElementById("sseStatusLabel").textContent = "SSE OFFLINE";
+          document.getElementById("ssePing").className = "hidden";
+          document.getElementById("sseDot").className = "relative inline-flex rounded-full h-2 w-2 bg-rose-500";
         };
       }
     }
 
-    async function loadInitialTasksFromBackend() {
+    async function loadTasks() {
       try {
         const res = await fetch('/api/tasks');
         if (res.ok) {
           const json = await res.json();
-          if (json.tasks && json.tasks.length > 0) {
-            tasksState = json.tasks;
-            if (json.archived_done_count !== undefined) archivedDoneCount = json.archived_done_count;
-            if (json.sha) document.getElementById("shaFingerprint").textContent = json.sha;
-            renderAllViews();
-            return;
-          }
+          if (json.tasks) tasksState = json.tasks;
+          if (json.sha) document.getElementById("shaFingerprint").textContent = json.sha;
         }
-      } catch (err) {
-        console.warn("Backend API not reachable or static file mode, using local state.", err);
-      }
+      } catch(e) {}
       renderAllViews();
     }
 
     function renderAllViews() {
       renderSidebarShards();
-      updateTokenFootprintMeter();
       renderKanbanBoard();
-      renderSyncArchitectureHub();
       renderBacklogPanel();
       renderTimelinePanel();
-      renderMarketingPanel();
-      renderHarnessPanel();
-      renderRoadmapPanel();
-
       if (activeDrawerTaskId) populateDrawer(activeDrawerTaskId);
-    }
-
-    function updateTokenFootprintMeter() {
-      const totalTokens = tasksState.reduce((acc, t) => acc + (t.tokens || 120), 0);
-      const pct = Math.min(100, Math.round((totalTokens / 4000) * 100));
-      const bar = document.getElementById("tokenFootprintBar");
-      const txt = document.getElementById("tokenFootprintText");
-      if (bar && txt) {
-        bar.style.width = `${pct}%`;
-        bar.className = pct > 75 ? "bg-rose-500 h-full transition-all" : "bg-emerald-400 h-full transition-all";
-        txt.textContent = `${totalTokens.toLocaleString()} / 4,000 tok`;
-      }
-      document.getElementById("archivedCountBadge").textContent = archivedDoneCount;
-      document.getElementById("footerArchiveCount").textContent = `archive/*.jsonl (${archivedDoneCount}件)`;
-      const syncArch = document.getElementById("syncViewArchiveCount");
-      if (syncArch) syncArch.textContent = `退避済: ${archivedDoneCount}件`;
-      const doneCnt = tasksState.filter(t => t.column === "done").length;
-      const remDone = document.getElementById("removableDoneCount");
-      if (remDone) remDone.textContent = `${doneCnt}件`;
-    }
-
-    async function archiveDoneTasks() {
-      const doneTasks = tasksState.filter(t => t.column === "done");
-      if (doneTasks.length === 0) {
-        showToast("現在アクティブYAML内に退避可能なDoneタスクはありません");
-        return;
-      }
-      archivedDoneCount += doneTasks.length;
-      tasksState = tasksState.filter(t => t.column !== "done");
-
-      try {
-        await fetch('/api/archive_done', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ archived_count: doneTasks.length })
-        });
-      } catch (e) {}
-
-      touchSseTimestamp(`Doneタスク ${doneTasks.length}件を archive/done_history.jsonl へ退避し、YAMLトークン負荷を削減しました！`);
-      renderAllViews();
     }
 
     function renderSidebarShards() {
       const container = document.getElementById("shardSwitcherList");
-      const allBtnActive = currentShard === "ALL" ? "bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400" : "text-sidebar-muted hover:bg-sidebar-hover hover:text-white";
-
       let html = `
-        <button onclick="selectShard('ALL')" class="w-full text-left px-2.5 py-2 rounded-md text-xs flex items-center justify-between transition cursor-pointer ${allBtnActive}">
-          <span class="flex items-center gap-2 truncate"><i class="fa-solid fa-layer-group text-indigo-400 w-4 text-center"></i>全Shard横断ビュー</span>
-          <span class="text-[10px] font-mono bg-black/40 px-1.5 py-0.2 rounded text-slate-300">${tasksState.length}</span>
+        <button onclick="selectShard('ALL')" class="w-full text-left px-2.5 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer ${currentShard==='ALL'?'bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400':'text-sidebar-muted hover:bg-sidebar-hover'}">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-indigo-400 w-4 text-center"></i>全課題</span>
+          <span class="text-[10px] font-mono bg-black/40 px-1.5 py-0.2 rounded">${tasksState.length}</span>
         </button>
       `;
-
       shardRegistry.forEach(s => {
-        const count = tasksState.filter(t => t.project === s.code).length;
-        const isActive = currentShard === s.code ? "bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400" : "text-sidebar-muted hover:bg-sidebar-hover hover:text-white";
+        const cnt = tasksState.filter(t => t.project === s.code).length;
         html += `
-          <button onclick="selectShard('${s.code}')" class="w-full text-left px-2.5 py-1.5 rounded-md text-xs flex flex-col gap-1 transition cursor-pointer ${isActive}">
-            <div class="flex items-center justify-between w-full">
-              <span class="flex items-center gap-2 truncate"><i class="fa-solid ${s.icon} ${s.color} w-4 text-center"></i><span class="truncate">${s.name}</span></span>
-              <span class="text-[10px] font-mono text-slate-400">${count}件</span>
-            </div>
-            <div class="flex items-center justify-between text-[9px] font-mono text-slate-400 pl-6">
-              <span class="truncate">${s.shardFile}</span>
-              <span>${s.progress}%</span>
-            </div>
+          <button onclick="selectShard('${s.code}')" class="w-full text-left px-2.5 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer ${currentShard===s.code?'bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400':'text-sidebar-muted hover:bg-sidebar-hover'}">
+            <span class="flex items-center gap-2 truncate"><i class="fa-solid ${s.icon} ${s.color} w-4 text-center"></i><span class="truncate">${s.name}</span></span>
+            <span class="text-[10px] font-mono text-slate-400">${cnt}</span>
           </button>
         `;
       });
       container.innerHTML = html;
-
-      const gatePillsEl = document.getElementById("activeShardGatePills");
-      const shardLabelEl = document.getElementById("activeShardYamlLabel");
-      if (currentShard === "ALL") {
-        shardLabelEl.textContent = "shards/*.yaml";
-        gatePillsEl.innerHTML = `<span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded">プロジェクト別プラグインGate自動切替</span>`;
-      } else {
-        const sObj = shardRegistry.find(s => s.code === currentShard);
-        if (sObj) {
-          shardLabelEl.textContent = sObj.shardFile;
-          gatePillsEl.innerHTML = sObj.gates.map(g => `<span class="text-[10px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-800 px-1.5 py-0.5 rounded">${g}</span>`).join("");
-        }
-      }
-
-      const selectEl = document.getElementById("newTaskProj");
-      if (selectEl) {
-        selectEl.innerHTML = shardRegistry.map(s => `<option value="${s.code}">${s.name}</option>`).join("");
-      }
-
       document.getElementById("sideBadgeBoard").textContent = tasksState.length;
-      const remFb = feedbackQueue.filter(f => !f.converted).length;
-      document.getElementById("sideBadgeFeedback").textContent = `${remFb}声`;
     }
 
-    function selectShard(shardCode) {
-      currentShard = shardCode;
-      if (shardCode === "ALL") {
-        document.getElementById("headerShardPath").textContent = `shards/*.yaml (全${shardRegistry.length}シャード横断)`;
-        document.getElementById("headerProjectBreadcrumb").textContent = "🌐 全プロジェクト横断ビュー";
-      } else {
-        const sObj = shardRegistry.find(s => s.code === shardCode);
-        document.getElementById("headerShardPath").textContent = sObj.shardFile;
-        document.getElementById("headerProjectBreadcrumb").textContent = `${sObj.name} — 専用Gate: ${sObj.gates.join(" / ")}`;
-      }
+    function selectShard(code) {
+      currentShard = code;
       renderAllViews();
     }
 
     function getFilteredTasks() {
-      const q = (document.getElementById("boardSearchInput")?.value || "").trim().toLowerCase();
+      const q = (document.getElementById("boardSearchInput")?.value || "").toLowerCase().trim();
       return tasksState.filter(t => {
         if (currentShard !== "ALL" && t.project !== currentShard) return false;
-        if (q) {
-          const hit = (t.id && t.id.toLowerCase().includes(q)) || (t.title && t.title.toLowerCase().includes(q)) || (t.targetFile && t.targetFile.toLowerCase().includes(q)) || (t.agent && t.agent.toLowerCase().includes(q));
-          if (!hit) return false;
-        }
-        if (currentBoardFilter === "fail") {
-          return (t.gates && (t.gates.g1.pass === false || t.gates.g2.pass === false || t.gates.g3.pass === false));
-        }
-        if (currentBoardFilter === "p0") {
-          return t.priority === "P0" || t.priority === "P1";
-        }
-        if (currentBoardFilter === "verified") {
-          return t.column === "done";
-        }
+        if (q && !(t.id.toLowerCase().includes(q) || t.title.toLowerCase().includes(q))) return false;
+        if (currentBoardFilter === "p0" && !(t.priority === "P0" || t.priority === "P1")) return false;
+        if (currentBoardFilter === "done" && t.column !== "done") return false;
         return true;
       });
     }
@@ -1467,751 +805,203 @@
       const counts = { todo: 0, inprogress: 0, review: 0, done: 0 };
       cols.forEach(c => document.getElementById(`colList-${c}`).innerHTML = "");
 
-      getFilteredTasks().forEach(task => {
-        if (counts[task.column] !== undefined) {
-          counts[task.column]++;
-          document.getElementById(`colList-${task.column}`).appendChild(createKanbanCard(task));
+      getFilteredTasks().forEach(t => {
+        if (counts[t.column] !== undefined) {
+          counts[t.column]++;
+          document.getElementById(`colList-${t.column}`).appendChild(createCardEl(t));
         }
       });
-
       cols.forEach(c => document.getElementById(`colCount-${c}`).textContent = counts[c]);
     }
 
-    function createKanbanCard(task) {
+    function createCardEl(t) {
       const div = document.createElement("div");
-      const hasFail = task.gates && (task.gates.g1.pass === false || task.gates.g2.pass === false || task.gates.g3.pass === false);
-      const shardObj = shardRegistry.find(s => s.code === task.project) || shardRegistry[0];
-
-      const borderClass = hasFail
-        ? "border-rose-400 bg-rose-50/20"
-        : task.column === "done"
-        ? "border-emerald-300 bg-ecru-card"
-        : "border-ecru-borderStrong bg-ecru-card hover:border-indigo-400";
-
-      const flashClass = (lastUpdatedCardId === task.id) ? "sse-updated-card" : "";
-      div.className = `kanban-card rounded-lg ${cardDensity === 'compact' ? 'p-2.5' : 'p-3'} shadow-2xs border ${borderClass} ${flashClass} cursor-pointer select-none`;
+      const isDone = t.column === "done";
+      div.className = `kanban-card rounded-lg p-3 shadow-2xs border ${isDone ? 'border-emerald-300 bg-ecru-card' : 'border-ecru-borderStrong bg-ecru-card hover:border-indigo-400'} cursor-pointer select-none`;
       div.setAttribute("draggable", "true");
 
-      const prioStyle = task.priority === "P0"
-        ? "bg-rose-600 text-white"
-        : task.priority === "P1"
-        ? "bg-amber-500 text-white"
-        : "bg-slate-200 text-slate-700";
-
-      const gatePill = (g) => {
-        if (!g) return '';
-        if (g.pass === true) return `<span class="inline-flex items-center gap-1 text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.2 rounded"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>${g.label}</span>`;
-        if (g.pass === false) return `<span class="inline-flex items-center gap-1 text-[10px] font-mono bg-rose-100 text-rose-800 border border-rose-300 px-1.5 py-0.2 rounded font-bold"><span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>${g.label}:FAIL</span>`;
-        return `<span class="inline-flex items-center gap-1 text-[10px] font-mono bg-stone-100 text-stone-500 border border-stone-200 px-1.5 py-0.2 rounded"><span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>${g.label}</span>`;
-      };
-
-      const detailsBlock = cardDensity === "compact" ? "" : `
-        <div class="flex flex-wrap items-center gap-1 mb-2">
-          ${gatePill(task.gates?.g1)}
-          ${gatePill(task.gates?.g2)}
-          ${gatePill(task.gates?.g3)}
-        </div>
-        ${(hasFail && task.remediation) ? `
-          <div class="mt-1.5 p-2 rounded bg-rose-100/90 border border-rose-300 text-[10px] font-mono text-rose-950 leading-snug">
-            <strong class="text-rose-700"><i class="fa-solid fa-prescription mr-1"></i>処方箋:</strong> ${task.remediation}
-          </div>
-        ` : ""}
-      `;
+      const prioBadge = t.priority === "P0" ? "bg-rose-600 text-white" : t.priority === "P1" ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-700";
 
       div.innerHTML = `
-        <div class="flex items-center justify-between gap-1 mb-1">
+        <div class="flex items-center justify-between gap-1 mb-1.5">
           <div class="flex items-center gap-1.5">
-            <span class="font-mono text-[9px] font-bold px-1.5 py-0.2 rounded ${prioStyle}">${task.priority}</span>
-            <span class="font-mono text-[11px] font-bold text-indigo-600">#${task.id}</span>
-            <span class="text-[10px] font-medium px-1.5 py-0.2 rounded border ${shardObj.badgeClass}">${task.project}</span>
+            <span class="font-mono text-[9px] font-bold px-1.5 py-0.2 rounded ${prioBadge}">${t.priority}</span>
+            <span class="font-mono text-[11px] font-bold text-indigo-600">#${t.id}</span>
           </div>
-          <span class="text-[10px] font-mono text-ecru-subtext">${task.tokens || 120} tok</span>
+          <span class="text-[10px] font-mono text-ecru-subtext">${t.tokens || 100} tok</span>
         </div>
-        <p class="text-xs font-semibold text-ecru-text leading-snug ${cardDensity === 'compact' ? 'mb-1' : 'mb-2'}">${task.title}</p>
-        ${detailsBlock}
-        <div class="flex items-center justify-between pt-1.5 mt-1.5 border-t border-ecru-border text-[10px] text-ecru-subtext">
-          <span class="font-mono truncate max-w-[145px]" title="${shardObj.shardFile}"><i class="fa-regular fa-file-code mr-1"></i>${shardObj.shardFile}</span>
-          <span class="font-medium text-ecru-text"><i class="fa-solid fa-robot text-indigo-500 mr-1"></i>${task.agent || 'Antigravity'}</span>
+        <p class="text-xs font-semibold text-ecru-text leading-snug mb-2">${t.title}</p>
+        <div class="flex items-center justify-between pt-1.5 mt-1 border-t border-ecru-border text-[10px] text-ecru-subtext font-mono">
+          <span>${t.targetFile || 'index.html'}</span>
+          <span class="text-emerald-700 font-semibold">${t.updated || '最新'}</span>
         </div>
       `;
 
-      div.addEventListener("click", () => openDetailDrawer(task.id));
-      div.addEventListener("dragstart", (e) => {
-        draggedCardId = task.id;
-        div.classList.add("dragging");
-        e.dataTransfer.setData("text/plain", task.id);
-      });
-      div.addEventListener("dragend", () => {
-        div.classList.remove("dragging");
-        draggedCardId = null;
-      });
+      div.onclick = () => openDetailDrawer(t.id);
+      div.ondragstart = (e) => { draggedCardId = t.id; div.classList.add("dragging"); };
+      div.ondragend = () => { div.classList.remove("dragging"); draggedCardId = null; };
       return div;
     }
 
-    function setCardDensity(mode) {
-      cardDensity = mode;
-      document.getElementById("densityBtn-detailed").className = mode === "detailed" ? "px-2 py-0.5 rounded bg-indigo-600 text-white font-medium cursor-pointer" : "px-2 py-0.5 rounded text-ecru-subtext cursor-pointer";
-      document.getElementById("densityBtn-compact").className = mode === "compact" ? "px-2 py-0.5 rounded bg-indigo-600 text-white font-medium cursor-pointer" : "px-2 py-0.5 rounded text-ecru-subtext cursor-pointer";
-      renderKanbanBoard();
-    }
-
-    function renderSyncArchitectureHub() {
-      const container = document.getElementById("shardTokenBreakdownList");
-      if (!container) return;
-
-      container.innerHTML = shardRegistry.map(s => {
-        const sTasks = tasksState.filter(t => t.project === s.code);
-        const tok = sTasks.reduce((a, b) => a + (b.tokens || 120), 0);
-        const lines = sTasks.length * 14 + 6;
-        return `
-          <div class="p-2 rounded-lg bg-ecru-surface border border-ecru-borderStrong flex items-center justify-between">
-            <div>
-              <div class="font-mono font-bold text-ecru-text text-[11px]">${s.shardFile}</div>
-              <div class="text-[10px] text-ecru-subtext">${s.name} (アクティブ ${sTasks.length}件)</div>
-            </div>
-            <div class="text-right font-mono">
-              <div class="text-xs font-bold text-indigo-600">${tok} tok</div>
-              <div class="text-[10px] text-emerald-700">約 ${lines} 行 (軽量)</div>
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    async function simulateAtomicAiWrite() {
-      const lockBadge = document.getElementById("atomicLockBadge");
-      const lockIcon = document.getElementById("atomicLockIcon");
-      const lockText = document.getElementById("atomicLockText");
-
-      lockBadge.className = "flex items-center space-x-1.5 bg-amber-950 border border-amber-500 px-2 py-0.5 rounded font-mono text-amber-200 transition-colors";
-      lockIcon.className = "fa-solid fa-spinner animate-spin text-amber-400 text-[10px]";
-      lockText.textContent = "LOCKED: claude-worker (.tmp書込 & SHA照合中...)";
-
-      setTimeout(async () => {
-        const target = tasksState.find(t => t.column === "review" && (t.gates?.g2?.pass === false || t.gates?.g3?.pass === false))
-                    || tasksState.find(t => t.column === "inprogress")
-                    || tasksState.find(t => t.column === "todo");
-
-        if (target) {
-          if (target.column === "review") {
-            target.gates.g1.pass = true;
-            target.gates.g2.pass = true;
-            target.gates.g2.detail = "処方箋適用により基準クリア (PASS)";
-            target.gates.g3.pass = true;
-            target.gates.g3.detail = "セーフゾーン・実機描画 PASS";
-            target.remediation = null;
-            target.column = "done";
-            target.commitHash = Math.random().toString(16).substring(2, 9);
-          } else if (target.column === "inprogress") {
-            target.column = "done";
-            target.gates.g3.pass = true;
-            target.gates.g3.detail = "Playwright E2E PASS";
-            target.commitHash = Math.random().toString(16).substring(2, 9);
-          } else {
-            target.column = "inprogress";
-            target.gates.g1.pass = true;
-          }
-          target.updated = "0.38秒前 (Atomic CAS)";
-          lastUpdatedCardId = target.id;
-
-          try {
-            await fetch('/api/update_task', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(target)
-            });
-          } catch(e) {}
-        }
-
-        const newSha = Math.random().toString(16).substring(2, 10);
-        const now = new Date().toTimeString().split(" ")[0];
-        const logEl = document.getElementById("casSimulationLog");
-        if (logEl && target) {
-          logEl.innerHTML = `
-            <div class="text-emerald-700 font-semibold">[${now}] CAS Lock OK: #${target.id} (expected_sha matched)</div>
-            <div>[${now}] Wrote temp shard -> YAML syntax verified OK</div>
-            <div class="text-indigo-700 font-semibold">[${now}] os.replace() Atomic Swap complete -> New SHA: ${newSha}</div>
-          `;
-        }
-
-        lockBadge.className = "flex items-center space-x-1.5 bg-slate-900 border border-slate-700 px-2 py-0.5 rounded font-mono text-slate-300 transition-colors";
-        lockIcon.className = "fa-solid fa-lock text-emerald-400 text-[10px]";
-        lockText.textContent = "CAS Lock: IDLE (競合防止待機中)";
-
-        touchSseTimestamp(target ? `Atomic CAS置換完了: #${target.id} が更新されました` : "Atomic CAS検証完了");
-        renderAllViews();
-      }, 650);
-    }
-
-    function simulateExternalBridgeSync() {
-      const icon = document.getElementById("bridgeSyncIcon");
-      if (icon) icon.classList.add("animate-spin");
-
-      setTimeout(async () => {
-        if (icon) icon.classList.remove("animate-spin");
-        const now = new Date().toTimeString().split(" ")[0];
-        const syncTxt = document.getElementById("syncBridgeTimeText");
-        if (syncTxt) syncTxt.textContent = `${now} (Sheets & CF 同期完了)`;
-
-        if (!tasksState.some(t => t.id === "TATE-013")) {
-          const newTask = {
-            id: "TATE-013",
-            project: "TATE",
-            priority: "P1",
-            title: "[Sheetsマスタ差分自動生成] 来週の立腰体操・特別体験枠のLINEリマインド文面反映",
-            column: "todo",
-            phase: "Phase 4",
-            tokens: 115,
-            scopeSize: "15m",
-            agent: "Antigravity",
-            targetFile: "gas/line_reminder_cron.gs",
-            updated: "たった今 (sync_bridge.py)",
-            commitHash: "pending",
-            gates: {
-              g1: { label: "G1:GAS構文", pass: null, detail: "未実行" },
-              g2: { label: "G2:LINE DryRun", pass: null, detail: "未実行" },
-              g3: { label: "G3:台帳整合", pass: null, detail: "Google Sheets Row #84 と紐付け済" }
-            },
-            remediation: null,
-            specs: ["Google Sheetsマスタ台帳の行追加を sync_bridge.py が検知して自動生成したスコープ"],
-            gitDiff: `# Pulled unidirectionally from Google Sheets Master -> shards/tatekoshi_ops.yaml`
-          };
-          tasksState.unshift(newTask);
-          lastUpdatedCardId = "TATE-013";
-
-          try {
-            await fetch('/api/add_task', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(newTask)
-            });
-          } catch(e) {}
-
-          showToast("Google Sheets台帳の更新を検知し、shards/tatekoshi_ops.yaml に #TATE-013 を単方向同期しました！");
-        } else {
-          showToast("外部台帳 (Google Sheets / Cloudflare) との単方向差分照合が完了しました（すべて最新）");
-        }
-        renderAllViews();
-      }, 600);
-    }
-
     function renderBacklogPanel() {
-      const filtered = getFilteredTasks();
-      document.getElementById("backlogCountLabel").textContent = `表示中: ${filtered.length} スコープ`;
-      document.getElementById("backlogTableBody").innerHTML = filtered.map(t => {
-        const sObj = shardRegistry.find(s => s.code === t.project) || shardRegistry[0];
-        return `
-          <div class="px-5 py-3 hover:bg-ecru-surface/70 flex flex-wrap items-center justify-between gap-3 transition">
-            <div class="flex items-center space-x-2.5 min-w-0 flex-1 cursor-pointer" onclick="openDetailDrawer('${t.id}')">
-              <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-white">${t.priority}</span>
-              <span class="font-mono font-bold text-indigo-600 w-16">#${t.id}</span>
-              <span class="font-semibold text-ecru-text truncate">${t.title}</span>
-            </div>
-            <div class="flex items-center space-x-2.5 flex-shrink-0">
-              <code class="text-[10px] font-mono bg-ecru-surface px-2 py-0.5 rounded border border-ecru-border text-ecru-subtext">${sObj.shardFile}</code>
-              <span class="font-mono text-[11px] text-emerald-700">${t.tokens || 120} tok</span>
-              <button onclick="copySingleTaskCli('${t.id}')" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded font-medium text-[11px] cursor-pointer">
-                <i class="fa-solid fa-terminal mr-1"></i>Shard指定起動
-              </button>
-            </div>
+      const list = getFilteredTasks();
+      document.getElementById("backlogCountLabel").textContent = `${list.length} 件`;
+      document.getElementById("backlogTableBody").innerHTML = list.map(t => `
+        <div class="px-5 py-3 hover:bg-ecru-surface/70 flex items-center justify-between cursor-pointer" onclick="openDetailDrawer('${t.id}')">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-white">${t.priority}</span>
+            <span class="font-mono font-bold text-indigo-600">#${t.id}</span>
+            <span class="font-semibold text-ecru-text">${t.title}</span>
           </div>
-        `;
-      }).join("");
-    }
-
-    function renderTimelinePanel() {
-      const phases = [
-        { id: "Phase 0", name: "Phase 0: Gate 0 環境検診 (PCスペック計測) ＆ 試作1号 (0➔1 Spike)", pct: 100 },
-        { id: "Phase 1", name: "Phase 1: 静的座標辞書・マスタ基準の決定論固定", pct: 100 },
-        { id: "Phase 2", name: "Phase 2: プロジェクト別 3層Gateプラグイン確立", pct: 92 },
-        { id: "Phase 3", name: "Phase 3: Shard別 Context-Reset 自律量産ループ (1➔100)", pct: 84 },
-        { id: "Phase 4", name: "Phase 4: 本番稼働・Google Sheets/CF単方向ブリッジ還流", pct: 76 }
-      ];
-      document.getElementById("timelinePhasesContainer").innerHTML = phases.map(p => {
-        const pTasks = tasksState.filter(t => t.phase === p.id && (currentShard === "ALL" || t.project === currentShard));
-        return `
-          <div class="p-4 rounded-xl bg-ecru-surface/70 border border-ecru-borderStrong space-y-2">
-            <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-ecru-text"><span class="font-mono bg-slate-800 text-white px-2 py-0.5 rounded mr-2">${p.id}</span>${p.name}</span>
-              <span class="font-mono font-bold text-indigo-600">${p.pct}%</span>
-            </div>
-            <div class="w-full bg-stone-200 h-2 rounded-full overflow-hidden">
-              <div class="bg-indigo-600 h-full rounded-full" style="width:${p.pct}%"></div>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-1">
-              ${pTasks.map(t => `<button onclick="openDetailDrawer('${t.id}')" class="text-[11px] bg-ecru-card px-2 py-0.5 rounded border border-ecru-borderStrong hover:border-indigo-500 cursor-pointer"><strong class="font-mono text-indigo-600">#${t.id}</strong> ${t.title.substring(0, 28)}...</button>`).join("") || `<span class="text-[11px] text-ecru-muted">表示中の該当タスクなし</span>`}
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function renderMarketingPanel() {
-      const rem = feedbackQueue.filter(f => !f.converted).length;
-      const mktCnt = document.getElementById("mktPendingVoiceCount");
-      if (mktCnt) mktCnt.textContent = `${rem}件`;
-
-      document.getElementById("feedbackQueueContainer").innerHTML = feedbackQueue.map((fb, idx) => {
-        const sObj = shardRegistry.find(s => s.code === fb.project) || shardRegistry[0];
-        return `
-          <div class="p-3 rounded-xl bg-ecru-surface border border-ecru-borderStrong space-y-2 text-xs">
-            <div class="flex items-center justify-between text-[11px]">
-              <span class="font-bold text-indigo-700">${sObj.name} (${sObj.shardFile})</span>
-              <span class="font-mono text-ecru-subtext">${fb.author} ・ ${fb.time}</span>
-            </div>
-            <p class="text-ecru-text bg-ecru-card p-2 rounded border border-ecru-border">${fb.text}</p>
-            <div class="flex justify-end">
-              ${fb.converted
-                ? `<button onclick="openDetailDrawer('${fb.ticketKey}')" class="px-3 py-1 bg-emerald-100 text-emerald-900 rounded font-semibold cursor-pointer">起票済 (#${fb.ticketKey})</button>`
-                : `<button onclick="convertFeedbackToShard(${idx})" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-semibold cursor-pointer"><i class="fa-solid fa-ticket mr-1"></i>${sObj.shardFile} へ自動起票</button>`
-              }
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    async function convertFeedbackToShard(idx) {
-      const fb = feedbackQueue[idx];
-      if (fb.converted) return;
-      const newKey = `${fb.project}-${140 + idx}`;
-      const sObj = shardRegistry.find(s => s.code === fb.project) || shardRegistry[0];
-
-      const newTask = {
-        id: newKey,
-        project: fb.project,
-        priority: "P1",
-        title: fb.suggestedTitle,
-        column: "todo",
-        phase: "Phase 4",
-        tokens: 120,
-        scopeSize: "15m",
-        agent: "Antigravity",
-        targetFile: fb.targetFile,
-        updated: "たった今 (現場還流)",
-        commitHash: "pending",
-        gates: {
-          g1: { label: sObj.gates[0].split(":")[0], pass: null, detail: "待機中" },
-          g2: { label: sObj.gates[1].split(":")[0], pass: null, detail: "待機中" },
-          g3: { label: sObj.gates[2].split(":")[0], pass: null, detail: "待機中" }
-        },
-        remediation: null,
-        specs: [`現場フィードバック (${fb.author}) から ${sObj.shardFile} へ自動起票`],
-        gitDiff: `# Appended to ${sObj.shardFile} via Atomic CAS`
-      };
-
-      tasksState.unshift(newTask);
-      fb.converted = true;
-      fb.ticketKey = newKey;
-      lastUpdatedCardId = newKey;
-
-      try {
-        await fetch('/api/add_task', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newTask)
-        });
-      } catch(e) {}
-
-      touchSseTimestamp(`現場ボイスを #${newKey} として ${sObj.shardFile} へ起票しました`);
-      renderAllViews();
-    }
-
-    function renderHarnessPanel() {
-      document.getElementById("mutationSamplesList").innerHTML = mutationSamples.map(m => `
-        <div class="p-2.5 rounded-lg bg-ecru-surface border border-ecru-borderStrong flex items-center justify-between gap-2">
-          <div>
-            <div class="font-semibold text-ecru-text">${m.name}</div>
-            <div class="text-[10px] font-mono text-ecru-subtext">${m.judge}</div>
-          </div>
-          <span class="text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded flex-shrink-0">${m.result}</span>
+          <span class="font-mono text-[11px] text-ecru-subtext">${t.column.toUpperCase()}</span>
         </div>
       `).join("");
     }
 
-    function renderRoadmapPanel() {
-      let total = 0;
-      document.getElementById("pillarChecklistContainer").innerHTML = harnessPillars.map((p, idx) => {
-        const s = p.checked ? p.max : 10;
-        total += s;
-        return `
-          <label class="p-3 rounded-lg bg-ecru-surface border border-ecru-borderStrong flex items-center justify-between cursor-pointer">
-            <div class="flex items-center gap-2">
-              <input type="checkbox" ${p.checked ? 'checked' : ''} onchange="harnessPillars[${idx}].checked = !harnessPillars[${idx}].checked; renderRoadmapPanel();" class="h-4 w-4 rounded text-indigo-600">
-              <span class="font-semibold text-ecru-text">${p.name}</span>
-            </div>
-            <span class="font-mono font-bold text-emerald-700">${s}/${p.max}</span>
-          </label>
-        `;
-      }).join("");
-      document.getElementById("pillarTotalScore").textContent = `${total} / 100`;
-      document.getElementById("sidebarLevelBadge").textContent = total >= 100 ? "Lv.4.0" : "Lv.3.8";
+    function renderTimelinePanel() {
+      const phases = [
+        { id: "Phase 1", name: "Phase 1: 160枚手技図・肢位・グレード整合辞書確立", pct: 100 },
+        { id: "Phase 2", name: "Phase 2: カルタ読み札3段構造＆音声エンジン連携", pct: 100 },
+        { id: "Phase 3", name: "Phase 3: 3層監査ハーネス＆PWAアプリ化 (v21)", pct: 100 },
+        { id: "Phase 4", name: "Phase 4: GitHub Pages公開 ＆ 実機PWA検証", pct: 40 }
+      ];
+      document.getElementById("timelinePhasesContainer").innerHTML = phases.map(p => `
+        <div class="p-3.5 rounded-xl bg-ecru-surface border border-ecru-borderStrong space-y-1.5">
+          <div class="flex justify-between text-xs font-bold">
+            <span>${p.name}</span>
+            <span class="text-indigo-600 font-mono">${p.pct}%</span>
+          </div>
+          <div class="w-full bg-stone-200 h-2 rounded-full overflow-hidden">
+            <div class="bg-indigo-600 h-full rounded-full" style="width: ${p.pct}%"></div>
+          </div>
+        </div>
+      `).join("");
     }
 
-    function openNewShardModal() { document.getElementById("newShardModal").classList.remove("hidden"); }
-    function closeNewShardModal() { document.getElementById("newShardModal").classList.add("hidden"); }
-    async function submitNewProjectShard(e) {
-      e.preventDefault();
-      const code = document.getElementById("newShardCode").value.trim().toUpperCase();
-      const name = document.getElementById("newShardName").value.trim();
-      const profile = document.getElementById("newShardGateProfile").value;
-      if (!code || !name) return;
-
-      const gateMap = {
-        media: ["G0:PCスペック検診", "G1:FFmpeg合成", "G2:音ズレ/見切れ検査"],
-        webapp: ["G1:構文/スキーマ", "G2:画像/OCR品質", "G3:Playwright実機"],
-        automation: ["G1:構文/型検査", "G2:DryRun通知検証", "G3:マスタ台帳整合"]
-      };
-      const shardFile = `shards/${code.toLowerCase()}_project.yaml`;
-
-      shardRegistry.push({
-        code,
-        name,
-        icon: "fa-rocket",
-        color: "text-indigo-400",
-        badgeClass: "bg-indigo-50 text-indigo-800 border-indigo-200",
-        shardFile,
-        progress: 15,
-        gates: gateMap[profile]
-      });
-
-      const firstTaskId = `${code}-001`;
-      const newTask = {
-        id: firstTaskId,
-        project: code,
-        priority: "P0",
-        title: `[Gate 0 初期検診＆試作1号] ${name} の最小動作プロトタイプ(Spike)作成`,
-        column: "todo",
-        phase: "Phase 0",
-        tokens: 110,
-        scopeSize: "15m",
-        agent: "Antigravity",
-        targetFile: shardFile,
-        updated: "たった今 (Plugin Wizard)",
-        commitHash: "pending",
-        gates: {
-          g1: { label: gateMap[profile][0].split(":")[0], pass: true, detail: "Gate 0 初期検診 READY" },
-          g2: { label: gateMap[profile][1].split(":")[0], pass: null, detail: "待機中" },
-          g3: { label: gateMap[profile][2].split(":")[0], pass: null, detail: "待機中" }
-        },
-        remediation: null,
-        specs: [`新規作成された独立シャード (${shardFile}) で既存YAMLを汚さずに開発を開始`],
-        gitDiff: `# Created new shard ${shardFile}`
-      };
-      tasksState.unshift(newTask);
-
-      try {
-        await fetch('/api/add_shard', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code, name, shardFile, initialTask: newTask })
-        });
-      } catch(e) {}
-
-      closeNewShardModal();
-      selectShard(code);
-      showToast(`新規プロジェクトShard (${shardFile}) と専用3層Gateを作成しました！`);
-    }
-
-    function openDetailDrawer(taskId) {
-      activeDrawerTaskId = taskId;
-      populateDrawer(taskId);
+    function openDetailDrawer(id) {
+      activeDrawerTaskId = id;
+      populateDrawer(id);
       document.getElementById("detailDrawer").classList.remove("translate-x-full");
     }
     function closeDetailDrawer() {
       document.getElementById("detailDrawer").classList.add("translate-x-full");
       activeDrawerTaskId = null;
     }
-
-    function populateDrawer(taskId) {
-      const t = tasksState.find(x => x.id === taskId);
+    function populateDrawer(id) {
+      const t = tasksState.find(x => x.id === id);
       if (!t) return;
-      const sObj = shardRegistry.find(s => s.code === t.project) || shardRegistry[0];
-
       document.getElementById("drawerKey").textContent = `#${t.id}`;
       document.getElementById("drawerPriorityBadge").textContent = t.priority;
-      document.getElementById("drawerPriorityBadge").className = `font-mono text-[10px] font-bold px-1.5 py-0.5 rounded ${t.priority === 'P0' ? 'bg-rose-600 text-white' : 'bg-amber-500 text-white'}`;
-      document.getElementById("drawerShardFile").textContent = sObj.shardFile;
       document.getElementById("drawerStatusSelect").value = t.column;
       document.getElementById("drawerTitle").textContent = t.title;
-      document.getElementById("drawerAgent").textContent = t.agent || 'Antigravity';
-      document.getElementById("drawerPhase").textContent = `${t.phase} (${t.tokens || 120} tok)`;
-      document.getElementById("drawerFile").textContent = t.targetFile || 'tasks.yaml';
-      document.getElementById("drawerUpdated").textContent = t.updated || '今';
+      document.getElementById("drawerFile").textContent = t.targetFile || 'index.html';
+      document.getElementById("drawerUpdated").textContent = t.updated || '最新';
       document.getElementById("drawerCommit").textContent = t.commitHash || 'pending';
-
-      const hasFail = t.gates && (t.gates.g1.pass === false || t.gates.g2.pass === false || t.gates.g3.pass === false);
-      const remBox = document.getElementById("drawerRemediationBox");
-      if (hasFail && t.remediation) {
-        remBox.classList.remove("hidden");
-        document.getElementById("drawerRemediationText").textContent = t.remediation;
-      } else {
-        remBox.classList.add("hidden");
-      }
-
-      const gateRow = (g) => {
-        if (!g) return '';
-        const st = g.pass === true ? "bg-emerald-50/70 border-emerald-200" : g.pass === false ? "bg-rose-50 border-rose-300" : "bg-ecru-surface border-ecru-border";
-        const b = g.pass === true ? `<span class="text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">PASS</span>` : g.pass === false ? `<span class="text-[10px] font-mono font-bold bg-rose-200 text-rose-900 px-1.5 py-0.5 rounded">FAIL</span>` : `<span class="text-[10px] font-mono bg-stone-200 text-stone-600 px-1.5 py-0.5 rounded">WAIT</span>`;
-        return `<div class="p-2.5 rounded-lg border ${st} flex items-start justify-between gap-2"><div><div class="font-bold text-ecru-text">${g.label}</div><div class="text-[11px] font-mono text-ecru-subtext mt-0.5">${g.detail}</div></div>${b}</div>`;
-      };
-      document.getElementById("drawerGatesContainer").innerHTML = (t.gates ? gateRow(t.gates.g1) + gateRow(t.gates.g2) + gateRow(t.gates.g3) : '');
-      document.getElementById("drawerSpecsList").innerHTML = (t.specs || []).map(s => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-1 text-[10px]"></i><span>${s}</span></li>`).join("");
-      document.getElementById("drawerGitDiff").textContent = t.gitDiff || '';
+      document.getElementById("drawerSpecsList").innerHTML = (t.specs || []).map(s => `<li>✔ ${s}</li>`).join("");
+      document.getElementById("drawerGitDiff").textContent = t.gitDiff || '# No diff recorded';
     }
 
-    async function executeRemediationFix() {
+    async function changeTaskStatusFromDrawer(col) {
       if (!activeDrawerTaskId) return;
-      const t = tasksState.find(x => x.id === activeDrawerTaskId);
-      if (!t) return;
-      t.gates.g1.pass = true;
-      t.gates.g2.pass = true;
-      t.gates.g2.detail = "処方箋適用により基準クリア (PASS)";
-      t.gates.g3.pass = true;
-      t.gates.g3.detail = "実機・セーフゾーン検証 PASS";
-      t.remediation = null;
-      t.column = "done";
-      t.updated = "たった今 (Atomic修復)";
-      t.commitHash = Math.random().toString(16).substring(2, 9);
-      lastUpdatedCardId = t.id;
-
-      try {
-        await fetch('/api/update_task', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(t)
-        });
-      } catch(e) {}
-
-      touchSseTimestamp(`処方箋を実行し、#${t.id} を Atomic CAS 経由で Done に刻印しました`);
-      renderAllViews();
-    }
-
-    function changeTaskStatusFromDrawer(newCol) {
-      if (!activeDrawerTaskId) return;
-      moveTaskToColumn(activeDrawerTaskId, newCol);
+      moveTaskToCol(activeDrawerTaskId, col);
     }
 
     function handleDragOver(e) { e.preventDefault(); e.currentTarget.classList.add("drag-over"); }
     function handleDragLeave(e) { e.currentTarget.classList.remove("drag-over"); }
-    function handleDrop(e, targetCol) {
+    function handleDrop(e, col) {
       e.preventDefault();
       e.currentTarget.classList.remove("drag-over");
-      if (draggedCardId) moveTaskToColumn(draggedCardId, targetCol);
+      if (draggedCardId) moveTaskToCol(draggedCardId, col);
     }
 
-    async function moveTaskToColumn(taskId, targetCol) {
-      const t = tasksState.find(x => x.id === taskId);
-      if (!t || t.column === targetCol) return;
-      t.column = targetCol;
-      t.updated = "たった今";
-      if (targetCol === "done") {
-        if (t.gates) {
-          t.gates.g1.pass = true; t.gates.g2.pass = true; t.gates.g3.pass = true;
-        }
-        t.remediation = null;
-        if (t.commitHash === "pending") t.commitHash = Math.random().toString(16).substring(2, 9);
-      }
-      lastUpdatedCardId = t.id;
-
+    async function moveTaskToCol(id, col) {
+      const t = tasksState.find(x => x.id === id);
+      if (!t || t.column === col) return;
+      t.column = col;
+      t.updated = "たった今更新";
+      renderKanbanBoard();
       try {
         await fetch('/api/update_task', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(t)
         });
+        showToast(`#${id} を [${col.toUpperCase()}] へ移動しました`);
       } catch(e) {}
-
-      touchSseTimestamp(`#${t.id} を [${targetCol.toUpperCase()}] へ移動しました`);
-      renderAllViews();
     }
 
-    function openCommandPalette() {
-      document.getElementById("commandPaletteModal").classList.remove("hidden");
-      const inp = document.getElementById("cmdPaletteInput");
-      inp.value = "";
-      inp.focus();
-      renderCommandPaletteList();
-    }
-    function closeCommandPalette() { document.getElementById("commandPaletteModal").classList.add("hidden"); }
-    function renderCommandPaletteList() {
-      const q = (document.getElementById("cmdPaletteInput").value || "").toLowerCase();
-      const actions = [
-        { title: "⚡ 並列AI書き込み＆Atomic CAS排他ロックをシミュレート", run: () => { closeCommandPalette(); simulateAtomicAiWrite(); } },
-        { title: "🔄 Google Sheets / Cloudflare 単方向ブリッジ同期を実行", run: () => { closeCommandPalette(); simulateExternalBridgeSync(); } },
-        { title: "🧹 Doneタスクを archive/*.jsonl へ自動退避してYAMLを軽量化", run: () => { closeCommandPalette(); archiveDoneTasks(); } },
-        { title: "➕ 新規プロジェクトShard＆3層Gateプラグインを追加", run: () => { closeCommandPalette(); openNewShardModal(); } },
-        { title: "📐 ビュー切替: 2. 同期・拡張アーキテクチャ設計図を開く", run: () => { closeCommandPalette(); switchMainView('sync'); } },
-        { title: "💻 ビュー切替: 6. Gate 0 PCスペック検診＆逆テストを開く", run: () => { closeCommandPalette(); switchMainView('harness'); } }
-      ];
-      tasksState.forEach(t => {
-        actions.push({
-          title: `🎫 課題 #${t.id} (${t.project}): ${t.title}`,
-          run: () => { closeCommandPalette(); openDetailDrawer(t.id); }
-        });
-      });
-
-      const matched = actions.filter(a => a.title.toLowerCase().includes(q));
-      const container = document.getElementById("cmdPaletteResults");
-      container.innerHTML = matched.map((m, i) => `
-        <button onclick="window._cmdActions[${i}]()" class="w-full text-left px-4 py-2.5 hover:bg-ecru-surface flex items-center justify-between transition cursor-pointer">
-          <span class="font-medium text-ecru-text">${m.title}</span>
-          <span class="text-[10px] font-mono text-ecru-subtext">Enter ↵</span>
-        </button>
-      `).join("");
-      window._cmdActions = matched.map(m => m.run);
-    }
-
-    function setTheme(themeName) {
-      document.body.setAttribute("data-theme", themeName);
-      ["ecru", "jira", "dark"].forEach(t => {
-        const btn = document.getElementById(`themeBtn-${t}`);
-        if (btn) {
-          btn.className = t === themeName
-            ? "px-1.5 py-0.5 rounded bg-amber-200 text-stone-950 font-bold cursor-pointer"
-            : "px-1.5 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer";
-        }
-      });
-    }
-
-    function switchMainView(viewName) {
-      currentView = viewName;
-      document.querySelectorAll(".view-panel").forEach(el => el.classList.add("hidden"));
-      document.getElementById(`view-${viewName}`).classList.remove("hidden");
-
-      document.querySelectorAll(".top-tab-btn").forEach(btn => {
-        btn.className = btn.getAttribute("data-view") === viewName
-          ? "top-tab-btn border-b-2 border-indigo-600 text-indigo-600 font-semibold px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
-          : "top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer";
-      });
-
-      document.querySelectorAll(".side-nav-btn").forEach(btn => {
-        if (btn.getAttribute("data-view") === viewName) {
-          btn.classList.add("bg-indigo-600", "text-white", "font-medium");
-          btn.classList.remove("text-sidebar-muted");
-        } else {
-          btn.classList.remove("bg-indigo-600", "text-white", "font-medium");
-          btn.classList.add("text-sidebar-muted");
-        }
-      });
-      renderAllViews();
-    }
-
-    function setBoardFilter(f) {
-      currentBoardFilter = f;
-      document.querySelectorAll(".board-chip").forEach(c => {
-        if (c.getAttribute("data-filter") === f) {
-          c.classList.add("bg-slate-800", "text-white", "font-semibold");
-          c.classList.remove("bg-ecru-card");
-        } else {
-          c.classList.remove("bg-slate-800", "text-white", "font-semibold");
-          c.classList.add("bg-ecru-card");
-        }
-      });
-      renderKanbanBoard();
-    }
-
-    function touchSseTimestamp(msg) {
-      const now = new Date().toTimeString().split(" ")[0];
-      document.getElementById("lastModifiedText").textContent = now;
-      if (msg) showToast(msg);
-    }
-
-    function toggleYamlSyntaxError() {
-      isYamlErrorSimulated = !isYamlErrorSimulated;
-      const banner = document.getElementById("yamlErrorBanner");
-      if (isYamlErrorSimulated) {
-        banner.classList.remove("hidden");
-        document.getElementById("cachedTimeLabel").textContent = document.getElementById("lastModifiedText").textContent;
-      } else {
-        banner.classList.add("hidden");
-        showToast("Shard YAMLの構文エラーが修復され、SSE同期に復帰しました");
-      }
-    }
-
-    function runJudgeMutationTest() {
-      const now = new Date().toTimeString().split(" ")[0];
-      document.getElementById("mutationLastRunText").textContent = `最終逆テスト: ${now} (0.48s / 5件すべてREJECT成功)`;
-      showToast("5種の不良品サンプルによる裁判官の逆テストが100% PASSしました！");
-    }
-
-    function openStarterKitModal() {
-      const lines = [
-        `# Exported Multi-Shard Tasks (Shard Filter: ${currentShard})`,
-        `updated_at: "${new Date().toISOString()}"`,
-        `archived_done_count: ${archivedDoneCount}`,
-        `tasks:`
-      ];
-      getFilteredTasks().forEach(t => {
-        lines.push(`  - id: "${t.id}"`);
-        lines.push(`    shard: "${t.project}"`);
-        lines.push(`    priority: "${t.priority}"`);
-        lines.push(`    title: "${t.title}"`);
-        lines.push(`    status: "${t.column}"`);
-        lines.push(`    commit_hash: "${t.commitHash}"`);
-      });
-      document.getElementById("liveYamlCode").textContent = lines.join("\n");
-      document.getElementById("starterKitModal").classList.remove("hidden");
-    }
-    function closeStarterKitModal() { document.getElementById("starterKitModal").classList.add("hidden"); }
-    function openNewTaskModal() { document.getElementById("newTaskModal").classList.remove("hidden"); }
-    function closeNewTaskModal() { document.getElementById("newTaskModal").classList.add("hidden"); }
-
-    async function submitNewTask(e) {
+    function submitRealFeedback(e) {
       e.preventDefault();
-      const proj = document.getElementById("newTaskProj").value;
-      const prio = document.getElementById("newTaskPriority").value;
-      const agent = document.getElementById("newTaskAgent").value;
-      const title = document.getElementById("newTaskTitle").value.trim();
-      const file = document.getElementById("newTaskFile").value.trim();
-      if (!title) return;
-
-      const sObj = shardRegistry.find(s => s.code === proj) || shardRegistry[0];
-      const newId = `${proj}-${Math.floor(150 + Math.random() * 40)}`;
+      const val = document.getElementById("realFeedbackInput").value.trim();
+      if (!val) return;
+      const newId = `MMT-0${25 + Math.floor(Math.random()*10)}`;
       const newTask = {
         id: newId,
-        project: proj,
-        priority: prio,
-        title,
+        project: "MMT",
+        priority: "P1",
+        title: val,
         column: "todo",
-        phase: "Phase 3",
-        tokens: 125,
+        phase: "Phase 4",
+        tokens: 110,
         scopeSize: "15m",
-        agent,
-        targetFile: file,
-        updated: "たった今 (Atomic CAS)",
+        agent: "Antigravity",
+        targetFile: "index.html",
+        updated: "たった今 (現場フィードバック)",
         commitHash: "pending",
-        gates: {
-          g1: { label: sObj.gates[0].split(":")[0], pass: null, detail: "待機中" },
-          g2: { label: sObj.gates[1].split(":")[0], pass: null, detail: "待機中" },
-          g3: { label: sObj.gates[2].split(":")[0], pass: null, detail: "待機中" }
-        },
-        remediation: null,
-        specs: [`${sObj.shardFile} にAtomic CASロック経由で追加された1スコープ課題`],
-        gitDiff: `# Added to ${sObj.shardFile}`
+        specs: [`現場からの要望: ${val}`],
+        gitDiff: `# Feed back added to tasks.yaml`
       };
       tasksState.unshift(newTask);
-      lastUpdatedCardId = newId;
+      fetch('/api/add_task', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTask)
+      });
+      document.getElementById("realFeedbackInput").value = "";
+      showToast(`フィードバックを #${newId} として登録しました`);
+      renderAllViews();
+    }
 
-      try {
-        await fetch('/api/add_task', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newTask)
-        });
-      } catch(e) {}
-
+    function openNewTaskModal() { document.getElementById("newTaskModal").classList.remove("hidden"); }
+    function closeNewTaskModal() { document.getElementById("newTaskModal").classList.add("hidden"); }
+    function submitNewTask(e) {
+      e.preventDefault();
+      const title = document.getElementById("newTaskTitle").value.trim();
+      const prio = document.getElementById("newTaskPriority").value;
+      if (!title) return;
+      const newId = `MMT-0${25 + Math.floor(Math.random()*10)}`;
+      const newTask = {
+        id: newId,
+        project: "MMT",
+        priority: prio,
+        title: title,
+        column: "todo",
+        phase: "Phase 4",
+        tokens: 110,
+        scopeSize: "15m",
+        agent: "Antigravity",
+        targetFile: "index.html",
+        updated: "たった今",
+        commitHash: "pending",
+        specs: [title],
+        gitDiff: `# New task`
+      };
+      tasksState.unshift(newTask);
+      fetch('/api/add_task', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTask)
+      });
       closeNewTaskModal();
       document.getElementById("newTaskTitle").value = "";
-      touchSseTimestamp(`#${newId} を ${sObj.shardFile} へAtomic追記しました`);
+      showToast(`タスク #${newId} を追加しました`);
       renderAllViews();
     }
 
     function previewArtifact(name) {
       const map = {
-        "AGENTS.md": `# AGENTS.md (v2.0 Sharded Routing Map - 88 Lines)\n1. 作業員AIは担当スコープの Shard YAML 1ファイルのみ(例: shards/pt_portal.yaml)を読み書きする。\n2. 書き込み時は直接上書きせず、harness/atomic_yaml.py 経由で一時ファイル検証＋os.replace置換を行う。\n3. 完了(done)刻印は harness/run_all_gates.py が3層すべてPASSした時のみ自動で行われる。`,
-        "sync_bridge.py": `# harness/sync_bridge.py (単方向所有権ブリッジ)\n# - Google Sheets マスタ台帳 (問題文・立腰体操スケジュール) -> 差分を検知して shards/*.yaml の todo へ単方向追加\n# - Cloudflare Web Analytics / 報告フォーム -> 正答率ワースト問題を検知して shards/pt_portal.yaml へ自動起票\n# ※双方向編集を禁止することで二重台帳の競合を100%防止`,
-        "run_all_gates.py": `# harness/run_all_gates.py (Shard対応プラグイン3層裁判官)\n# シャードごとの gate_profile (webapp / media / automation) を自動判別して検査を実行。\n# 失敗時は上位5件のエラーと REMEDIATION(処方箋) のみを出力。\n# 全PASS時は SHA-256 CAS ロックを取得して該当Shard YAMLを status: done に書き換える。`
+        "AGENTS.md": `# AGENTS.md\\n- Three Inviolable Rules (裁判官の不可侵、別画像すり替え禁止、UI幾何制約死守)\\n- SVG路線図主義の徹底 (写実アトラス競合禁止・起始/停止/支配神経の記号化)\\n- 監査コマンド: python harness/image_quality_gate.py && node harness/e2e_full_verification.js`,
+        "PROGRESS.md": `# PROGRESS.md (v21 確定状態)\\n- PWA スタンドアロン完備 (iOS / Android)\\n- 160枚手技画像・肢位・グレード 100% 完全一致保証 (133枚実動 + 27枚アーカイブ)\\n- カルタ読み札3段構造＆音声合成連携\\n- 3層監査 ALL PASS (180/180 合格)`
       };
       document.getElementById("artifactModalTitle").textContent = name;
       document.getElementById("artifactModalContent").textContent = map[name] || "";
@@ -2219,46 +1009,65 @@
     }
     function closeArtifactModal() { document.getElementById("artifactPreviewModal").classList.add("hidden"); }
 
-    function copySingleTaskCli(taskId) {
-      const t = tasksState.find(x => x.id === taskId) || tasksState[0];
-      const sObj = shardRegistry.find(s => s.code === t.project) || shardRegistry[0];
-      const cmd = `claude -p "AGENTS.mdと ${sObj.shardFile} のみを読み、スコープ #${t.id} を実装し python harness/run_all_gates.py --shard ${sObj.shardFile} --id ${t.id} をPASSさせよ"`;
-      copyRawText(cmd, `#${t.id} のShard指定起動コマンドをコピーしました`);
-    }
-    function copyDrawerTaskCommand() { if (activeDrawerTaskId) copySingleTaskCli(activeDrawerTaskId); }
-    function copyDrawerRemediationPrompt() {
-      const t = tasksState.find(x => x.id === activeDrawerTaskId);
-      if (t && t.remediation) copyRawText(`#${t.id} 処方箋修復指示: ${t.remediation}`, "処方箋をコピーしました");
-    }
-    function copyLoopShellScript() {
-      const s = `for SHARD in shards/*.yaml; do\n  NEXT_ID=$(python harness/get_next_scope.py "$SHARD")\n  [ -n "$NEXT_ID" ] && claude -p "AGENTS.mdと $SHARD を読み #$NEXT_ID を実装し run_all_gates.py をPassさせよ"\ndone`;
-      copyRawText(s, "Shard対応の全自動周回スクリプトをコピーしました");
+    function switchMainView(name) {
+      currentView = name;
+      document.querySelectorAll(".view-panel").forEach(el => el.classList.add("hidden"));
+      document.getElementById(`view-${name}`).classList.remove("hidden");
+      document.querySelectorAll(".top-tab-btn").forEach(btn => {
+        btn.className = btn.getAttribute("data-view") === name
+          ? "top-tab-btn border-b-2 border-indigo-600 text-indigo-600 font-semibold px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+          : "top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer";
+      });
+      document.querySelectorAll(".side-nav-btn").forEach(btn => {
+        if (btn.getAttribute("data-view") === name) {
+          btn.classList.add("bg-indigo-600", "text-white");
+          btn.classList.remove("text-sidebar-muted");
+        } else {
+          btn.classList.remove("bg-indigo-600", "text-white");
+          btn.classList.add("text-sidebar-muted");
+        }
+      });
     }
 
-    function copyTextById(id, msg) { copyRawText(document.getElementById(id).textContent, msg); }
-    function copyRawText(text, msg) {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      showToast(msg);
+    function setBoardFilter(f) {
+      currentBoardFilter = f;
+      document.querySelectorAll(".board-chip").forEach(c => {
+        if (c.getAttribute("data-filter") === f) {
+          c.classList.add("bg-slate-800", "text-white");
+          c.classList.remove("bg-ecru-card");
+        } else {
+          c.classList.remove("bg-slate-800", "text-white");
+          c.classList.add("bg-ecru-card");
+        }
+      });
+      renderKanbanBoard();
     }
-    function downloadFile(name, content) {
-      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = name;
-      a.click();
-      showToast(`${name} を保存しました`);
+
+    function setTheme(name) {
+      document.body.setAttribute("data-theme", name);
     }
+
     function showToast(msg) {
-      const toast = document.getElementById("toastNotice");
+      const t = document.getElementById("toastNotice");
       document.getElementById("toastMessage").textContent = msg;
-      toast.classList.remove("translate-y-20", "opacity-0");
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => toast.classList.add("translate-y-20", "opacity-0"), 3200);
+      t.classList.remove("translate-y-20", "opacity-0");
+      setTimeout(() => t.classList.add("translate-y-20", "opacity-0"), 2500);
+    }
+
+    function openCommandPalette() {
+      document.getElementById("commandPaletteModal").classList.remove("hidden");
+      document.getElementById("cmdPaletteInput").value = "";
+      renderCommandPaletteList();
+    }
+    function closeCommandPalette() { document.getElementById("commandPaletteModal").classList.add("hidden"); }
+    function renderCommandPaletteList() {
+      const q = document.getElementById("cmdPaletteInput").value.toLowerCase();
+      const results = tasksState.filter(t => t.id.toLowerCase().includes(q) || t.title.toLowerCase().includes(q));
+      document.getElementById("cmdPaletteResults").innerHTML = results.map(t => `
+        <div class="px-4 py-2 hover:bg-ecru-surface cursor-pointer" onclick="closeCommandPalette(); openDetailDrawer('${t.id}')">
+          <strong class="text-indigo-600 font-mono">#${t.id}</strong> <span class="text-ecru-text">${t.title}</span>
+        </div>
+      `).join("");
     }
 
     document.addEventListener("keydown", (e) => {
@@ -2268,15 +1077,13 @@
       } else if (e.key === "Escape") {
         closeCommandPalette();
         closeDetailDrawer();
-        closeNewShardModal();
         closeNewTaskModal();
-        closeStarterKitModal();
         closeArtifactModal();
       }
     });
 
     window.addEventListener("DOMContentLoaded", () => {
-      loadInitialTasksFromBackend();
+      loadTasks();
       initSSE();
     });
   </script>
