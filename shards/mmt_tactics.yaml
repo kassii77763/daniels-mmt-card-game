@@ -35,27 +35,27 @@ tasks:
   project: MMT
   priority: P1
   title: GitHub Pages (gh-pages ブランチ) への最新 v21 本番デプロイと公開URL動作確認
-  column: todo
+  column: done
   phase: Phase 4
   tokens: 100
   scopeSize: 15m
   agent: Antigravity
   targetFile: index.html
-  updated: 待機中
-  commitHash: pending
+  updated: 本日デプロイ完了
+  commitHash: 40113aa
   gates:
     g1:
       label: G1:ビルド整合
-      pass: null
-      detail: 待機中
+      pass: true
+      detail: Fast-forward merge to gh-pages PASS
     g2:
       label: G2:キャッシュ
-      pass: null
-      detail: キャッシュバスター 20261102_v21 設定済
+      pass: true
+      detail: キャッシュバスター 20261102_v21 同期 PASS
     g3:
       label: G3:公開URL
-      pass: null
-      detail: https://kassii77763.github.io/daniels-mmt-card-game/ 監査予定
+      pass: true
+      detail: GitHub Pages 公開反映完了 (Exit 0)
   remediation: null
   specs:
   - main ブランチの最新状態を gh-pages に反映し 404 エラーがないこと
