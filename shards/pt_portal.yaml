@@ -1,0 +1,156 @@
+shard_code: PT
+shard_name: PTポータル (教材・160問)
+file: shards/pt_portal.yaml
+tasks:
+- id: PT-132
+  project: PT
+  priority: P0
+  title: Q042 大腿骨頭3次元回旋スライドの上端インク見切れ再クロップ
+  column: review
+  phase: Phase 2
+  tokens: 140
+  scopeSize: 15m
+  agent: Antigravity
+  targetFile: data/manual_crop_boxes.json
+  updated: 2分前
+  commitHash: 9a01e33
+  gates:
+    g1:
+      label: G1:座標辞書
+      pass: true
+      detail: 'verify_app.py: JSONスキーマ・pHashすり替え検査 PASS'
+    g2:
+      label: G2:画像/OCR
+      pass: false
+      detail: 'audit_crop_quality.py: FAIL (top_ink_ratio=0.082 > 閾値0.01)'
+    g3:
+      label: G3:実機E2E
+      pass: true
+      detail: 'e2e_playwright_audit.py: DOM描画OK (Console Error 0)'
+  remediation: data/manual_crop_boxes.json の 'Q042.ymin' を 140 ➔ 122 (-18px) に減算して再クロップしてください。
+  specs:
+  - 四辺のインク見切れ比率(ink_ratio)が 0.01 以下であること
+  - 問題文の段落テキストがOCR検査で混入していないこと
+  gitDiff: '# Shard: shards/pt_portal.yaml (SHA-256 CAS Protected)
+
+    - ymin: 140
+
+    + ymin: 122'
+- id: PT-133
+  project: PT
+  priority: P1
+  title: Q088 膝関節スクリューホームムーブメント解答赤文字の完全白塗り除去
+  column: review
+  phase: Phase 2
+  tokens: 130
+  scopeSize: 15m
+  agent: Claude Code
+  targetFile: scripts/crop_slides.py
+  updated: 7分前
+  commitHash: 4d21e09
+  gates:
+    g1:
+      label: G1:構文検査
+      pass: true
+      detail: 'verify_app.py: AST構文 PASS'
+    g2:
+      label: G2:赤文字検査
+      pass: false
+      detail: 'audit_crop_quality.py: FAIL (red_pixel_ratio=0.014 > 0.002)'
+    g3:
+      label: G3:実機E2E
+      pass: true
+      detail: Playwright 描画OK
+  remediation: scripts/crop_slides.py の HSV赤色マスク彩度下限 (S_MIN) を 70 ➔ 45 に下げて淡い赤文字も消去してください。
+  specs:
+  - 穴埋め赤文字がピクセル単位で0.2%以下に消去されていること
+  gitDiff: '- HSV_RED_LOWER_SAT = 70
+
+    + HSV_RED_LOWER_SAT = 45'
+- id: PT-135
+  project: PT
+  priority: P1
+  title: Q135〜Q140 腕神経叢（Erb麻痺 vs Klumpke麻痺）比較チャートの座標辞書登録
+  column: todo
+  phase: Phase 3
+  tokens: 135
+  scopeSize: 20m
+  agent: dsh (DeepSeek)
+  targetFile: data/manual_crop_boxes.json
+  updated: 25分前
+  commitHash: pending
+  gates:
+    g1:
+      label: G1:座標辞書
+      pass: null
+      detail: 待機中
+    g2:
+      label: G2:画像/OCR
+      pass: null
+      detail: 待機中
+    g3:
+      label: G3:実機E2E
+      pass: null
+      detail: 待機中
+  remediation: null
+  specs:
+  - 160枚静的座標辞書へQ135〜Q140を追加し3層ゲートを通過させる
+  gitDiff: '# Queued in shards/pt_portal.yaml'
+- id: MKT-008
+  project: PT
+  priority: P2
+  title: スマホ縦画面での問10離脱を防ぐ「1セット5問クイック演習モード」UI追加
+  column: todo
+  phase: Phase 4
+  tokens: 125
+  scopeSize: 15m
+  agent: Antigravity
+  targetFile: src/components/QuizHeader.js
+  updated: 1時間前
+  commitHash: pending
+  gates:
+    g1:
+      label: G1:構文
+      pass: null
+      detail: 待機中
+    g2:
+      label: G2:品質
+      pass: null
+      detail: 待機中
+    g3:
+      label: G3:実機E2E
+      pass: null
+      detail: 待機中
+  remediation: null
+  specs:
+  - マーケティング離脱ファネル分析（問10で28%離脱）に基づく改善チケット
+  gitDiff: '# Auto-generated from Cloudflare Analytics Funnel'
+- id: PT-131
+  project: PT
+  priority: P1
+  title: Q001〜Q131 運動学・解剖学スライド131問の3層ゲート一括検品＆CAS刻印
+  column: done
+  phase: Phase 3
+  tokens: 110
+  scopeSize: 完了
+  agent: Antigravity
+  targetFile: data/manual_crop_boxes.json
+  updated: 3時間前
+  commitHash: 1e45f92
+  gates:
+    g1:
+      label: G1:座標辞書
+      pass: true
+      detail: PASS (131/131)
+    g2:
+      label: G2:画像/OCR
+      pass: true
+      detail: PASS (見切れ0 / 赤文字0)
+    g3:
+      label: G3:実機E2E
+      pass: true
+      detail: PASS
+  remediation: null
+  specs:
+  - 裁判官スクリプトがCASロック経由で完了刻印済み
+  gitDiff: 'Verified-By: harness/run_all_gates.py [CAS SHA: 1e45f92]'

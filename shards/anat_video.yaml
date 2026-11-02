@@ -1,0 +1,39 @@
+shard_code: VID
+shard_name: 解剖学ショート動画生成
+file: shards/anat_video.yaml
+tasks:
+- id: VID-001
+  project: VID
+  priority: P0
+  title: 腕神経叢（C5-T1）15秒解説ショート動画のFFmpeg自動合成パイプライン試作
+  column: review
+  phase: Phase 0
+  tokens: 165
+  scopeSize: 20m
+  agent: Claude Code
+  targetFile: scripts/render_short_ffmpeg.py
+  updated: 4分前
+  commitHash: 3f82d10
+  gates:
+    g1:
+      label: G0:PC検診
+      pass: true
+      detail: 'gate0_hardware_probe.py: VRAM 128MB検知 ➔ FFmpeg CPU軽量合成ルートへ自動ピボット済'
+    g2:
+      label: G1:FFmpeg合成
+      pass: true
+      detail: '1080x1920 MP4 (60fps) 書き出し所要時間: 4.1秒 PASS'
+    g3:
+      label: G2:字幕見切れ
+      pass: false
+      detail: 'audit_video_safezone.py: FAIL (下端テロップがTikTok/ShortsのUI被り領域に14px侵入)'
+  remediation: scripts/render_short_ffmpeg.py の SUBTITLE_MARGIN_BOTTOM を 120 ➔ 180
+    (+60px) に引き上げて再合成してください。
+  specs:
+  - 専用ソフト無し・内蔵GPU(VRAM 128MB)環境で10秒以内にレンダリング完了すること
+  - 上下左右のセーフゾーンに字幕が収まること
+  gitDiff: '# Shard: shards/anat_video.yaml
+
+    - SUBTITLE_MARGIN_BOTTOM = 120
+
+    + SUBTITLE_MARGIN_BOTTOM = 180'
