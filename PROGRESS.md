@@ -1,6 +1,6 @@
 # PROGRESS.md — MMT Tactical Card Game 進捗ホワイトボード
 
-## 1. 現在のステータス概要 (v19)
+## 1. 現在のステータス概要 (v20)
 - **PWA（Progressive Web App）化完全対応**:
   - iOS（Safari）「ホーム画面に追加」およびAndroid（Chrome）でのネイティブアプリ同様のスタンドアロン全画面起動（URLバー非表示・`display: standalone`）。
   - Warm Bone調（`#F9F8F6`、`#1E293B`、`#D97706`）に調和した高精細アプリアイコン自動生成・完備（192px / 512px / 180px apple-touch-icon）。
@@ -18,7 +18,7 @@
   - 第2層：画像品質ゲート `python harness/image_quality_gate.py` PASS (180/180 ALL PASS)
   - 第3層：実機幾何＆画像ロード監査 `node harness/e2e_full_verification.js` PASS (TEST 0〜6 100% 合格)
   - PWA実機検証：Playwright + ローカルHTTPサーバーで `sw.js` (activated) ＆ PWAメタタグ・マニフェスト完全動作確認 PASS
-- **キャッシュバスター**: `20261102_v19`
+- **キャッシュバスター**: `20261102_v20`
 
 ---
 

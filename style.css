@@ -3949,29 +3949,34 @@ html, body {
 /* ウォークスルー ロック状態 */
 .flow-node-locked {
   position: relative;
-  opacity: 0.32;
-  filter: blur(1.5px) grayscale(40%);
+  opacity: 0.45;
+  filter: grayscale(30%);
   pointer-events: none;
   transition: all 0.35s ease;
   user-select: none;
 }
 .flow-node-locked::after {
-  content: "🔒 ロック中（クイズ正解で解除）";
+  content: "🔒 ロック中（下部クイズ正解でアンロック）";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(30, 41, 59, 0.88);
+  background: rgba(30, 41, 59, 0.92);
   color: #FFFFFF;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  padding: 6px 14px;
+  padding: 6px 16px;
   border-radius: 9999px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   pointer-events: none;
   z-index: 10;
-  filter: none;
+}
+
+/* 現在挑戦中のステップ枠（青く強調） */
+.flow-node-active-step {
+  border: 2px solid #2563EB !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
 }
 
 /* 自習ウォークスルー 質問パネル */
