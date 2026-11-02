@@ -172,10 +172,17 @@ html, body {
   display: flex !important;
 }
 
-#tab-battle.active, #tab-karuta.active, #tab-judge.active {
+#tab-battle.active, #tab-karuta.active {
   height: calc(100vh - 70px);
   min-height: 520px;
   justify-content: space-between;
+}
+
+#tab-judge.active {
+  height: auto;
+  min-height: calc(100vh - 70px);
+  justify-content: flex-start;
+  gap: 8px;
 }
 
 #tab-flow.active, #tab-list.active {
@@ -1253,7 +1260,7 @@ html, body {
   border-radius: 12px;
   padding: 12px;
   box-shadow: var(--shadow-card);
-  overflow-y: auto;
+  overflow-y: visible;
   flex: 1;
 }
 
@@ -1473,14 +1480,24 @@ html, body {
    ========================================================================== */
 #tab-judge {
   position: relative;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
   display: none;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 #tab-judge.active {
   display: flex;
+}
+
+#judge-speed-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  gap: 8px;
 }
 
 /* 1. HUD Bar */
@@ -3496,6 +3513,16 @@ html, body {
     font-size: 0.62rem;
   }
 
+  /* フローチャート分岐：スマホではYES/NOを縦1列にスタックして手技図と文字を大きく表示 */
+  .flow-branches-container {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .flow-chart-card {
+    overflow-y: visible !important;
+    max-height: none !important;
+  }
+
   /* 図鑑グリッド：スマホ画面（1〜2列並び） */
   .encyclopedia-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -3855,15 +3882,20 @@ html, body {
   gap: 2px;
 }
 .fmode-btn {
-  padding: 6px 14px;
-  font-size: 0.78rem;
+  padding: 6px 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   border-radius: 9999px;
   border: none;
   background: transparent;
   color: #475569;
   cursor: pointer;
+  white-space: nowrap;
   transition: all 0.2s ease;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .fmode-btn:hover {
   color: #1E293B;

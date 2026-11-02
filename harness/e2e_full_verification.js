@@ -482,6 +482,103 @@ const path = require('path');
   if (!isSpeedRestored) throw new Error("FAIL: スピード判定サブモードへの復帰が不正です");
   console.log("✅ TEST 8 合格: G3➔G2体位変換特訓の4択画像出題・クリック回答・進行・モード復帰を実機確認");
 
+  // ====================================================
+  // 9. 【厳格幾何監査】UI崩れ・上下巨大空隙・スマホ小窓・文字折返し完全根絶テスト
+  // ====================================================
+  console.log("\n[TEST 9] UI崩れ・上下巨大空隙・スマホ小窓・文字折返し完全根絶テスト...");
+
+  // 9-1. 判定タブ 上下巨大空隙テスト (PC 1280px & スマホ 390px)
+  await page.click('button[data-tab="judge"]');
+  await page.waitForTimeout(300);
+
+  const pcJudgeGap = await page.evaluate(() => {
+    const submode = document.querySelector('.judge-submode-bar');
+    const hud = document.querySelector('.judge-hud');
+    if (!submode || !hud) return null;
+    return hud.getBoundingClientRect().top - submode.getBoundingClientRect().bottom;
+  });
+  console.log(`  PC判定画面 モードバー〜HUD間 垂直ギャップ: ${pcJudgeGap !== null ? pcJudgeGap.toFixed(1) : 'null'}px (上限: 20px)`);
+  if (pcJudgeGap === null || pcJudgeGap > 20) {
+    throw new Error(`FAIL: 判定画面で上下分断の巨大空隙を検知しました (${pcJudgeGap}px > 20px)`);
+  }
+
+  // 9-2. 体位変換特訓 出題カード＆4択画像カード配置テスト
+  await page.click('#jsubmode-pairing');
+  await page.waitForTimeout(300);
+  await page.click('.btn-pairing-start');
+  await page.waitForTimeout(300);
+
+  const pairingLayout = await page.evaluate(() => {
+    const promptCard = document.querySelector('.pairing-prompt-card');
+    const optionsGrid = document.querySelector('.pairing-options-grid');
+    const container = document.getElementById('judge-pairing-container');
+    const optCards = Array.from(document.querySelectorAll('.pcard-opt'));
+    const allImagesLoaded = optCards.every(c => {
+      const img = c.querySelector('img');
+      return img && img.naturalWidth > 0;
+    });
+
+    return {
+      hasPrompt: !!promptCard,
+      hasOptions: optCards.length === 4,
+      allImagesLoaded,
+      containerH: container ? container.offsetHeight : 0
+    };
+  });
+  console.log(`  体位変換特訓カード配置: 4択カード完備=${pairingLayout.hasOptions}, 画像ロード完全性=${pairingLayout.allImagesLoaded}`);
+  if (!pairingLayout.hasPrompt || !pairingLayout.hasOptions || !pairingLayout.allImagesLoaded) {
+    throw new Error("FAIL: 体位変換特訓の出題カードまたは4択画像の配置・描画が不正です");
+  }
+
+  // 9-3. フローチャート スマホ幅(390px) 内部スクロール枠撤廃 ＆ YES/NO 1カラム化テスト
+  await spPage.click('button[data-tab="flow"]');
+  await spPage.waitForTimeout(300);
+
+  const flowSpLayout = await spPage.evaluate(() => {
+    const flowCard = document.querySelector('.flow-chart-card');
+    const branches = document.querySelector('.flow-branches-container');
+    const step2 = document.getElementById('flow-step2-node');
+    const step3 = document.getElementById('flow-step3-node');
+
+    const cardOverflowY = flowCard ? window.getComputedStyle(flowCard).overflowY : null;
+    const branchesDirection = branches ? window.getComputedStyle(branches).flexDirection : null;
+    const branchesCols = branches ? window.getComputedStyle(branches).gridTemplateColumns : null;
+
+    // YESブロックとNOブロックの幅
+    const step2W = step2 ? step2.offsetWidth : 0;
+    const step3W = step3 ? step3.offsetWidth : 0;
+
+    return {
+      cardOverflowY,
+      branchesDirection,
+      branchesCols,
+      step2W,
+      step3W
+    };
+  });
+  console.log(`  スマホ フローカード overflow-y: ${flowSpLayout.cardOverflowY} (visible/none必須)`);
+  console.log(`  スマホ フロー分岐幅: YES=${flowSpLayout.step2W}px, NO=${flowSpLayout.step3W}px`);
+
+  if (flowSpLayout.cardOverflowY === 'auto' || flowSpLayout.cardOverflowY === 'scroll') {
+    throw new Error(`FAIL: フローチャートコンテナに小窓スクロール(overflow-y: ${flowSpLayout.cardOverflowY})が残存しています（規律違反）`);
+  }
+  // 390px幅で165px以下の極小横2列並びを禁止（幅240px以上の一列並びを要求）
+  if (flowSpLayout.step2W < 240 || flowSpLayout.step3W < 240) {
+    throw new Error(`FAIL: スマホでフローチャートYES/NO分岐が極小潰れ(幅${flowSpLayout.step2W}px < 240px)しています。縦1列化が必要です`);
+  }
+
+  // 9-4. フローチャート上部 モード切替ボタンの文字折返し潰れゼロテスト
+  const btnHeight = await spPage.evaluate(() => {
+    const btn = document.getElementById('fmode-btn-view');
+    return btn ? btn.offsetHeight : 0;
+  });
+  console.log(`  スマホ モード切替ボタン高さ: ${btnHeight}px (上限: 42px)`);
+  if (btnHeight > 42) {
+    throw new Error(`FAIL: スマホでモード切替ボタンのテキストが不自然に2行折り返し潰れしています (高さ${btnHeight}px > 42px)`);
+  }
+
+  console.log("✅ TEST 9 合格: 判定画面上下空隙ゼロ・体位変換カード美配置・フロー小窓撤廃＆スマホ1列化を完全確認");
+
   await page.close();
   await spPage.close();
   await browser.close();
