@@ -487,19 +487,38 @@ const path = require('path');
   // ====================================================
   console.log("\n[TEST 9] UI崩れ・上下巨大空隙・スマホ小窓・文字折返し完全根絶テスト...");
 
-  // 9-1. 判定タブ 上下巨大空隙テスト (PC 1280px & スマホ 390px)
+  // 9-1. 判定タブ 上下巨大空隙テスト & スタートボタン切断ゼロ監査 (PC 1280px & スマホ 390px)
   await page.click('button[data-tab="judge"]');
   await page.waitForTimeout(300);
 
-  const pcJudgeGap = await page.evaluate(() => {
+  const judgeStartAudit = await page.evaluate(() => {
     const submode = document.querySelector('.judge-submode-bar');
     const hud = document.querySelector('.judge-hud');
-    if (!submode || !hud) return null;
-    return hud.getBoundingClientRect().top - submode.getBoundingClientRect().bottom;
+    const stage = document.querySelector('.judge-stage');
+    const readyCard = document.querySelector('.judge-ready-card');
+    const startBtn = document.querySelector('.judge-btn-start');
+
+    const gap = (submode && hud) ? (hud.getBoundingClientRect().top - submode.getBoundingClientRect().bottom) : null;
+    
+    // スタートボタンがステージ枠外にはみ出してクリップされていないか実測
+    const isBtnFullyVisible = (stage && startBtn) ? (startBtn.getBoundingClientRect().bottom <= stage.getBoundingClientRect().bottom + 2) : false;
+
+    return {
+      gap,
+      stageH: stage ? stage.offsetHeight : 0,
+      readyCardH: readyCard ? readyCard.offsetHeight : 0,
+      isBtnFullyVisible
+    };
   });
-  console.log(`  PC判定画面 モードバー〜HUD間 垂直ギャップ: ${pcJudgeGap !== null ? pcJudgeGap.toFixed(1) : 'null'}px (上限: 20px)`);
-  if (pcJudgeGap === null || pcJudgeGap > 20) {
-    throw new Error(`FAIL: 判定画面で上下分断の巨大空隙を検知しました (${pcJudgeGap}px > 20px)`);
+
+  console.log(`  PC判定画面 モードバー〜HUD間 垂直ギャップ: ${judgeStartAudit.gap !== null ? judgeStartAudit.gap.toFixed(1) : 'null'}px (上限: 20px)`);
+  console.log(`  判定スタート画面: ステージ高=${judgeStartAudit.stageH}px, カード高=${judgeStartAudit.readyCardH}px, スタートボタン全露出=${judgeStartAudit.isBtnFullyVisible}`);
+
+  if (judgeStartAudit.gap === null || judgeStartAudit.gap > 20) {
+    throw new Error(`FAIL: 判定画面で上下分断の巨大空隙を検知しました (${judgeStartAudit.gap}px > 20px)`);
+  }
+  if (!judgeStartAudit.isBtnFullyVisible) {
+    throw new Error(`FAIL: 判定スタートカードの下部（スタートボタン）が枠外に切断されて見えなくなっています (カード高:${judgeStartAudit.readyCardH}px > ステージ高:${judgeStartAudit.stageH}px)`);
   }
 
   // 9-2. 体位変換特訓 出題カード＆4択画像カード配置テスト

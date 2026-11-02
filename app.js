@@ -3872,7 +3872,7 @@ function getCardResolvedImage(card) {
     path = card.image || '';
   }
   if (!path) return '';
-  return path.includes('?') ? path : `${path}?v=20261102_v20`;
+  return path.includes('?') ? path : `${path}?v=20261102_v21`;
 }
 
 function hasCustomImage() {
@@ -4858,7 +4858,7 @@ function selectCpuPersona(personaKey) {
 // 外部JSON読み込み
 async function loadCardDatabase() {
   try {
-    const res = await fetch('data/cards.json?v=20261102_v20');
+    const res = await fetch('data/cards.json?v=20261102_v21');
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
@@ -4866,7 +4866,7 @@ async function loadCardDatabase() {
           const defaultRef = DEFAULT_CARDS.find(d => d.id === c.id) || {};
           const rawImg = c.image || defaultRef.image || '';
           const cleanImg = rawImg.split('?')[0];
-          const versionedImg = cleanImg ? `${cleanImg}?v=20261102_v20` : '';
+          const versionedImg = cleanImg ? `${cleanImg}?v=20261102_v21` : '';
           return {
             ...defaultRef,
             ...c,
@@ -5677,10 +5677,10 @@ function renderFlowChartContent() {
   const g4ImgEl = document.getElementById('flow-g4-img');
   const geImgEl = document.getElementById('flow-ge-img');
 
-  const g3Path = `assets/mmt/${joint.g3ImgId}.png?v=20261102_v20`;
-  const g5Path = `assets/mmt/${joint.g5ImgId}.png?v=20261102_v20`;
-  const g4Path = `assets/mmt/${joint.g4ImgId || joint.g5ImgId}.png?v=20261102_v20`;
-  const g2Path = `assets/mmt/${joint.g2ImgId}.png?v=20261102_v20`;
+  const g3Path = `assets/mmt/${joint.g3ImgId}.png?v=20261102_v21`;
+  const g5Path = `assets/mmt/${joint.g5ImgId}.png?v=20261102_v21`;
+  const g4Path = `assets/mmt/${joint.g4ImgId || joint.g5ImgId}.png?v=20261102_v21`;
+  const g2Path = `assets/mmt/${joint.g2ImgId}.png?v=20261102_v21`;
 
   if (agImgEl) {
     agImgEl.src = g3Path;
@@ -5891,42 +5891,42 @@ const JUDGE_QUESTIONS_POOL = [
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "下腿遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "端座位での抗重力全域完遂＋最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261102_v20"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v21"
   },
   {
     id: 102, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える（最大抵抗で崩れる）",
     correctAnswer: "G4", explanation: "中等度抵抗に耐え、最大抵抗で保持できない場合は【Grade 4】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261102_v20"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v21"
   },
   {
     id: 103, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "端座位（下腿前上方伸展）", rom: "全可動域 完遂", finding: "徒手抵抗には負ける（自重のみ保持）",
     correctAnswer: "G3", explanation: "抗重力位で自重のみ全可動域動く場合は【Grade 3】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261102_v20"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v21"
   },
   {
     id: 104, cardId: 11, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "側臥位（下腿を検者が支持）", rom: "重力除去位で全ROM完遂", finding: "抵抗なし（摩擦低減）",
     correctAnswer: "G2", explanation: "重力除去肢位（側臥位）で全可動域動く場合は【Grade 2】です。",
-    image: "assets/mmt/knee_ext_g2.png?v=20261102_v20"
+    image: "assets/mmt/knee_ext_g2.png?v=20261102_v21"
   },
   {
     id: 105, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "側臥位（重力除去位）", rom: "関節運動なし", finding: "大腿四頭筋腱にわずかな収縮を触知",
     correctAnswer: "G1", explanation: "関節運動は起きず、筋腱の収縮のみ触知される場合は【Grade 1】です。",
-    image: "assets/mmt/knee_ext_g543.png?v=20261102_v20"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v21"
   },
   {
     id: 106, cardId: 10, region: "下肢",
     title: "膝関節 伸展（大腿四頭筋）",
     pos: "⚠️ 背臥位（ベッド上で膝屈曲から伸展）", rom: "全可動域 完遂", finding: "最大抵抗に耐えた",
     correctAnswer: "ERROR", explanation: "💡 膝伸展の抗重力位（G5/G4/G3）は「端座位」です。背臥位では抗重力になりません！",
-    image: "assets/mmt/knee_ext_g543.png?v=20261102_v20"
+    image: "assets/mmt/knee_ext_g543.png?v=20261102_v21"
   },
 
   // 2. 肩関節 外転 (三角筋中部)
@@ -5935,35 +5935,35 @@ const JUDGE_QUESTIONS_POOL = [
     title: "肩関節 外転（三角筋中部）",
     pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "上腕遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "座位で真横90°挙上し最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261102_v20"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v21"
   },
   {
     id: 108, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える",
     correctAnswer: "G4", explanation: "中等度抵抗に耐える場合は【Grade 4】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261102_v20"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v21"
   },
   {
     id: 109, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "座位（腕を真横90°挙上）", rom: "全可動域 完遂", finding: "自重のみ（徒手抵抗で落下）",
     correctAnswer: "G3", explanation: "自重のみ抗重力全域保持できる場合は【Grade 3】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261102_v20"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v21"
   },
   {
     id: 110, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "背臥位（机・シーツ上を水平スライド）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
     correctAnswer: "G2", explanation: "背臥位で水平スライド全可動域完遂は【Grade 2】です。",
-    image: "assets/mmt/sh_abd_g543.png?v=20261102_v20"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v21"
   },
   {
     id: 111, cardId: 6, region: "上肢",
     title: "肩関節 外転（三角筋中部）",
     pos: "⚠️ 立位（腕を体側に下垂したまま）", rom: "水平に動かした", finding: "重力除去位として判定",
     correctAnswer: "ERROR", explanation: "💡 肩外転の重力除去位（G2）は「背臥位」です。立位下垂位は誤りです！",
-    image: "assets/mmt/sh_abd_g543.png?v=20261102_v20"
+    image: "assets/mmt/sh_abd_g543.png?v=20261102_v21"
   },
 
   // 3. 肘関節 屈曲 (上腕二頭筋)
@@ -5972,28 +5972,28 @@ const JUDGE_QUESTIONS_POOL = [
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "座位（前腕回外位で屈曲）", rom: "全可動域 完遂", finding: "前腕遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "座位・前腕回外位での最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v20"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v21"
   },
   {
     id: 113, cardId: 7, region: "上肢",
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "座位（前腕回外位で屈曲）", rom: "全可動域 完遂", finding: "中等度抵抗に耐える",
     correctAnswer: "G4", explanation: "中等度抵抗に耐える場合は【Grade 4】です。",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v20"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v21"
   },
   {
     id: 114, cardId: 7, region: "上肢",
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "座位（机上に上腕を置き水平屈曲）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
     correctAnswer: "G2", explanation: "机上面での水平屈曲（重力除去位）完遂は【Grade 2】です。",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v20"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v21"
   },
   {
     id: 115, cardId: 7, region: "上肢",
     title: "肘関節 屈曲（上腕二頭筋）",
     pos: "⚠️ 腹臥位（ベッド上で肘屈曲）", rom: "全可動域 完遂", finding: "最大抵抗に耐えた",
     correctAnswer: "ERROR", explanation: "💡 肘屈曲の抗重力位測定は「座位」で行います。腹臥位は誤りです！",
-    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v20"
+    image: "assets/mmt/elbow_flex_biceps_g543.png?v=20261102_v21"
   },
 
   // 4. 股関節 屈曲 (腸腰筋)
@@ -6002,14 +6002,14 @@ const JUDGE_QUESTIONS_POOL = [
     title: "股関節 屈曲（腸腰筋）",
     pos: "端座位（大腿を座面から挙上）", rom: "全可動域 完遂", finding: "大腿遠位への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "端座位で大腿を浮かせ最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/hip_flex_g543.png?v=20261102_v20"
+    image: "assets/mmt/hip_flex_g543.png?v=20261102_v21"
   },
   {
     id: 117, cardId: 9, region: "下肢",
     title: "股関節 屈曲（腸腰筋）",
     pos: "側臥位（検者が上肢・対側下肢支持）", rom: "重力除去で全ROM完遂", finding: "抵抗なし",
     correctAnswer: "G2", explanation: "側臥位（重力除去位）での全可動域完遂は【Grade 2】です。",
-    image: "assets/mmt/hip_flex_g543.png?v=20261102_v20"
+    image: "assets/mmt/hip_flex_g543.png?v=20261102_v21"
   },
 
   // 5. 手関節 伸展 (橈側手根伸筋群)
@@ -6018,21 +6018,21 @@ const JUDGE_QUESTIONS_POOL = [
     title: "手関節 伸展（橈側手根伸筋群）",
     pos: "前腕支持（机上伏臥位で手首反らし）", rom: "全可動域 完遂", finding: "手背面への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "前腕支持で手背への最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261102_v20"
+    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261102_v21"
   },
   {
     id: 119, cardId: 12, region: "上肢",
     title: "手関節 伸展（橈側手根伸筋群）",
     pos: "前腕中間位（手刀姿勢・小指接地）", rom: "机上を水平背屈スライド", finding: "全可動域 完遂",
     correctAnswer: "G2", explanation: "前腕中間位（手刀姿勢）での重力除去背屈は【Grade 2】です。",
-    image: "assets/mmt/wrist_ext_rad_g2.png?v=20261102_v20"
+    image: "assets/mmt/wrist_ext_rad_g2.png?v=20261102_v21"
   },
   {
     id: 120, cardId: 8, region: "上肢",
     title: "手関節 伸展（橈側手根伸筋群）",
     pos: "前腕支持（机上伏臥位）", rom: "関節運動なし", finding: "橈側手根伸筋腱に収縮を触知",
     correctAnswer: "G1", explanation: "関節運動は起きず収縮触知のみは【Grade 1】です。",
-    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261102_v20"
+    image: "assets/mmt/wrist_ext_rad_g543.png?v=20261102_v21"
   },
 
   // 6. 足関節 底屈 (下腿三頭筋)
@@ -6041,21 +6041,21 @@ const JUDGE_QUESTIONS_POOL = [
     title: "足関節 底屈（下腿三頭筋）",
     pos: "立位（片脚立ち踵上げ）", rom: "完全フォームで25回完遂", finding: "抵抗なし（自重25回）",
     correctAnswer: "G5", explanation: "標準MMT基準では立位・片脚立ち踵上げ25回完遂が【Grade 5】です。",
-    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v20"
+    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v21"
   },
   {
     id: 122, cardId: 14, region: "下肢",
     title: "足関節 底屈（下腿三頭筋）",
     pos: "立位（片脚立ち踵上げ）", rom: "完全フォームで12回で疲労", finding: "10〜24回完遂",
     correctAnswer: "G4", explanation: "片脚立ち踵上げ10〜24回完遂は【Grade 4】です。",
-    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v20"
+    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v21"
   },
   {
     id: 123, cardId: 14, region: "下肢",
     title: "足関節 底屈（下腿三頭筋）",
     pos: "腹臥位（足部ベッド端から下垂）", rom: "足底屈全可動域 完遂", finding: "重力除去位として完遂",
     correctAnswer: "G2", explanation: "腹臥位での底屈全ROM完遂は【Grade 2】です。",
-    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v20"
+    image: "assets/mmt/ankle_pf_g5.png?v=20261102_v21"
   },
 
   // 7. 体幹 屈曲 (腹直筋)
@@ -6064,28 +6064,28 @@ const JUDGE_QUESTIONS_POOL = [
     title: "体幹 屈曲（腹直筋）",
     pos: "背臥位（頭の後ろで手組み）", rom: "肩甲骨が完全に床から離床", finding: "完遂",
     correctAnswer: "G5", explanation: "背臥位・頭後ろ手組みでの体幹屈曲は【Grade 5】です。",
-    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v20"
+    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v21"
   },
   {
     id: 125, cardId: 13, region: "体幹",
     title: "体幹 屈曲（腹直筋）",
     pos: "背臥位（胸の前で腕組み）", rom: "肩甲骨が完全に床から離床", finding: "完遂",
     correctAnswer: "G4", explanation: "背臥位・胸の前腕組みでの体幹屈曲は【Grade 4】です。",
-    image: "assets/mmt/trunk_flex_g4.png?v=20261102_v20"
+    image: "assets/mmt/trunk_flex_g4.png?v=20261102_v21"
   },
   {
     id: 126, cardId: 3, region: "体幹",
     title: "体幹 屈曲（腹直筋）",
     pos: "背臥位（両腕を前方に伸ばす）", rom: "肩甲骨下角が離床", finding: "完遂",
     correctAnswer: "G3", explanation: "両腕前腕伸ばしでの体幹屈曲は【Grade 3】です。",
-    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v20"
+    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v21"
   },
   {
     id: 127, cardId: 3, region: "体幹",
     title: "体幹 屈曲（腹直筋）",
     pos: "⚠️ 腹臥位（頭の後ろ手組みで上体を反らす）", rom: "全可動域 完遂", finding: "最大抵抗クリア",
     correctAnswer: "ERROR", explanation: "💡 体幹「屈曲」は背臥位で行います。腹臥位は伸展（脊柱起立筋）の肢位です！",
-    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v20"
+    image: "assets/mmt/trunk_flex_g5.png?v=20261102_v21"
   },
 
   // 8. 頸部 屈曲 (胸鎖乳突筋)
@@ -6094,14 +6094,14 @@ const JUDGE_QUESTIONS_POOL = [
     title: "頸部 屈曲（胸鎖乳突筋）",
     pos: "背臥位（顎を引き頭部離床）", rom: "全可動域 完遂", finding: "前額部への最大抵抗に耐える",
     correctAnswer: "G5", explanation: "背臥位で顎を引き、前額部最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/neck_flex_g543.png?v=20261102_v20"
+    image: "assets/mmt/neck_flex_g543.png?v=20261102_v21"
   },
   {
     id: 129, cardId: 1, region: "頸部",
     title: "頸部 屈曲（胸鎖乳突筋）",
     pos: "⚠️ 腹臥位（頭部を持ち上げる）", rom: "全可動域 完遂", finding: "後頭部抵抗クリア",
     correctAnswer: "ERROR", explanation: "💡 腹臥位＋後頭部抵抗は「頸部伸展」です。屈曲は背臥位で行います！",
-    image: "assets/mmt/neck_flex_g543.png?v=20261102_v20"
+    image: "assets/mmt/neck_flex_g543.png?v=20261102_v21"
   },
 
   // 9. 足関節 背屈 (前脛骨筋)
@@ -6110,7 +6110,7 @@ const JUDGE_QUESTIONS_POOL = [
     title: "足関節 背屈（前脛骨筋）",
     pos: "端座位（つま先内反・背屈）", rom: "全可動域 完遂", finding: "前足部外返し方向の最大抵抗に耐える",
     correctAnswer: "G5", explanation: "端座位で足部内反背屈、最大抵抗クリアは【Grade 5】です。",
-    image: "assets/mmt/ankle_df_g5432.png?v=20261102_v20"
+    image: "assets/mmt/ankle_df_g5432.png?v=20261102_v21"
   }
 ];
 
@@ -7347,7 +7347,7 @@ function openFlowImageModal(type, event) {
   let pos = '';
   let vector = '';
 
-  const cacheBust = '?v=20261102_v20';
+  const cacheBust = '?v=20261102_v21';
 
   if (type === 'ag') {
     imgSrc = `assets/mmt/${joint.g3ImgId}.png${cacheBust}`;
@@ -7730,7 +7730,7 @@ function loadPairingQuestion() {
   if (g3PosEl) g3PosEl.innerText = q.agPos;
 
   if (g3ImgEl) {
-    g3ImgEl.src = `assets/mmt/${q.g3ImgId}.png?v=20261102_v20`;
+    g3ImgEl.src = `assets/mmt/${q.g3ImgId}.png?v=20261102_v21`;
     g3ImgEl.alt = `${q.name} Grade 3`;
   }
 
@@ -7748,7 +7748,7 @@ function loadPairingQuestion() {
     gridEl.innerHTML = choices.map((c, idx) => `
       <div class="pcard-opt" id="popt-${idx}" onclick="submitPairingAnswer(${idx}, ${c.isCorrect})">
         <div class="pcard-opt-art">
-          <img src="assets/mmt/${c.joint.g2ImgId}.png?v=20261102_v20" alt="${c.joint.name}">
+          <img src="assets/mmt/${c.joint.g2ImgId}.png?v=20261102_v21" alt="${c.joint.name}">
         </div>
         <strong class="pcard-opt-name">${c.joint.name}</strong>
         <span class="pcard-opt-pos">${c.joint.gePos.substring(0, 18)}...</span>

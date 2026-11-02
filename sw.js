@@ -3,15 +3,15 @@
  * Cache-Buster & Offline Resilient Engine
  */
 
-const CACHE_NAME = 'mmt-grade-cache-v20';
+const CACHE_NAME = 'mmt-grade-cache-v21';
 
 // プリキャッシュ対象のコアアセット
 const PRECACHE_ASSETS = [
   './',
   './index.html',
-  './style.css?v=20261102_v20',
-  './app.js?v=20261102_v20',
-  './manifest.json?v=20261102_v20',
+  './style.css?v=20261102_v21',
+  './app.js?v=20261102_v21',
+  './manifest.json?v=20261102_v21',
   './data/cards.json',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',

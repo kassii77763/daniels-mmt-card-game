@@ -1627,9 +1627,9 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 280px;
+  min-height: 460px;
   margin-bottom: 6px;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 12px;
 }
 
@@ -1650,13 +1650,14 @@ html, body {
 
 .judge-ready-card {
   background: #FFFFFF;
-  border: 1px solid var(--border-hairline);
+  border: 1.5px solid var(--border-card);
   box-shadow: var(--shadow-card);
-  border-radius: 12px;
-  padding: 20px 16px;
+  border-radius: 14px;
+  padding: 14px 16px;
   text-align: center;
   max-width: 380px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .judge-ready-icon {
