@@ -206,15 +206,23 @@ class CockpitRequestHandler(BaseHTTPRequestHandler):
                         SSE_CLIENTS.remove(self)
                 return
 
-            if path in ("/api/tasks", "/tasks.json"):
+            if path in ("/api/tasks", "/tasks.json", "/api/harness", "/harness_snapshot.json"):
                 data, current_sha = load_tasks_yaml()
-                payload = json.dumps({
-                    "tasks": data.get("tasks", []),
-                    "shards": data.get("shards", []),
-                    "archived_done_count": data.get("archived_done_count", 0),
-                    "sha": current_sha,
-                    "version": data.get("version", "2.0")
-                }, ensure_ascii=False).encode("utf-8")
+                if "harness" in path:
+                    harness_file = os.path.join(os.path.dirname(TASKS_YAML) or ".", "harness_snapshot.json")
+                    if os.path.exists(harness_file):
+                        with open(harness_file, "rb") as hf:
+                            payload = hf.read()
+                    else:
+                        payload = b"{}"
+                else:
+                    payload = json.dumps({
+                        "tasks": data.get("tasks", []),
+                        "shards": data.get("shards", []),
+                        "archived_done_count": data.get("archived_done_count", 0),
+                        "sha": current_sha,
+                        "version": data.get("version", "2.0")
+                    }, ensure_ascii=False).encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Access-Control-Allow-Origin", "*")

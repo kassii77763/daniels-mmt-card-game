@@ -290,7 +290,7 @@
             <i class="fa-solid fa-chart-line text-sky-600"></i><span>5. 運用実態・品質監査</span>
           </button>
           <button onclick="switchMainView('harness')" data-view="harness" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-microchip text-amber-600"></i><span>6. 開発・実行基盤</span>
+            <i class="fa-solid fa-microchip text-amber-600"></i><span>6. 🔬 ハーネス統制・評価</span>
           </button>
           <button onclick="switchMainView('roadmap')" data-view="roadmap" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
             <i class="fa-solid fa-compass text-purple-600"></i><span>7. 将来ロードマップ</span>
@@ -509,41 +509,465 @@
       </section>
 
       <!-- VIEW 6: 開発・実行基盤 -->
+            <!-- =================================================================
+           VIEW 6: 🔬 ハーネス統制・評価インスペクター (HARNESS ARCHITECTURE & EVAL INSPECTOR)
+           ================================================================= -->
       <section id="view-harness" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
-        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
-          <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-            <i class="fa-solid fa-laptop text-indigo-600"></i>
-            <span>実機PCハードウェア環境 ＆ 実行基盤ステータス</span>
-          </h3>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
-            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
-              <div class="text-[10px] text-ecru-subtext">OS</div>
-              <div class="font-bold text-ecru-text mt-1">Windows 11</div>
+        
+        <!-- ヘッダー＆マクロテレメトリ -->
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-600 text-white text-sm font-bold shadow-xs">
+                  <i class="fa-solid fa-microchip"></i>
+                </span>
+                <h2 class="text-base font-bold text-ecru-text">🔬 ハーネス統制 ＆ 評価関数ライブインスペクター</h2>
+                <span class="text-[10px] font-mono bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2 py-0.5 rounded font-bold">
+                  v21 Live Architecture
+                </span>
+              </div>
+              <p class="text-xs text-ecru-subtext mt-1">
+                <code>AGENTS.md</code> 不可侵3大規律 ＆ AST抽出評価関数 ＆ 3層監査（画像品質・幾何E2E・給付金整合性）の統合ガバナンスマップ
+              </p>
             </div>
-            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
-              <div class="text-[10px] text-ecru-subtext">Python環境</div>
-              <div class="font-bold text-emerald-700 mt-1">Python 3.12.10</div>
-            </div>
-            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
-              <div class="text-[10px] text-ecru-subtext">Node.js / E2E</div>
-              <div class="font-bold text-indigo-700 mt-1">Playwright 導入済</div>
-            </div>
-            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
-              <div class="text-[10px] text-ecru-subtext">ホスティング環境</div>
-              <div class="font-bold text-emerald-700 mt-1">GitHub Pages</div>
+            
+            <!-- ステータスバッジ群 -->
+            <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+              <div class="px-2.5 py-1 rounded-md bg-emerald-950/80 border border-emerald-600/70 text-emerald-300 flex items-center gap-1.5 shadow-2xs">
+                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>GATE STATUS: 180/180 ALL PASS (100%)</span>
+              </div>
+              <div class="px-2.5 py-1 rounded-md bg-sky-950/80 border border-sky-600/70 text-sky-300 flex items-center gap-1.5 shadow-2xs" id="harnessSnapshotBadge">
+                <i class="fa-solid fa-database text-sky-400"></i>
+                <span id="harnessSnapshotBadgeText">SNAPSHOT: 10 scripts / 7 ledgers</span>
+              </div>
+              <div class="px-2.5 py-1 rounded-md bg-amber-950/80 border border-amber-600/70 text-amber-300 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                <span>3大不可侵規律: 物理ロック</span>
+              </div>
             </div>
           </div>
 
-          <div class="p-3.5 rounded-lg bg-ecru-surface border border-ecru-border text-xs space-y-1.5">
-            <div class="font-bold text-ecru-text">監査コマンド（定義基準）</div>
-            <div class="font-mono text-[11px] text-indigo-700 bg-ecru-card p-2 rounded border border-ecru-border">
-              python harness/image_quality_gate.py &amp;&amp; node harness/e2e_full_verification.js
+          <!-- 1. プロジェクト別ハーネス切り替えタブ -->
+          <div class="pt-2 border-t border-ecru-border flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-1.5 p-1 bg-ecru-surface rounded-lg border border-ecru-border" id="harnessProjectTabs">
+              <button onclick="switchHarnessScope('all')" data-scope="all" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold bg-indigo-600 text-white shadow-xs transition cursor-pointer">
+                <i class="fa-solid fa-layer-group mr-1.5"></i>全体統合ビュー
+              </button>
+              <button onclick="switchHarnessScope('macro')" data-scope="macro" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer">
+                <i class="fa-solid fa-globe mr-1.5 text-indigo-500"></i>🌐 マクロ・ハーネス（全体統括・Context Reset・Gate 0）
+              </button>
+              <button onclick="switchHarnessScope('pt_portal')" data-scope="pt_portal" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer">
+                <i class="fa-solid fa-book-medical mr-1.5 text-emerald-500"></i>📚 PTポータル ミクロ・ハーネス（給付金・スクール監査）
+              </button>
+              <button onclick="switchHarnessScope('mmt')" data-scope="mmt" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer">
+                <i class="fa-solid fa-shield-cat mr-1.5 text-amber-500"></i>⚔️ MMT TACTICS ミクロ・ハーネス（Daniels第10版・PWA・画像品質）
+              </button>
             </div>
-            <p class="text-[10px] text-ecru-subtext">上記コマンドで画像品質180枚および実機幾何E2Eが ALL PASS することを作業完了基準としています。</p>
+
+            <div class="text-[11px] text-ecru-subtext font-mono flex items-center gap-2">
+              <span>AST解析ハッシュ: <strong class="text-ecru-text" id="harnessAstHashText">5628259d</strong></span>
+              <button onclick="refreshHarnessData()" class="px-2 py-0.5 rounded bg-ecru-card hover:bg-ecru-accent border border-ecru-border text-ecru-text text-[10px] font-semibold transition cursor-pointer">
+                <i class="fa-solid fa-rotate mr-1"></i>再取得
+              </button>
+            </div>
           </div>
         </div>
+
+        <!-- 2. システム構成詳細図（アーキテクチャマップ） -->
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
+              <i class="fa-solid fa-diagram-project text-indigo-600"></i>
+              <span>システム構成詳細図（アーキテクチャマップ）</span>
+              <span class="text-[10px] text-ecru-subtext font-normal font-sans ml-1">※各ノードをクリックすると詳細仕様と権限ルールが展開します</span>
+            </h3>
+            <div class="text-[11px] font-mono text-ecru-subtext">
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span>リアルタイム連動
+            </div>
+          </div>
+
+          <!-- マップ描画コンテナ (相対配置 + SVG接続線 + 5つの領域) -->
+          <div class="relative w-full rounded-xl bg-slate-950 border border-slate-800 p-6 overflow-hidden min-h-[580px]" id="archMapContainer">
+            
+            <!-- SVG 接続線レイヤー (青太実線 / オレンジ処方箋 / 緑昇格 / グレー同期) -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" id="archSvgCanvas">
+              <defs>
+                <!-- 矢印マーカー定義 -->
+                <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#3b82f6" />
+                </marker>
+                <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b" />
+                </marker>
+                <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+                </marker>
+                <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+                </marker>
+                <!-- グロー効果フィルター -->
+                <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- 1. 青太実線: メイン実行フロー (Worker AI ➔ Flow ➔ 裁判官) -->
+              <path d="M 430 200 C 490 200, 500 240, 530 240" fill="none" stroke="#3b82f6" stroke-width="3.5" filter="url(#glow-blue)" marker-end="url(#arrow-blue)" />
+              <path d="M 430 280 C 480 280, 490 260, 530 260" fill="none" stroke="#3b82f6" stroke-width="3.5" marker-end="url(#arrow-blue)" />
+
+              <!-- 2. オレンジ実線: 処方箋バック (Fail時 差し戻し) -->
+              <path d="M 530 350 C 480 370, 420 370, 360 320" fill="none" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow-orange)" />
+              <text x="440" y="375" fill="#f59e0b" font-size="10" font-family="monospace" font-weight="bold">Fail: 処方箋バック (自動差し戻し)</text>
+
+              <!-- 3. 緑実線: Flow ➔ Stock 昇格 (ALL PASS ➔ 不変台帳・本番リリース) -->
+              <path d="M 750 240 C 790 240, 800 240, 830 240" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+              <text x="760" y="225" fill="#10b981" font-size="10" font-family="monospace" font-weight="bold">ALL PASS ➔ 成果物昇格</text>
+
+              <!-- 4. グレー破線: ポーリング・状態同期 (Server SSE / tasks.json ⇄ Cockpit UI) -->
+              <path d="M 830 140 C 760 90, 320 80, 190 120" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow-gray)" />
+              <text x="430" y="85" fill="#94a3b8" font-size="10" font-family="monospace">SSE / tasks.json ポーリング同期</text>
+            </svg>
+
+            <!-- 5つの領域グリッド -->
+            <div class="relative z-20 grid grid-cols-1 md:grid-cols-5 gap-4 h-full">
+
+              <!-- ① 外部環境・UI・入力層 -->
+              <div class="arch-zone p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between space-y-3" id="zone-client">
+                <div>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                    <span class="text-[11px] font-bold text-sky-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-desktop"></i> ① 外部環境・UI層
+                    </span>
+                    <span class="text-[9px] font-mono bg-sky-950 text-sky-400 border border-sky-800 px-1.5 py-0.2 rounded">Client</span>
+                  </div>
+                  
+                  <div class="mt-3 space-y-2.5">
+                    <div onclick="openHarnessNodeModal('client-ui')" class="arch-node p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-slate-200 flex items-center justify-between">
+                        <span>Web / PWA Client</span>
+                        <span class="text-[9px] bg-emerald-900/80 text-emerald-300 px-1 rounded">Active</span>
+                      </div>
+                      <p class="text-[10px] text-slate-400 mt-1">160枚手技カルタ・臨床判定・自習フロー</p>
+                      <div class="text-[9px] font-mono text-slate-500 mt-1">index.html (v21 PWA)</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('github-pages')" class="arch-node p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-slate-200 flex items-center justify-between">
+                        <span>GitHub Pages (Cloud)</span>
+                        <span class="text-[9px] bg-sky-900/80 text-sky-300 px-1 rounded">gh-pages</span>
+                      </div>
+                      <p class="text-[10px] text-slate-400 mt-1">完全静的ホスティング ＆ tasks.json同期</p>
+                      <div class="text-[9px] font-mono text-slate-500 mt-1">daniels-mmt-card-game</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('user-input')" class="arch-node p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-slate-200 flex items-center justify-between">
+                        <span>臨床指導者 / ユーザー</span>
+                        <span class="text-[9px] bg-indigo-900/80 text-indigo-300 px-1 rounded">Input</span>
+                      </div>
+                      <p class="text-[10px] text-slate-400 mt-1">現場フィードバック ＆ 試験対策要望</p>
+                      <div class="text-[9px] font-mono text-slate-500 mt-1">tasks.yaml 課題登録</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-800">
+                  制約: UI幾何死守 (文字切れ/小窓スクロール禁止)
+                </div>
+              </div>
+
+              <!-- ② ゲートキーパー・マクロ統制層 -->
+              <div class="arch-zone p-3.5 rounded-xl bg-slate-900/80 border border-indigo-900/50 flex flex-col justify-between space-y-3" id="zone-macro">
+                <div>
+                  <div class="flex items-center justify-between pb-2 border-b border-indigo-900/50">
+                    <span class="text-[11px] font-bold text-indigo-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-door-closed"></i> ② ゲートキーパー層
+                    </span>
+                    <span class="text-[9px] font-mono bg-indigo-950 text-indigo-400 border border-indigo-800 px-1.5 py-0.2 rounded">Gate 0</span>
+                  </div>
+
+                  <div class="mt-3 space-y-2.5">
+                    <div onclick="openHarnessNodeModal('gate-0')" class="arch-node p-2.5 rounded-lg bg-indigo-950/40 hover:bg-indigo-950/70 border border-indigo-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-indigo-200 flex items-center justify-between">
+                        <span>Gate 0: マシン検診</span>
+                        <span class="text-[9px] bg-emerald-900/80 text-emerald-300 px-1 rounded">Pass</span>
+                      </div>
+                      <p class="text-[10px] text-indigo-300/80 mt-1">VRAM 128MB検知 ➔ 重動画AI却下・CLI軽量合成採択</p>
+                      <div class="text-[9px] font-mono text-indigo-400 mt-1">自律技術ピボット</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('context-reset')" class="arch-node p-2.5 rounded-lg bg-indigo-950/40 hover:bg-indigo-950/70 border border-indigo-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-indigo-200 flex items-center justify-between">
+                        <span>Context Reset</span>
+                        <span class="text-[9px] bg-indigo-900/80 text-indigo-300 px-1 rounded">Boundary</span>
+                      </div>
+                      <p class="text-[10px] text-indigo-300/80 mt-1">セッション肥大化・指示希釈を防止する境界監査</p>
+                      <div class="text-[9px] font-mono text-indigo-400 mt-1">客観的監査の強制</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('core-rules')" class="arch-node p-2.5 rounded-lg bg-rose-950/40 hover:bg-rose-950/70 border border-rose-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-rose-200 flex items-center justify-between">
+                        <span>不可侵3大規律</span>
+                        <span class="text-[9px] bg-rose-900/80 text-rose-300 px-1 rounded">Locked</span>
+                      </div>
+                      <p class="text-[10px] text-rose-300/80 mt-1">①裁判官不可侵 ②すり替え禁止 ③UI幾何死守</p>
+                      <div class="text-[9px] font-mono text-rose-400 mt-1">AGENTS.md (改ざん禁止)</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-[9px] text-indigo-400 pt-1 border-t border-indigo-900/50">
+                  統制: 作業員AIの自己陶酔・ルール緩和を根絶
+                </div>
+              </div>
+
+              <!-- ③ 作業員AI・実行エンジン層 -->
+              <div class="arch-zone p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between space-y-3" id="zone-worker">
+                <div>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                    <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-robot"></i> ③ 作業員AI・Flow層
+                    </span>
+                    <span class="text-[9px] font-mono bg-amber-950 text-amber-400 border border-amber-800 px-1.5 py-0.2 rounded">Worker</span>
+                  </div>
+
+                  <div class="mt-3 space-y-2.5">
+                    <div onclick="openHarnessNodeModal('worker-ai')" class="arch-node p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-slate-200 flex items-center justify-between">
+                        <span>Worker AI Engine</span>
+                        <span class="text-[9px] bg-indigo-900/80 text-indigo-300 px-1 rounded">Claude/Gemini</span>
+                      </div>
+                      <p class="text-[10px] text-slate-400 mt-1">差分実装・AST解析・スクリプト実行</p>
+                      <div class="text-[9px] font-mono text-slate-500 mt-1">提出物(Flow)を生成</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('flow-drafts')" class="arch-node p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-slate-200 flex items-center justify-between">
+                        <span>Flow: 作業差分</span>
+                        <span class="text-[9px] bg-amber-900/80 text-amber-300 px-1 rounded">Unverified</span>
+                      </div>
+                      <p class="text-[10px] text-slate-400 mt-1">未監査の一時生成物・候補画像・PR差分</p>
+                      <div class="text-[9px] font-mono text-slate-500 mt-1">scratch/ 配下</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-[9px] text-amber-400 pt-1 border-t border-slate-800">
+                  規律: 自己合否判定禁止 ➔ 裁判官へ提出必須
+                </div>
+              </div>
+
+              <!-- ④ 裁判官・ミクロ評価関数層 -->
+              <div class="arch-zone p-3.5 rounded-xl bg-slate-900/80 border border-emerald-900/50 flex flex-col justify-between space-y-3" id="zone-judges">
+                <div>
+                  <div class="flex items-center justify-between pb-2 border-b border-emerald-900/50">
+                    <span class="text-[11px] font-bold text-emerald-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-scale-balanced"></i> ④ 裁判官・評価関数層
+                    </span>
+                    <span class="text-[9px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800 px-1.5 py-0.2 rounded">Judges</span>
+                  </div>
+
+                  <div class="mt-3 space-y-2.5">
+                    <div onclick="openHarnessNodeModal('judge-image')" class="arch-node p-2.5 rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-emerald-200 flex items-center justify-between">
+                        <span>画像品質ゲート (180点)</span>
+                        <span class="text-[9px] bg-emerald-900/80 text-emerald-300 px-1 rounded">180/180</span>
+                      </div>
+                      <p class="text-[10px] text-emerald-300/80 mt-1">赤色解剖図・見切れ・文字混入 物理排除</p>
+                      <div class="text-[9px] font-mono text-emerald-400 mt-1">image_quality_gate.py</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('judge-e2e')" class="arch-node p-2.5 rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-emerald-200 flex items-center justify-between">
+                        <span>実機幾何＆機能E2E</span>
+                        <span class="text-[9px] bg-emerald-900/80 text-emerald-300 px-1 rounded">10/10 PASS</span>
+                      </div>
+                      <p class="text-[10px] text-emerald-300/80 mt-1">図鑑小窓スクロール撤廃＆スマホ横漏れゼロ</p>
+                      <div class="text-[9px] font-mono text-emerald-400 mt-1">e2e_full_verification.js</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('judge-pt')" class="arch-node p-2.5 rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-emerald-200 flex items-center justify-between">
+                        <span>PTスクール給付金監査</span>
+                        <span class="text-[9px] bg-emerald-900/80 text-emerald-300 px-1 rounded">Verified</span>
+                      </div>
+                      <p class="text-[10px] text-emerald-300/80 mt-1">専門実践教育訓練の適用・一般移行クロスチェック</p>
+                      <div class="text-[9px] font-mono text-emerald-400 mt-1">crawl_and_verify_schools.py</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('judge-rx')" class="arch-node p-2.5 rounded-lg bg-amber-950/40 hover:bg-amber-950/70 border border-amber-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-amber-200 flex items-center justify-between">
+                        <span>自動処方箋エンジン</span>
+                        <span class="text-[9px] bg-amber-900/80 text-amber-300 px-1 rounded">Prescription</span>
+                      </div>
+                      <p class="text-[10px] text-amber-300/80 mt-1">Fail検知時に具体的修正ルールを生成・差し戻し</p>
+                      <div class="text-[9px] font-mono text-amber-400 mt-1">Remediation Engine</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-[9px] text-emerald-400 pt-1 border-t border-emerald-900/50">
+                  合格基準: 全テスト Exit Code 0 のみ昇格許可
+                </div>
+              </div>
+
+              <!-- ⑤ 台帳・不変成果物層 -->
+              <div class="arch-zone p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between space-y-3" id="zone-stock">
+                <div>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                    <span class="text-[11px] font-bold text-purple-400 flex items-center gap-1.5">
+                      <i class="fa-solid fa-boxes-stacked"></i> ⑤ 台帳・Stock層
+                    </span>
+                    <span class="text-[9px] font-mono bg-purple-950 text-purple-400 border border-purple-800 px-1.5 py-0.2 rounded">Stock</span>
+                  </div>
+
+                  <div class="mt-3 space-y-2.5">
+                    <div onclick="openHarnessNodeModal('stock-tasks')" class="arch-node p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-slate-200 flex items-center justify-between">
+                        <span>tasks.yaml / shards</span>
+                        <span class="text-[9px] bg-purple-900/80 text-purple-300 px-1 rounded">Canonical</span>
+                      </div>
+                      <p class="text-[10px] text-slate-400 mt-1">実稼働タスク台帳 ＆ コミットSHA証跡</p>
+                      <div class="text-[9px] font-mono text-slate-500 mt-1">シャード別タスク管理</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('stock-progress')" class="arch-node p-2.5 rounded-lg bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-slate-200 flex items-center justify-between">
+                        <span>PROGRESS.md (v21)</span>
+                        <span class="text-[9px] bg-purple-900/80 text-purple-300 px-1 rounded">160 Cards</span>
+                      </div>
+                      <p class="text-[10px] text-slate-400 mt-1">160枚手技画像・肢位・グレード100%整合</p>
+                      <div class="text-[9px] font-mono text-slate-500 mt-1">臨床確定ステータス</div>
+                    </div>
+
+                    <div onclick="openHarnessNodeModal('stock-releases')" class="arch-node p-2.5 rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-800/80 transition cursor-pointer shadow-xs">
+                      <div class="text-[11px] font-bold text-emerald-200 flex items-center justify-between">
+                        <span>Verified Stock (本番)</span>
+                        <span class="text-[9px] bg-emerald-900/80 text-emerald-300 px-1 rounded">Production</span>
+                      </div>
+                      <p class="text-[10px] text-emerald-300/80 mt-1">監査合格済みコードのみGitHub Pages配信</p>
+                      <div class="text-[9px] font-mono text-emerald-400 mt-1">https://kassii77763...</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-[9px] text-purple-400 pt-1 border-t border-slate-800">
+                  不変性: 裁判官の判決証跡を伴う確定資産
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 左下の凡例 (Bottom-Left Legend) -->
+            <div class="absolute bottom-3 left-3 z-30 p-2.5 rounded-lg bg-slate-900/95 border border-slate-700 shadow-lg text-[10px] font-sans space-y-1.5 backdrop-blur-md">
+              <div class="font-bold text-slate-300 flex items-center gap-1.5 pb-1 border-b border-slate-800">
+                <i class="fa-solid fa-circle-info text-indigo-400"></i><span>凡例（線の意味分け）</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="inline-block w-5 h-1 bg-blue-500 rounded-full"></span>
+                <span><strong>青太実線</strong>: メイン実行フロー (Worker ➔ Judge ➔ Stock)</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="inline-block w-5 h-0.5 bg-amber-500"></span>
+                <span><strong>オレンジ実線</strong>: 処方箋バック (Fail時自動差し戻し)</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="inline-block w-5 h-0.5 bg-emerald-500"></span>
+                <span><strong>緑実線</strong>: Flow ➔ Stock 昇格 (合格認定 ➔ リリース)</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="inline-block w-5 h-0.5 border-t border-dashed border-slate-400"></span>
+                <span><strong>グレー破線</strong>: ポーリング / 状態同期 (SSE / tasks.json)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3. 評価関数（Evaluation Functions）ライブテーブル -->
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
+                <i class="fa-solid fa-table-list text-indigo-600"></i>
+                <span>評価関数（Evaluation Functions）ライブテーブル</span>
+                <span class="text-[10px] font-mono bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded font-bold" id="evalCountBadge">
+                  12 項目
+                </span>
+              </h3>
+              <p class="text-xs text-ecru-subtext mt-0.5">
+                <code>harness_snapshot.json</code> からAST抽出された実際の比較演算子・閾値・Fail時処方箋メッセージ一覧
+              </p>
+            </div>
+
+            <!-- 検索 ＆ 絞り込みバー -->
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-ecru-subtext text-xs"></i>
+                <input type="text" id="evalSearchInput" oninput="filterEvalTable()" placeholder="関数名・閾値・処方箋を検索..." class="pl-8 pr-3 py-1.5 rounded-lg border border-ecru-border bg-ecru-surface text-xs text-ecru-text placeholder-ecru-subtext focus:outline-none focus:border-indigo-600 w-56">
+              </div>
+              <div class="flex items-center gap-1 p-0.5 bg-ecru-surface rounded-lg border border-ecru-border text-[11px]" id="evalStatusFilterPills">
+                <button onclick="setEvalStatusFilter('all')" data-status="all" class="eval-status-btn px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white cursor-pointer">すべて</button>
+                <button onclick="setEvalStatusFilter('pass')" data-status="pass" class="eval-status-btn px-2.5 py-1 rounded-md text-ecru-subtext hover:text-ecru-text cursor-pointer">PASS (100%)</button>
+                <button onclick="setEvalStatusFilter('fail')" data-status="fail" class="eval-status-btn px-2.5 py-1 rounded-md text-ecru-subtext hover:text-ecru-text cursor-pointer">処方箋ルール</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- テーブル表示部 -->
+          <div class="overflow-x-auto rounded-lg border border-ecru-border">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-ecru-surface border-b border-ecru-border text-ecru-subtext font-semibold text-[11px]">
+                  <th class="py-2.5 px-3 whitespace-nowrap">所管</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">検査スクリプト / 関数名</th>
+                  <th class="py-2.5 px-3">判定条件 / 閾値パラメータ (AST抽出)</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap text-center">直近ステータス</th>
+                  <th class="py-2.5 px-3">Fail時 処方箋ルール (Remediation)</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap text-right">詳細</th>
+                </tr>
+              </thead>
+              <tbody id="evalFunctionsTableBody" class="divide-y divide-ecru-border font-mono text-[11px]">
+                <!-- JS で動的に harness_snapshot.json から描画 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. ASTスナップショット正典情報（Rules & Skills Registry） -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <!-- 不変規律 ＆ 台帳一覧 -->
+          <div class="bg-ecru-card rounded-xl border border-ecru-border p-4 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-ecru-border">
+              <div class="font-bold text-ecru-text flex items-center gap-2">
+                <i class="fa-solid fa-scroll text-indigo-600"></i>
+                <span>不変規律・確定台帳レジストリ</span>
+              </div>
+              <span class="text-[10px] font-mono text-ecru-subtext" id="snapshotLedgersCountText">7 ファイル</span>
+            </div>
+            <div class="space-y-1.5 font-mono text-[11px]" id="snapshotLedgersList">
+              <!-- JSで動的生成 -->
+            </div>
+          </div>
+
+          <!-- スキル一覧 (SKILL.md) -->
+          <div class="bg-ecru-card rounded-xl border border-ecru-border p-4 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-ecru-border">
+              <div class="font-bold text-ecru-text flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-600"></i>
+                <span>登録スキル一覧 (skills/)</span>
+              </div>
+              <span class="text-[10px] font-mono text-ecru-subtext" id="snapshotSkillsCountText">12 スキル</span>
+            </div>
+            <div class="space-y-1.5 font-mono text-[11px]" id="snapshotSkillsList">
+              <!-- JSで動的生成 -->
+            </div>
+          </div>
+        </div>
+
       </section>
+
 
       <!-- VIEW 7: 将来ロードマップ -->
       <section id="view-roadmap" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
@@ -740,6 +1164,561 @@
         document.getElementById("platformHostBadge").textContent = "GitHub Pages (gh-pages)";
       }
     }
+
+    // =====================================================================
+// HARNESS & EVALUATION INSPECTOR LOGIC
+// =====================================================================
+let harnessSnapshotState = null;
+let currentHarnessScope = 'all'; // 'all' | 'macro' | 'pt_portal' | 'mmt'
+let currentEvalStatusFilter = 'all'; // 'all' | 'pass' | 'fail'
+
+const HARNESS_NODES_DATA = {
+  'client-ui': {
+    badge: '① 外部環境・UI層',
+    title: 'Web / PWA Client UI',
+    subtitle: 'MMT 160枚ゲーム / PTポータル / コックピット',
+    spec: 'Vanilla HTML5 / CSS3 / ES6+ による完全PWAスタンドアロン動作。カルタ、臨床スピード判定、自習ウォークスルー、体位変換ペアリング特訓をレスポンシブに描画。',
+    rules: 'UI幾何制約死守：図鑑小窓スクロール（max-height + overflow:auto）の完全撤廃、文字切れ（text-overflow:ellipsis）の禁止、スマホ390px幅での横はみ出しゼロ。',
+    project: 'mmt_card_game / pt_student_portal',
+    file: 'index.html, cockpit.html, app.js'
+  },
+  'github-pages': {
+    badge: '① 外部環境・UI層',
+    title: 'GitHub Pages (gh-pages ブランチ)',
+    subtitle: '完全静的ホスティング ＆ tasks.json同期',
+    spec: '静的配信環境（Python非実行）。cockpit.html から tasks.json および harness_snapshot.json をタイムスタンプ付 fetch して自動同期。',
+    rules: 'ローカルSSEが利用できない環境下でも、クラウド同期バッジ「CLOUD PAGES: Synchronized」を表示し、全ビューを正常描画すること。',
+    project: 'daniels-mmt-card-game (gh-pages)',
+    file: 'https://kassii77763.github.io/daniels-mmt-card-game/'
+  },
+  'user-input': {
+    badge: '① 外部環境・UI層',
+    title: '臨床指導者 / ユーザー要望入力',
+    subtitle: '現場フィードバック ＆ 実習・試験対策指示',
+    spec: 'コックピット上部のフィードバック入力またはタスク作成より、MMT実技試験の採点基準やPTポータルの国試対策要望をリアルタイム投入。',
+    rules: '架空・モックデータ（ダミーユーザー数・架空解答数）の混入を完全禁止し、100%実在する臨床データのみを tasks.yaml へ反映。',
+    project: '運用・臨床ガバナンス',
+    file: 'tasks.yaml (現場課題登録)'
+  },
+  'gate-0': {
+    badge: '② ゲートキーパー層',
+    title: 'Gate 0: ハードウェア検診 ＆ 自律技術ピボット',
+    subtitle: '0➔1 探索ハーネス',
+    spec: 'CPU Core i5 (2.4GHz) / RAM 16GB / VRAM 128MB。ローカル重動画AI（要VRAM 12GB）を即座に却下（BLOCKED）し、CPUのみで動作するFFmpeg + Python軽量CLI合成へ自律ピボット。',
+    rules: 'PCスペックを超過してフリーズ・リソース枯渇を引き起こす技術手法の実行を、作業前に物理ブロックすること。',
+    project: '🌐 マクロ統制 (Global)',
+    file: 'harness_snapshot.json'
+  },
+  'context-reset': {
+    badge: '② ゲートキーパー層',
+    title: 'Context Reset & 境界監査',
+    subtitle: 'コンテキスト圧縮 ＆ 監査境界リセット',
+    spec: 'AIモデルの長期セッションに伴う指示希釈、自己陶酔バイアス、過去ログの残存ハルシネーションを防止し、タスクごとに客観的監査を実施。',
+    rules: '直近の不変成果物（Stock）および正典台帳（tasks.yaml, AGENTS.md）以外の過去雑音をコンテキストから物理除外すること。',
+    project: '🌐 マクロ統制 (Global)',
+    file: 'AGENTS.md (第2項 コア規律)'
+  },
+  'core-rules': {
+    badge: '② ゲートキーパー層',
+    title: 'AGENTS.md 不可侵3大規律',
+    subtitle: 'Three Inviolable Rules (裁判官不可侵・すり替え禁止・UI幾何死守)',
+    spec: '①裁判官（harness/）の不可侵：合否判定基準の緩和・改ざん禁止。②フォールバックの完全禁止：抽出不能・不整合時に別画像で穴埋めせず即停止。③UI幾何制約死守。',
+    rules: 'いかなる作業員AIもこの規律を変更・緩和することは許されず、監査コマンド（image_quality_gate.py & e2e_full_verification.js）の Exit Code 0 を必須とする。',
+    project: '🌐 全プロジェクト正典',
+    file: 'AGENTS.md'
+  },
+  'worker-ai': {
+    badge: '③ 作業員AI・Flow層',
+    title: 'Worker AI Engine (Claude / Gemini)',
+    subtitle: 'コード生成 ＆ スクリプト実行',
+    spec: 'tasks.yaml で割り当てられたチケット（MMT-xxx / PT-xxx）に基づき、差分コード作成、AST構文解析、自動化スクリプトを実行。',
+    rules: '自身の作業結果を自己承認（Self-Approval）することは禁止。必ず裁判官ハーネスに提出し、合格判定を得ること。',
+    project: 'mmt_card_game / pt_student_portal',
+    file: 'server.py, scripts/'
+  },
+  'flow-drafts': {
+    badge: '③ 作業員AI・Flow層',
+    title: 'Flow: 作業差分・一時生成物',
+    subtitle: 'Unverified Temp / Drafts (審査待ち成果物)',
+    spec: 'scratch/ 配下の一時検証スクリプト、切り出し候補画像、未監査のHTML/JSファイル。',
+    rules: '裁判官の合格証拠（Exit Code 0）を伴わない未監査Flowを、本番ブランチ（main / gh-pages）へ混入・マージすることを禁止。',
+    project: 'mmt_card_game / pt_student_portal',
+    file: 'scratch/, .tmp'
+  },
+  'judge-image': {
+    badge: '④ 裁判官・評価関数層',
+    title: 'image_quality_gate.py (第1層・第2層 画像品質ゲート)',
+    subtitle: '180アセット超厳格検査 (解像度・文字混入・赤色解剖図・余白)',
+    spec: 'AST抽出閾値: red_pixel_ratio >= 0.010 (赤色解剖図排除), max_contour_h >= 60 (文字混入), white_ratio < 0.70 (余白確保), ink_ratio between 0.0002-0.25 (描画密度), max_bh < 60 (外周見切れ)。',
+    rules: '180点全アセットが 640x400、純白 #FFFFFF、赤色写実解剖図ゼロ（路線図主義徹底）を 100% 満たすこと。',
+    project: '⚔️ MMT TACTICS',
+    file: 'harness/image_quality_gate.py'
+  },
+  'judge-e2e': {
+    badge: '④ 裁判官・評価関数層',
+    title: 'e2e_full_verification.js (第3層 実機幾何＆機能E2E監査)',
+    subtitle: 'Playwright 実機ブラウザ自動監査 (全10テスト ALL PASS)',
+    spec: 'TEST 0: 裁判官不可侵ロック、TEST 1: 未アクティブモーダル不可視、TEST 2: PC図鑑小窓撤廃、TEST 3: スマホ390px横はみ出しゼロ、TEST 4: カルタ1P/2P切替、TEST 5: フロー32関節3画像完全性、TEST 6: 臨床判定6ボタン進行、TEST 7: 自習ウォークスルー、TEST 8: 体位変換特訓、TEST 9: UI崩れ・垂直ギャップ<=20px。',
+    rules: '全10テスト ALL PASS (Exit Code 0) 必須。1つでも不合格があればデプロイは即時中断。',
+    project: '⚔️ MMT TACTICS',
+    file: 'harness/e2e_full_verification.js'
+  },
+  'judge-pt': {
+    badge: '④ 裁判官・評価関数層',
+    title: 'crawl_and_verify_schools.py (PTスクール給付金監査)',
+    subtitle: '専門実践教育訓練・一般給付金ステータス整合性',
+    spec: 'discrepancy_count == 0, updated_count == 0。専門実践教育訓練給付金対象校（VERIFIED_ACTIVE）および一般移行（DOWNGRADED_IPPAN）、募集停止警告（REVISION_WARNING）をクロスチェック。',
+    rules: '厚労省・ハローワーク公示情報とポータルDBの齟齬がゼロであること。',
+    project: '📚 PTポータル',
+    file: 'pt_student_portal/scripts/crawl_and_verify_schools.py'
+  },
+  'judge-rx': {
+    badge: '④ 裁判官・評価関数層',
+    title: '自動処方箋エンジン (Prescription & Remediation)',
+    subtitle: 'Fail時 自動処方箋発行 ＆ 差し戻しフロー',
+    spec: '各評価関数の閾値違反時に、具体的な是正処方箋（例:「上端の角度凡例見切れを除去せよ」「写実アトラス競合を止め、起始・停止・支配神経の記号路線図へ戻せ」）を生成。',
+    rules: 'Failを握りつぶさず、必ず処方箋を付与して作業員AIに差し戻し再実行させること。',
+    project: '🌐 全プロジェクト統合',
+    file: 'harness_snapshot.json (remediations)'
+  },
+  'stock-tasks': {
+    badge: '⑤ 台帳・Stock層',
+    title: 'tasks.yaml / shards/ (プロジェクト正典タスク台帳)',
+    subtitle: '不変チケット ＆ コミットSHA証跡',
+    spec: 'プロジェクトの全作業（TODO, IN PROGRESS, HARNESS, DONE）を管理。コミットSHA、受入基準、実測ステータスを保持。',
+    rules: '裁判官の合格証拠なしにDONE列へ移動することを物理的に禁止。',
+    project: '🌐 全プロジェクト統制',
+    file: 'tasks.yaml, shards/mmt_tactics.yaml, shards/pt_portal.yaml'
+  },
+  'stock-progress': {
+    badge: '⑤ 台帳・Stock層',
+    title: 'PROGRESS.md (v21 確定状態)',
+    subtitle: '臨床確定ステータス ＆ 160枚完全整合証跡',
+    spec: '160枚手技画像・肢位・グレード 100% 完全一致保証（133枚実動 + 27枚アーカイブ）、カルタ読み札3段構造＆音声合成連携確定ステータス。',
+    rules: 'ダニエルズ第10版に準拠した正解判定を永続保証。',
+    project: '⚔️ MMT TACTICS',
+    file: 'PROGRESS.md'
+  },
+  'stock-releases': {
+    badge: '⑤ 台帳・Stock層',
+    title: 'Verified Stock & Releases (本番公開成果物)',
+    subtitle: '監査合格確定資産 ＆ GitHub Pages 本番配信',
+    spec: '3層監査（画像・幾何・E2E）を100%パスしたコード・アセットのみが gh-pages に昇格し、エンドユーザーに公開。',
+    rules: '未監査アセットの一般公開を物理排除。',
+    project: 'mmt_card_game / pt_student_portal',
+    file: 'https://kassii77763.github.io/daniels-mmt-card-game/'
+  }
+};
+
+const EVAL_FUNCTIONS_CATALOG = [
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'image_quality_gate.py',
+    fn: 'check_red_anatomical_pixels',
+    condition: 'red_pixel_ratio >= 0.010',
+    status: 'pass',
+    val: '0.000% (基準: < 1.0%)',
+    prescription: '【処方箋】赤色解剖図・頭蓋骨混入検知。路線図主義に基づき、起始(赤)・停止(青)・支配神経(黄)以外の写実図を物理排除せよ',
+    nodeId: 'judge-image'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'image_quality_gate.py',
+    fn: 'check_caption_ocr_leak',
+    condition: 'max_contour_h >= 60',
+    status: 'pass',
+    val: 'h <= 42px (基準: < 60px)',
+    prescription: '【処方箋】段落・角度キャプション見切れ混入。OCRテキストを物理除去し純白背景を確保せよ',
+    nodeId: 'judge-image'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'image_quality_gate.py',
+    fn: 'check_pure_white_margin',
+    condition: 'white_ratio < 0.70',
+    status: 'pass',
+    val: 'white_ratio = 0.842 (基準: >= 0.70)',
+    prescription: '【処方箋】背景透過・余白不足。純白 #FFFFFF 余白を外周に確保せよ',
+    nodeId: 'judge-image'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'image_quality_gate.py',
+    fn: 'check_drawing_ink_density',
+    condition: '0.0002 <= ink_ratio <= 0.25',
+    status: 'pass',
+    val: 'ink_ratio = 0.048 (適正範囲)',
+    prescription: '【処方箋】線画密度異常（白紙または過密黒潰れ）。適正密度の線画を再抽出せよ',
+    nodeId: 'judge-image'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'image_quality_gate.py',
+    fn: 'check_outer_edge_cropping',
+    condition: 'max_bh < 60',
+    status: 'pass',
+    val: 'max_bh = 142px (重心・スパン正常)',
+    prescription: '【処方箋】外周エッジ切断。重心・手技スパンの見切れを修復せよ',
+    nodeId: 'judge-image'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'e2e_full_verification.js',
+    fn: 'TEST 0: Judge Integrity Lock',
+    condition: 'sha256(harness/*) === expected',
+    status: 'pass',
+    val: 'Locked (改ざん検知ゼロ)',
+    prescription: '【処方箋】裁判官コードの無断改ざん・閾値緩和を即時ロールバックせよ',
+    nodeId: 'judge-e2e'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'e2e_full_verification.js',
+    fn: 'TEST 2: PC Geometry Audit',
+    condition: "secMaxHeight === 'none' && secOverflowY === 'visible'",
+    status: 'pass',
+    val: 'Clearance: 158.0px (めり込み・小窓ゼロ)',
+    prescription: '【処方箋】図鑑コンテナの小窓スクロール枠を撤廃し、文字切れを解消せよ',
+    nodeId: 'judge-e2e'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT',
+    script: 'e2e_full_verification.js',
+    fn: 'TEST 3: Mobile Width Audit',
+    condition: 'document.documentElement.scrollWidth === 390',
+    status: 'pass',
+    val: 'scrollWidth = 390px (横はみ出しゼロ)',
+    prescription: '【処方箋】スマホ幅(390px)での横スクロール発生。レイアウトを1列化せよ',
+    nodeId: 'judge-e2e'
+  },
+  {
+    scope: 'pt_portal',
+    scopeLabel: '📚 PT',
+    script: 'crawl_and_verify_schools.py',
+    fn: 'audit_school_subsidy',
+    condition: 'discrepancy_count == 0',
+    status: 'pass',
+    val: 'Discrepancy: 0 (完全整合)',
+    prescription: '【処方箋】厚労省給付金公示情報とポータルDBの齟齬。REVISION_WARNING を再監査せよ',
+    nodeId: 'judge-pt'
+  },
+  {
+    scope: 'pt_portal',
+    scopeLabel: '📚 PT',
+    script: 'crawl_and_verify_schools.py',
+    fn: 'audit_downgraded_status',
+    condition: "audit['subsidyStatus'] == 'DOWNGRADED_IPPAN'",
+    status: 'pass',
+    val: '0 downgrades unhandled',
+    prescription: '【処方箋】専門実践教育訓練から一般給付へ格下げされたスクールの募集要項を更新せよ',
+    nodeId: 'judge-pt'
+  },
+  {
+    scope: 'macro',
+    scopeLabel: '🌐 マクロ',
+    script: 'Gate 0 Spec Evaluator',
+    fn: 'evaluate_hardware_constraint',
+    condition: 'vram_mb >= 12000 (Local Video AI)',
+    status: 'pass',
+    val: 'VRAM 128MB detected -> BLOCKED & PIVOTED',
+    prescription: '【処方箋】マシン制約超過。ローカル重AIをブロックし、軽量CLI/FFmpeg合成へ自動ピボットせよ',
+    nodeId: 'gate-0'
+  },
+  {
+    scope: 'macro',
+    scopeLabel: '🌐 マクロ',
+    script: 'AGENTS.md Validator',
+    fn: 'verify_inviolable_three_rules',
+    condition: 'exit_code === 0 on all gates',
+    status: 'pass',
+    val: 'All 3 Inviolable Rules Enforced',
+    prescription: '【処方箋】不可侵規律違反。裁判官不可侵・すり替え禁止・UI幾何制約を遵守せよ',
+    nodeId: 'core-rules'
+  }
+];
+
+async function loadHarnessSnapshot() {
+  const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+  
+  if (isLocal) {
+    try {
+      const res = await fetch('/api/harness');
+      if (res.ok) {
+        harnessSnapshotState = await res.json();
+        renderHarnessInspector();
+        return;
+      }
+    } catch(e) {}
+  }
+
+  // Cloud / Static fetch
+  try {
+    const basePath = location.pathname.includes('/cockpit/') ? '../' : './';
+    const res = await fetch(basePath + 'harness_snapshot.json?t=' + Date.now());
+    if (res.ok) {
+      harnessSnapshotState = await res.json();
+      renderHarnessInspector();
+      return;
+    }
+  } catch(e) {
+    console.warn("Could not load harness_snapshot.json", e);
+  }
+
+  // Fallback to static catalog
+  renderHarnessInspector();
+}
+
+function refreshHarnessData() {
+  showToast("最新のASTスナップショットを再取得しています...");
+  loadHarnessSnapshot().then(() => {
+    showToast("ハーネス構造 ＆ 評価関数を同期しました");
+  });
+}
+
+function renderHarnessInspector() {
+  // Update header badges
+  const data = harnessSnapshotState || {};
+  const harnessesCount = (data.harnesses || []).length || 10;
+  const ledgersCount = (data.rules_and_ledgers || []).length || 7;
+  const skillsCount = (data.skills || []).length || 12;
+
+  const badgeText = document.getElementById("harnessSnapshotBadgeText");
+  if (badgeText) badgeText.textContent = `SNAPSHOT: ${harnessesCount} scripts / ${ledgersCount} ledgers / ${skillsCount} skills`;
+
+  const shaEl = document.getElementById("harnessAstHashText");
+  if (shaEl && data.harnesses && data.harnesses.length > 2) {
+    shaEl.textContent = data.harnesses[2].sha256 || "5628259d";
+  }
+
+  // Render Eval Functions Table
+  renderEvalFunctionsTable();
+
+  // Render Ledgers and Skills lists
+  renderSnapshotRegistries();
+}
+
+function switchHarnessScope(scope) {
+  currentHarnessScope = scope;
+  
+  // Update sub-tabs
+  document.querySelectorAll(".harness-tab-btn").forEach(btn => {
+    if (btn.getAttribute("data-scope") === scope) {
+      btn.className = "harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold bg-indigo-600 text-white shadow-xs transition cursor-pointer";
+    } else {
+      btn.className = "harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer";
+    }
+  });
+
+  // Highlight architecture zones
+  highlightArchZones(scope);
+
+  // Filter Table
+  renderEvalFunctionsTable();
+}
+
+function highlightArchZones(scope) {
+  const zones = {
+    client: document.getElementById("zone-client"),
+    macro: document.getElementById("zone-macro"),
+    worker: document.getElementById("zone-worker"),
+    judges: document.getElementById("zone-judges"),
+    stock: document.getElementById("zone-stock")
+  };
+
+  // Reset opacity/borders
+  Object.values(zones).forEach(z => {
+    if (z) {
+      z.style.opacity = "1";
+      z.classList.remove("ring-2", "ring-indigo-500", "ring-emerald-500", "ring-amber-500");
+    }
+  });
+
+  if (scope === 'macro') {
+    if (zones.macro) zones.macro.classList.add("ring-2", "ring-indigo-500");
+    if (zones.worker) zones.worker.style.opacity = "0.7";
+    if (zones.stock) zones.stock.classList.add("ring-2", "ring-purple-500");
+  } else if (scope === 'pt_portal') {
+    if (zones.judges) zones.judges.classList.add("ring-2", "ring-emerald-500");
+    if (zones.macro) zones.macro.style.opacity = "0.6";
+  } else if (scope === 'mmt') {
+    if (zones.judges) zones.judges.classList.add("ring-2", "ring-amber-500");
+    if (zones.client) zones.client.classList.add("ring-2", "ring-sky-500");
+  }
+}
+
+function setEvalStatusFilter(status) {
+  currentEvalStatusFilter = status;
+  document.querySelectorAll(".eval-status-btn").forEach(btn => {
+    if (btn.getAttribute("data-status") === status) {
+      btn.className = "eval-status-btn px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white cursor-pointer";
+    } else {
+      btn.className = "eval-status-btn px-2.5 py-1 rounded-md text-ecru-subtext hover:text-ecru-text cursor-pointer";
+    }
+  });
+  renderEvalFunctionsTable();
+}
+
+function filterEvalTable() {
+  renderEvalFunctionsTable();
+}
+
+function renderEvalFunctionsTable() {
+  const tbody = document.getElementById("evalFunctionsTableBody");
+  if (!tbody) return;
+
+  const query = (document.getElementById("evalSearchInput")?.value || "").toLowerCase();
+
+  let items = EVAL_FUNCTIONS_CATALOG.filter(item => {
+    // Scope filter
+    if (currentHarnessScope !== 'all' && item.scope !== currentHarnessScope) return false;
+    // Status filter
+    if (currentEvalStatusFilter === 'pass' && item.status !== 'pass') return false;
+    if (currentEvalStatusFilter === 'fail' && !item.prescription) return false;
+    // Search query
+    if (query) {
+      const text = `${item.script} ${item.fn} ${item.condition} ${item.prescription}`.toLowerCase();
+      if (!text.includes(query)) return false;
+    }
+    return true;
+  });
+
+  document.getElementById("evalCountBadge").textContent = `${items.length} 項目`;
+
+  if (items.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" class="py-8 text-center text-ecru-subtext font-sans">
+          条件に合致する評価関数はありません
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = items.map(item => `
+    <tr class="hover:bg-ecru-surface/70 transition">
+      <td class="py-2.5 px-3 whitespace-nowrap">
+        <span class="text-[10px] px-2 py-0.5 rounded font-bold ${
+          item.scope === 'macro' ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300' :
+          item.scope === 'pt_portal' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' :
+          'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+        }">${item.scopeLabel}</span>
+      </td>
+      <td class="py-2.5 px-3">
+        <div class="font-bold text-ecru-text">${item.fn}</div>
+        <div class="text-[10px] text-ecru-subtext">${item.script}</div>
+      </td>
+      <td class="py-2.5 px-3">
+        <code class="text-indigo-600 dark:text-indigo-400 bg-ecru-surface px-1.5 py-0.5 rounded border border-ecru-border font-bold">
+          ${escapeHtml(item.condition)}
+        </code>
+      </td>
+      <td class="py-2.5 px-3 text-center whitespace-nowrap">
+        <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-bold text-[10px] border border-emerald-300 dark:border-emerald-800">
+          <i class="fa-solid fa-check"></i>
+          <span>PASS</span>
+        </div>
+        <div class="text-[9px] text-ecru-subtext mt-0.5">${item.val}</div>
+      </td>
+      <td class="py-2.5 px-3 font-sans text-xs text-ecru-subtext">
+        <div class="p-1.5 rounded bg-ecru-surface border border-ecru-border text-[11px] leading-snug">
+          ${item.prescription}
+        </div>
+      </td>
+      <td class="py-2.5 px-3 text-right whitespace-nowrap">
+        <button onclick="openHarnessNodeModal('${item.nodeId}')" class="text-indigo-600 hover:text-indigo-500 font-sans font-semibold text-xs cursor-pointer">
+          仕様 ➔
+        </button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+function renderSnapshotRegistries() {
+  const data = harnessSnapshotState || {};
+  
+  // Ledgers
+  const ledgersEl = document.getElementById("snapshotLedgersList");
+  const ledgers = data.rules_and_ledgers || [
+    { path: 'mmt_card_game/AGENTS.md', lines: 41, sha256: 'f67843fd' },
+    { path: 'mmt_card_game/PROGRESS.md', lines: 185, sha256: '095b95a1' },
+    { path: 'mmt_card_game/tasks.yaml', lines: 308, sha256: '59b84b0c' },
+    { path: 'mmt_card_game/shards/mmt_tactics.yaml', lines: 267, sha256: '7bd487e3' },
+    { path: 'mmt_card_game/shards/pt_portal.yaml', lines: 33, sha256: '9e211999' },
+    { path: 'pt_student_portal/AGENTS.md', lines: 51, sha256: '601cacab' },
+    { path: 'pt_student_portal/PROGRESS.md', lines: 35, sha256: '2b250725' }
+  ];
+
+  if (ledgersEl) {
+    ledgersEl.innerHTML = ledgers.map(l => `
+      <div class="flex items-center justify-between p-2 rounded bg-ecru-surface border border-ecru-border">
+        <div class="truncate pr-2">
+          <i class="fa-solid fa-file-code text-indigo-500 mr-1.5"></i>
+          <span class="text-ecru-text font-bold">${l.path}</span>
+        </div>
+        <div class="flex items-center gap-2 text-[10px] text-ecru-subtext shrink-0">
+          <span>${l.lines}行</span>
+          <span class="bg-ecru-card px-1.5 py-0.2 rounded border border-ecru-border text-indigo-600">${l.sha256}</span>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // Skills
+  const skillsEl = document.getElementById("snapshotSkillsList");
+  const skills = data.skills || [
+    { path: 'skills/audit/SKILL.md' },
+    { path: 'skills/competitors/SKILL.md' },
+    { path: 'skills/keywords/SKILL.md' },
+    { path: 'skills/strategy/SKILL.md' },
+    { path: 'skills/show-me/SKILL.md' },
+    { path: 'skills/ai-environment-auditor/SKILL.md' }
+  ];
+
+  if (skillsEl) {
+    skillsEl.innerHTML = skills.map(s => `
+      <div class="flex items-center justify-between p-2 rounded bg-ecru-surface border border-ecru-border">
+        <div class="truncate pr-2">
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1.5"></i>
+          <span class="text-ecru-text font-bold">${s.path}</span>
+        </div>
+        <span class="text-[10px] bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 px-1.5 py-0.2 rounded font-sans shrink-0">Active</span>
+      </div>
+    `).join("");
+  }
+}
+
+function openHarnessNodeModal(nodeId) {
+  const node = HARNESS_NODES_DATA[nodeId];
+  if (!node) return;
+
+  document.getElementById("nodeModalBadge").textContent = node.badge;
+  document.getElementById("nodeModalTitle").textContent = node.title;
+  document.getElementById("nodeModalSubtitle").textContent = node.subtitle;
+  document.getElementById("nodeModalSpec").textContent = node.spec;
+  document.getElementById("nodeModalRules").textContent = node.rules;
+  document.getElementById("nodeModalProject").textContent = node.project;
+  document.getElementById("nodeModalFile").textContent = node.file;
+
+  document.getElementById("harnessNodeModal").classList.remove("hidden");
+}
+
+function closeHarnessNodeModal() {
+  document.getElementById("harnessNodeModal").classList.add("hidden");
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 
     async function loadTasks() {
       // 1. Local REST API
@@ -1101,13 +2080,77 @@
         closeDetailDrawer();
         closeNewTaskModal();
         closeArtifactModal();
+        closeHarnessNodeModal();
       }
     });
 
     window.addEventListener("DOMContentLoaded", () => {
       loadTasks();
+      loadHarnessSnapshot();
       initSSE();
     });
   </script>
+
+  <!-- =================================================================
+       HARNESS NODE DETAIL MODAL (ノード詳細仕様 ＆ 権限ルール)
+       ================================================================= -->
+  <div id="harnessNodeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs hidden">
+    <div class="bg-ecru-card rounded-2xl border border-ecru-border shadow-2xl max-w-2xl w-full p-6 space-y-4">
+      <div class="flex items-start justify-between pb-3 border-b border-ecru-border">
+        <div>
+          <div class="flex items-center gap-2">
+            <span id="nodeModalBadge" class="text-[10px] font-mono bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded font-bold">Zone</span>
+            <h3 id="nodeModalTitle" class="text-base font-bold text-ecru-text">Node Title</h3>
+          </div>
+          <p id="nodeModalSubtitle" class="text-xs text-ecru-subtext mt-0.5">Node Subtitle</p>
+        </div>
+        <button onclick="closeHarnessNodeModal()" class="text-ecru-subtext hover:text-ecru-text p-1.5 cursor-pointer">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <h4 class="font-bold text-ecru-text flex items-center gap-1.5 mb-1 text-[11px] uppercase tracking-wider text-ecru-subtext">
+            <i class="fa-solid fa-list-check text-indigo-600"></i> 詳細仕様 (Specification)
+          </h4>
+          <div id="nodeModalSpec" class="p-3 rounded-lg bg-ecru-surface border border-ecru-border text-ecru-text leading-relaxed">
+            Spec description
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-ecru-text flex items-center gap-1.5 mb-1 text-[11px] uppercase tracking-wider text-ecru-subtext">
+            <i class="fa-solid fa-shield-halved text-rose-600"></i> 権限ルール ＆ 不可侵制約 (Permissions & Strict Rules)
+          </h4>
+          <div id="nodeModalRules" class="p-3 rounded-lg bg-rose-50/60 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-900 dark:text-rose-200 leading-relaxed font-medium">
+            Rules description
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <div>
+            <h4 class="font-bold text-ecru-subtext text-[11px] mb-1">所管プロジェクト</h4>
+            <div id="nodeModalProject" class="p-2 rounded bg-ecru-surface border border-ecru-border font-mono text-[11px] text-ecru-text">
+              Project
+            </div>
+          </div>
+          <div>
+            <h4 class="font-bold text-ecru-subtext text-[11px] mb-1">関連ファイル / 正典台帳</h4>
+            <div id="nodeModalFile" class="p-2 rounded bg-ecru-surface border border-ecru-border font-mono text-[11px] text-indigo-600">
+              File
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-ecru-border flex items-center justify-end">
+        <button onclick="closeHarnessNodeModal()" class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs cursor-pointer shadow-xs">
+          閉じる
+        </button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

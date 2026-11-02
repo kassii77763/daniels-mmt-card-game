@@ -1,0 +1,308 @@
+{
+  "projects": {
+    ".": {
+      "path": ".",
+      "files": []
+    },
+    "agent_reach_guide": {
+      "path": "agent_reach_guide",
+      "files": []
+    },
+    "api_security_lab": {
+      "path": "api_security_lab",
+      "files": []
+    },
+    "icf_natural_mapper": {
+      "path": "icf_natural_mapper",
+      "files": []
+    },
+    "icf_realtime_mapper": {
+      "path": "icf_realtime_mapper",
+      "files": []
+    },
+    "kashima_password_extension": {
+      "path": "kashima_password_extension",
+      "files": []
+    },
+    "koeiro_guide": {
+      "path": "koeiro_guide",
+      "files": []
+    },
+    "line_bot_proposal": {
+      "path": "line_bot_proposal",
+      "files": []
+    },
+    "mmt_card_game": {
+      "path": "mmt_card_game",
+      "files": []
+    },
+    "mnp_simulator": {
+      "path": "mnp_simulator",
+      "files": []
+    },
+    "moodle_sync": {
+      "path": "moodle_sync",
+      "files": []
+    },
+    "notebooklm_enhancer": {
+      "path": "notebooklm_enhancer",
+      "files": []
+    },
+    "ocr_grade_simulator": {
+      "path": "ocr_grade_simulator",
+      "files": []
+    },
+    "password_security_hub": {
+      "path": "password_security_hub",
+      "files": []
+    },
+    "pt_anatomy_quiz": {
+      "path": "pt_anatomy_quiz",
+      "files": []
+    },
+    "pt_knowledge_visual_library": {
+      "path": "pt_knowledge_visual_library",
+      "files": []
+    },
+    "pt_quiz_temp": {
+      "path": "pt_quiz_temp",
+      "files": []
+    },
+    "pt_student_portal": {
+      "path": "pt_student_portal",
+      "files": []
+    },
+    "status_guide_board": {
+      "path": "status_guide_board",
+      "files": []
+    },
+    "youtube_visual_library": {
+      "path": "youtube_visual_library",
+      "files": []
+    }
+  },
+  "harnesses": [
+    {
+      "path": "koeiro_guide\\test_gdrive.py",
+      "sha256": "d451b3e6",
+      "lines": 20,
+      "functions": [],
+      "thresholds": [],
+      "remediations": []
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\audit_openchat_stats.py",
+      "sha256": "16bd17dd",
+      "lines": 73,
+      "functions": [],
+      "thresholds": [],
+      "remediations": []
+    },
+    {
+      "path": "mmt_card_game\\harness\\image_quality_gate.py",
+      "sha256": "5628259d",
+      "lines": 136,
+      "functions": [],
+      "thresholds": [
+        "max_contour_h >= 60",
+        "white_ratio < 0.70",
+        "ink_ratio < 0.0002",
+        "ink_ratio > 0.25",
+        "red_pixel_ratio >= 0.010",
+        "max_bh < 60"
+      ],
+      "remediations": [
+        "FAIL",
+        "FAIL"
+      ]
+    },
+    {
+      "path": "mmt_card_game\\scratch\\generate_audit_table.py",
+      "sha256": "219bb908",
+      "lines": 31,
+      "functions": [],
+      "thresholds": [],
+      "remediations": []
+    },
+    {
+      "path": "mmt_card_game\\scratch\\test_coords_ocr.py",
+      "sha256": "16900e0a",
+      "lines": 49,
+      "functions": [
+        {
+          "name": "test_crop_ocr",
+          "doc": "",
+          "comparisons": [
+            "w_item.lower() not in ['g5', 'g4', 'g3', 'g2', 'g1']"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "remediations": [
+        "FAIL ({cnt} words: {words[:3]})"
+      ]
+    },
+    {
+      "path": "pt_student_portal\\scratch\\audit_youtube_metadata.py",
+      "sha256": "5462decc",
+      "lines": 54,
+      "functions": [],
+      "thresholds": [],
+      "remediations": [
+        "ERROR: {e}"
+      ]
+    },
+    {
+      "path": "pt_student_portal\\scratch\\check_dict_50.py",
+      "sha256": "71afd597",
+      "lines": 13,
+      "functions": [],
+      "thresholds": [],
+      "remediations": []
+    },
+    {
+      "path": "pt_student_portal\\scratch\\check_remaining.py",
+      "sha256": "f2ed2a75",
+      "lines": 19,
+      "functions": [],
+      "thresholds": [],
+      "remediations": []
+    },
+    {
+      "path": "pt_student_portal\\scratch\\test_gas_search.py",
+      "sha256": "9338eb3f",
+      "lines": 21,
+      "functions": [
+        {
+          "name": "search",
+          "doc": "",
+          "comparisons": []
+        }
+      ],
+      "thresholds": [],
+      "remediations": []
+    },
+    {
+      "path": "pt_student_portal\\scripts\\crawl_and_verify_schools.py",
+      "sha256": "6ea49410",
+      "lines": 255,
+      "functions": [
+        {
+          "name": "fetch_url_text",
+          "doc": "URLのHTMLテキストを安全に取得（エラー時は空文字）",
+          "comparisons": []
+        },
+        {
+          "name": "audit_school",
+          "doc": "単一学校の最新情報チェック・クロスチェック・ステータス判定",
+          "comparisons": [
+            "expected == 'NOT_APPLICABLE'",
+            "expected == 'REVISION_WARNING'",
+            "expected == 'DOWNGRADED_IPPAN'",
+            "'ocr' in sid.lower()"
+          ]
+        },
+        {
+          "name": "main",
+          "doc": "",
+          "comparisons": [
+            "audit['subsidyStatus'] == 'DOWNGRADED_IPPAN'",
+            "audit['subsidyStatus'] == 'REVISION_WARNING'",
+            "audit['subsidyStatus'] == 'NOT_APPLICABLE'",
+            "a['subsidyStatus'] == 'VERIFIED_ACTIVE'",
+            "a['subsidyStatus'] == 'DOWNGRADED_IPPAN'",
+            "a['subsidyStatus'] == 'REVISION_WARNING'",
+            "a['subsidyStatus'] == 'NOT_APPLICABLE'"
+          ]
+        }
+      ],
+      "thresholds": [
+        "updated_count = 0",
+        "discrepancy_count = 0"
+      ],
+      "remediations": []
+    }
+  ],
+  "rules_and_ledgers": [
+    {
+      "path": "mmt_card_game\\AGENTS.md",
+      "lines": 41,
+      "sha256": "f67843fd",
+      "head": "# Daniels MMT Tactical Card Game — AGENTS.md\n\n## 1. プロジェクト概要 & 技術スタック\n- **目的**: ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床学習Webカードゲーム。\n- **スタック**: Vanilla HTML5 / CSS3 / JavaScript (ES6+), OpenCV / Python 3, Playwright (E2E)。\n- **本番環境**: GitHub Pages (`gh-pages` ブランチ)。\n\n## 2. 絶対遵守のコア規律（Three Inviolable Rules）\n1. **裁判官（harness/）の不可侵**:\n   - `harness/` 配下のスクリプトおよび合否判定基準を作業員AIが改ざん・緩和することを禁止する。\n2. **フォールバック（別画像すり替え）の完全禁止**:\n   - 抽出不能・座標不整合時は別画像で穴埋めせず、`PROGRESS.md` にエラーとして記録し停止せよ。\n3. **UI幾何制約の死守**:\n   - 図鑑コンテナの小"
+    },
+    {
+      "path": "mmt_card_game\\PROGRESS.md",
+      "lines": 185,
+      "sha256": "095b95a1",
+      "head": "# PROGRESS.md — MMT Tactical Card Game 進捗ホワイトボード\n\n## 1. 現在のステータス概要 (v21)\n- **PWA（Progressive Web App）化完全対応**:\n  - iOS（Safari）「ホーム画面に追加」およびAndroid（Chrome）でのネイティブアプリ同様のスタンドアロン全画面起動（URLバー非表示・`display: standalone`）。\n  - Warm Bone調（`#F9F8F6`、`#1E293B`、`#D97706`）に調和した高精細アプリアイコン自動生成・完備（192px / 512px / 180px apple-touch-icon）。\n  - キャッシュ事故防止設計の Service Worker（`sw.js`）：コアファイル（HTML/JS/CSS/JSON）は **Network First**（オンライン時最新取得・オフライン時キャッシュ）、画像アセット群は **Cache First**（超高速ロード）。\n  - 古いキャッシュの一括削除・即時反映（`skipWaiting()"
+    },
+    {
+      "path": "mmt_card_game\\tasks.yaml",
+      "lines": 308,
+      "sha256": "59b84b0c",
+      "head": "version: '2.0'\nproduct: MMT Tactical Card Game (Daniels 10th Ed.)\ncurrent_release: v21 (20261102_v21)\nupdated_at: '2026-11-02T16:26:22'\narchived_done_count: 27\nshards:\n- code: MMT\n  name: MMT Tactical Card Game (v21)\n  file: shards/mmt_tactics.yaml\n  progress: 96\n- code: PT\n  name: PTポータル (国試・過去問基盤)\n  file: shards/pt_portal.yaml\n  progress: 20\ntasks:\n- id: MMT-022\n  project: MMT\n  priority: P0\n  title: iPhone Safari および Android Chrome での PWA スタンドアロン起動・オフライン動作の実機検証\n  column: review\n  phase: Phase"
+    },
+    {
+      "path": "mmt_card_game\\shards\\mmt_tactics.yaml",
+      "lines": 267,
+      "sha256": "7bd487e3",
+      "head": "shard_code: MMT\nshard_name: MMT Tactical Card Game (v21)\ntasks:\n- id: MMT-022\n  project: MMT\n  priority: P0\n  title: iPhone Safari および Android Chrome での PWA スタンドアロン起動・オフライン動作の実機検証\n  column: review\n  phase: Phase 3\n  tokens: 120\n  scopeSize: 15m\n  agent: Antigravity\n  targetFile: sw.js\n  updated: 検証中\n  commitHash: '6374155'\n  gates:\n    g1:\n      label: G1:構文検査\n      pass: true\n      detail: node -c sw.js & manifest.json 構文検査 PASS\n    g2:\n      label: G2:アイコン品質\n      pass: true\n      detail: asse"
+    },
+    {
+      "path": "mmt_card_game\\shards\\pt_portal.yaml",
+      "lines": 33,
+      "sha256": "9e211999",
+      "head": "shard_code: PT\nshard_name: PTポータル (国試・過去問基盤)\ntasks:\n- id: PT-001\n  project: PT\n  priority: P2\n  title: PTポータル（国試過去問・運動学解剖学スライド学習）のMMTカードゲーム連携設計\n  column: todo\n  phase: Phase 1\n  tokens: 130\n  scopeSize: 30m\n  agent: Antigravity\n  targetFile: docs/spec-clinical-10th.md\n  updated: 構想中\n  commitHash: pending\n  gates:\n    g1:\n      label: G1:仕様策定\n      pass: null\n      detail: 構想設計中\n    g2:\n      label: G2:辞書整合\n      pass: null\n      detail: MMT160枚データとのクロスリファレンス検討\n    g3:\n      label: G3:UI導線\n      "
+    },
+    {
+      "path": "pt_student_portal\\AGENTS.md",
+      "lines": 51,
+      "sha256": "601cacab",
+      "head": "﻿# 🏛️ PT学生学習帖プロジェクト・エージェント規律 (AGENTS.md)\n\n本ファイルは、本プロジェクト（pt_student_portal）におけるすべてのAIエージェントおよび開発者が厳守すべき憲法・ガバナンス規約です。\n\n## 1. 開発の絶対原則（Harness Engineering Principles）\n\n1. **リポジトリを唯一の正史とする (System of Record)**\n   - 会話履歴やチャットの記憶に頼らない。設計の根拠、タスクの現在地、進捗はすべて PROGRESS.md およびコード上のファイルとしてリポジトリに永続化する。\n\n2. **WIP = 1 の徹底（アトミック作業）**\n   - 一度に複数の巨大な変更を行わない。機能リストに基づき、目の前の最小タスク1つだけに集中する。\n\n3. **生成役と検査役の分離 (Generator / Evaluator Separation)**\n   - コードを実装するAIと、それを検証・監査するハーネス（harness/）を完全に分離する。自己採点（偽陽性・勝利宣言バイアス）は厳禁とする。"
+    },
+    {
+      "path": "pt_student_portal\\PROGRESS.md",
+      "lines": 35,
+      "sha256": "2b250725",
+      "head": "﻿# 📌 PT学生学習帖 - 継承ノート＆進捗管理 (PROGRESS.md)\n\n## 現在地（Last Known State）\n\n- **実装完了**: \n  - 全80筋カルテ描画エンジン（Warm Bone SVG対応）\n  - 厚労省準拠国家試験クイズ ＆ 辞書マスタ同期\n  - 「先輩の赤点回避ドリル（LINE抜き打ちテスト）」CTAボタン ＆ テレメトリ基盤\n  - 【Red-Team監査反映】3連クイズ誤答・全問完了連動型スモークCTA（インライントリガー＆テレメトリ契約）\n  - 【SNSアプリ内ブラウザ爆速化】ディープリンク直撃時の即時同期レンダリング ＆ 非表示タブ遅延実行\n  - OGP/Twitter Card メタタグ最適化\n  - 管理者専用ダッシュボード（admin-backend/）でのテレメトリ集計 ＆ テストデータ物理隔離\n  - 【市場調査ガバナンス】AGENTS.md への「4大統計ゲート」明文化 ＆ 50行集計スクリプト（scripts/stat-gate.js）配備（リサーチハーネス開発は完全凍結）\n  - 【HTMLプラン刷新】『新現実主"
+    }
+  ],
+  "skills": [
+    {
+      "path": "mmt_card_game\\assets\\cards\\.agents\\skills\\audit\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\.agents\\skills\\competitors\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\.agents\\skills\\keywords\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\.agents\\skills\\strategy\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\agent\\skills\\audit\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\agent\\skills\\competitors\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\agent\\skills\\keywords\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\agent\\skills\\strategy\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\data\\skills\\audit\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\data\\skills\\competitors\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\data\\skills\\keywords\\SKILL.md"
+    },
+    {
+      "path": "mmt_card_game\\assets\\cards\\data\\skills\\strategy\\SKILL.md"
+    }
+  ]
+}
