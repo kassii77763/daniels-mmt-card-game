@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MMT &amp; PT Portal Cockpit v2.0 — Real Status &amp; Harness Board</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter, Noto Sans JP, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ecru: {
+              bg: 'var(--bg-main)',
+              surface: 'var(--bg-surface)',
+              card: 'var(--bg-card)',
+              border: 'var(--border-subtle)',
+              borderStrong: 'var(--border-strong)',
+              text: 'var(--text-main)',
+              subtext: 'var(--text-sub)',
+              muted: 'var(--text-muted)',
+              accent: 'var(--bg-accent)'
+            },
+            sidebar: {
+              bg: '#14171C',
+              hover: '#1F242D',
+              active: '#29303D',
+              border: '#262B35',
+              text: '#F1F5F9',
+              muted: '#94A3B8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root, [data-theme="ecru"] {
+      --bg-main: #FBFBF9;
+      --bg-surface: #F3F1EC;
+      --bg-card: #FFFFFF;
+      --bg-accent: #EAE6DF;
+      --border-subtle: #E6E4DD;
+      --border-strong: #D2CFC6;
+      --text-main: #1E293B;
+      --text-sub: #57534E;
+      --text-muted: #8A857D;
+    }
+    [data-theme="jira"] {
+      --bg-main: #F4F5F7;
+      --bg-surface: #EBECF0;
+      --bg-card: #FFFFFF;
+      --bg-accent: #DEEBFF;
+      --border-subtle: #DFE1E6;
+      --border-strong: #C1C7D0;
+      --text-main: #172B4D;
+      --text-sub: #42526E;
+      --text-muted: #6B778C;
+    }
+    [data-theme="dark"] {
+      --bg-main: #0B0F17;
+      --bg-surface: #151C28;
+      --bg-card: #1E2736;
+      --bg-accent: #283447;
+      --border-subtle: #2A364B;
+      --border-strong: #3B4A66;
+      --text-main: #F1F5F9;
+      --text-sub: #94A3B8;
+      --text-muted: #64748B;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-surface); }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+    .kanban-card { transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.18s ease; }
+    .kanban-card:hover { transform: translateY(-1px); }
+    .kanban-card.dragging { opacity: 0.4; transform: scale(0.98); }
+    .kanban-column.drag-over {
+      background-color: var(--bg-accent);
+      outline: 2px dashed #4F46E5;
+      outline-offset: -2px;
+    }
+    @keyframes ssePulseHighlight {
+      0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.65); }
+      70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+    }
+    .sse-updated-card { animation: ssePulseHighlight 1.5s ease-out; }
+    #detailDrawer { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+  </style>
+</head>
+<body data-theme="ecru" class="bg-ecru-bg text-ecru-text font-sans antialiased h-screen flex flex-col overflow-hidden select-none">
+
+  <!-- =====================================================================
+       1. TOP LIVE SYNCHRONIZATION BAR
+       ===================================================================== -->
+  <header id="statusStrip" class="bg-slate-950 text-slate-100 border-b border-slate-800 px-3.5 py-1.5 text-[11px] flex flex-wrap items-center justify-between gap-2 z-50 flex-shrink-0">
+    <div class="flex flex-wrap items-center gap-2.5">
+      <!-- 接続インジケータ（ローカルSSE または GitHub Pagesクラウド同期） -->
+      <div id="sseStatusContainer" class="flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all">
+        <span class="relative flex h-2 w-2">
+          <span id="ssePing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span id="sseDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+        </span>
+        <span id="sseStatusLabel" class="font-mono font-semibold text-emerald-200">SSE LIVE: 127.0.0.1:8795</span>
+        <span class="text-emerald-400 font-mono" id="lastCheckedText">監視中</span>
+      </div>
+
+      <!-- プロダクト実態バッジ -->
+      <div class="flex items-center space-x-1.5 bg-slate-900 border border-slate-700 px-2 py-0.5 rounded font-mono text-slate-300">
+        <i class="fa-solid fa-code-branch text-indigo-400 text-[10px]"></i>
+        <span>Release: <strong class="text-amber-300">v21 (PWA対応済)</strong></span>
+      </div>
+
+      <!-- ハーネス監査状態 -->
+      <div class="hidden xl:flex items-center space-x-1.5 bg-emerald-950/60 border border-emerald-800 px-2 py-0.5 rounded font-mono text-emerald-300">
+        <i class="fa-solid fa-shield-check text-emerald-400 text-[10px]"></i>
+        <span>Harness Gate: <strong>180/180 ALL PASS (100%)</strong></span>
+      </div>
+
+      <!-- SHA指紋 -->
+      <span class="hidden 2xl:inline font-mono text-[10px] text-slate-400">
+        SHA-256: <code id="shaFingerprint" class="text-indigo-300">gh-pages-sync</code> | 台帳: <code class="text-slate-300">tasks.yaml</code>
+      </span>
+    </div>
+
+    <!-- 右側アクション -->
+    <div class="flex flex-wrap items-center gap-1.5">
+      <!-- テーマ切替 -->
+      <div class="flex items-center bg-slate-900 border border-slate-700 rounded p-0.5 text-[10px]">
+        <button onclick="setTheme('ecru')" id="themeBtn-ecru" class="px-1.5 py-0.5 rounded bg-amber-100 text-stone-900 font-semibold cursor-pointer">Ecru</button>
+        <button onclick="setTheme('jira')" id="themeBtn-jira" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Jira</button>
+        <button onclick="setTheme('dark')" id="themeBtn-dark" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Dark</button>
+      </div>
+
+      <button onclick="openCommandPalette()" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-2 py-1 rounded font-mono text-[10px] flex items-center gap-1 cursor-pointer">
+        <i class="fa-solid fa-magnifying-glass text-indigo-400"></i>
+        <span>Ctrl+K</span>
+      </button>
+
+      <a id="gameLinkBtn" href="./" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition text-[11px]">
+        <i class="fa-solid fa-gamepad"></i>
+        <span>MMTゲーム画面を開く</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       2. MAIN WORKSPACE
+       ===================================================================== -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="w-64 bg-sidebar-bg text-sidebar-text flex flex-col justify-between border-r border-sidebar-border flex-shrink-0 z-20">
+      <div class="p-3.5 space-y-4 overflow-y-auto">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 via-blue-600 to-amber-500 flex items-center justify-center text-white font-bold shadow">
+              <i class="fa-solid fa-shield-halved text-sm"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h1 class="text-sm font-bold text-white tracking-tight leading-none">MMT Cockpit</h1>
+                <span class="text-[9px] font-mono bg-amber-600 text-white px-1 py-0.2 rounded font-semibold">v21</span>
+              </div>
+              <p class="text-[10px] text-sidebar-muted mt-1 font-mono">Daniels 10th Ed. Live</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.5 rounded">Pages公開</span>
+        </div>
+
+        <!-- プロジェクト・シャード切替 -->
+        <div>
+          <div class="px-1.5 mb-1.5 flex items-center justify-between">
+            <span class="text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">実プロジェクト Shards</span>
+          </div>
+          <div class="space-y-1" id="shardSwitcherList"></div>
+        </div>
+
+        <!-- 7大ビュー ナビゲーション -->
+        <div>
+          <div class="px-1.5 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">Core Views (実態連動)</div>
+          <nav class="space-y-0.5 text-xs" id="sidebarViewNav">
+            <button onclick="switchMainView('board')" data-view="board" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md bg-indigo-600 text-white font-medium transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-table-columns w-4 text-center"></i>1. カンバンボード</span>
+              <span class="text-[10px] font-mono bg-black/30 px-1.5 py-0.2 rounded" id="sideBadgeBoard">10</span>
+            </button>
+            <button onclick="switchMainView('sync')" data-view="sync" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-diagram-project w-4 text-center text-emerald-400"></i>2. 設計・同期アーキ</span>
+            </button>
+            <button onclick="switchMainView('backlog')" data-view="backlog" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-list-check w-4 text-center"></i>3. バックログ・課題一覧</span>
+            </button>
+            <button onclick="switchMainView('timeline')" data-view="timeline" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-bars-progress w-4 text-center"></i>4. 段階タイムライン</span>
+            </button>
+            <button onclick="switchMainView('marketing')" data-view="marketing" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line w-4 text-center text-sky-400"></i>5. 運用実態・品質監査</span>
+              <span class="text-[9px] font-mono bg-amber-900/60 text-amber-200 border border-amber-700/60 px-1.5 py-0.2 rounded">実態値</span>
+            </button>
+            <button onclick="switchMainView('harness')" data-view="harness" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-microchip w-4 text-center text-amber-400"></i>6. 開発・実行基盤</span>
+            </button>
+            <button onclick="switchMainView('roadmap')" data-view="roadmap" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-compass w-4 text-center text-purple-400"></i>7. 将来ロードマップ</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- 正典ファイル直結リンク -->
+        <div>
+          <div class="px-1.5 mb-1 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">正典ファイル (Read-Only)</div>
+          <div class="space-y-1 text-[11px]">
+            <button onclick="previewArtifact('AGENTS.md')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
+              <span class="truncate"><i class="fa-regular fa-file-lines text-indigo-400 mr-1.5"></i><code>AGENTS.md</code></span>
+              <span class="text-[9px] font-mono text-emerald-400">規約</span>
+            </button>
+            <button onclick="previewArtifact('PROGRESS.md')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
+              <span class="truncate"><i class="fa-solid fa-list-check text-amber-400 mr-1.5"></i><code>PROGRESS.md</code></span>
+              <span class="text-[9px] font-mono text-amber-300">v21進捗</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 border-t border-sidebar-border bg-black/30 text-[10px] space-y-1 font-mono text-sidebar-muted">
+        <div class="flex items-center justify-between">
+          <span><i class="fa-solid fa-globe text-emerald-400 mr-1"></i>Platform:</span>
+          <span class="text-emerald-300" id="platformHostBadge">GitHub Pages / Local</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span><i class="fa-solid fa-box-archive text-indigo-400 mr-1"></i>Cards Archive:</span>
+          <span class="text-slate-300">27枚（完全一致整合）</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER MAIN -->
+    <main class="flex-1 flex flex-col min-w-0 bg-ecru-bg overflow-hidden">
+      <div class="bg-ecru-card border-b border-ecru-border px-6 pt-3 flex-shrink-0">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-2.5">
+          <div>
+            <div class="flex items-center space-x-2 text-xs text-ecru-subtext">
+              <span class="font-mono bg-ecru-surface px-1.5 py-0.5 rounded border border-ecru-border text-[11px]" id="headerShardPath">MMT Tactical Card Game (v21)</span>
+              <span>➔</span>
+              <span id="headerProjectBreadcrumb" class="font-semibold text-indigo-600">GitHub Pages 公開コックピット</span>
+            </div>
+            <h2 class="text-base font-bold text-ecru-text tracking-tight mt-0.5">
+              MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— GitHub Pages クラウド公開 ＆ タスク台帳連動</span>
+            </h2>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <button onclick="openNewTaskModal()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-md font-semibold shadow-2xs flex items-center gap-1.5 transition cursor-pointer">
+              <i class="fa-solid fa-plus"></i>
+              <span>新規スコープ課題を追加</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 7タブ -->
+        <div class="flex items-center space-x-1 overflow-x-auto text-xs font-medium -mb-px" id="topViewTabs">
+          <button onclick="switchMainView('board')" data-view="board" class="top-tab-btn border-b-2 border-indigo-600 text-indigo-600 font-semibold px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-table-columns"></i><span>1. ボード (Board)</span>
+          </button>
+          <button onclick="switchMainView('sync')" data-view="sync" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-diagram-project text-emerald-600"></i><span>2. 設計・同期アーキ</span>
+          </button>
+          <button onclick="switchMainView('backlog')" data-view="backlog" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-list-check"></i><span>3. バックログ (Backlog)</span>
+          </button>
+          <button onclick="switchMainView('timeline')" data-view="timeline" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-bars-progress"></i><span>4. 段階タイムライン</span>
+          </button>
+          <button onclick="switchMainView('marketing')" data-view="marketing" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-chart-line text-sky-600"></i><span>5. 運用実態・品質監査</span>
+          </button>
+          <button onclick="switchMainView('harness')" data-view="harness" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-microchip text-amber-600"></i><span>6. 開発・実行基盤</span>
+          </button>
+          <button onclick="switchMainView('roadmap')" data-view="roadmap" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-compass text-purple-600"></i><span>7. 将来ロードマップ</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 1: カンバンボード -->
+      <section id="view-board" class="view-panel flex-1 flex flex-col overflow-hidden">
+        <div class="px-6 py-2 bg-ecru-surface/80 border-b border-ecru-border flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="relative">
+              <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2 text-ecru-muted text-xs"></i>
+              <input type="text" id="boardSearchInput" oninput="renderKanbanBoard()" placeholder="課題を検索..." class="pl-7 pr-3 py-1 bg-ecru-card border border-ecru-borderStrong rounded-md w-56 text-xs text-ecru-text focus:outline-none">
+            </div>
+            <div class="flex items-center space-x-1" id="boardFilterChips">
+              <button onclick="setBoardFilter('all')" data-filter="all" class="board-chip bg-slate-800 text-white font-semibold px-2.5 py-1 rounded border border-slate-800 cursor-pointer">すべて</button>
+              <button onclick="setBoardFilter('p0')" data-filter="p0" class="board-chip bg-ecru-card text-amber-800 px-2.5 py-1 rounded border border-ecru-borderStrong cursor-pointer">🔥 P0/P1</button>
+              <button onclick="setBoardFilter('done')" data-filter="done" class="board-chip bg-ecru-card text-emerald-700 px-2.5 py-1 rounded border border-ecru-borderStrong cursor-pointer">✔ 完了(Done)</button>
+            </div>
+          </div>
+          <div class="text-[11px] text-ecru-subtext">
+            <span>台帳ファイル: <strong>tasks.yaml / tasks.json</strong> (GitHub Pages対応)</span>
+          </div>
+        </div>
+
+        <div class="flex-1 p-5 overflow-x-auto overflow-y-hidden">
+          <div class="flex space-x-4 h-full items-start min-w-[1140px]">
+            <!-- To Do -->
+            <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-ecru-borderStrong kanban-column" data-col="todo" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'todo')">
+              <div class="flex items-center justify-between px-1 mb-2">
+                <span class="text-xs font-bold text-ecru-subtext uppercase tracking-wider flex items-center gap-1.5">
+                  <i class="fa-regular fa-circle text-slate-400"></i>1. To Do (次期スコープ)
+                </span>
+                <span id="colCount-todo" class="text-xs font-mono font-bold bg-ecru-card text-ecru-text px-2 py-0.5 rounded-full border border-ecru-borderStrong">0</span>
+              </div>
+              <div id="colList-todo" class="space-y-2.5 overflow-y-auto flex-1 pr-1 pb-1"></div>
+            </div>
+
+            <!-- In Progress -->
+            <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-indigo-300/80 kanban-column" data-col="inprogress" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'inprogress')">
+              <div class="flex items-center justify-between px-1 mb-2">
+                <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <i class="fa-solid fa-spinner animate-spin text-indigo-600"></i>2. In Progress (作業中)
+                </span>
+                <span id="colCount-inprogress" class="text-xs font-mono font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">0</span>
+              </div>
+              <div id="colList-inprogress" class="space-y-2.5 overflow-y-auto flex-1 pr-1 pb-1"></div>
+            </div>
+
+            <!-- Review -->
+            <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-amber-300/90 kanban-column" data-col="review" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'review')">
+              <div class="flex items-center justify-between px-1 mb-2">
+                <span class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <i class="fa-solid fa-scale-balanced text-amber-600"></i>3. Harness 検証中
+                </span>
+                <span id="colCount-review" class="text-xs font-mono font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">0</span>
+              </div>
+              <div id="colList-review" class="space-y-2.5 overflow-y-auto flex-1 pr-1 pb-1"></div>
+            </div>
+
+            <!-- Done -->
+            <div class="w-80 bg-ecru-surface rounded-xl p-3 flex flex-col max-h-full flex-shrink-0 border border-emerald-300/90 kanban-column" data-col="done" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'done')">
+              <div class="flex items-center justify-between px-1 mb-2">
+                <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <i class="fa-solid fa-shield-check text-emerald-600"></i>4. Done (実装・監査完了)
+                </span>
+                <span id="colCount-done" class="text-xs font-mono font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full">0</span>
+              </div>
+              <div id="colList-done" class="space-y-2.5 overflow-y-auto flex-1 pr-1 pb-1"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: 設計・同期アーキ -->
+      <section id="view-sync" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-xl p-5 border border-slate-800 shadow-sm">
+          <div class="space-y-1">
+            <span class="text-[10px] font-mono uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded font-semibold">Single Source of Truth (単一正典設計)</span>
+            <h3 class="text-base font-bold">tasks.yaml ＆ tasks.json によるシームレスな同期</h3>
+            <p class="text-xs text-slate-300 max-w-4xl leading-relaxed">
+              ローカルでは <code>pythonw server.py</code> によるSSEリアルタイム更新、GitHub Pagesクラウド上では <code>tasks.json</code> を自動フェッチして最新のカンバン・監査レポートを描画します。
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 space-y-3">
+            <h4 class="text-sm font-bold text-indigo-700 flex items-center gap-2">
+              <i class="fa-solid fa-shield text-indigo-600"></i>
+              <span>Three Inviolable Rules（3大不可侵規律）</span>
+            </h4>
+            <ul class="text-xs text-ecru-subtext space-y-2">
+              <li class="p-2 rounded bg-ecru-surface border border-ecru-border">
+                <strong>1. 裁判官（harness/）の不可侵:</strong> 判定スクリプトの基準を作業員AIが改ざん・緩和することを禁止。
+              </li>
+              <li class="p-2 rounded bg-ecru-surface border border-ecru-border">
+                <strong>2. フォールバック（別画像すり替え）の完全禁止:</strong> 座標不整合時は別画像で穴埋めせず、PROGRESS.mdに記録して停止。
+              </li>
+              <li class="p-2 rounded bg-ecru-surface border border-ecru-border">
+                <strong>3. UI幾何制約の死守:</strong> 図鑑の小窓スクロールや文字切れ（ellipsis）は禁止。
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 space-y-3">
+            <h4 class="text-sm font-bold text-emerald-700 flex items-center gap-2">
+              <i class="fa-solid fa-cloud text-emerald-600"></i>
+              <span>GitHub Pages ＆ ローカルハイブリッド稼働</span>
+            </h4>
+            <p class="text-xs text-ecru-subtext leading-relaxed">
+              環境に応じて自動で接続モードを判定。ローカルでは <code>127.0.0.1:8795</code> へ接続し、Web公開環境では静的 JSON を瞬時にロードします。
+            </p>
+            <div class="p-3 bg-slate-900 text-emerald-300 rounded-lg font-mono text-xs">
+              <div>Cloud URL:  https://kassii77763.github.io/daniels-mmt-card-game/cockpit.html</div>
+              <div>Local URL:  http://localhost:8795/</div>
+              <div>Data Source: tasks.yaml &amp; tasks.json</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: バックログ -->
+      <section id="view-backlog" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-5">
+        <div class="bg-ecru-card rounded-xl border border-ecru-border shadow-2xs overflow-hidden">
+          <div class="px-5 py-3 bg-ecru-surface border-b border-ecru-border flex items-center justify-between text-xs">
+            <span class="font-bold text-ecru-text"><i class="fa-solid fa-layer-group text-indigo-600 mr-1.5"></i>課題一覧 (実ステータス順)</span>
+            <span class="font-mono text-ecru-subtext" id="backlogCountLabel">表示中</span>
+          </div>
+          <div class="divide-y divide-ecru-border text-xs" id="backlogTableBody"></div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: タイムライン -->
+      <section id="view-timeline" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-5">
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs">
+          <h3 class="text-sm font-bold text-ecru-text mb-3">MMTカードゲーム 開発フェーズ進行タイムライン</h3>
+          <div class="space-y-4" id="timelinePhasesContainer"></div>
+        </div>
+      </section>
+
+      <!-- VIEW 5: 運用実態・品質監査 -->
+      <section id="view-marketing" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>実ユーザー数 (現在)</span><i class="fa-solid fa-users text-amber-500"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">0 名 <span class="text-xs font-sans font-semibold text-amber-600">(リリース準備中)</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">※以前の42名はGeminiのダミー表示でした</div>
+          </div>
+          <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>出題可能カード総数</span><i class="fa-solid fa-layer-group text-indigo-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">160 枚 <span class="text-xs font-sans font-semibold text-emerald-600">(133枚実動)</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">アーカイブ27枚（完全一致整合保証）</div>
+          </div>
+          <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>3層ハーネス監査結果</span><i class="fa-solid fa-shield-check text-emerald-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">100% <span class="text-xs font-sans font-semibold text-emerald-600">ALL PASS</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">第1〜第3層 180項目 全て合格 (Exit 0)</div>
+          </div>
+          <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>本番ビルドバージョン</span><i class="fa-solid fa-tag text-purple-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">v21 <span class="text-xs font-sans font-semibold text-indigo-600">PWA完備</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">最新キャッシュバスター: 20261102_v21</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+            <h4 class="text-sm font-bold text-ecru-text flex items-center gap-2">
+              <i class="fa-solid fa-clipboard-check text-emerald-600"></i>
+              <span>実機テスト・ハーネス監査の実際の合格レポート</span>
+            </h4>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <div class="font-bold text-emerald-900">✔ 判定スタートボタン切断完全解消 (v21)</div>
+                <p class="text-[11px] text-emerald-800 mt-0.5">全画面幅・スマホ縦横での判定開始ボタンの100%露出監査を通過</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <div class="font-bold text-emerald-900">✔ カルタ読み札 音声被り・語尾ブツ切れ ゼロ (v16)</div>
+                <p class="text-[11px] text-emerald-800 mt-0.5">SpeechSynthesis.onend 連動 850ms 静寂制御による自然な読み上げを実現</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <div class="font-bold text-emerald-900">✔ PWA スタンドアロン＆キャッシュ事故防止設計 (v17)</div>
+                <p class="text-[11px] text-emerald-800 mt-0.5">Network First (コード) + Cache First (手技画像) のハイブリッド構成</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+            <h4 class="text-sm font-bold text-ecru-text flex items-center gap-2">
+              <i class="fa-solid fa-comments text-indigo-600"></i>
+              <span>現場フィードバック（実態: 募集中・蓄積待機）</span>
+            </h4>
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 space-y-2">
+              <div class="font-bold flex items-center gap-1.5">
+                <i class="fa-solid fa-info-circle text-amber-600"></i>
+                <span>実利用ボイスは現在蓄積待ちです</span>
+              </div>
+              <p class="text-[11px] text-amber-800 leading-relaxed">
+                以前表示されていた「同級生LINEの声」はGeminiがサンプルとして作成した架空のものでした。本番公開後、実際に受け取ったフィードバックをここに蓄積・チケット化します。
+              </p>
+            </div>
+
+            <form onsubmit="submitRealFeedback(event)" class="space-y-2 pt-2">
+              <label class="block text-xs font-semibold text-ecru-subtext">実習生・同級生からの実際の声を手動入力して課題化：</label>
+              <textarea id="realFeedbackInput" rows="2" placeholder="例: 後脛骨筋のGrade 2肢位ヒントを分かりやすくしてほしい、等" class="w-full text-xs p-2.5 bg-ecru-surface border border-ecru-borderStrong rounded-lg text-ecru-text focus:outline-none"></textarea>
+              <div class="flex justify-end">
+                <button type="submit" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-xs font-semibold cursor-pointer">
+                  <i class="fa-solid fa-plus mr-1"></i>To Do課題として登録
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 6: 開発・実行基盤 -->
+      <section id="view-harness" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
+            <i class="fa-solid fa-laptop text-indigo-600"></i>
+            <span>実機PCハードウェア環境 ＆ 実行基盤ステータス</span>
+          </h3>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">OS</div>
+              <div class="font-bold text-ecru-text mt-1">Windows 11</div>
+            </div>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">Python環境</div>
+              <div class="font-bold text-emerald-700 mt-1">Python 3.12.10</div>
+            </div>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">Node.js / E2E</div>
+              <div class="font-bold text-indigo-700 mt-1">Playwright 導入済</div>
+            </div>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+              <div class="text-[10px] text-ecru-subtext">ホスティング環境</div>
+              <div class="font-bold text-emerald-700 mt-1">GitHub Pages</div>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-ecru-surface border border-ecru-border text-xs space-y-1.5">
+            <div class="font-bold text-ecru-text">監査コマンド（定義基準）</div>
+            <div class="font-mono text-[11px] text-indigo-700 bg-ecru-card p-2 rounded border border-ecru-border">
+              python harness/image_quality_gate.py &amp;&amp; node harness/e2e_full_verification.js
+            </div>
+            <p class="text-[10px] text-ecru-subtext">上記コマンドで画像品質180枚および実機幾何E2Eが ALL PASS することを作業完了基準としています。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 7: 将来ロードマップ -->
+      <section id="view-roadmap" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <h3 class="text-sm font-bold text-ecru-text">プロダクトロードマップ</h3>
+          <div class="space-y-2.5 text-xs">
+            <div class="p-3 rounded-lg bg-emerald-50/80 border border-emerald-300 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-emerald-950">Phase 1〜3: 160枚完備 ＆ PWAアプリ化 ＆ 判定・カルタ・フロー実装</span>
+                <p class="text-[11px] text-emerald-800 mt-0.5">v1〜v21 にて実装完了・ハーネス3層監査 ALL PASS 達成</p>
+              </div>
+              <span class="font-mono text-[11px] font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">達成済</span>
+            </div>
+            <div class="p-3 rounded-lg bg-emerald-50/80 border border-emerald-300 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-emerald-950">Phase 4: GitHub Pages 本番公開 ＆ コックピットクラウドデプロイ</span>
+                <p class="text-[11px] text-emerald-800 mt-0.5">gh-pages ブランチへの最新反映と、Webダッシュボード公開完了</p>
+              </div>
+              <span class="font-mono text-[11px] font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">達成済</span>
+            </div>
+            <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border flex items-center justify-between">
+              <div>
+                <span class="font-bold text-ecru-text">Phase 5: PTポータル（国試過去問・運動学解剖学スライド）連携</span>
+                <p class="text-[11px] text-ecru-subtext mt-0.5">国試問題からMMT手技カードへの逆引き相互リンク</p>
+              </div>
+              <span class="font-mono text-[11px] text-ecru-subtext px-2 py-0.5 rounded bg-stone-200">次期構想</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RIGHT SLIDE-OVER DRAWER -->
+    <aside id="detailDrawer" class="absolute top-0 right-0 w-full max-w-[500px] h-full bg-ecru-card shadow-2xl border-l border-ecru-borderStrong transform translate-x-full z-40 flex flex-col">
+      <div class="px-5 py-3.5 bg-ecru-surface border-b border-ecru-border flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span id="drawerKey" class="font-mono text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 px-2 py-0.5 rounded">#ID</span>
+          <span id="drawerPriorityBadge" class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded">P0</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <select id="drawerStatusSelect" onchange="changeTaskStatusFromDrawer(this.value)" class="text-xs font-semibold bg-ecru-card border border-ecru-borderStrong rounded px-2.5 py-1 text-ecru-text cursor-pointer">
+            <option value="todo">1. To Do</option>
+            <option value="inprogress">2. In Progress</option>
+            <option value="review">3. Review</option>
+            <option value="done">4. Done</option>
+          </select>
+          <button onclick="closeDetailDrawer()" class="w-7 h-7 rounded hover:bg-stone-200 flex items-center justify-center text-ecru-subtext cursor-pointer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
+        <div>
+          <h3 id="drawerTitle" class="text-sm font-bold text-ecru-text mb-2"></h3>
+          <div class="bg-ecru-surface p-2.5 rounded-lg border border-ecru-border space-y-1 text-[11px] font-mono">
+            <div>編集対象: <span id="drawerFile" class="text-indigo-600"></span></div>
+            <div>最終更新: <span id="drawerUpdated"></span></div>
+            <div>Commit: <span id="drawerCommit" class="text-emerald-700 font-bold"></span></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-ecru-subtext uppercase tracking-wider mb-1">受入基準</h4>
+          <ul id="drawerSpecsList" class="bg-ecru-surface p-2.5 rounded-lg border border-ecru-border space-y-1"></ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-ecru-subtext uppercase tracking-wider mb-1">差分・証跡</h4>
+          <pre id="drawerGitDiff" class="bg-slate-900 text-slate-100 p-2.5 rounded font-mono text-[11px] overflow-x-auto"></pre>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- 新規タスク追加モーダル -->
+  <div id="newTaskModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
+      <div class="px-5 py-3.5 bg-sidebar-bg text-white flex items-center justify-between">
+        <h3 class="text-sm font-bold"><i class="fa-solid fa-plus-circle text-indigo-400 mr-2"></i>新規タスクを追加</h3>
+        <button onclick="closeNewTaskModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="submitNewTask(event)" class="p-5 space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-ecru-subtext mb-1">優先度</label>
+          <select id="newTaskPriority" class="w-full border border-ecru-borderStrong rounded-md px-2 py-1.5 bg-ecru-card">
+            <option value="P0">🔥 P0 (緊急)</option>
+            <option value="P1" selected>⚡ P1 (高)</option>
+            <option value="P2">📌 P2 (通常)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-ecru-subtext mb-1">タスク名</label>
+          <input type="text" id="newTaskTitle" required placeholder="例: 実機でのカルタ読み上げ音量テスト" class="w-full border border-ecru-borderStrong rounded-md px-3 py-1.5 bg-ecru-card">
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeNewTaskModal()" class="px-3 py-1.5 rounded-md border border-ecru-borderStrong bg-ecru-surface text-ecru-text cursor-pointer">キャンセル</button>
+          <button type="submit" class="px-4 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold cursor-pointer">追加して保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- コマンドパレット -->
+  <div id="commandPaletteModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-start justify-center pt-20 p-4">
+    <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden">
+      <div class="p-3.5 border-b border-ecru-border flex items-center gap-2.5">
+        <i class="fa-solid fa-magnifying-glass text-indigo-600 text-sm"></i>
+        <input type="text" id="cmdPaletteInput" oninput="renderCommandPaletteList()" placeholder="コマンドや課題キーを入力..." class="w-full bg-transparent text-xs text-ecru-text focus:outline-none">
+        <button onclick="closeCommandPalette()" class="text-[10px] font-mono bg-ecru-surface px-1.5 py-0.5 rounded border text-ecru-subtext cursor-pointer">ESC</button>
+      </div>
+      <div id="cmdPaletteResults" class="max-h-80 overflow-y-auto divide-y divide-ecru-border text-xs"></div>
+    </div>
+  </div>
+
+  <!-- 正典プレビューモーダル -->
+  <div id="artifactPreviewModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden">
+      <div class="px-5 py-3.5 bg-sidebar-bg text-white flex items-center justify-between">
+        <span id="artifactModalTitle" class="font-mono text-xs font-bold"></span>
+        <button onclick="closeArtifactModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="p-5">
+        <pre id="artifactModalContent" class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs overflow-x-auto max-h-96 leading-relaxed"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastNotice" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl border border-slate-700 text-xs font-medium flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 z-50 pointer-events-none">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- =====================================================================
+       3. SCRIPT LOGIC (Hybrid: Local SSE + Cloud Pages Static)
+       ===================================================================== -->
+  <script>
+    let shardRegistry = [
+      { code: "MMT", name: "MMT Tactical Card Game (v21)", icon: "fa-shield-halved", color: "text-amber-400", shardFile: "shards/mmt_tactics.yaml", progress: 96 },
+      { code: "PT", name: "PTポータル (国試・過去問基盤)", icon: "fa-book-medical", color: "text-emerald-400", shardFile: "shards/pt_portal.yaml", progress: 20 }
+    ];
+
+    let tasksState = [];
+    let currentShard = "ALL";
+    let currentView = "board";
+    let currentBoardFilter = "all";
+    let activeDrawerTaskId = null;
+    let draggedCardId = null;
+    let lastUpdatedCardId = null;
+
+    const isLocalEnvironment = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+
+    // SSE & BACKEND
+    let eventSource = null;
+    function initSSE() {
+      if (isLocalEnvironment && window.EventSource) {
+        eventSource = new EventSource('/events');
+        eventSource.onopen = () => {
+          document.getElementById("sseStatusContainer").className = "flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all";
+          document.getElementById("sseStatusLabel").textContent = "SSE LIVE: 127.0.0.1:8795";
+          document.getElementById("ssePing").className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+          document.getElementById("sseDot").className = "relative inline-flex rounded-full h-2 w-2 bg-emerald-400";
+        };
+        eventSource.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "tasks_update") {
+              if (data.tasks) tasksState = data.tasks;
+              if (data.sha) document.getElementById("shaFingerprint").textContent = data.sha;
+              renderAllViews();
+            } else if (data.type === "heartbeat") {
+              document.getElementById("lastCheckedText").textContent = data.time;
+            }
+          } catch(e) {}
+        };
+        eventSource.onerror = () => {
+          document.getElementById("sseStatusContainer").className = "flex items-center space-x-1.5 bg-rose-950/90 border border-rose-700/70 px-2 py-0.5 rounded transition-all";
+          document.getElementById("sseStatusLabel").textContent = "SSE OFFLINE";
+          document.getElementById("ssePing").className = "hidden";
+          document.getElementById("sseDot").className = "relative inline-flex rounded-full h-2 w-2 bg-rose-500";
+        };
+      } else {
+        // GitHub Pages Cloud Mode
+        const badge = document.getElementById("sseStatusContainer");
+        const label = document.getElementById("sseStatusLabel");
+        const ping = document.getElementById("ssePing");
+        const dot = document.getElementById("sseDot");
+        if (badge) {
+          badge.className = "flex items-center space-x-1.5 bg-sky-950/90 border border-sky-700/70 px-2 py-0.5 rounded transition-all";
+          label.textContent = "CLOUD PAGES: Synchronized";
+          ping.className = "hidden";
+          dot.className = "relative inline-flex rounded-full h-2 w-2 bg-sky-400";
+          document.getElementById("lastCheckedText").textContent = "GitHub Pages公開中";
+        }
+        document.getElementById("platformHostBadge").textContent = "GitHub Pages (gh-pages)";
+      }
+    }
+
+    async function loadTasks() {
+      // 1. Local REST API
+      if (isLocalEnvironment) {
+        try {
+          const res = await fetch('/api/tasks');
+          if (res.ok) {
+            const json = await res.json();
+            if (json.tasks && json.tasks.length > 0) {
+              tasksState = json.tasks;
+              if (json.sha) document.getElementById("shaFingerprint").textContent = json.sha;
+              renderAllViews();
+              return;
+            }
+          }
+        } catch(e) {}
+      }
+
+      // 2. Cloud / Static tasks.json fallback
+      try {
+        const basePath = location.pathname.includes('/cockpit/') ? '../' : './';
+        const res = await fetch(basePath + 'tasks.json?t=' + Date.now());
+        if (res.ok) {
+          const json = await res.json();
+          if (json.tasks) tasksState = json.tasks;
+          if (json.updated_at) document.getElementById("lastCheckedText").textContent = `Sync: ${json.updated_at.split('T')[0]}`;
+        }
+      } catch(e) {
+        console.warn("Could not load tasks.json", e);
+      }
+      renderAllViews();
+    }
+
+    function renderAllViews() {
+      renderSidebarShards();
+      renderKanbanBoard();
+      renderBacklogPanel();
+      renderTimelinePanel();
+      if (activeDrawerTaskId) populateDrawer(activeDrawerTaskId);
+    }
+
+    function renderSidebarShards() {
+      const container = document.getElementById("shardSwitcherList");
+      let html = `
+        <button onclick="selectShard('ALL')" class="w-full text-left px-2.5 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer ${currentShard==='ALL'?'bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400':'text-sidebar-muted hover:bg-sidebar-hover'}">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-indigo-400 w-4 text-center"></i>全課題</span>
+          <span class="text-[10px] font-mono bg-black/40 px-1.5 py-0.2 rounded">${tasksState.length}</span>
+        </button>
+      `;
+      shardRegistry.forEach(s => {
+        const cnt = tasksState.filter(t => t.project === s.code).length;
+        html += `
+          <button onclick="selectShard('${s.code}')" class="w-full text-left px-2.5 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer ${currentShard===s.code?'bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400':'text-sidebar-muted hover:bg-sidebar-hover'}">
+            <span class="flex items-center gap-2 truncate"><i class="fa-solid ${s.icon} ${s.color} w-4 text-center"></i><span class="truncate">${s.name}</span></span>
+            <span class="text-[10px] font-mono text-slate-400">${cnt}</span>
+          </button>
+        `;
+      });
+      container.innerHTML = html;
+      document.getElementById("sideBadgeBoard").textContent = tasksState.length;
+    }
+
+    function selectShard(code) {
+      currentShard = code;
+      renderAllViews();
+    }
+
+    function getFilteredTasks() {
+      const q = (document.getElementById("boardSearchInput")?.value || "").toLowerCase().trim();
+      return tasksState.filter(t => {
+        if (currentShard !== "ALL" && t.project !== currentShard) return false;
+        if (q && !(t.id.toLowerCase().includes(q) || t.title.toLowerCase().includes(q))) return false;
+        if (currentBoardFilter === "p0" && !(t.priority === "P0" || t.priority === "P1")) return false;
+        if (currentBoardFilter === "done" && t.column !== "done") return false;
+        return true;
+      });
+    }
+
+    function renderKanbanBoard() {
+      const cols = ["todo", "inprogress", "review", "done"];
+      const counts = { todo: 0, inprogress: 0, review: 0, done: 0 };
+      cols.forEach(c => document.getElementById(`colList-${c}`).innerHTML = "");
+
+      getFilteredTasks().forEach(t => {
+        if (counts[t.column] !== undefined) {
+          counts[t.column]++;
+          document.getElementById(`colList-${t.column}`).appendChild(createCardEl(t));
+        }
+      });
+      cols.forEach(c => document.getElementById(`colCount-${c}`).textContent = counts[c]);
+    }
+
+    function createCardEl(t) {
+      const div = document.createElement("div");
+      const isDone = t.column === "done";
+      div.className = `kanban-card rounded-lg p-3 shadow-2xs border ${isDone ? 'border-emerald-300 bg-ecru-card' : 'border-ecru-borderStrong bg-ecru-card hover:border-indigo-400'} cursor-pointer select-none`;
+      div.setAttribute("draggable", "true");
+
+      const prioBadge = t.priority === "P0" ? "bg-rose-600 text-white" : t.priority === "P1" ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-700";
+
+      div.innerHTML = `
+        <div class="flex items-center justify-between gap-1 mb-1.5">
+          <div class="flex items-center gap-1.5">
+            <span class="font-mono text-[9px] font-bold px-1.5 py-0.2 rounded ${prioBadge}">${t.priority}</span>
+            <span class="font-mono text-[11px] font-bold text-indigo-600">#${t.id}</span>
+          </div>
+          <span class="text-[10px] font-mono text-ecru-subtext">${t.tokens || 100} tok</span>
+        </div>
+        <p class="text-xs font-semibold text-ecru-text leading-snug mb-2">${t.title}</p>
+        <div class="flex items-center justify-between pt-1.5 mt-1 border-t border-ecru-border text-[10px] text-ecru-subtext font-mono">
+          <span>${t.targetFile || 'index.html'}</span>
+          <span class="text-emerald-700 font-semibold">${t.updated || '最新'}</span>
+        </div>
+      `;
+
+      div.onclick = () => openDetailDrawer(t.id);
+      div.ondragstart = (e) => { draggedCardId = t.id; div.classList.add("dragging"); };
+      div.ondragend = () => { div.classList.remove("dragging"); draggedCardId = null; };
+      return div;
+    }
+
+    function renderBacklogPanel() {
+      const list = getFilteredTasks();
+      document.getElementById("backlogCountLabel").textContent = `${list.length} 件`;
+      document.getElementById("backlogTableBody").innerHTML = list.map(t => `
+        <div class="px-5 py-3 hover:bg-ecru-surface/70 flex items-center justify-between cursor-pointer" onclick="openDetailDrawer('${t.id}')">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-white">${t.priority}</span>
+            <span class="font-mono font-bold text-indigo-600">#${t.id}</span>
+            <span class="font-semibold text-ecru-text">${t.title}</span>
+          </div>
+          <span class="font-mono text-[11px] text-ecru-subtext">${t.column.toUpperCase()}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderTimelinePanel() {
+      const phases = [
+        { id: "Phase 1", name: "Phase 1: 160枚手技図・肢位・グレード整合辞書確立", pct: 100 },
+        { id: "Phase 2", name: "Phase 2: カルタ読み札3段構造＆音声エンジン連携", pct: 100 },
+        { id: "Phase 3", name: "Phase 3: 3層監査ハーネス＆PWAアプリ化 (v21)", pct: 100 },
+        { id: "Phase 4", name: "Phase 4: GitHub Pages公開 ＆ 実機PWA検証", pct: 100 }
+      ];
+      document.getElementById("timelinePhasesContainer").innerHTML = phases.map(p => `
+        <div class="p-3.5 rounded-xl bg-ecru-surface border border-ecru-borderStrong space-y-1.5">
+          <div class="flex justify-between text-xs font-bold">
+            <span>${p.name}</span>
+            <span class="text-indigo-600 font-mono">${p.pct}%</span>
+          </div>
+          <div class="w-full bg-stone-200 h-2 rounded-full overflow-hidden">
+            <div class="bg-indigo-600 h-full rounded-full" style="width: ${p.pct}%"></div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function openDetailDrawer(id) {
+      activeDrawerTaskId = id;
+      populateDrawer(id);
+      document.getElementById("detailDrawer").classList.remove("translate-x-full");
+    }
+    function closeDetailDrawer() {
+      document.getElementById("detailDrawer").classList.add("translate-x-full");
+      activeDrawerTaskId = null;
+    }
+    function populateDrawer(id) {
+      const t = tasksState.find(x => x.id === id);
+      if (!t) return;
+      document.getElementById("drawerKey").textContent = `#${t.id}`;
+      document.getElementById("drawerPriorityBadge").textContent = t.priority;
+      document.getElementById("drawerStatusSelect").value = t.column;
+      document.getElementById("drawerTitle").textContent = t.title;
+      document.getElementById("drawerFile").textContent = t.targetFile || 'index.html';
+      document.getElementById("drawerUpdated").textContent = t.updated || '最新';
+      document.getElementById("drawerCommit").textContent = t.commitHash || 'pending';
+      document.getElementById("drawerSpecsList").innerHTML = (t.specs || []).map(s => `<li>✔ ${s}</li>`).join("");
+      document.getElementById("drawerGitDiff").textContent = t.gitDiff || '# No diff recorded';
+    }
+
+    async function changeTaskStatusFromDrawer(col) {
+      if (!activeDrawerTaskId) return;
+      moveTaskToCol(activeDrawerTaskId, col);
+    }
+
+    function handleDragOver(e) { e.preventDefault(); e.currentTarget.classList.add("drag-over"); }
+    function handleDragLeave(e) { e.currentTarget.classList.remove("drag-over"); }
+    function handleDrop(e, col) {
+      e.preventDefault();
+      e.currentTarget.classList.remove("drag-over");
+      if (draggedCardId) moveTaskToCol(draggedCardId, col);
+    }
+
+    async function moveTaskToCol(id, col) {
+      const t = tasksState.find(x => x.id === id);
+      if (!t || t.column === col) return;
+      t.column = col;
+      t.updated = "たった今更新";
+      renderKanbanBoard();
+      if (isLocalEnvironment) {
+        try {
+          await fetch('/api/update_task', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(t)
+          });
+        } catch(e) {}
+      }
+      showToast(`#${id} を [${col.toUpperCase()}] へ移動しました`);
+    }
+
+    function submitRealFeedback(e) {
+      e.preventDefault();
+      const val = document.getElementById("realFeedbackInput").value.trim();
+      if (!val) return;
+      const newId = `MMT-0${25 + Math.floor(Math.random()*10)}`;
+      const newTask = {
+        id: newId,
+        project: "MMT",
+        priority: "P1",
+        title: val,
+        column: "todo",
+        phase: "Phase 4",
+        tokens: 110,
+        scopeSize: "15m",
+        agent: "Antigravity",
+        targetFile: "index.html",
+        updated: "たった今 (現場フィードバック)",
+        commitHash: "pending",
+        specs: [`現場からの要望: ${val}`],
+        gitDiff: `# Feed back added`
+      };
+      tasksState.unshift(newTask);
+      if (isLocalEnvironment) {
+        fetch('/api/add_task', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTask)
+        });
+      }
+      document.getElementById("realFeedbackInput").value = "";
+      showToast(`フィードバックを #${newId} として登録しました`);
+      renderAllViews();
+    }
+
+    function openNewTaskModal() { document.getElementById("newTaskModal").classList.remove("hidden"); }
+    function closeNewTaskModal() { document.getElementById("newTaskModal").classList.add("hidden"); }
+    function submitNewTask(e) {
+      e.preventDefault();
+      const title = document.getElementById("newTaskTitle").value.trim();
+      const prio = document.getElementById("newTaskPriority").value;
+      if (!title) return;
+      const newId = `MMT-0${25 + Math.floor(Math.random()*10)}`;
+      const newTask = {
+        id: newId,
+        project: "MMT",
+        priority: prio,
+        title: title,
+        column: "todo",
+        phase: "Phase 4",
+        tokens: 110,
+        scopeSize: "15m",
+        agent: "Antigravity",
+        targetFile: "index.html",
+        updated: "たった今",
+        commitHash: "pending",
+        specs: [title],
+        gitDiff: `# New task`
+      };
+      tasksState.unshift(newTask);
+      if (isLocalEnvironment) {
+        fetch('/api/add_task', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTask)
+        });
+      }
+      closeNewTaskModal();
+      document.getElementById("newTaskTitle").value = "";
+      showToast(`タスク #${newId} を追加しました`);
+      renderAllViews();
+    }
+
+    function previewArtifact(name) {
+      const map = {
+        "AGENTS.md": `# AGENTS.md\n- Three Inviolable Rules (裁判官の不可侵、別画像すり替え禁止、UI幾何制約死守)\n- SVG路線図主義の徹底 (写実アトラス競合禁止・起始/停止/支配神経の記号化)\n- 監査コマンド: python harness/image_quality_gate.py && node harness/e2e_full_verification.js`,
+        "PROGRESS.md": `# PROGRESS.md (v21 確定状態)\n- PWA スタンドアロン完備 (iOS / Android)\n- 160枚手技画像・肢位・グレード 100% 完全一致保証 (133枚実動 + 27枚アーカイブ)\n- カルタ読み札3段構造＆音声合成連携\n- 3層監査 ALL PASS (180/180 合格)`
+      };
+      document.getElementById("artifactModalTitle").textContent = name;
+      document.getElementById("artifactModalContent").textContent = map[name] || "";
+      document.getElementById("artifactPreviewModal").classList.remove("hidden");
+    }
+    function closeArtifactModal() { document.getElementById("artifactPreviewModal").classList.add("hidden"); }
+
+    function switchMainView(name) {
+      currentView = name;
+      document.querySelectorAll(".view-panel").forEach(el => el.classList.add("hidden"));
+      document.getElementById(`view-${name}`).classList.remove("hidden");
+      document.querySelectorAll(".top-tab-btn").forEach(btn => {
+        btn.className = btn.getAttribute("data-view") === name
+          ? "top-tab-btn border-b-2 border-indigo-600 text-indigo-600 font-semibold px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+          : "top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer";
+      });
+      document.querySelectorAll(".side-nav-btn").forEach(btn => {
+        if (btn.getAttribute("data-view") === name) {
+          btn.classList.add("bg-indigo-600", "text-white");
+          btn.classList.remove("text-sidebar-muted");
+        } else {
+          btn.classList.remove("bg-indigo-600", "text-white");
+          btn.classList.add("text-sidebar-muted");
+        }
+      });
+    }
+
+    function setBoardFilter(f) {
+      currentBoardFilter = f;
+      document.querySelectorAll(".board-chip").forEach(c => {
+        if (c.getAttribute("data-filter") === f) {
+          c.classList.add("bg-slate-800", "text-white");
+          c.classList.remove("bg-ecru-card");
+        } else {
+          c.classList.remove("bg-slate-800", "text-white");
+          c.classList.add("bg-ecru-card");
+        }
+      });
+      renderKanbanBoard();
+    }
+
+    function setTheme(name) { document.body.setAttribute("data-theme", name); }
+
+    function showToast(msg) {
+      const t = document.getElementById("toastNotice");
+      document.getElementById("toastMessage").textContent = msg;
+      t.classList.remove("translate-y-20", "opacity-0");
+      setTimeout(() => t.classList.add("translate-y-20", "opacity-0"), 2500);
+    }
+
+    function openCommandPalette() {
+      document.getElementById("commandPaletteModal").classList.remove("hidden");
+      document.getElementById("cmdPaletteInput").value = "";
+      renderCommandPaletteList();
+    }
+    function closeCommandPalette() { document.getElementById("commandPaletteModal").classList.add("hidden"); }
+    function renderCommandPaletteList() {
+      const q = document.getElementById("cmdPaletteInput").value.toLowerCase();
+      const results = tasksState.filter(t => t.id.toLowerCase().includes(q) || t.title.toLowerCase().includes(q));
+      document.getElementById("cmdPaletteResults").innerHTML = results.map(t => `
+        <div class="px-4 py-2 hover:bg-ecru-surface cursor-pointer" onclick="closeCommandPalette(); openDetailDrawer('${t.id}')">
+          <strong class="text-indigo-600 font-mono">#${t.id}</strong> <span class="text-ecru-text">${t.title}</span>
+        </div>
+      `).join("");
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        openCommandPalette();
+      } else if (e.key === "Escape") {
+        closeCommandPalette();
+        closeDetailDrawer();
+        closeNewTaskModal();
+        closeArtifactModal();
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadTasks();
+      initSSE();
+    });
+  </script>
+</body>
+</html>

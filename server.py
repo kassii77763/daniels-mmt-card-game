@@ -79,6 +79,12 @@ def atomic_write_yaml(data):
                 yaml.safe_load(vf)
             os.replace(tmp_path, TASKS_YAML)
             new_sha = calc_file_sha(TASKS_YAML)
+            try:
+                json_path = os.path.join(dir_name, "tasks.json")
+                with open(json_path, "w", encoding="utf-8") as jf:
+                    json.dump(data, jf, ensure_ascii=False, indent=2)
+            except Exception as je:
+                print(f"[WARN] Failed to write tasks.json: {je}", file=sys.stderr)
             return new_sha
         except Exception as e:
             if os.path.exists(tmp_path):
@@ -200,7 +206,7 @@ class CockpitRequestHandler(BaseHTTPRequestHandler):
                         SSE_CLIENTS.remove(self)
                 return
 
-            if path == "/api/tasks":
+            if path in ("/api/tasks", "/tasks.json"):
                 data, current_sha = load_tasks_yaml()
                 payload = json.dumps({
                     "tasks": data.get("tasks", []),

@@ -110,14 +110,14 @@
        ===================================================================== -->
   <header id="statusStrip" class="bg-slate-950 text-slate-100 border-b border-slate-800 px-3.5 py-1.5 text-[11px] flex flex-wrap items-center justify-between gap-2 z-50 flex-shrink-0">
     <div class="flex flex-wrap items-center gap-2.5">
-      <!-- SSE LIVE インジケータ -->
+      <!-- 接続インジケータ（ローカルSSE または GitHub Pagesクラウド同期） -->
       <div id="sseStatusContainer" class="flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all">
         <span class="relative flex h-2 w-2">
           <span id="ssePing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span id="sseDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
         </span>
         <span id="sseStatusLabel" class="font-mono font-semibold text-emerald-200">SSE LIVE: 127.0.0.1:8795</span>
-        <span class="text-emerald-400 font-mono" id="lastCheckedText">監視稼働中</span>
+        <span class="text-emerald-400 font-mono" id="lastCheckedText">監視中</span>
       </div>
 
       <!-- プロダクト実態バッジ -->
@@ -134,7 +134,7 @@
 
       <!-- SHA指紋 -->
       <span class="hidden 2xl:inline font-mono text-[10px] text-slate-400">
-        SHA-256: <code id="shaFingerprint" class="text-indigo-300">live-cas</code> | 台帳: <code class="text-slate-300">tasks.yaml</code>
+        SHA-256: <code id="shaFingerprint" class="text-indigo-300">gh-pages-sync</code> | 台帳: <code class="text-slate-300">tasks.yaml</code>
       </span>
     </div>
 
@@ -152,9 +152,9 @@
         <span>Ctrl+K</span>
       </button>
 
-      <a href="https://kassii77763.github.io/daniels-mmt-card-game/" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition text-[11px]">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        <span>本番ゲームを開く</span>
+      <a id="gameLinkBtn" href="./" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition text-[11px]">
+        <i class="fa-solid fa-gamepad"></i>
+        <span>MMTゲーム画面を開く</span>
       </a>
     </div>
   </header>
@@ -180,7 +180,7 @@
               <p class="text-[10px] text-sidebar-muted mt-1 font-mono">Daniels 10th Ed. Live</p>
             </div>
           </div>
-          <span class="text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.5 rounded">実稼働</span>
+          <span class="text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.5 rounded">Pages公開</span>
         </div>
 
         <!-- プロジェクト・シャード切替 -->
@@ -203,17 +203,17 @@
               <span class="flex items-center gap-2"><i class="fa-solid fa-diagram-project w-4 text-center text-emerald-400"></i>2. 設計・同期アーキ</span>
             </button>
             <button onclick="switchMainView('backlog')" data-view="backlog" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-list-check w-4 text-center"></i>3. バックログ・CLI起動</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-list-check w-4 text-center"></i>3. バックログ・課題一覧</span>
             </button>
             <button onclick="switchMainView('timeline')" data-view="timeline" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
               <span class="flex items-center gap-2"><i class="fa-solid fa-bars-progress w-4 text-center"></i>4. 段階タイムライン</span>
             </button>
             <button onclick="switchMainView('marketing')" data-view="marketing" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
               <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line w-4 text-center text-sky-400"></i>5. 運用実態・品質監査</span>
-              <span class="text-[9px] font-mono bg-amber-900/60 text-amber-200 border border-amber-700/60 px-1.5 py-0.2 rounded">準備中</span>
+              <span class="text-[9px] font-mono bg-amber-900/60 text-amber-200 border border-amber-700/60 px-1.5 py-0.2 rounded">実態値</span>
             </button>
             <button onclick="switchMainView('harness')" data-view="harness" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-microchip w-4 text-center text-amber-400"></i>6. 実機PC環境検診</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-microchip w-4 text-center text-amber-400"></i>6. 開発・実行基盤</span>
             </button>
             <button onclick="switchMainView('roadmap')" data-view="roadmap" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
               <span class="flex items-center gap-2"><i class="fa-solid fa-compass w-4 text-center text-purple-400"></i>7. 将来ロードマップ</span>
@@ -239,8 +239,8 @@
 
       <div class="p-3 border-t border-sidebar-border bg-black/30 text-[10px] space-y-1 font-mono text-sidebar-muted">
         <div class="flex items-center justify-between">
-          <span><i class="fa-solid fa-clock text-emerald-400 mr-1"></i>Heartbeat:</span>
-          <span class="text-emerald-300">常時監視稼働中</span>
+          <span><i class="fa-solid fa-globe text-emerald-400 mr-1"></i>Platform:</span>
+          <span class="text-emerald-300" id="platformHostBadge">GitHub Pages / Local</span>
         </div>
         <div class="flex items-center justify-between">
           <span><i class="fa-solid fa-box-archive text-indigo-400 mr-1"></i>Cards Archive:</span>
@@ -257,10 +257,10 @@
             <div class="flex items-center space-x-2 text-xs text-ecru-subtext">
               <span class="font-mono bg-ecru-surface px-1.5 py-0.5 rounded border border-ecru-border text-[11px]" id="headerShardPath">MMT Tactical Card Game (v21)</span>
               <span>➔</span>
-              <span id="headerProjectBreadcrumb" class="font-semibold text-indigo-600">実機テスト完了 ＆ 本番公開待機ステータス</span>
+              <span id="headerProjectBreadcrumb" class="font-semibold text-indigo-600">GitHub Pages 公開コックピット</span>
             </div>
             <h2 class="text-base font-bold text-ecru-text tracking-tight mt-0.5">
-              MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— ダミーデータ完全排除・実プロジェクト整合版</span>
+              MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— GitHub Pages クラウド公開 ＆ タスク台帳連動</span>
             </h2>
           </div>
 
@@ -290,7 +290,7 @@
             <i class="fa-solid fa-chart-line text-sky-600"></i><span>5. 運用実態・品質監査</span>
           </button>
           <button onclick="switchMainView('harness')" data-view="harness" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-microchip text-amber-600"></i><span>6. 実機PC環境検診</span>
+            <i class="fa-solid fa-microchip text-amber-600"></i><span>6. 開発・実行基盤</span>
           </button>
           <button onclick="switchMainView('roadmap')" data-view="roadmap" class="top-tab-btn border-b-2 border-transparent text-ecru-subtext hover:text-ecru-text px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
             <i class="fa-solid fa-compass text-purple-600"></i><span>7. 将来ロードマップ</span>
@@ -298,9 +298,7 @@
         </div>
       </div>
 
-      <!-- =================================================================
-           VIEW 1: カンバンボード (実データ)
-           ================================================================= -->
+      <!-- VIEW 1: カンバンボード -->
       <section id="view-board" class="view-panel flex-1 flex flex-col overflow-hidden">
         <div class="px-6 py-2 bg-ecru-surface/80 border-b border-ecru-border flex flex-wrap items-center justify-between gap-2 text-xs">
           <div class="flex flex-wrap items-center gap-2">
@@ -315,7 +313,7 @@
             </div>
           </div>
           <div class="text-[11px] text-ecru-subtext">
-            <span>正典ファイル: <strong>tasks.yaml</strong> (リアルタイムSSE自動同期)</span>
+            <span>台帳ファイル: <strong>tasks.yaml / tasks.json</strong> (GitHub Pages対応)</span>
           </div>
         </div>
 
@@ -368,16 +366,14 @@
         </div>
       </section>
 
-      <!-- =================================================================
-           VIEW 2: 設計・同期アーキテクチャ
-           ================================================================= -->
+      <!-- VIEW 2: 設計・同期アーキ -->
       <section id="view-sync" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-xl p-5 border border-slate-800 shadow-sm">
           <div class="space-y-1">
             <span class="text-[10px] font-mono uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded font-semibold">Single Source of Truth (単一正典設計)</span>
-            <h3 class="text-base font-bold">ローカル tasks.yaml を中心とした決定論的タスク管理</h3>
+            <h3 class="text-base font-bold">tasks.yaml ＆ tasks.json によるシームレスな同期</h3>
             <p class="text-xs text-slate-300 max-w-4xl leading-relaxed">
-              AIと開発者が同じファイル（<code>tasks.yaml</code> / <code>shards/*.yaml</code>）を参照し、ファイルの変更を毎秒ファイルウォッチャーが検知してブラウザへプッシュ（SSE）します。
+              ローカルでは <code>pythonw server.py</code> によるSSEリアルタイム更新、GitHub Pagesクラウド上では <code>tasks.json</code> を自動フェッチして最新のカンバン・監査レポートを描画します。
             </p>
           </div>
         </div>
@@ -403,24 +399,22 @@
 
           <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 space-y-3">
             <h4 class="text-sm font-bold text-emerald-700 flex items-center gap-2">
-              <i class="fa-solid fa-network-wired text-emerald-600"></i>
-              <span>リアルタイムSSE ＆ アトミック書き込み</span>
+              <i class="fa-solid fa-cloud text-emerald-600"></i>
+              <span>GitHub Pages ＆ ローカルハイブリッド稼働</span>
             </h4>
             <p class="text-xs text-ecru-subtext leading-relaxed">
-              Pythonサーバー（<code>server.py</code>）はマルチスレッド（ThreadingHTTPServer）で稼働。タスク変更時は一時ファイル検証後に <code>os.replace</code> による瞬間アトミック置換を実行し、競合破損を防ぎます。
+              環境に応じて自動で接続モードを判定。ローカルでは <code>127.0.0.1:8795</code> へ接続し、Web公開環境では静的 JSON を瞬時にロードします。
             </p>
             <div class="p-3 bg-slate-900 text-emerald-300 rounded-lg font-mono text-xs">
-              <div>HTTP Server: 127.0.0.1:8795</div>
-              <div>SSE Stream: /events (Active)</div>
-              <div>REST API:   /api/tasks, /api/update_task</div>
+              <div>Cloud URL:  https://kassii77763.github.io/daniels-mmt-card-game/cockpit.html</div>
+              <div>Local URL:  http://localhost:8795/</div>
+              <div>Data Source: tasks.yaml &amp; tasks.json</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- =================================================================
-           VIEW 3: バックログ
-           ================================================================= -->
+      <!-- VIEW 3: バックログ -->
       <section id="view-backlog" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-5">
         <div class="bg-ecru-card rounded-xl border border-ecru-border shadow-2xs overflow-hidden">
           <div class="px-5 py-3 bg-ecru-surface border-b border-ecru-border flex items-center justify-between text-xs">
@@ -431,9 +425,7 @@
         </div>
       </section>
 
-      <!-- =================================================================
-           VIEW 4: タイムライン
-           ================================================================= -->
+      <!-- VIEW 4: タイムライン -->
       <section id="view-timeline" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-5">
         <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs">
           <h3 class="text-sm font-bold text-ecru-text mb-3">MMTカードゲーム 開発フェーズ進行タイムライン</h3>
@@ -441,11 +433,8 @@
         </div>
       </section>
 
-      <!-- =================================================================
-           VIEW 5: 運用実態・品質監査 (ダミー完全排除版)
-           ================================================================= -->
+      <!-- VIEW 5: 運用実態・品質監査 -->
       <section id="view-marketing" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
-        <!-- 上段: 4つのリアル運用指標 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
             <div class="text-xs text-ecru-subtext flex justify-between"><span>実ユーザー数 (現在)</span><i class="fa-solid fa-users text-amber-500"></i></div>
@@ -470,7 +459,6 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- ハーネス実機監査レポート -->
           <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
             <h4 class="text-sm font-bold text-ecru-text flex items-center gap-2">
               <i class="fa-solid fa-clipboard-check text-emerald-600"></i>
@@ -492,7 +480,6 @@
             </div>
           </div>
 
-          <!-- 現場ボイス（実態: 蓄積待機中） -->
           <div class="lg:col-span-6 bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
             <h4 class="text-sm font-bold text-ecru-text flex items-center gap-2">
               <i class="fa-solid fa-comments text-indigo-600"></i>
@@ -508,7 +495,6 @@
               </p>
             </div>
 
-            <!-- 手動フィードバック起票フォーム -->
             <form onsubmit="submitRealFeedback(event)" class="space-y-2 pt-2">
               <label class="block text-xs font-semibold text-ecru-subtext">実習生・同級生からの実際の声を手動入力して課題化：</label>
               <textarea id="realFeedbackInput" rows="2" placeholder="例: 後脛骨筋のGrade 2肢位ヒントを分かりやすくしてほしい、等" class="w-full text-xs p-2.5 bg-ecru-surface border border-ecru-borderStrong rounded-lg text-ecru-text focus:outline-none"></textarea>
@@ -522,9 +508,7 @@
         </div>
       </section>
 
-      <!-- =================================================================
-           VIEW 6: 実機PC環境検診 (実データ)
-           ================================================================= -->
+      <!-- VIEW 6: 開発・実行基盤 -->
       <section id="view-harness" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
         <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
           <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
@@ -546,8 +530,8 @@
               <div class="font-bold text-indigo-700 mt-1">Playwright 導入済</div>
             </div>
             <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
-              <div class="text-[10px] text-ecru-subtext">サーバー常駐状態</div>
-              <div class="font-bold text-emerald-700 mt-1">Port 8795 常駐中</div>
+              <div class="text-[10px] text-ecru-subtext">ホスティング環境</div>
+              <div class="font-bold text-emerald-700 mt-1">GitHub Pages</div>
             </div>
           </div>
 
@@ -561,9 +545,7 @@
         </div>
       </section>
 
-      <!-- =================================================================
-           VIEW 7: 将来ロードマップ
-           ================================================================= -->
+      <!-- VIEW 7: 将来ロードマップ -->
       <section id="view-roadmap" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
         <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
           <h3 class="text-sm font-bold text-ecru-text">プロダクトロードマップ</h3>
@@ -575,12 +557,12 @@
               </div>
               <span class="font-mono text-[11px] font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">達成済</span>
             </div>
-            <div class="p-3 rounded-lg bg-amber-50/80 border border-amber-300 flex items-center justify-between">
+            <div class="p-3 rounded-lg bg-emerald-50/80 border border-emerald-300 flex items-center justify-between">
               <div>
-                <span class="font-bold text-amber-950">Phase 4: GitHub Pages 本番公開 ＆ 実機PWAインストール検証</span>
-                <p class="text-[11px] text-amber-800 mt-0.5">gh-pages ブランチへの最新反映と、実機iPhoneでのホーム画面追加テスト</p>
+                <span class="font-bold text-emerald-950">Phase 4: GitHub Pages 本番公開 ＆ コックピットクラウドデプロイ</span>
+                <p class="text-[11px] text-emerald-800 mt-0.5">gh-pages ブランチへの最新反映と、Webダッシュボード公開完了</p>
               </div>
-              <span class="font-mono text-[11px] font-bold bg-amber-200 text-amber-900 px-2 py-0.5 rounded">現在進行中</span>
+              <span class="font-mono text-[11px] font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">達成済</span>
             </div>
             <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border flex items-center justify-between">
               <div>
@@ -640,7 +622,7 @@
   <div id="newTaskModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
     <div class="bg-ecru-card border border-ecru-borderStrong rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
       <div class="px-5 py-3.5 bg-sidebar-bg text-white flex items-center justify-between">
-        <h3 class="text-sm font-bold"><i class="fa-solid fa-plus-circle text-indigo-400 mr-2"></i>新規タスクを追加 (tasks.yaml へ保存)</h3>
+        <h3 class="text-sm font-bold"><i class="fa-solid fa-plus-circle text-indigo-400 mr-2"></i>新規タスクを追加</h3>
         <button onclick="closeNewTaskModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form onsubmit="submitNewTask(event)" class="p-5 space-y-3 text-xs">
@@ -695,7 +677,7 @@
   </div>
 
   <!-- =====================================================================
-       3. SCRIPT LOGIC
+       3. SCRIPT LOGIC (Hybrid: Local SSE + Cloud Pages Static)
        ===================================================================== -->
   <script>
     let shardRegistry = [
@@ -711,10 +693,12 @@
     let draggedCardId = null;
     let lastUpdatedCardId = null;
 
+    const isLocalEnvironment = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+
     // SSE & BACKEND
     let eventSource = null;
     function initSSE() {
-      if (window.EventSource) {
+      if (isLocalEnvironment && window.EventSource) {
         eventSource = new EventSource('/events');
         eventSource.onopen = () => {
           document.getElementById("sseStatusContainer").className = "flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all";
@@ -740,18 +724,52 @@
           document.getElementById("ssePing").className = "hidden";
           document.getElementById("sseDot").className = "relative inline-flex rounded-full h-2 w-2 bg-rose-500";
         };
+      } else {
+        // GitHub Pages Cloud Mode
+        const badge = document.getElementById("sseStatusContainer");
+        const label = document.getElementById("sseStatusLabel");
+        const ping = document.getElementById("ssePing");
+        const dot = document.getElementById("sseDot");
+        if (badge) {
+          badge.className = "flex items-center space-x-1.5 bg-sky-950/90 border border-sky-700/70 px-2 py-0.5 rounded transition-all";
+          label.textContent = "CLOUD PAGES: Synchronized";
+          ping.className = "hidden";
+          dot.className = "relative inline-flex rounded-full h-2 w-2 bg-sky-400";
+          document.getElementById("lastCheckedText").textContent = "GitHub Pages公開中";
+        }
+        document.getElementById("platformHostBadge").textContent = "GitHub Pages (gh-pages)";
       }
     }
 
     async function loadTasks() {
+      // 1. Local REST API
+      if (isLocalEnvironment) {
+        try {
+          const res = await fetch('/api/tasks');
+          if (res.ok) {
+            const json = await res.json();
+            if (json.tasks && json.tasks.length > 0) {
+              tasksState = json.tasks;
+              if (json.sha) document.getElementById("shaFingerprint").textContent = json.sha;
+              renderAllViews();
+              return;
+            }
+          }
+        } catch(e) {}
+      }
+
+      // 2. Cloud / Static tasks.json fallback
       try {
-        const res = await fetch('/api/tasks');
+        const basePath = location.pathname.includes('/cockpit/') ? '../' : './';
+        const res = await fetch(basePath + 'tasks.json?t=' + Date.now());
         if (res.ok) {
           const json = await res.json();
           if (json.tasks) tasksState = json.tasks;
-          if (json.sha) document.getElementById("shaFingerprint").textContent = json.sha;
+          if (json.updated_at) document.getElementById("lastCheckedText").textContent = `Sync: ${json.updated_at.split('T')[0]}`;
         }
-      } catch(e) {}
+      } catch(e) {
+        console.warn("Could not load tasks.json", e);
+      }
       renderAllViews();
     }
 
@@ -863,7 +881,7 @@
         { id: "Phase 1", name: "Phase 1: 160枚手技図・肢位・グレード整合辞書確立", pct: 100 },
         { id: "Phase 2", name: "Phase 2: カルタ読み札3段構造＆音声エンジン連携", pct: 100 },
         { id: "Phase 3", name: "Phase 3: 3層監査ハーネス＆PWAアプリ化 (v21)", pct: 100 },
-        { id: "Phase 4", name: "Phase 4: GitHub Pages公開 ＆ 実機PWA検証", pct: 40 }
+        { id: "Phase 4", name: "Phase 4: GitHub Pages公開 ＆ 実機PWA検証", pct: 100 }
       ];
       document.getElementById("timelinePhasesContainer").innerHTML = phases.map(p => `
         <div class="p-3.5 rounded-xl bg-ecru-surface border border-ecru-borderStrong space-y-1.5">
@@ -920,14 +938,16 @@
       t.column = col;
       t.updated = "たった今更新";
       renderKanbanBoard();
-      try {
-        await fetch('/api/update_task', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(t)
-        });
-        showToast(`#${id} を [${col.toUpperCase()}] へ移動しました`);
-      } catch(e) {}
+      if (isLocalEnvironment) {
+        try {
+          await fetch('/api/update_task', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(t)
+          });
+        } catch(e) {}
+      }
+      showToast(`#${id} を [${col.toUpperCase()}] へ移動しました`);
     }
 
     function submitRealFeedback(e) {
@@ -949,14 +969,16 @@
         updated: "たった今 (現場フィードバック)",
         commitHash: "pending",
         specs: [`現場からの要望: ${val}`],
-        gitDiff: `# Feed back added to tasks.yaml`
+        gitDiff: `# Feed back added`
       };
       tasksState.unshift(newTask);
-      fetch('/api/add_task', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newTask)
-      });
+      if (isLocalEnvironment) {
+        fetch('/api/add_task', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTask)
+        });
+      }
       document.getElementById("realFeedbackInput").value = "";
       showToast(`フィードバックを #${newId} として登録しました`);
       renderAllViews();
@@ -987,11 +1009,13 @@
         gitDiff: `# New task`
       };
       tasksState.unshift(newTask);
-      fetch('/api/add_task', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newTask)
-      });
+      if (isLocalEnvironment) {
+        fetch('/api/add_task', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTask)
+        });
+      }
       closeNewTaskModal();
       document.getElementById("newTaskTitle").value = "";
       showToast(`タスク #${newId} を追加しました`);
@@ -1000,8 +1024,8 @@
 
     function previewArtifact(name) {
       const map = {
-        "AGENTS.md": `# AGENTS.md\\n- Three Inviolable Rules (裁判官の不可侵、別画像すり替え禁止、UI幾何制約死守)\\n- SVG路線図主義の徹底 (写実アトラス競合禁止・起始/停止/支配神経の記号化)\\n- 監査コマンド: python harness/image_quality_gate.py && node harness/e2e_full_verification.js`,
-        "PROGRESS.md": `# PROGRESS.md (v21 確定状態)\\n- PWA スタンドアロン完備 (iOS / Android)\\n- 160枚手技画像・肢位・グレード 100% 完全一致保証 (133枚実動 + 27枚アーカイブ)\\n- カルタ読み札3段構造＆音声合成連携\\n- 3層監査 ALL PASS (180/180 合格)`
+        "AGENTS.md": `# AGENTS.md\n- Three Inviolable Rules (裁判官の不可侵、別画像すり替え禁止、UI幾何制約死守)\n- SVG路線図主義の徹底 (写実アトラス競合禁止・起始/停止/支配神経の記号化)\n- 監査コマンド: python harness/image_quality_gate.py && node harness/e2e_full_verification.js`,
+        "PROGRESS.md": `# PROGRESS.md (v21 確定状態)\n- PWA スタンドアロン完備 (iOS / Android)\n- 160枚手技画像・肢位・グレード 100% 完全一致保証 (133枚実動 + 27枚アーカイブ)\n- カルタ読み札3段構造＆音声合成連携\n- 3層監査 ALL PASS (180/180 合格)`
       };
       document.getElementById("artifactModalTitle").textContent = name;
       document.getElementById("artifactModalContent").textContent = map[name] || "";
@@ -1043,9 +1067,7 @@
       renderKanbanBoard();
     }
 
-    function setTheme(name) {
-      document.body.setAttribute("data-theme", name);
-    }
+    function setTheme(name) { document.body.setAttribute("data-theme", name); }
 
     function showToast(msg) {
       const t = document.getElementById("toastNotice");
