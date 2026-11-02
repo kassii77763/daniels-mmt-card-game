@@ -1,28 +1,15 @@
 @echo off
 setlocal
 echo ========================================================
-echo  Daniels Cockpit - Windows Task Scheduler Auto-Start
+echo  Daniels Cockpit - Windows Auto-Start Registration
 echo ========================================================
 echo.
 
-set "TASK_NAME=DanielsCockpitDashboard"
-set "BAT_PATH=%~dp0launch_cockpit.bat"
-
-echo Target: %BAT_PATH%
-echo Task:   %TASK_NAME%
-echo Trigger: On Logon
-echo.
-
-schtasks /create /tn "%TASK_NAME%" /tr "\"%BAT_PATH%\"" /sc onlogon /rl highest /f
-
-if %ERRORLEVEL% equ 0 (
-    echo.
-    echo [SUCCESS] Auto-start task registered successfully!
-    echo Cockpit will start in background on logon: http://localhost:8795/
-) else (
-    echo.
-    echo [WARN] Admin privileges may be required. Please run as Administrator.
-)
+REM Register to Windows Startup folder (No Administrator privileges required, space-safe)
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$Wsh = New-Object -ComObject WScript.Shell; $Startup = [System.Environment]::GetFolderPath('Startup'); $Shortcut = $Wsh.CreateShortcut(\"$Startup\DanielsCockpit.lnk\"); $Shortcut.TargetPath = '%~dp0launch_cockpit.bat'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.WindowStyle = 7; $Shortcut.Description = 'Daniels Cockpit Auto-Start'; $Shortcut.Save(); Write-Host '[SUCCESS] Registered to Windows Startup Folder successfully!'"
 
 echo.
-timeout /t 5 >nul
+echo [DONE] The Cockpit server will start automatically when you log on to Windows.
+echo URL: http://localhost:8795/
+echo.
+pause
