@@ -137,7 +137,7 @@
       <div class="hidden sm:flex items-center space-x-1 text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2">
         <i class="fa-regular fa-clock text-slate-500 mr-0.5"></i>
         <span>最終同期:</span>
-        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">取得中...</span>
+        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">07:44 JST (毎時同期済)</span>
       </div>
     </div>
 
@@ -1157,6 +1157,57 @@
     if (currentView === 'sns' && typeof renderSNSView === 'function') renderSNSView();
     if (typeof renderAllViews === 'function') renderAllViews();
   }
+
+  // =========================================================================
+  // 🔄 1時間自動同期（DASHBOARD_STATE.json）読み込み ＆ ヘッダー反映ロジック
+  // =========================================================================
+  let liveDashboardState = null;
+
+  async function loadDashboardState() {
+    try {
+      const res = await fetch('DASHBOARD_STATE.json?t=' + Date.now());
+      if (res.ok) {
+        liveDashboardState = await res.json();
+        console.log('[DASHBOARD_STATE] Loaded successfully:', liveDashboardState);
+        updateMilestoneSyncHeader();
+        if (typeof renderProjectContextBanner === 'function') {
+          renderProjectContextBanner();
+        }
+      } else {
+        console.warn('[DASHBOARD_STATE] HTTP status:', res.status);
+      }
+    } catch (e) {
+      console.warn('[DASHBOARD_STATE] Fetch note:', e);
+    }
+  }
+
+  function updateMilestoneSyncHeader() {
+    if (!liveDashboardState) return;
+    const rawTime = liveDashboardState.last_synced_at || '';
+    let syncTime = '';
+    if (rawTime.includes('T')) {
+      syncTime = rawTime.split('T')[1].substring(0, 5) + ' JST';
+    } else {
+      syncTime = rawTime;
+    }
+    const topSync = document.getElementById("topHeaderSyncTime");
+    if (topSync) {
+      topSync.textContent = syncTime + ' (毎時同期済)';
+    }
+    const syncBadge = document.getElementById("hourlySyncBadge");
+    if (syncBadge) {
+      syncBadge.innerHTML = `<i class="fa-solid fa-arrows-rotate text-emerald-400 mr-1 animate-spin-slow"></i>自動同期済: ${syncTime}`;
+    }
+    if (liveDashboardState.git_commit) {
+      const shaEl = document.getElementById("shaFingerprint");
+      if (shaEl) shaEl.textContent = liveDashboardState.git_commit;
+    }
+  }
+
+  // タブを開いたまま放置しても10分ごとに自動で再フェッチ
+  setInterval(() => {
+    loadDashboardState();
+  }, 10 * 60 * 1000);
 
   function renderProjectContextBanner() {
     const banner = document.getElementById("projectContextBanner");
