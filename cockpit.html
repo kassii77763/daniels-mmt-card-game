@@ -1162,6 +1162,38 @@
 
     const proj = projectRegistry.find(p => p.id === currentProjectScope) || projectRegistry[0];
 
+    // マイルストーン同期データの取得
+    const projState = (liveDashboardState && liveDashboardState.projects) ? liveDashboardState.projects[proj.id] : null;
+    const ms = projState ? projState.milestone : null;
+
+    let milestoneWidgetHtml = '';
+    if (ms && ms.active_milestone && ms.active_milestone !== '未設定') {
+      const daysColor = (ms.days_remaining !== null && ms.days_remaining <= 3) ? 'text-rose-400 font-bold' : 'text-amber-400';
+      const daysText = (ms.days_remaining !== null) ? (ms.days_remaining >= 0 ? `残り ${ms.days_remaining}日` : `超過 ${Math.abs(ms.days_remaining)}日`) : '期日設定済';
+      
+      milestoneWidgetHtml = `
+        <div class="mt-2.5 p-3 rounded-lg bg-black/60 border border-slate-700/80 space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-900 text-indigo-200 border border-indigo-700">
+                <i class="fa-solid fa-flag-checkered mr-1"></i>実行中スプリント
+              </span>
+              <span class="font-bold text-white text-xs">${ms.active_milestone}</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs font-mono">
+              <span class="text-slate-300"><i class="fa-regular fa-clock mr-1 text-slate-400"></i>期日: <strong>${ms.deadline || '未定'}</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 ${daysColor}">⏳ ${daysText}</span>
+              <span class="text-emerald-400 font-bold">${ms.progress_pct}% (${ms.tasks_done}/${ms.tasks_total} 完了)</span>
+            </div>
+          </div>
+          <!-- 進捗プログレスバー -->
+          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700/60">
+            <div class="bg-gradient-to-r from-indigo-500 via-emerald-400 to-emerald-500 h-2 rounded-full transition-all duration-500" style="width: ${ms.progress_pct}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
     if (proj.id === 'ALL') {
       if (titleEl) titleEl.innerHTML = `MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— 🌐 全体統括（全事業マクロ俯瞰）</span>`;
       if (breadcrumb) breadcrumb.textContent = '🌐 全体統括 (Core Views)';
@@ -1173,7 +1205,7 @@
             <span class="px-2 py-0.5 rounded text-[10px] font-bold ${proj.roleBadgeClass}">全社マクロ</span>
             <span class="font-bold text-white text-xs">🌐 全体統括モード：全プロジェクト横断の健康診断・KPI・品質・環境</span>
           </div>
-          <span class="text-[10px] text-slate-400 font-mono">レジストリ正典: PROJECT_REGISTRY.json</span>
+          <span class="text-[10px] text-slate-400 font-mono" id="hourlySyncBadge"><i class="fa-solid fa-arrows-rotate text-emerald-400 mr-1"></i>1時間自動同期常駐</span>
         </div>
         <!-- 統合ファネルパイプライン -->
         <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -1199,6 +1231,7 @@
             </div>
           </div>
         </div>
+        ${milestoneWidgetHtml}
       `;
     } else {
       if (titleEl) titleEl.innerHTML = `${proj.name} <span class="text-xs font-normal text-ecru-subtext ml-1">— プロジェクト個別コックピット</span>`;
@@ -1228,6 +1261,7 @@
             <span>${proj.pipelineSnippet}</span>
           </div>
         </div>
+        ${milestoneWidgetHtml}
       `;
     }
   }
@@ -1860,6 +1894,7 @@ function renderArchZoneCards(scope) {
           </div>
         </div>
         <div class="text-[9px] text-purple-800 pt-1 border-t border-purple-100">不変性: 裁判官の判決証跡を伴う確定資産</div>
+        ${milestoneWidgetHtml}
       `;
     }
   } else {
@@ -2490,6 +2525,7 @@ function escapeHtml(str) {
     window.addEventListener("DOMContentLoaded", () => {
       if (typeof selectProjectScope === 'function') selectProjectScope('ALL');
       if (typeof switchMainView === 'function') switchMainView('env');
+      loadDashboardState();
       loadTasks();
       loadHarnessSnapshot();
       initSSE();
@@ -3337,6 +3373,7 @@ function escapeHtml(str) {
           </div>
           <p class="text-slate-200 text-[11px]">Instagram / TikTokからのセルフケア流入 ➔ LINEステップでの毎日体操指導 ➔ 有料講座成約への独立ファネル。</p>
         </div>
+        ${milestoneWidgetHtml}
       `;
     }
   }
@@ -3544,6 +3581,7 @@ function escapeHtml(str) {
             `).join("")}
           </div>
         </div>
+        ${milestoneWidgetHtml}
       `;
     }
   }
