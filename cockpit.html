@@ -586,14 +586,19 @@
               </p>
             </div>
 
-            <!-- テーブル絞り込み／種別切り替えバッジ -->
-            <div class="flex items-center gap-1.5 text-[11px] font-mono">
-              <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-bold border border-sky-200">
-                <i class="fa-solid fa-code text-[10px] mr-1"></i>Key 1: 幾何コード
-              </span>
-              <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold border border-purple-200">
-                <i class="fa-solid fa-brain text-[10px] mr-1"></i>Key 2: 独立AI倫理
-              </span>
+            <!-- 決定論的コード vs 非決定論的LLM フィルタータブ -->
+            <div class="flex flex-wrap items-center gap-1.5 p-1 bg-ecru-surface rounded-lg border border-ecru-borderStrong" id="evalEngineFilterTabs">
+              <button onclick="filterEvalEngine('all')" id="btn-engine-all" class="engine-tab-btn px-2.5 py-1 rounded text-xs font-bold bg-indigo-600 text-white shadow-xs transition cursor-pointer">
+                すべて表示
+              </button>
+              <button onclick="filterEvalEngine('deterministic')" id="btn-engine-deterministic" class="engine-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-sky-800 hover:bg-sky-100 transition cursor-pointer flex items-center gap-1.5 border border-sky-300 bg-sky-50">
+                <i class="fa-solid fa-code text-sky-600"></i>
+                <span>💻 決定論的コード検査 (Playwright/OpenCV)</span>
+              </button>
+              <button onclick="filterEvalEngine('llm')" id="btn-engine-llm" class="engine-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-purple-800 hover:bg-purple-100 transition cursor-pointer flex items-center gap-1.5 border border-purple-300 bg-purple-50">
+                <i class="fa-solid fa-brain text-purple-600"></i>
+                <span>🧠 非決定論的LLM検査 (独立Gemini)</span>
+              </button>
             </div>
           </div>
 
@@ -602,7 +607,7 @@
             <table class="w-full text-left text-xs text-ecru-text border-collapse">
               <thead>
                 <tr class="bg-ecru-surface border-b border-ecru-border text-[11px] text-ecru-subtext font-semibold uppercase tracking-wider">
-                  <th class="py-2.5 px-3 w-12 text-center">区分</th>
+                  <th class="py-2.5 px-3 w-40 text-center">検査方式 ＆ 実行主体 (エンジン)</th>
                   <th class="py-2.5 px-3 w-48">評価項目タイトル (関数名)</th>
                   <th class="py-2.5 px-4">検査対象・何を見ているか (Scope)</th>
                   <th class="py-2.5 px-4 w-60">合格判定基準 (Threshold)</th>
@@ -2359,14 +2364,36 @@ function escapeHtml(str) {
   // =========================================================================
   // 🔍 検査官 評価項目マスターデータ (Evaluation Criteria Tables)
   // =========================================================================
+  let currentEngineFilter = 'all'; // 'all', 'deterministic', 'llm'
+
+  function filterEvalEngine(engine) {
+    currentEngineFilter = engine;
+    document.querySelectorAll(".engine-tab-btn").forEach(btn => {
+      btn.className = "engine-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-ecru-subtext hover:bg-ecru-accent transition cursor-pointer";
+    });
+    const activeBtn = document.getElementById(engine === 'all' ? 'btn-engine-all' : (engine === 'deterministic' ? 'btn-engine-deterministic' : 'btn-engine-llm'));
+    if (activeBtn) {
+      if (engine === 'all') {
+        activeBtn.className = "engine-tab-btn px-2.5 py-1 rounded text-xs font-bold bg-indigo-600 text-white shadow-xs transition cursor-pointer";
+      } else if (engine === 'deterministic') {
+        activeBtn.className = "engine-tab-btn px-2.5 py-1 rounded text-xs font-bold bg-sky-600 text-white shadow-xs transition cursor-pointer flex items-center gap-1.5 border border-sky-600";
+      } else {
+        activeBtn.className = "engine-tab-btn px-2.5 py-1 rounded text-xs font-bold bg-purple-600 text-white shadow-xs transition cursor-pointer flex items-center gap-1.5 border border-purple-600";
+      }
+    }
+    renderEvalCriteriaTable();
+  }
+
   const evalCriteriaMaster = {
     pt_portal: {
       title: '🔍 検査官・品質監査 厳格評価項目一覧 (PT学生の学習帖 編)',
-      badge: '4大項目 / 100点 ALL PASS',
+      badge: '5大項目 / 100点 ALL PASS',
       rows: [
         {
-          keyType: 'Key 2 (AI)',
-          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          engineType: 'llm',
+          typeBadgeText: '🧠 非決定論的 LLM検査',
+          engineDesc: 'Google Gemini 3.5 Flash<br>(ステートレス 1ターン)',
+          badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
           title: 'eval_no_fake_metrics',
           jpTitle: '架空モック・偽実績の完全排除',
           scope: 'スモークテストモーダル、ヒーロー統計、生徒レビュー文言。AIが勝手に作った「先行50名」「留年ゼロ」等の嘘煽りコピーがないか全文字走査。',
@@ -2376,8 +2403,10 @@ function escapeHtml(str) {
           score: '100点 (PASS)'
         },
         {
-          keyType: 'Key 2 (AI)',
-          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          engineType: 'llm',
+          typeBadgeText: '🧠 非決定論的 LLM検査',
+          engineDesc: 'Google Gemini 3.5 Flash<br>(路線図主義 憲法監査)',
+          badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
           title: 'eval_subway_schematic_principle',
           jpTitle: '路線図主義の徹底 (解剖アトラス過信の禁止)',
           scope: 'metaタグ（description, og, twitter）および本文内の解剖図説明。プロメテウス等の劣化コピー「Warm Bone解剖アトラス」表記の有無。',
@@ -2387,8 +2416,10 @@ function escapeHtml(str) {
           score: '100点 (PASS)'
         },
         {
-          keyType: 'Key 1 (Code)',
-          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          engineType: 'deterministic',
+          typeBadgeText: '💻 決定論的 コード検査',
+          engineDesc: 'Playwright (Headless Chrome)<br>幾何バウンディングボックス',
+          badgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
           title: 'verify_smoke_drill.js',
           jpTitle: 'スマホ375px幾何レイアウト ＆ モーダル開閉E2E',
           scope: 'Playwrightによる実機操作。CTAボタン幅(<=350px)、スマホ画面右端突き破り、モーダル開閉、LINEリンクのrel="noopener"セキュリティ属性。',
@@ -2398,8 +2429,10 @@ function escapeHtml(str) {
           score: 'Exit Code 0 (PASS)'
         },
         {
-          keyType: 'Key 1 (Code)',
-          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          engineType: 'deterministic',
+          typeBadgeText: '💻 決定論的 コード検査',
+          engineDesc: 'Playwright (Headless Chrome)<br>CSS計算値・DOM寸法監査',
+          badgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
           title: 'verify_mobile_bento_grid.js',
           jpTitle: '2x2ベントーグリッド幾何 ＆ 赤シート暗記マスク',
           scope: '起始/停止/支配神経/作用の2x2カード配置。コンテナ全高が280px以下に収まり、赤シートマスクのタップ時個別開示が動くか。',
@@ -2409,8 +2442,10 @@ function escapeHtml(str) {
           score: 'Exit Code 0 (PASS)'
         },
         {
-          keyType: 'Key 2 (AI)',
-          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          engineType: 'llm',
+          typeBadgeText: '🧠 非決定論的 LLM検査',
+          engineDesc: 'Google Gemini 3.5 Flash<br>(厚労省国試出題基準)',
+          badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
           title: 'eval_pt_exam_curation',
           jpTitle: 'PT国家試験 3連動知識キュレーション整合性',
           scope: 'YouTube神講義動画(50本)、厚労省国試直結クイズ(30問)、全80筋カルテが単元ごとに整合してリンクしているか。',
@@ -2426,8 +2461,10 @@ function escapeHtml(str) {
       badge: '180画像・10E2E / 100点 ALL PASS',
       rows: [
         {
-          keyType: 'Key 1 (Code)',
-          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          engineType: 'deterministic',
+          typeBadgeText: '💻 決定論的 コード検査',
+          engineDesc: 'OpenCV / Python 3<br>HSV色空間・画素幾何解析',
+          badgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
           title: 'image_quality_gate.py',
           jpTitle: 'OpenCV 180枚全数画像品質ゲート',
           scope: '180枚の臨床手技カード画像。赤色成分比率（赤線図の有無）、アスペクト比（縦横崩れ）、文字見切れ（文字混入）。',
@@ -2437,8 +2474,10 @@ function escapeHtml(str) {
           score: '180/180 PASS'
         },
         {
-          keyType: 'Key 1 (Code)',
-          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          engineType: 'deterministic',
+          typeBadgeText: '💻 決定論的 コード検査',
+          engineDesc: 'Playwright (Headless Chrome)<br>DOMスタイル・スクロール検証',
+          badgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
           title: 'e2e_full_verification.js',
           jpTitle: '実機幾何制約 ＆ 図鑑小窓スクロール禁止E2E',
           scope: 'Playwright実機390px幅監査。図鑑コンテナに max-height + overflow:auto がないこと、文字切れ（ellipsis）がないこと、全画面表示。',
@@ -2448,8 +2487,10 @@ function escapeHtml(str) {
           score: '10/10 PASS'
         },
         {
-          keyType: 'Key 2 (AI)',
-          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          engineType: 'llm',
+          typeBadgeText: '🧠 非決定論的 LLM検査',
+          engineDesc: 'Google Gemini 3.8 Flash<br>(ダニエルズ第10版臨床手技)',
+          badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
           title: 'ai_clinical_judge.py',
           jpTitle: 'ダニエルズ第10版 臨床手技・判定整合性',
           scope: 'Gemini 3.8 Flash による独立臨床監査。グレード0〜5の抵抗方向、固定点、テスト肢位、代償動作が第10版公式と1ミリも違わないか。',
@@ -2459,8 +2500,10 @@ function escapeHtml(str) {
           score: '100点 (PASS)'
         },
         {
-          keyType: 'Key 1 (Code)',
-          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          engineType: 'deterministic',
+          typeBadgeText: '💻 決定論的 コード検査',
+          engineDesc: 'Python 3 SHA-256<br>カタログハッシュ厳格照合',
+          badgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
           title: 'dictionary-mapping.json',
           jpTitle: 'フォールバック（別画像すり替え）の完全禁止',
           scope: '全160手技の確定座標カタログ。未抽出の手技を別筋肉の画像で穴埋めしていないかハッシュ照合。',
@@ -2484,12 +2527,20 @@ function escapeHtml(str) {
     if (titleEl) titleEl.textContent = data.title;
     if (badgeEl) badgeEl.textContent = data.badge;
 
-    tbody.innerHTML = data.rows.map((r, idx) => `
+    const filteredRows = data.rows.filter(r => {
+      if (currentEngineFilter === 'all') return true;
+      return r.engineType === currentEngineFilter;
+    });
+
+    tbody.innerHTML = filteredRows.map((r, idx) => `
       <tr class="hover:bg-ecru-surface/70 transition">
         <td class="py-3 px-3 text-center align-top">
-          <span class="inline-block text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${r.keyBadge}">
-            ${r.keyType}
+          <span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded border ${r.badgeColor}">
+            ${r.typeBadgeText}
           </span>
+          <div class="text-[9px] font-mono text-ecru-subtext mt-1 leading-tight">
+            ${r.engineDesc}
+          </div>
         </td>
         <td class="py-3 px-3 align-top">
           <div class="font-bold text-ecru-text">${r.jpTitle}</div>
