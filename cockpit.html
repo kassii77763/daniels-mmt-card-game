@@ -3543,7 +3543,21 @@ function escapeHtml(str) {
     const container = document.getElementById("projectsStrategicContainer");
     if (!container) return;
 
-    container.innerHTML = strategicProjectsData.map(p => `
+    let items = strategicProjectsData;
+    if (typeof currentProjectScope !== 'undefined' && currentProjectScope !== 'ALL') {
+      items = strategicProjectsData.filter(p => {
+        if (currentProjectScope === 'pt_student_portal') return p.id === 'pt_portal';
+        if (currentProjectScope === 'mmt_card_game') return p.id === 'mmt_card';
+        if (currentProjectScope === 'youtube_visual_library') return p.id === 'anat_shorts';
+        if (currentProjectScope === 'line_bot_proposal') return p.id === 'tatekoshi_line';
+        return p.id === currentProjectScope;
+      });
+      if (items.length === 0) {
+        items = strategicProjectsData.filter(p => p.id.includes(currentProjectScope) || currentProjectScope.includes(p.id));
+      }
+    }
+
+    container.innerHTML = items.map(p => `
       <div class="bg-ecru-card p-5 rounded-xl border border-ecru-border shadow-2xs space-y-3.5">
         <div class="flex items-start justify-between gap-2 pb-2 border-b border-ecru-border">
           <div>
