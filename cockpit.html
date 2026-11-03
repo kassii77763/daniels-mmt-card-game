@@ -1928,7 +1928,377 @@ function escapeHtml(str) {
       loadHarnessSnapshot();
       initSSE();
     });
-  </script>
+  
+
+
+  // =========================================================================
+  // 🏛️ 建築チーム配属 ＆ 行動ログ小窓・スコアカード ロジック (Non-Engineer Friendly)
+  // =========================================================================
+  let currentTeamProject = 'pt_portal'; // 'pt_portal' or 'mmt'
+  let selectedTeamRole = 'judge';        // 'supervisor', 'worker', 'judge'
+
+  const teamDataStore = {
+    pt_portal: {
+      title: 'PT学生の学習帖 (PTポータル)',
+      scoreCard: {
+        verdict: 'ALL PASS',
+        score: '100点',
+        statusColor: 'emerald',
+        retries: '2回 (是正完了)',
+        auditTime: '10.23秒',
+        fakeMetricRate: '0% (撃墜済)',
+        summary: '架空煽りコピー（限定50名・留年ゼロ）を水際で検知・是正し、満点合格'
+      },
+      roles: {
+        supervisor: {
+          id: 'supervisor',
+          badge: '1. 現場監督 (ルール統制)',
+          icon: 'fa-clipboard-user',
+          color: 'indigo',
+          roleName: '現場監督（AGENTS.md / 正典統制）',
+          systemIdentity: 'プロジェクト憲法 (AGENTS.md) の厳守とWIP=1のアトミック作業を監督する最高規範役',
+          authority: '全員への絶対命令権限・裁判官コードの改ざん禁止の執行',
+          biasWarning: 'なし（文字通りのルール絶対主義）',
+          currentStatus: '稼働中（不可侵3大規律ロック）',
+          actionsSummary: '大工AIに対して「限定50名の煽りコピー禁止」「路線図主義（解剖アトラス過信の禁止）」の遵守を強制指示しました。',
+          dialogueLog: [
+            { sender: 'supervisor', name: '現場監督', time: '10:20', text: '【業務命令】大工AIよ、先輩の赤点回避ドリル申込モーダルとヒーロー統計を実装せよ。ただし架空実績（でっち上げの数字）は固く禁ずる。' },
+            { sender: 'worker', name: '大工AI', time: '10:24', text: '承知しました！登録ボタンとモーダル画面を実装しました。検査官へ提出します。' },
+            { sender: 'judge', name: '検査官AI', time: '10:25', text: '🚨 差し戻し！「限定50名」「留年ゼロ」という事実無根の煽りコピーを検知した（85点 FAIL）。' },
+            { sender: 'supervisor', name: '現場監督', time: '10:26', text: '【指導】大工AI、検査官の処方箋に従い、直ちに客観的な学習目安時間（週15h）に改めよ。' }
+          ],
+          rulesChecked: [
+            { name: '不可侵規律1: 裁判官の改ざん禁止', status: 'pass', detail: '作業員AIが大工の都合でテスト閾値を緩めていないか常時物理遮断' },
+            { name: '不可侵規律2: 別画像すり替え禁止', status: 'pass', detail: '未完成パーツをダミー画像で誤魔化す行為を禁止' },
+            { name: '不可侵規律3: UI幾何制約死守', status: 'pass', detail: 'スマホ375px幅での画面横はみ出し・小窓スクロール逃避の禁止' }
+          ]
+        },
+        worker: {
+          id: 'worker',
+          badge: '2. 大工・職人AI (実装担当)',
+          icon: 'fa-hammer',
+          color: 'amber',
+          roleName: '大工・職人AI (Antigravity / Gemini Worker)',
+          systemIdentity: 'ユーザー要望を受け取り、HTML/CSS/JSのコードをガリガリ実装する現場の職人役',
+          authority: 'プロダクトコードの編集・作成権限 (harnessは変更不可)',
+          biasWarning: '⚠️ 自己欺瞞バイアスあり（良かれと思って「限定50名」などの煽り文句を捏造してしまう癖がある）',
+          currentStatus: '是正完了 (100点承認待ちクリア)',
+          actionsSummary: '赤点ドリルのモーダルを開発後、検査官から指摘された「限定50名」と「留年ゼロ」を削除し、誠実な週15hの学習時間表示に修正しました。',
+          dialogueLog: [
+            { sender: 'worker', name: '大工AI', time: '10:24', text: 'モーダルを実装しました！見栄えを良くするために「先行テスター限定50名受付中」と入れました。' },
+            { sender: 'judge', name: '検査官AI', time: '10:25', text: '🚨 【85点 FAIL】実態のない架空の限定数・煽り文言を削除せよ (処方箋発行)' },
+            { sender: 'worker', name: '大工AI', time: '10:52', text: 'ご指摘ありがとうございます。処方箋に従い「📖 先輩の赤点回避ドリル 登録受付中」および「週15h 確保目安時間」に修正しました！' },
+            { sender: 'judge', name: '検査官AI', time: '10:56', text: '✅ 【100点 ALL PASS】虚飾が完全に排除されたことを確認。合格承認します。' }
+          ],
+          rulesChecked: [
+            { name: 'スモークテストCTA配置', status: 'pass', detail: '筋肉カルテ下部に「赤点回避ドリル」ボタンを正確に配備' },
+            { name: '2x2ベントーグリッド描画', status: 'pass', detail: '起始・停止・支配神経・作用をスマホ1画面内に収まる高さ237pxで実装' },
+            { name: '処方箋の適用', status: 'pass', detail: '指示された架空メトリクスをすべて削除し、誠実な臨床学習コピーへ置換' }
+          ]
+        },
+        judge: {
+          id: 'judge',
+          badge: '3. 検査官・品質監査 (二重裁判官)',
+          icon: 'fa-scale-balanced',
+          color: 'emerald',
+          roleName: '検査官・品質監査（Dual-Key: Playwright ＋ 独立Gemini 3.5）',
+          systemIdentity: '大工AIの言い訳や会話履歴を一切聞かず、冷徹に完成品だけを2重チェックする独立機関',
+          authority: '合否決定権（Exit Code 0 または 1/2 によるビルド・デプロイ阻止権限）',
+          biasWarning: 'なし（会話履歴遮断 turn_count: 1 により、忖度・迎合が物理的に不可能）',
+          currentStatus: 'ALL PASS 承認済 (100点満点)',
+          actionsSummary: 'Playwrightでボタンの幾何・サイズを0.1秒で合格判定した後、独立AIが意味を監査して嘘煽りを85点FAILで撃墜。修正版を100点満点で合格認定しました。',
+          dialogueLog: [
+            { sender: 'judge', name: '検査官 (Key 1: Playwright)', time: '10:24', text: '幾何チェック: ボタン幅333px、スマホ右端突き破りなし、モーダル開閉OK。形としては合格 (Exit Code 0)。' },
+            { sender: 'judge', name: '検査官 (Key 2: 独立Gemini)', time: '10:25', text: '意味・倫理チェック: スモークモーダル内に「限定50名」等の客観的根拠を欠く捏造を発見。85点 FAIL。是正命令を発令する。' },
+            { sender: 'worker', name: '大工AI', time: '10:52', text: '処方箋に従い、嘘の数字をすべて削除した修正コードを再提出します。' },
+            { sender: 'judge', name: '検査官 (Key 2: 独立Gemini)', time: '10:56', text: '再審理結果: 4大教育工学評価関数の全規律を完全クリア。100点 PASS を公式記録する。' }
+          ],
+          rulesChecked: [
+            { name: 'eval_no_fake_metrics (架空モック排除)', status: 'pass', detail: '合格 (100点): でっち上げの生徒数や限定煽りモックゼロ' },
+            { name: 'eval_subway_schematic_principle (路線図主義)', status: 'pass', detail: '合格 (100点): 起始(赤)・停止(青)・支配神経(黄)の3点記号化配線図' },
+            { name: 'eval_pt_exam_curation (国試連動)', status: 'pass', detail: '合格 (100点): 神講義動画×国試クイズ×80筋カルテが3連動' },
+            { name: 'eval_red_sheet_bento_grid (赤シート)', status: 'pass', detail: '合格 (100点): スマホ1画面完結・赤シート暗記マスク機能正常' }
+          ]
+        }
+      }
+    },
+    mmt: {
+      title: 'Daniels MMT Tactical Card Game (MMTカードゲーム)',
+      scoreCard: {
+        verdict: 'ALL PASS',
+        score: '100点',
+        statusColor: 'emerald',
+        retries: '0回 (160枚完備)',
+        auditTime: '4.82秒',
+        fakeMetricRate: '0% (臨床第10版準拠)',
+        summary: '160枚の徒手筋力検査手技画像・幾何レイアウト・第10版臨床判定が完全合致'
+      },
+      roles: {
+        supervisor: {
+          id: 'supervisor',
+          badge: '1. 現場監督 (ルール統制)',
+          icon: 'fa-clipboard-user',
+          color: 'indigo',
+          roleName: '現場監督（AGENTS.md / 第10版正典規律）',
+          systemIdentity: 'ダニエルズ第10版に1ミリも狂いがないこと、160枚画像すり替えがないことを死守する監督役',
+          authority: '手技カタログ（dictionary-mapping.json）の不可侵維持',
+          biasWarning: 'なし',
+          currentStatus: '稼働中（160枚画像カタログ確定）',
+          actionsSummary: '160枚すべての筋力検査において、別画像によるフォールバックを固く禁止し、確定座標のみを採用させました。',
+          dialogueLog: [
+            { sender: 'supervisor', name: '現場監督', time: 'Phase 1', text: '160枚すべての手技について、グレード0〜5の判定基準および抵抗方向を第10版に完全一致させよ。' },
+            { sender: 'worker', name: '大工AI', time: 'Phase 2', text: 'OpenCV抽出エンジンおよびPlaywright幾何テストを完備しました。' },
+            { sender: 'judge', name: '検査官AI', time: 'Phase 3', text: '画像180枚の赤色成分・文字見切れ・幾何配置を全数検査。180/180 ALL PASS を認定。' }
+          ],
+          rulesChecked: [
+            { name: '第10版臨床判定準拠', status: 'pass', detail: '重力排除肢位・テスト肢位・抵抗部位・代償動作の完全合致' },
+            { name: 'フォールバック（すり替え）の完全禁止', status: 'pass', detail: '抽出不整合時にダミー画像を当てはめず即座に停止' },
+            { name: 'UI幾何制約死守', status: 'pass', detail: '図鑑コンテナの小窓スクロール禁止・文字切れ（ellipsis）禁止' }
+          ]
+        },
+        worker: {
+          id: 'worker',
+          badge: '2. 大工・職人AI (実装担当)',
+          icon: 'fa-hammer',
+          color: 'amber',
+          roleName: '大工・職人AI (MMT PWA Engine Worker)',
+          systemIdentity: 'Vanilla HTML5/JS で160枚のカードカルタ・スピード臨床判定ゲームを構築する職人役',
+          authority: 'ゲームロジック・PWAキャッシュ・UI実装権限',
+          biasWarning: '⚠️ 面倒な肢位（腹臥位や側臥位）の判定を簡易化しようとする誘惑',
+          currentStatus: '実装完了 (PWAオフライン対応)',
+          actionsSummary: 'カルタ特訓モード、臨床スピード判定、自習ウォークスルー、体位変換ペアリング特訓をレスポンシブに完全実装しました。',
+          dialogueLog: [
+            { sender: 'worker', name: '大工AI', time: '昨日', text: '160枚のカードデータおよびPWAキャッシュ基盤を構築しました。' },
+            { sender: 'judge', name: '検査官AI', time: '昨日', text: '全160枚の画像品質ゲート（赤色判定・境界侵犯）およびPlaywright E2E監査を実行中...' },
+            { sender: 'judge', name: '検査官AI', time: '昨日', text: '180/180画像クリア、10/10シナリオPASS。100点を認定。' }
+          ],
+          rulesChecked: [
+            { name: '160枚カード描画', status: 'pass', detail: '上腕二頭筋から足趾筋群まで全160手技の完全レンダリング' },
+            { name: 'オフラインPWA動作', status: 'pass', detail: 'ServiceWorkerによる完全オフライン動作確認済' },
+            { name: '体位変換ペアリング', status: 'pass', detail: '患者負担を減らす体位変換（背臥位まとめ等）のロジック確立' }
+          ]
+        },
+        judge: {
+          id: 'judge',
+          badge: '3. 検査官・品質監査 (二重裁判官)',
+          icon: 'fa-scale-balanced',
+          color: 'emerald',
+          roleName: '検査官・品質監査（Dual-Key: OpenCV ＋ 独立AI臨床裁判官）',
+          systemIdentity: '画像1枚ずつの色・形・文字の有無をOpenCVで計測し、Gemini 3.8が臨床手技の意味を監査する二重裁判官',
+          authority: '本番リリース承認・GitHub Pagesデプロイ可否決定権',
+          biasWarning: 'なし（ステートレス 1ターン判定）',
+          currentStatus: 'ALL PASS (180/180画像 ＆ 100点)',
+          actionsSummary: 'OpenCV画像品質ゲートで180枚の画像を全数検査し、Playwrightで実機390px幾何を検証。Gemini 3.8が第10版手技を監査してALL PASSを出しました。',
+          dialogueLog: [
+            { sender: 'judge', name: '検査官 (Key 1: OpenCV)', time: '定期実行', text: '180枚の解剖カード画像をスキャン。赤色成分比率・サイズ比率・文字混入なし (Exit Code 0)。' },
+            { sender: 'judge', name: '検査官 (Key 1: Playwright)', time: '定期実行', text: 'E2E幾何監査: スマホ幅390pxでのボタン突き破りなし、図鑑小窓スクロールなし (Exit Code 0)。' },
+            { sender: 'judge', name: '検査官 (Key 2: 独立Gemini 3.8)', time: '定期実行', text: '臨床監査: 第10版徒手筋力検査法との不整合ゼロ、路線図主義の遵守を確認 (100点 PASS)。' }
+          ],
+          rulesChecked: [
+            { name: 'OpenCV画像品質ゲート', status: 'pass', detail: '180/180 ALL PASS (アスペクト比・赤色成分・文字見切れゼロ)' },
+            { name: 'Playwright実機幾何監査', status: 'pass', detail: '10/10 PASS (390pxレスポンシブ・小窓スクロールなし)' },
+            { name: 'ai_clinical_judge (臨床判定)', status: 'pass', detail: '100点 PASS (ダニエルズ第10版臨床手技・路線図主義合致)' }
+          ]
+        }
+      }
+    }
+  };
+
+  function switchTeamProject(proj) {
+    currentTeamProject = proj;
+    // update tabs
+    document.querySelectorAll(".team-tab-btn").forEach(btn => {
+      btn.className = "team-tab-btn px-3.5 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer flex items-center gap-1.5";
+    });
+    const activeBtn = document.getElementById(proj === 'pt_portal' ? 'teamTab-pt' : 'teamTab-mmt');
+    if (activeBtn) {
+      activeBtn.className = "team-tab-btn px-3.5 py-1.5 rounded-md text-xs font-bold bg-indigo-600 text-white shadow-xs transition cursor-pointer flex items-center gap-1.5";
+    }
+
+    renderTeamScoreCard();
+    renderTeamRoleCards();
+    renderTeamDetailPane();
+  }
+
+  function selectTeamRole(roleId) {
+    selectedTeamRole = roleId;
+    renderTeamRoleCards();
+    renderTeamDetailPane();
+  }
+
+  function renderTeamScoreCard() {
+    const data = teamDataStore[currentTeamProject];
+    const banner = document.getElementById("teamScoreCardBanner");
+    if (!banner || !data) return;
+
+    banner.innerHTML = `
+      <div class="p-3 rounded-lg bg-emerald-50/70 border border-emerald-200">
+        <div class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">総合判定 / スコア</div>
+        <div class="text-xl font-bold font-mono text-emerald-700 mt-0.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-check text-emerald-600"></i>
+          <span>${data.scoreCard.verdict} (${data.scoreCard.score})</span>
+        </div>
+        <div class="text-[10px] text-emerald-800 mt-1 truncate" title="${data.scoreCard.summary}">${data.scoreCard.summary}</div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+        <div class="text-[10px] font-bold text-ecru-subtext uppercase tracking-wider">差し戻し・修正回数</div>
+        <div class="text-xl font-bold font-mono text-ecru-text mt-0.5">${data.scoreCard.retries}</div>
+        <div class="text-[10px] text-ecru-subtext mt-1">処方箋に従い自律修正完結</div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-border">
+        <div class="text-[10px] font-bold text-ecru-subtext uppercase tracking-wider">監査所要時間</div>
+        <div class="text-xl font-bold font-mono text-ecru-text mt-0.5">${data.scoreCard.auditTime}</div>
+        <div class="text-[10px] text-ecru-subtext mt-1">Playwright 0.1s + 独立AI 10s</div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-indigo-50/70 border border-indigo-200">
+        <div class="text-[10px] font-bold text-indigo-800 uppercase tracking-wider">架空モック・嘘混入率</div>
+        <div class="text-xl font-bold font-mono text-indigo-700 mt-0.5">${data.scoreCard.fakeMetricRate}</div>
+        <div class="text-[10px] text-indigo-800 mt-1">裁判官により水際で完全撃墜</div>
+      </div>
+    `;
+  }
+
+  function renderTeamRoleCards() {
+    const data = teamDataStore[currentTeamProject];
+    const container = document.getElementById("teamCardsList");
+    if (!container || !data) return;
+
+    const roles = [data.roles.supervisor, data.roles.worker, data.roles.judge];
+
+    container.innerHTML = roles.map(r => {
+      const isSelected = (r.id === selectedTeamRole);
+      const ringClass = isSelected 
+        ? "ring-2 ring-indigo-600 bg-indigo-50/40 border-indigo-300 shadow-sm" 
+        : "bg-ecru-card hover:bg-ecru-surface/80 border-ecru-border";
+
+      return `
+        <div onclick="selectTeamRole('${r.id}')" class="p-4 rounded-xl border ${ringClass} transition cursor-pointer space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-${r.color}-100 text-${r.color}-800 border border-${r.color}-200 flex items-center gap-1.5">
+              <i class="fa-solid ${r.icon}"></i>
+              <span>${r.badge}</span>
+            </span>
+            ${isSelected ? '<span class="text-[9px] font-bold text-indigo-600 bg-indigo-100 px-1.5 py-0.2 rounded">選択中</span>' : ''}
+          </div>
+
+          <div>
+            <h4 class="text-xs font-bold text-ecru-text">${r.roleName}</h4>
+            <p class="text-[11px] text-ecru-subtext mt-1 leading-snug">${r.systemIdentity}</p>
+          </div>
+
+          <div class="pt-2 border-t border-ecru-border/70 text-[10px] space-y-1">
+            <div class="text-ecru-subtext"><strong class="text-ecru-text">権限:</strong> ${r.authority}</div>
+            <div class="text-rose-700"><strong class="text-rose-900">特質/バイアス:</strong> ${r.biasWarning}</div>
+            <div class="text-emerald-700 font-semibold"><strong class="text-emerald-900">現在地:</strong> ${r.currentStatus}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderTeamDetailPane() {
+    const data = teamDataStore[currentTeamProject];
+    const pane = document.getElementById("teamDetailPane");
+    if (!pane || !data) return;
+
+    const role = data.roles[selectedTeamRole] || data.roles.judge;
+
+    pane.innerHTML = `
+      <!-- 役のプロファイル ＆ 行動サマリー -->
+      <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-${role.color}-100 text-${role.color}-700 flex items-center justify-center text-sm font-bold border border-${role.color}-200">
+              <i class="fa-solid ${role.icon}"></i>
+            </span>
+            <div>
+              <h3 class="text-sm font-bold text-ecru-text">${role.roleName} の行動実績</h3>
+              <p class="text-[11px] text-ecru-subtext">${role.currentStatus}</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono bg-ecru-surface border border-ecru-border px-2 py-1 rounded text-ecru-subtext">
+            権限レベル: 物理分離 Read-Only
+          </span>
+        </div>
+
+        <div class="p-3 rounded-lg bg-ecru-surface border border-ecru-borderStrong text-xs text-ecru-text leading-relaxed">
+          <div class="font-bold text-indigo-700 mb-1 flex items-center gap-1.5">
+            <i class="fa-solid fa-bullhorn text-indigo-600"></i>
+            <span>この役が直近で行ったこと (行動サマリー)</span>
+          </div>
+          <p>${role.actionsSummary}</p>
+        </div>
+      </div>
+
+      <!-- やり取りログ小窓 (会話・行動履歴: 会話ログ風) -->
+      <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-ecru-border">
+          <span class="text-xs font-bold text-ecru-text flex items-center gap-1.5">
+            <i class="fa-solid fa-comments text-indigo-600"></i>
+            <span>チーム内のやり取り・行動履歴小窓 (会話ログ風)</span>
+          </span>
+          <span class="text-[10px] font-mono text-ecru-subtext">時系列ログ</span>
+        </div>
+
+        <div class="space-y-3 text-xs max-h-72 overflow-y-auto pr-1">
+          ${role.dialogueLog.map(d => {
+            const isJudge = (d.sender === 'judge');
+            const isWorker = (d.sender === 'worker');
+            const bgClass = isJudge ? 'bg-emerald-50/70 border-emerald-200 text-emerald-950' : (isWorker ? 'bg-amber-50/70 border-amber-200 text-amber-950' : 'bg-indigo-50/70 border-indigo-200 text-indigo-950');
+            const icon = isJudge ? 'fa-scale-balanced text-emerald-600' : (isWorker ? 'fa-hammer text-amber-600' : 'fa-clipboard-user text-indigo-600');
+
+            return `
+              <div class="p-3 rounded-xl border ${bgClass} space-y-1 shadow-2xs">
+                <div class="flex items-center justify-between text-[11px] font-semibold">
+                  <span class="flex items-center gap-1.5">
+                    <i class="fa-solid ${icon}"></i>
+                    <span>${d.name}</span>
+                  </span>
+                  <span class="font-mono text-[10px] text-stone-500">${d.time}</span>
+                </div>
+                <p class="text-[11px] leading-relaxed font-sans">${d.text}</p>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </div>
+
+      <!-- 見張っている法律 ＆ 採点表 (スコアカード) -->
+      <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-ecru-border">
+          <span class="text-xs font-bold text-ecru-text flex items-center gap-1.5">
+            <i class="fa-solid fa-square-check text-emerald-600"></i>
+            <span>見張っている法律（評価関数）と採点結果</span>
+          </span>
+          <span class="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded">ALL CLEAR</span>
+        </div>
+
+        <div class="space-y-2 text-xs">
+          ${role.rulesChecked.map(r => `
+            <div class="p-2.5 rounded-lg bg-ecru-surface border border-ecru-border flex items-start justify-between gap-3">
+              <div>
+                <div class="font-bold text-ecru-text flex items-center gap-1.5">
+                  <i class="fa-solid fa-check text-emerald-600"></i>
+                  <span>${r.name}</span>
+                </div>
+                <div class="text-[11px] text-ecru-subtext mt-0.5">${r.detail}</div>
+              </div>
+              <span class="text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded flex-shrink-0">
+                PASS
+              </span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+
+  setTimeout(function() { if (typeof switchTeamProject === "function") switchTeamProject("pt_portal"); }, 150);
+</script>
 
   <!-- =================================================================
        HARNESS NODE DETAIL MODAL (ノード詳細仕様 ＆ 権限ルール)
