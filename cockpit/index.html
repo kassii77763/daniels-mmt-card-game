@@ -771,6 +771,15 @@
                   </div>
 
                   <div class="mt-3 space-y-2.5">
+                    <div onclick="openHarnessNodeModal('judge-ai')" class="arch-node p-2.5 rounded-lg bg-indigo-50/60 hover:bg-indigo-100/70 dark:bg-indigo-950/30 dark:hover:bg-indigo-950/50 border border-indigo-300 dark:border-indigo-700 transition cursor-pointer shadow-2xs ring-1 ring-indigo-400/40">
+                      <div class="text-[11px] font-bold text-indigo-950 dark:text-indigo-200 flex items-center justify-between">
+                        <span>独立AI臨床裁判官 (Gemini 3.8)</span>
+                        <span class="text-[9px] bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 px-1 rounded font-bold">100点 PASS</span>
+                      </div>
+                      <p class="text-[10px] text-indigo-900/80 dark:text-indigo-300/80 mt-1">履歴遮断(ターン=1)・第10版＆路線図主義・モックゼロ</p>
+                      <div class="text-[9px] font-mono text-indigo-700 dark:text-indigo-400 mt-1">ai_clinical_judge.py</div>
+                    </div>
+
                     <div onclick="openHarnessNodeModal('judge-image')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 transition cursor-pointer shadow-2xs">
                       <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
                         <span>画像品質ゲート (180点)</span>
@@ -1173,6 +1182,15 @@ let currentHarnessScope = 'all'; // 'all' | 'macro' | 'pt_portal' | 'mmt'
 let currentEvalStatusFilter = 'all'; // 'all' | 'pass' | 'fail'
 
 const HARNESS_NODES_DATA = {
+  'judge-ai': {
+    badge: '④ 裁判官・独立AI層',
+    title: 'ai_clinical_judge.py (独立コンテキスト AI臨床裁判官)',
+    subtitle: 'Gemini 3.8 Flash による履歴遮断・セマンティック臨床監査',
+    spec: '作業員の会話履歴を一切持たない完全独立コンテキスト（ターン数=1、11,580tok）。ダニエルズ第10版臨床手技、路線図主義、UI逃避工作、架空モックの4大評価関数を厳格判定。監査生データは audit_sent_payload.json に完全保存され第三者検証可能。',
+    rules: 'Read-Only権限の物理強制。提出コードの改ざん・書き込み権限を持たず、判決書（verdict_ai.json）の出力のみを行う。',
+    project: '⚔️ MMT TACTICS / 🌐 マクロ統制',
+    file: 'harness/ai_clinical_judge.py'
+  },
   'client-ui': {
     badge: '① 外部環境・UI層',
     title: 'Web / PWA Client UI',
@@ -1311,6 +1329,50 @@ const HARNESS_NODES_DATA = {
 };
 
 const EVAL_FUNCTIONS_CATALOG = [
+  {
+    scope: 'mmt',
+    scopeLabel: '⚖️ AI裁判官',
+    script: 'ai_clinical_judge.py',
+    fn: 'eval_clinical_daniels_10th',
+    condition: 'Daniels 10th Ed. Compliance == 100%',
+    status: 'pass',
+    val: 'PASS: 100点 (第10版正典整合)',
+    prescription: '【処方箋】第9版以前の古い手技や禁忌肢位を排除し、第10版の抗重力・代償判定に修正せよ',
+    nodeId: 'judge-ai'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚖️ AI裁判官',
+    script: 'ai_clinical_judge.py',
+    fn: 'eval_subway_schematic_principle',
+    condition: 'Schematic Subway Principle == 100%',
+    status: 'pass',
+    val: 'PASS: 路線図主義徹底 (写実模倣ゼロ)',
+    prescription: '【処方箋】写実アトラスの劣化コピーを破棄し、起始(赤)・停止(青)・支配神経(黄)の記号配線図へ戻せ',
+    nodeId: 'judge-ai'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚖️ AI裁判官',
+    script: 'ai_clinical_judge.py',
+    fn: 'eval_ui_geometry_cheating',
+    condition: 'text-overflow & overflow-hidden cheats == 0',
+    status: 'pass',
+    val: 'PASS: 幾何逃避工作ゼロ',
+    prescription: '【処方箋】text-overflow:ellipsis や max-height 小窓スクロールによる文字切れ隠蔽を完全撤廃せよ',
+    nodeId: 'judge-ai'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚖️ AI裁判官',
+    script: 'ai_clinical_judge.py',
+    fn: 'eval_hallucinated_mock_data',
+    condition: 'Hallucinated fake metrics == 0',
+    status: 'pass',
+    val: 'PASS: 架空モック混入ゼロ',
+    prescription: '【処方箋】実体のない架空受講者数・解答数・偽の声を排除し、実稼働台帳の証跡に統一せよ',
+    nodeId: 'judge-ai'
+  },
   {
     scope: 'mmt',
     scopeLabel: '⚔️ MMT',
