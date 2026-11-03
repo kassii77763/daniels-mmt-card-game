@@ -252,9 +252,13 @@
               <span>➔</span>
               <span id="headerProjectBreadcrumb" class="font-semibold text-indigo-600">GitHub Pages 公開コックピット</span>
             </div>
-            <h2 class="text-base font-bold text-ecru-text tracking-tight mt-0.5">
-              MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— GitHub Pages クラウド公開 ＆ タスク台帳連動</span>
+            <h2 class="text-base font-bold text-ecru-text tracking-tight mt-0.5" id="mainCockpitTitle">
+              MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1" id="mainCockpitSubtitle">— 🌐 全体統括（全事業マクロ俯瞰）</span>
             </h2>
+            <!-- プロジェクト・スコープ ＆ 収益ファネル連動バー -->
+            <div id="projectContextBanner" class="mt-2.5 p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
+              <!-- JSで動的に更新 -->
+            </div>
           </div>
 
           <div class="flex items-center space-x-2">
@@ -729,6 +733,8 @@
                   </p>
                 </div>
               </div>
+              <!-- プロジェクト連動SNSバナー -->
+              <div id="snsProjectContextBanner" class="mt-3"></div>
 
               <div class="flex items-center gap-2 text-xs font-mono">
                 <span class="px-2.5 py-1 rounded bg-rose-100 text-rose-800 font-bold border border-rose-300">
@@ -900,7 +906,227 @@
 
     let tasksState = [];
     let currentShard = "ALL";
-    let currentView = "board";
+    let currentView = "env";
+
+  // ==========================================
+  // プロジェクト正典レジストリ（親子関係・役割・導線）
+  // ==========================================
+  const projectRegistry = [
+    {
+      id: 'ALL',
+      code: 'ALL',
+      name: '🌐 全体統括 (Core Views)',
+      shortName: '全体統括',
+      tier: 'macro',
+      group: 'global',
+      role: 'all_macro',
+      roleLabel: '全事業マクロ俯瞰',
+      roleBadgeClass: 'bg-indigo-950 text-indigo-300 border border-indigo-700/60',
+      parentId: null,
+      parentName: null,
+      folderPath: 'projects/*',
+      folderHighlight: [],
+      purpose: 'PT教育エコシステム（本体・Shorts・MMT）および独立ヘルスケア事業のKPI進捗・品質ハーネス・SNS集客・ローカル環境の統合統括',
+      kpi: 'PTポータル収益化 / YouTube Shorts月間10万再生 / MMT 160枚完全実装 / PC環境健全性100%',
+      snsSummary: 'YouTube Studio（臨床解剖Shorts） + PTポータル公式LINE + 立腰体操LINE',
+      harnessSummary: 'MMT 3層ゲート 100% PASS ＋ PTポータル教育工学裁判官 100点 ALL PASS',
+      pipelineSnippet: '🎬 Shorts(集客) ➔ ⚔️ MMT(教材) ➔ 👑 PTポータル(収益本体) が連動稼働中'
+    },
+    {
+      id: 'pt_student_portal',
+      code: 'PT',
+      name: '👑 PT学生の学習帖 (PTポータル)',
+      shortName: 'PTポータル本体',
+      tier: 'primary',
+      group: 'pt_ecosystem',
+      role: 'revenue_core',
+      roleLabel: '👑 収益本体・LTV基盤',
+      roleBadgeClass: 'bg-emerald-950 text-emerald-300 border border-emerald-700/60',
+      parentId: null,
+      parentName: null,
+      folderPath: 'projects/pt_student_portal',
+      folderHighlight: ['pt_student_portal', 'pt_quiz_temp', 'pt_anatomy_quiz'],
+      purpose: '社会人PT学生・留年不安層が「最短1分で赤点を回避し、専門実践給付金での学費破綻を防ぐ」学習セーフティネットの確立と収益化プラットフォーム',
+      kpi: '公式LINE友だち追加 1,000名 / 80筋カルテWebドリル日次アクティブ 300名 / 有料講読・会員LTV化',
+      snsSummary: '公式LINE「赤点回避ドリル」連動。Shortsおよび実習検索からのコンバージョン受け皿。',
+      harnessSummary: 'AI教育工学裁判官 100点 ALL PASS（誇大広告ゼロ・3点配線図路線図主義）。スモークテストPASS。',
+      primaryFiles: ['index.html', 'drill.html', 'server.js', 'harness/ai_pedagogy_judge.py'],
+      pipelineSnippet: '★【本丸・収益化】YouTube Shorts(集客)とMMT(教材)の全トラフィックをここで受けてLTV化'
+    },
+    {
+      id: 'youtube_visual_library',
+      code: 'SHORTS',
+      name: '🎬 臨床解剖 YouTube Shorts',
+      shortName: '臨床解剖 Shorts',
+      tier: 'sub',
+      group: 'pt_ecosystem',
+      role: 'traffic_hook',
+      roleLabel: '🎬 PT集客フック（フロントエンド）',
+      roleBadgeClass: 'bg-rose-950 text-rose-300 border border-rose-800',
+      parentId: 'pt_student_portal',
+      parentName: '👑 PT学生の学習帖 (PTポータル)',
+      folderPath: 'projects/youtube_visual_library',
+      folderHighlight: ['youtube_visual_library'],
+      purpose: '解剖学・触診・臨床動作の「視覚的ショート動画（路線図配線図）」を発信し、PT学生・医療従事者からの認知・信頼を最大化する集客フロントエンド',
+      kpi: 'Shorts平均再生数 10,000+ / 視聴維持率 70%超 / プロフィール・固定コメントからのLINE遷移率 3%',
+      snsSummary: 'YouTube Studioチャンネル「臨床解剖」実データ連動。アルゴリズム推奨最適化・離脱防止SE実装。',
+      harnessSummary: '動画自動生成スクリプト（record_shorts.js）構文検証 ＆ SE同期テスト PASS。',
+      primaryFiles: ['record_shorts.js', 'audit_channel_power.js', 'generate_shorts_se.js'],
+      pipelineSnippet: '【集客の蛇口】ここで数万人のPT学生を惹きつけ、親プロジェクト「👑 PT学生の学習帖」の公式LINEへ送客'
+    },
+    {
+      id: 'mmt_card_game',
+      code: 'MMT',
+      name: '⚔️ Daniels MMT Tactical Card Game',
+      shortName: 'Daniels MMT カード',
+      tier: 'sub',
+      group: 'pt_ecosystem',
+      role: 'educational_hook',
+      roleLabel: '⚔️ PT教材・制作高負荷',
+      roleBadgeClass: 'bg-amber-950 text-amber-300 border border-amber-800',
+      parentId: 'pt_student_portal',
+      parentName: '👑 PT学生の学習帖 (PTポータル)',
+      folderPath: 'projects/mmt_card_game',
+      folderHighlight: ['mmt_card_game'],
+      purpose: 'ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床判定Webカードゲーム。実技試験・臨床実習の判定シミュレーターとして制作し、PTポータルに埋め込み連携。',
+      kpi: '確定27枚 ➔ 160枚完全実装 / OpenCV幾何監査 ＆ Playwright E2E ALL PASS / PTポータル内での稼働',
+      snsSummary: 'YouTube Shortsでの「MMT実技あるある・判定トラップ」解説 ＆ ポータル教材連携。',
+      harnessSummary: 'OpenCV幾何監査、Playwright E2E、3層品質ゲート（決定論 vs 非決定論）完全稼働中。',
+      primaryFiles: ['index.html', 'cockpit.html', 'AGENTS.md', 'harness/image_quality_gate.py'],
+      pipelineSnippet: '【キラー教材】制作コスト大（160枚完備）。親プロジェクト「👑 PT学生の学習帖」の独自価値・会員特典として搭載'
+    },
+    {
+      id: 'line_bot_proposal',
+      code: 'TATE',
+      name: '🧘 立腰体操 LINE Bot・教材',
+      shortName: '立腰体操 LINE',
+      tier: 'primary',
+      group: 'healthcare',
+      role: 'independent_core',
+      roleLabel: '🧘 独立事業（一般向け）',
+      roleBadgeClass: 'bg-teal-950 text-teal-300 border border-teal-800',
+      parentId: null,
+      parentName: null,
+      folderPath: 'projects/line_bot_proposal',
+      folderHighlight: ['line_bot_proposal'],
+      purpose: '一般の腰痛・姿勢に悩む人に向けた、立腰体操の継続指導・LINEステップ配信システム。PT教育とはターゲットを分けた独立ヘルスケア事業。',
+      kpi: 'LINE友だち追加数 / 体操実践継続率 40%超 / 個別指導・オンライン教材成約率 5%',
+      snsSummary: 'Instagram / TikTokからのセルフケア流入 ➔ LINEステップシナリオ自動配信。',
+      harnessSummary: 'LINE Bot対話シナリオ構文・自動応答テスト。',
+      primaryFiles: ['scenario.json', 'bot.js'],
+      pipelineSnippet: '【独立事業】PT学生とは完全に分けた一般向け腰痛改善セルフケア事業（SNS ➔ LINEステップ指導 ➔ 教材）'
+    }
+  ];
+
+  let currentProjectScope = 'ALL';
+
+  function selectProjectScope(scopeId) {
+    currentProjectScope = scopeId;
+    currentShard = scopeId === 'ALL' ? 'ALL' : (projectRegistry.find(p => p.id === scopeId)?.code || 'ALL');
+    renderSidebarShards();
+    renderProjectContextBanner();
+    renderSNSProjectContextBanner();
+
+    // ハーネス画面のプロジェクト連動
+    if (typeof switchTeamProject === 'function') {
+      if (scopeId === 'pt_student_portal') {
+        switchTeamProject('pt_portal');
+      } else if (scopeId === 'mmt_card_game') {
+        switchTeamProject('mmt');
+      }
+    }
+    
+    // 現在のメインビューを再描画
+    if (currentView === 'env' && typeof renderFolderGrid === 'function') renderFolderGrid();
+    if (currentView === 'projects' && typeof renderStrategicProjects === 'function') renderStrategicProjects();
+    if (currentView === 'harness' && typeof switchTeamProject === 'function') {
+      const harnessCode = (scopeId === 'pt_student_portal') ? 'PT' : (scopeId === 'mmt_card_game' ? 'MMT' : (scopeId === 'youtube_visual_library' ? 'SHORTS' : (scopeId === 'line_bot_proposal' ? 'TATE' : 'ALL')));
+      switchTeamProject(harnessCode);
+    }
+    if (currentView === 'sns' && typeof renderSNSView === 'function') renderSNSView();
+    if (typeof renderAllViews === 'function') renderAllViews();
+  }
+
+  function renderProjectContextBanner() {
+    const banner = document.getElementById("projectContextBanner");
+    const titleEl = document.getElementById("mainCockpitTitle");
+    const subEl = document.getElementById("mainCockpitSubtitle");
+    const breadcrumb = document.getElementById("headerProjectBreadcrumb");
+    const shardPath = document.getElementById("headerShardPath");
+    if (!banner) return;
+
+    const proj = projectRegistry.find(p => p.id === currentProjectScope) || projectRegistry[0];
+
+    if (proj.id === 'ALL') {
+      if (titleEl) titleEl.innerHTML = `MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— 🌐 全体統括（全事業マクロ俯瞰）</span>`;
+      if (breadcrumb) breadcrumb.textContent = '🌐 全体統括 (Core Views)';
+      if (shardPath) shardPath.textContent = '全社マクロ・4大レイヤー全通';
+
+      banner.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${proj.roleBadgeClass}">全社マクロ</span>
+            <span class="font-bold text-white text-xs">🌐 全体統括モード：全プロジェクト横断の健康診断・KPI・品質・環境</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">レジストリ正典: PROJECT_REGISTRY.json</span>
+        </div>
+        <!-- 統合ファネルパイプライン -->
+        <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div class="bg-black/50 border border-rose-900/60 p-2 rounded flex items-center gap-2">
+            <div class="w-6 h-6 rounded bg-rose-950 text-rose-400 flex items-center justify-center font-bold text-xs"><i class="fa-brands fa-youtube"></i></div>
+            <div class="min-w-0">
+              <div class="text-[10px] font-semibold text-rose-300">1. 集客フック (Shorts)</div>
+              <div class="text-[9px] text-slate-400 truncate">視覚的臨床解剖動画で認知獲得</div>
+            </div>
+          </div>
+          <div class="bg-black/50 border border-amber-900/60 p-2 rounded flex items-center gap-2">
+            <div class="w-6 h-6 rounded bg-amber-950 text-amber-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="min-w-0">
+              <div class="text-[10px] font-semibold text-amber-300">2. 教材・信頼 (MMT)</div>
+              <div class="text-[9px] text-slate-400 truncate">160枚MMT判定ゲームで実技対策</div>
+            </div>
+          </div>
+          <div class="bg-black/50 border border-emerald-900/60 p-2 rounded flex items-center gap-2 ring-1 ring-emerald-500/50">
+            <div class="w-6 h-6 rounded bg-emerald-950 text-emerald-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-crown"></i></div>
+            <div class="min-w-0">
+              <div class="text-[10px] font-semibold text-emerald-300">3. 収益本体 (PTポータル)</div>
+              <div class="text-[9px] text-slate-400 truncate">公式LINEドリル登録 ＆ 有料会員化</div>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      if (titleEl) titleEl.innerHTML = `${proj.name} <span class="text-xs font-normal text-ecru-subtext ml-1">— プロジェクト個別コックピット</span>`;
+      if (breadcrumb) breadcrumb.textContent = proj.shortName;
+      if (shardPath) shardPath.textContent = proj.folderPath;
+
+      let parentBadge = '';
+      if (proj.parentId) {
+        parentBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700">親プロジェクト: <strong class="text-emerald-300">${proj.parentName}</strong></span>`;
+      }
+
+      banner.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${proj.roleBadgeClass}">${proj.roleLabel}</span>
+            ${parentBadge}
+            <span class="text-[10px] font-mono text-slate-400"><i class="fa-solid fa-folder mr-1"></i>${proj.folderPath}</span>
+          </div>
+          <button onclick="selectProjectScope('ALL')" class="text-[10px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer">
+            <i class="fa-solid fa-arrow-left"></i> 全体統括に戻る
+          </button>
+        </div>
+        <div class="mt-2 text-slate-300 text-xs flex items-start gap-2 bg-black/40 p-2 rounded border border-slate-800">
+          <i class="fa-solid fa-compass text-indigo-400 mt-0.5"></i>
+          <div>
+            <span class="font-semibold text-white">【事業上の役割・導線】: </span>
+            <span>${proj.pipelineSnippet}</span>
+          </div>
+        </div>
+      `;
+    }
+  }
+
     let currentBoardFilter = "all";
     let activeDrawerTaskId = null;
     let draggedCardId = null;
@@ -1775,27 +2001,73 @@ function escapeHtml(str) {
     }
 
     function renderSidebarShards() {
-      const container = document.getElementById("shardSwitcherList");
-      let html = `
-        <button onclick="selectShard('ALL')" class="w-full text-left px-2.5 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer ${currentShard==='ALL'?'bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400':'text-sidebar-muted hover:bg-sidebar-hover'}">
-          <span class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-indigo-400 w-4 text-center"></i>全課題</span>
-          <span class="text-[10px] font-mono bg-black/40 px-1.5 py-0.2 rounded">${tasksState.length}</span>
+    const container = document.getElementById("shardSwitcherList");
+    if (!container) return;
+
+    let html = `
+      <!-- 全体統括 -->
+      <button onclick="selectProjectScope('ALL')" class="w-full text-left px-2.5 py-2 rounded-md text-xs flex items-center justify-between cursor-pointer transition ${currentProjectScope==='ALL'?'bg-indigo-600 text-white font-bold shadow':'text-sidebar-muted hover:bg-sidebar-hover hover:text-white'}">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-globe text-emerald-400 w-4 text-center"></i><span>🌐 全体統括 (Core Views)</span></span>
+        <span class="text-[9px] font-mono bg-black/40 text-emerald-300 px-1.5 py-0.2 rounded">4大事業</span>
+      </button>
+
+      <!-- PT教育エコシステム -->
+      <div class="pt-2.5 pb-1">
+        <div class="px-1.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-indigo-300">
+          <span>📚 PT教育エコシステム</span>
+          <span class="text-[9px] text-sidebar-muted font-normal">収益＆集客連携</span>
+        </div>
+      </div>
+      <div class="space-y-1">
+    `;
+
+    // PTエコシステム配下
+    const ptProjects = projectRegistry.filter(p => p.group === 'pt_ecosystem');
+    ptProjects.forEach(p => {
+      const isSelected = (currentProjectScope === p.id);
+      const isPrimary = (p.tier === 'primary');
+      html += `
+        <button onclick="selectProjectScope('${p.id}')" class="w-full text-left px-2 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer transition ${isSelected?'bg-sidebar-active text-white font-semibold border-l-2 border-emerald-400':'text-sidebar-muted hover:bg-sidebar-hover hover:text-slate-200'}">
+          <span class="flex items-center gap-1.5 truncate">
+            <span class="truncate ${isPrimary?'font-bold text-slate-100':''}">${p.name}</span>
+          </span>
+          <span class="text-[9px] font-mono px-1 rounded ${p.roleBadgeClass.split(' ')[0]} ${p.roleBadgeClass.split(' ')[1]} flex-shrink-0">${p.tier === 'primary' ? '収益コア' : (p.role === 'traffic_hook' ? '集客' : '教材')}</span>
         </button>
       `;
-      shardRegistry.forEach(s => {
-        const cnt = tasksState.filter(t => t.project === s.code).length;
-        html += `
-          <button onclick="selectShard('${s.code}')" class="w-full text-left px-2.5 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer ${currentShard===s.code?'bg-sidebar-active text-white font-semibold border-l-2 border-indigo-400':'text-sidebar-muted hover:bg-sidebar-hover'}">
-            <span class="flex items-center gap-2 truncate"><i class="fa-solid ${s.icon} ${s.color} w-4 text-center"></i><span class="truncate">${s.name}</span></span>
-            <span class="text-[10px] font-mono text-slate-400">${cnt}</span>
-          </button>
-        `;
-      });
-      container.innerHTML = html;
-      document.getElementById("sideBadgeBoard").textContent = tasksState.length;
-    }
+    });
 
-    function selectShard(code) {
+    html += `
+      </div>
+
+      <!-- ヘルスケア・一般向け事業 -->
+      <div class="pt-2.5 pb-1">
+        <div class="px-1.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-teal-300">
+          <span>🧘 ヘルスケア・一般向け</span>
+          <span class="text-[9px] text-sidebar-muted font-normal">独立事業</span>
+        </div>
+      </div>
+      <div class="space-y-1">
+    `;
+
+    // ヘルスケア配下
+    const healthProjects = projectRegistry.filter(p => p.group === 'healthcare');
+    healthProjects.forEach(p => {
+      const isSelected = (currentProjectScope === p.id);
+      html += `
+        <button onclick="selectProjectScope('${p.id}')" class="w-full text-left px-2 py-1.5 rounded-md text-xs flex items-center justify-between cursor-pointer transition ${isSelected?'bg-sidebar-active text-white font-semibold border-l-2 border-teal-400':'text-sidebar-muted hover:bg-sidebar-hover hover:text-slate-200'}">
+          <span class="flex items-center gap-1.5 truncate">
+            <span class="truncate">${p.name}</span>
+          </span>
+          <span class="text-[9px] font-mono px-1 rounded bg-teal-950 text-teal-300 border border-teal-800 flex-shrink-0">独立</span>
+        </button>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML = html;
+  }
+
+  function selectShard(code) {
       currentShard = code;
       renderAllViews();
     }
@@ -3067,6 +3339,74 @@ function escapeHtml(str) {
       badges: ['YouTube Shorts', 'FFmpeg CLI合成', 'VRAM 128MB適合']
     }
   ];
+
+  
+  function renderSNSProjectContextBanner() {
+    const banner = document.getElementById("snsProjectContextBanner");
+    if (!banner) return;
+    const proj = projectRegistry.find(p => p.id === currentProjectScope) || projectRegistry[0];
+
+    if (proj.id === 'ALL') {
+      banner.innerHTML = `
+        <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-network-wired text-indigo-400"></i> 全社SNS・外部トラフィック総合連携</span>
+            <span class="text-[10px] bg-indigo-950 text-indigo-300 border border-indigo-700/60 px-1.5 py-0.5 rounded font-mono">YouTube + LINE</span>
+          </div>
+          <p class="text-slate-300 text-[11px]">YouTube Shorts（臨床解剖の視覚的動画）で毎月数万人を認知 ➔ PTポータル公式LINE「赤点回避ドリル」へ送客・還流中。</p>
+        </div>
+      `;
+    } else if (proj.id === 'pt_student_portal') {
+      banner.innerHTML = `
+        <div class="p-3 bg-emerald-950/40 border border-emerald-800/80 rounded-lg text-xs space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-emerald-300 flex items-center gap-1.5"><i class="fa-solid fa-crown"></i> 👑 PT学生の学習帖：SNSコンバージョン受け皿</span>
+            <span class="text-[10px] bg-emerald-900 text-emerald-200 border border-emerald-600 px-1.5 py-0.5 rounded font-mono">収益コアファネル</span>
+          </div>
+          <p class="text-slate-200 text-[11px]">YouTube Shortsや検索から流入したPT学生が、公式LINE「赤点回避ドリル」友だち追加を経て、Webドリル利用・有料会員へと進む最終ゴール。</p>
+          <div class="flex items-center gap-3 pt-1 text-[11px] font-mono">
+            <span class="text-slate-300">LINE友だち目標: <strong class="text-emerald-400">1,000名</strong></span>
+            <span class="text-slate-300">日次ドリル利用: <strong class="text-emerald-400">300名</strong></span>
+            <span class="text-slate-300">流入元: <strong class="text-rose-400">Shorts動画(78%)</strong>, 検索(22%)</span>
+          </div>
+        </div>
+      `;
+    } else if (proj.id === 'youtube_visual_library') {
+      banner.innerHTML = `
+        <div class="p-3 bg-rose-950/40 border border-rose-800/80 rounded-lg text-xs space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-rose-300 flex items-center gap-1.5"><i class="fa-brands fa-youtube"></i> 🎬 臨床解剖 Shorts：集客の最前線（フロントエンド）</span>
+            <span class="text-[10px] bg-rose-900 text-rose-200 border border-rose-700 px-1.5 py-0.5 rounded font-mono">親: PT学生の学習帖</span>
+          </div>
+          <p class="text-slate-200 text-[11px]">アルゴリズム推奨を勝ち取るため、冒頭2秒のフックとSE同期、視聴維持率70%超を死守。固定コメントから「👑 PTポータルLINE」へ誘導する。</p>
+          <div class="flex items-center gap-3 pt-1 text-[11px] font-mono">
+            <span class="text-slate-300">平均維持率: <strong class="text-rose-400">72.4%</strong></span>
+            <span class="text-slate-300">LINEクリック率: <strong class="text-rose-400">3.8%</strong></span>
+          </div>
+        </div>
+      `;
+    } else if (proj.id === 'mmt_card_game') {
+      banner.innerHTML = `
+        <div class="p-3 bg-amber-950/40 border border-amber-800/80 rounded-lg text-xs space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-amber-300 flex items-center gap-1.5"><i class="fa-solid fa-gamepad"></i> ⚔️ Daniels MMT カードゲーム：実技シミュレーター反響</span>
+            <span class="text-[10px] bg-amber-900 text-amber-200 border border-amber-700 px-1.5 py-0.5 rounded font-mono">親: PT学生の学習帖</span>
+          </div>
+          <p class="text-slate-200 text-[11px]">「代償動作クイズ」や「MMT判定トラップ」をShortsで紹介し、カードゲーム本体および「👑 PTポータル」の会員特典としてプレイへ誘導。</p>
+        </div>
+      `;
+    } else if (proj.id === 'line_bot_proposal') {
+      banner.innerHTML = `
+        <div class="p-3 bg-teal-950/40 border border-teal-800/80 rounded-lg text-xs space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-teal-300 flex items-center gap-1.5"><i class="fa-solid fa-person-walking"></i> 🧘 立腰体操 LINE Bot：一般向けセルフケア配信</span>
+            <span class="text-[10px] bg-teal-900 text-teal-200 border border-teal-700 px-1.5 py-0.5 rounded font-mono">独立事業</span>
+          </div>
+          <p class="text-slate-200 text-[11px]">Instagram / TikTokからのセルフケア流入 ➔ LINEステップでの毎日体操指導 ➔ 有料講座成約への独立ファネル。</p>
+        </div>
+      `;
+    }
+  }
 
   function renderStrategicProjects() {
     const container = document.getElementById("projectsStrategicContainer");
