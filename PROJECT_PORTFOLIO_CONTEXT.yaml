@@ -1,108 +1,125 @@
 meta:
-  spec_version: 1.0.0
-  generated_at: '2026-11-03T15:10:00+09:00'
-  environment: Windows Local + GitHub Pages Live (kassii77763/daniels-mmt-card-game)
-  target_audience: Gemini 3.5/3.8 Flash / Human Architect
-  document_purpose: ローカル環境の実態、プロジェクト目的・KPI、およびダッシュボード設計方針の包括的共有と整合性監査
-core_principles:
-- 'ローカル実態至上主義: ダッシュボードはPCローカル環境の真実を映す鏡であり、架空のテスト数値（インプレッション数・ダミー継続率等）は一切排除する。'
-- 'Strict Project Isolation（完全固定・ゼロ混入）: プロジェクトを選択した際はそのプロジェクト専用のコンテキストに完全固定され、他プロジェクトのノイズを1文字も混入させない。'
-- '路線図主義（教育工学規律）: 写実的な解剖図ではなく、起始(赤)・停止(青)・支配神経(黄)の3点のみを記号化した臨床・試験専用の配線図で直感理解を提供する。'
-- '決定論と非決定論の分離（Dual-Key Harness）: コードによる決定論的検査（Playwright/OpenCV）とLLMによる意味論的検査（教育工学裁判官）を明確に区分して品質保証する。'
-dashboard_capabilities:
-  live_url: https://kassii77763.github.io/daniels-mmt-card-game/cockpit.html
-  implemented_features:
-  - 'サイドバーの重複排除: 不要なCore Viewsメニューを撤廃し、全体統括と実プロジェクトのみをスッキリ整理。'
-  - '完全スコープ固定（Strict Scope Mode）: サイドバーで選んだプロジェクトに応じて、上部タブ（フォルダ、目的KPI、ハーネス、外部環境）が100%そのプロジェクト専用に切り替わる。'
-  - '4大レイヤーの統合可視化: 1.ローカルフォルダ実態、2.目的・北極星KPI、3.品質ハーネス監査、4.外部環境・マーケティングファネル。'
-  - 'プロジェクト正典レジストリ同期: projects/PROJECT_REGISTRY.json と100%データ同期。'
-  - 'GitHub Pages自動デプロイ: mainブランチとgh-pagesブランチの双方向同期。'
+  spec_version: 1.1.0
+  generated_at: '2026-11-03T15:45:29+09:00'
+  environment: Windows Local + GitHub Pages Live (Auto-Verified by sync_portfolio_context.py)
+  document_purpose: ローカル実ファイル自動検査に基づくポートフォリオ正典仕様書
 portfolio_architecture:
   pt_education_ecosystem:
     concept: 社会人PT学生・留年不安層を救済し、実習・国試を完結させる収益化プラットフォーム
-    funnel_structure: Shorts(集客) ➔ MMT(教材・信頼) ➔ PTポータル(収益本体・LTV)
+    funnel_structure: 1. 🎬 Shorts(15秒配線図で認知) ➔ 2. 👑 PTポータル＆公式LINE(80筋赤点回避ドリルで即リスト獲得)
+      ➔ 3. ⚔️ MMT(先行27枚体験＋160枚完全版で信頼・LTV最大化)
   healthcare_independent:
-    concept: 一般向け腰痛改善・姿勢指導セルフケア事業（PT教育とは完全に分けた独立事業）
+    concept: 一般向け腰痛改善・姿勢指導セルフケア事業（PTエコシステム自走化までPhase 0凍結）
+filesystem_audit:
+  active_registered_projects:
+  - pt_student_portal
+  - youtube_visual_library
+  - mmt_card_game
+  - line_bot_proposal
+  unregistered_folders_to_archive:
+  - agent_reach_guide
+  - api_security_lab
+  - icf_natural_mapper
+  - icf_realtime_mapper
+  - kashima_password_extension
+  - koeiro_guide
+  - mnp_simulator
+  - moodle_sync
+  - notebooklm_enhancer
+  - ocr_grade_simulator
+  - password_security_hub
+  - pt_anatomy_quiz
+  - pt_knowledge_visual_library
+  - pt_quiz_temp
+  - status_guide_board
 projects:
   pt_student_portal:
     name: 👑 PT学生の学習帖 (PTポータル)
     role: revenue_core
-    role_label: 収益本体・LTV基盤
+    role_label: 収益本体・フロント受け皿・LTV基盤
     parent_project: null
     local_folder: projects/pt_student_portal
-    primary_files:
+    verified_files:
     - index.html
-    - drill.html
-    - server.js
     - PROGRESS.md
     - harness/ai_pedagogy_judge.py
+    planned_or_missing_files:
+    - drill.html
+    - server.js
+    - README.md
     mission: 社会人PT学生・留年危機層が「最短1分で赤点を回避し、専門実践教育訓練給付金での学費破綻を防ぐ」学習セーフティネットの確立と収益化
     primary_kpi: 公式LINE「赤点回避ドリル」友だち登録 ＆ 80筋カルテWebドリル日次稼働（実証中）
-    current_phase: 'Phase 2: スモークテスト実証 ＆ LINEドリル準備'
+    current_phase: 'Phase 2: スモークテスト実証完了 ➔ LINE送客接続フェーズ'
     current_status: 全80筋カルテWebドリル稼働中・スモークテストPASS・AI裁判官100点是正完了
     quality_harness: AI教育工学裁判官 100点 ALL PASS（誇大広告ゼロ・3点配線図路線図主義）
-    marketing_channel: YouTube Shortsおよび実習検索からのコンバージョン受け皿（公式LINE事前登録）
-    next_actions: 実習・国試対策ドリルとLINE登録ステップの接続、および有料講読コンテンツの拡充
+    marketing_channel: YouTube Shorts固定コメントからの直結コンバージョン受け皿（公式LINE＆80筋ドリル）
+    next_actions:
+    - 公式LINE登録ステップと80筋赤点回避ドリルの導線接続
+    - MMTカードゲーム先行27枚体験版のポータル内埋め込み連携
+    - 実習・国試対策の有料購読コンテンツ設計
   youtube_visual_library:
     name: 🎬 臨床解剖 YouTube Shorts
     role: traffic_hook
     role_label: PT集客フック（フロントエンド）
     parent_project: pt_student_portal
     local_folder: projects/youtube_visual_library
-    primary_files:
+    verified_files:
+    - PROGRESS.md
+    - README.md
+    planned_or_missing_files:
     - record_shorts.js
     - audit_channel_power.js
     - generate_shorts_se.js
-    - PROGRESS.md
-    - README.md
-    mission: 解剖学・触診・臨床動作の視覚的ショート動画（15秒路線図・配線図）を発信し、PT学生・医療従事者からの認知を獲得して親ポータルへ送客する
-    primary_kpi: 動画自動生成パイプラインの安定稼働 ＆ 投稿開始後の視聴維持率70%超目標（実測値蓄積待ち）
-    current_phase: 'Phase 1: 自動録画パイプライン検証完了 ➔ 投稿準備中'
-    current_status: Playwright自動録画（上腕二頭筋・腕橈骨筋等）＋SE同期スクリプト検証完了・チャンネル初期稼働中
+    mission: 解剖学・触診・臨床動作の視覚的ショート動画（15秒路線図・配線図）を発信し、PT学生からの認知を獲得して親ポータル公式LINEへ直接送客する
+    primary_kpi: 動画自動生成パイプライン稼働100% ＆ 投稿後の視聴維持率70%超・LINE遷移率3.0%以上
+    current_phase: 'Phase 1: 自動録画パイプライン検証完了 ➔ 初期10本投稿準備中'
+    current_status: Playwright自動録画（上腕二頭筋・腕橈骨筋等）＋SE同期スクリプト検証完了
     quality_harness: record_shorts.js 構文検証 ＆ 幾何セーフゾーン（1452px）自動検査 PASS
     marketing_channel: YouTube Studio初期段階。固定コメントおよびプロフィールから親ポータルLINEへ誘導
-    next_actions: 初期10本の定期投稿開始と、YouTube Studioアナリティクスの実データ蓄積・改善サイクル構築
+    next_actions:
+    - 初期10本の定期投稿スケジュール確定と公開開始
+    - YouTube Studioアナリティクスでの視聴維持率・LINE遷移率の実測値記録
   mmt_card_game:
     name: ⚔️ Daniels MMT Tactical Card Game
     role: educational_hook
-    role_label: PT教材・制作高負荷
+    role_label: キラー教材・段階解放コンテンツ（制作高負荷）
     parent_project: pt_student_portal
     local_folder: projects/mmt_card_game
-    primary_files:
+    verified_files:
     - index.html
     - cockpit.html
     - AGENTS.md
     - PROGRESS.md
     - README.md
     - harness/image_quality_gate.py
-    mission: ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床判定Webカードゲーム。実技試験・臨床実習の判定シミュレーターとして親ポータルに埋め込み連携。
-    primary_kpi: 全160枚確定カタログの実装 ＆ OpenCV幾何・Playwright E2E監査 ALL PASS
-    current_phase: 'Phase 1: 確定27枚実装完了 ➔ 160枚完全カタログ展開中'
+    planned_or_missing_files: []
+    mission: ダニエルズ徒手筋力検査法（第10版）準拠の臨床判定Webカードゲーム。確定27枚を先行体験版としてポータルに提供しつつ、全160枚カタログへ段階拡張する
+    primary_kpi: 先行27枚のポータル連携稼働 ＆ 残り133枚の段階実装（OpenCV幾何・Playwright監査 PASS）
+    current_phase: 'Phase 1: 確定27枚実装完了（先行公開可能） ➔ 残り133枚カタログ展開中'
     current_status: 確定27枚完全実装済み・3層品質ゲート（決定論コード ＆ LLM監査）完全稼働
     quality_harness: image_quality_gate.py ＆ e2e_full_verification.js ALL PASS（Exit
       Code 0）
-    marketing_channel: Shortsでの「MMT実技あるある・判定トラップ」解説 ＆ ポータル教材特典
-    next_actions: 残り133枚のカタログ座標抽出と自動テスト順次適用、PTポータル内での連携埋め込み
+    marketing_channel: PTポータル内の実技シミュレーター特典 ＆ ShortsでのMMT実技トラップ解説
+    next_actions:
+    - 実装済み27枚を「先行体験パック」としてPTポータル・LINE特典へ即座に組み込み
+    - 集客ライン稼働と並行して残り133枚の座標抽出・自動テストをバッチ処理で進行
   line_bot_proposal:
     name: 🧘 立腰体操 LINE Bot・教材
     role: independent_core
-    role_label: 独立事業（構想中）
+    role_label: 独立事業（Phase 0 凍結・保留中）
     parent_project: null
     local_folder: projects/line_bot_proposal
-    primary_files:
-    - scenario.json
-    - bot.js
+    verified_files:
     - PROGRESS.md
     - README.md
-    mission: 一般の腰痛・姿勢に悩む人に向けた立腰体操の継続指導モデル。PT教育エコシステムとはターゲットを分けた独立事業として構想中。
-    primary_kpi: 未設定（PT教育エコシステムの基盤確立後に設定予定）
-    current_phase: 'Phase 0: コンセプト設計・構想段階（未着手・保留）'
-    current_status: 構想段階・未着手（コード・シナリオ準備待ち）
-    quality_harness: 未実施（プロジェクト着手時に策定）
-    marketing_channel: 未連携（企画検討中）
-    next_actions: まずはPTポータル（収益本体）とMMTカードゲームの基盤確立に注力するため、現段階では保留・リソース配分待機。
-review_checkpoints_for_gemini:
-- '1. ポートフォリオ配分: 収益本体（PTポータル）とフロント集客（Shorts）、キラー教材（MMT）の3点連携構造に抜け漏れや矛盾がないか。'
-- '2. 未着手プロジェクトの扱い: 立腰体操を無理に進めず「Phase 0保留」として正直に隔離した方針が、リソース集中観点で妥当か。'
-- '3. ローカルファイルとダッシュボードの連動: projects/各フォルダ内のPROGRESS.mdやREADME.mdに書かれた目的が、コックピット側と100%整合しているか。'
-- '4. 次の物理フォルダ整理（ステップ2）の優先順位: 現状の論理レジストリ管理から、物理的なarchivesフォルダ移動等に進むべきタイミングはいつか。'
+    planned_or_missing_files:
+    - scenario.json
+    - bot.js
+    mission: 一般の腰痛・姿勢に悩む人に向けた立腰体操の継続指導モデル。PT教育エコシステムとはターゲットを完全分離したBtoC独立事業
+    primary_kpi: 未設定（PT教育エコシステムの集客・収益ライン自走化後に設定）
+    current_phase: 'Phase 0: コンセプト設計・構想段階（リソース集中のため計画的保留）'
+    current_status: 構想段階・未着手（PTポータル＆Shorts導線の確立まで凍結）
+    quality_harness: 未実施（プロジェクト再開時に策定）
+    marketing_channel: 未連携（再開時に設計）
+    next_actions:
+    - PTポータル（80筋ドリル＋LINE誘導）とShorts初期10本投稿が完了するまで完全待機
