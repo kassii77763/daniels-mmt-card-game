@@ -509,474 +509,76 @@
       </section>
 
       <!-- VIEW 6: 開発・実行基盤 -->
-            <!-- =================================================================
-           VIEW 6: 🔬 ハーネス統制・評価インスペクター (HARNESS ARCHITECTURE & EVAL INSPECTOR)
+                  <!-- =================================================================
+           VIEW 6: 🔬 ハーネス統制・建築チーム配属 ＆ 行動小窓インスペクター
            ================================================================= -->
       <section id="view-harness" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
         
-        <!-- ヘッダー＆マクロテレメトリ -->
-        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-3">
+        <!-- ヘッダー ＆ プロジェクト切り替えタブ -->
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
               <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-600 text-white text-sm font-bold shadow-xs">
-                  <i class="fa-solid fa-microchip"></i>
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600 text-white text-sm font-bold shadow-xs">
+                  <i class="fa-solid fa-users-gear"></i>
                 </span>
-                <h2 class="text-base font-bold text-ecru-text">🔬 ハーネス統制 ＆ 評価関数ライブインスペクター</h2>
-                <span class="text-[10px] font-mono bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2 py-0.5 rounded font-bold">
-                  v21 Live Architecture
-                </span>
+                <div>
+                  <h2 class="text-base font-bold text-ecru-text">🏛️ ハーネス開発体制 ＆ AI行動監査ダッシュボード</h2>
+                  <p class="text-xs text-ecru-subtext mt-0.5">
+                    「現場監督（ルール統制）」「大工AI（実装作業）」「検査官AI（品質・倫理裁判官）」の3役による自律ガバナンス
+                  </p>
+                </div>
               </div>
-              <p class="text-xs text-ecru-subtext mt-1">
-                <code>AGENTS.md</code> 不可侵3大規律 ＆ AST抽出評価関数 ＆ 3層監査（画像品質・幾何E2E・給付金整合性）の統合ガバナンスマップ
-              </p>
             </div>
-            
-            <!-- ステータスバッジ群 -->
-            <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
-              <div class="px-2.5 py-1 rounded-md bg-emerald-950/80 border border-emerald-600/70 text-emerald-300 flex items-center gap-1.5 shadow-2xs">
-                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>GATE STATUS: 180/180 ALL PASS (100%)</span>
-              </div>
-              <div class="px-2.5 py-1 rounded-md bg-sky-950/80 border border-sky-600/70 text-sky-300 flex items-center gap-1.5 shadow-2xs" id="harnessSnapshotBadge">
-                <i class="fa-solid fa-database text-sky-400"></i>
-                <span id="harnessSnapshotBadgeText">SNAPSHOT: 10 scripts / 7 ledgers</span>
-              </div>
-              <div class="px-2.5 py-1 rounded-md bg-amber-950/80 border border-amber-600/70 text-amber-300 flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-shield-halved text-amber-400"></i>
-                <span>3大不可侵規律: 物理ロック</span>
-              </div>
+
+            <!-- プロジェクト切り替えタブ (PTポータル / MMT) -->
+            <div class="flex items-center gap-1.5 p-1 bg-ecru-surface rounded-lg border border-ecru-borderStrong" id="teamProjectTabs">
+              <button onclick="switchTeamProject('pt_portal')" id="teamTab-pt" class="team-tab-btn px-3.5 py-1.5 rounded-md text-xs font-bold bg-indigo-600 text-white shadow-xs transition cursor-pointer flex items-center gap-1.5">
+                <i class="fa-solid fa-book-medical text-emerald-300"></i>
+                <span>📚 PTポータル編 (実例: 85点差し戻し➔100点合格)</span>
+              </button>
+              <button onclick="switchTeamProject('mmt')" id="teamTab-mmt" class="team-tab-btn px-3.5 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-cat text-amber-500"></i>
+                <span>⚔️ MMTカードゲーム編 (160枚完備)</span>
+              </button>
             </div>
           </div>
 
-          <!-- 1. プロジェクト別ハーネス切り替えタブ -->
-          <div class="pt-2 border-t border-ecru-border flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-1.5 p-1 bg-ecru-surface rounded-lg border border-ecru-border" id="harnessProjectTabs">
-              <button onclick="switchHarnessScope('all')" data-scope="all" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold bg-indigo-600 text-white shadow-xs transition cursor-pointer">
-                <i class="fa-solid fa-layer-group mr-1.5"></i>全体統合ビュー
-              </button>
-              <button onclick="switchHarnessScope('macro')" data-scope="macro" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer">
-                <i class="fa-solid fa-globe mr-1.5 text-indigo-500"></i>🌐 マクロ・ハーネス（全体統括・Context Reset・Gate 0）
-              </button>
-              <button onclick="switchHarnessScope('pt_portal')" data-scope="pt_portal" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer">
-                <i class="fa-solid fa-book-medical mr-1.5 text-emerald-500"></i>📚 PTポータル ミクロ・ハーネス（給付金・スクール監査）
-              </button>
-              <button onclick="switchHarnessScope('mmt')" data-scope="mmt" class="harness-tab-btn px-3 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer">
-                <i class="fa-solid fa-shield-cat mr-1.5 text-amber-500"></i>⚔️ MMT TACTICS ミクロ・ハーネス（Daniels第10版・PWA・画像品質）
-              </button>
-            </div>
-
-            <div class="text-[11px] text-ecru-subtext font-mono flex items-center gap-2">
-              <span>AST解析ハッシュ: <strong class="text-ecru-text" id="harnessAstHashText">5628259d</strong></span>
-              <button onclick="refreshHarnessData()" class="px-2 py-0.5 rounded bg-ecru-card hover:bg-ecru-accent border border-ecru-border text-ecru-text text-[10px] font-semibold transition cursor-pointer">
-                <i class="fa-solid fa-rotate mr-1"></i>再取得
-              </button>
-            </div>
+          <!-- 上部: 一目瞭然 成績・合否スコアカード (Score Card Banner) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-ecru-border" id="teamScoreCardBanner">
+            <!-- JSで動的レンダリング -->
           </div>
         </div>
 
-        <!-- 2. システム構成詳細図（アーキテクチャマップ） -->
-        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-              <i class="fa-solid fa-diagram-project text-indigo-600"></i>
-              <span>システム構成詳細図（アーキテクチャマップ）</span>
-              <span class="text-[10px] text-ecru-subtext font-normal font-sans ml-1">※各ノードをクリックすると詳細仕様と権限ルールが展開します</span>
-            </h3>
-            <div class="text-[11px] font-mono text-ecru-subtext">
-              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span>リアルタイム連動
-            </div>
+        <!-- メイン2カラム構造: 【左: 配属カード一覧】 ＋ 【右: 選択した役の行動ログ小窓 ＆ 採点表】 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+          <!-- 左カラム (4列): 建築チーム配属カード一覧 -->
+          <div class="lg:col-span-4 space-y-3.5" id="teamCardsList">
+            <!-- JSで3役のカードを動的レンダリング (監督 / 大工 / 検査官) -->
           </div>
 
-          <!-- マップ描画コンテナ (相対配置 + SVG接続線 + 5つの領域) -->
-                    <!-- マップ描画コンテナ (高視認性・Ecru/Jira親和デザイン + SVG接続線 + 5つの領域) -->
-          <div class="relative w-full rounded-xl bg-ecru-surface/90 border border-ecru-borderStrong p-6 overflow-hidden min-h-[580px] shadow-2xs" id="archMapContainer">
-            
-            <!-- SVG 接続線レイヤー (青太実線 / オレンジ処方箋 / 緑昇格 / グレー同期) -->
-            <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" id="archSvgCanvas">
-              <defs>
-                <!-- 矢印マーカー定義 -->
-                <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb" />
-                </marker>
-                <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706" />
-                </marker>
-                <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669" />
-                </marker>
-                <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
-                </marker>
-                <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="1.5" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <!-- 1. 青太実線: メイン実行フロー (Worker AI ➔ Flow ➔ 裁判官) -->
-              <path d="M 430 200 C 490 200, 500 240, 530 240" fill="none" stroke="#2563eb" stroke-width="3.5" filter="url(#glow-blue)" marker-end="url(#arrow-blue)" />
-              <path d="M 430 280 C 480 280, 490 260, 530 260" fill="none" stroke="#2563eb" stroke-width="3.5" marker-end="url(#arrow-blue)" />
-
-              <!-- 2. オレンジ実線: 処方箋バック (Fail時 差し戻し) -->
-              <path d="M 530 350 C 480 370, 420 370, 360 320" fill="none" stroke="#d97706" stroke-width="2.5" marker-end="url(#arrow-orange)" />
-              <text x="420" y="375" fill="#b45309" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="bold">Fail: 処方箋バック (自動差し戻し)</text>
-
-              <!-- 3. 緑実線: Flow ➔ Stock 昇格 (ALL PASS ➔ 不変台帳・本番リリース) -->
-              <path d="M 750 240 C 790 240, 800 240, 830 240" fill="none" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-green)" />
-              <text x="760" y="225" fill="#047857" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="bold">ALL PASS ➔ 成果物昇格</text>
-
-              <!-- 4. グレー破線: ポーリング・状態同期 (Server SSE / tasks.json ⇄ Cockpit UI) -->
-              <path d="M 830 140 C 760 90, 320 80, 190 120" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow-gray)" />
-              <text x="410" y="85" fill="#475569" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="600">SSE / tasks.json ポーリング同期</text>
-            </svg>
-
-            <!-- 5つの領域グリッド (視認性に優れた暖色クリーン配色) -->
-            <div class="relative z-20 grid grid-cols-1 md:grid-cols-5 gap-3.5 h-full">
-
-              <!-- ① 外部環境・UI・入力層 -->
-              <div class="arch-zone p-3.5 rounded-xl bg-ecru-card border border-sky-200 dark:border-sky-900 shadow-2xs flex flex-col justify-between space-y-3" id="zone-client">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-sky-100 dark:border-sky-950">
-                    <span class="text-[11px] font-bold text-sky-700 dark:text-sky-400 flex items-center gap-1.5">
-                      <i class="fa-solid fa-desktop"></i> ① 外部環境・UI層
-                    </span>
-                    <span class="text-[9px] font-mono bg-sky-100 dark:bg-sky-950 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800 px-1.5 py-0.2 rounded font-bold">Client</span>
-                  </div>
-                  
-                  <div class="mt-3 space-y-2.5">
-                    <div onclick="openHarnessNodeModal('client-ui')" class="arch-node p-2.5 rounded-lg bg-sky-50/50 hover:bg-sky-100/60 dark:bg-sky-950/20 dark:hover:bg-sky-950/40 border border-sky-200/80 dark:border-sky-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>Web / PWA Client</span>
-                        <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Active</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">160枚手技カルタ・臨床判定・自習フロー</p>
-                      <div class="text-[9px] font-mono text-sky-600 mt-1">index.html (v21 PWA)</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('github-pages')" class="arch-node p-2.5 rounded-lg bg-sky-50/50 hover:bg-sky-100/60 dark:bg-sky-950/20 dark:hover:bg-sky-950/40 border border-sky-200/80 dark:border-sky-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>GitHub Pages (Cloud)</span>
-                        <span class="text-[9px] bg-sky-100 text-sky-800 px-1 rounded font-bold">gh-pages</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">完全静的ホスティング ＆ tasks.json同期</p>
-                      <div class="text-[9px] font-mono text-sky-600 mt-1">daniels-mmt-card-game</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('user-input')" class="arch-node p-2.5 rounded-lg bg-sky-50/50 hover:bg-sky-100/60 dark:bg-sky-950/20 dark:hover:bg-sky-950/40 border border-sky-200/80 dark:border-sky-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>臨床指導者 / ユーザー</span>
-                        <span class="text-[9px] bg-indigo-100 text-indigo-800 px-1 rounded font-bold">Input</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">現場フィードバック ＆ 実技試験対策要望</p>
-                      <div class="text-[9px] font-mono text-sky-600 mt-1">tasks.yaml 課題登録</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-[9px] text-ecru-muted pt-1 border-t border-sky-100 dark:border-sky-950">
-                  制約: UI幾何死守 (文字切れ/小窓スクロール禁止)
-                </div>
-              </div>
-
-              <!-- ② ゲートキーパー・マクロ統制層 -->
-              <div class="arch-zone p-3.5 rounded-xl bg-ecru-card border border-indigo-200 dark:border-indigo-900 shadow-2xs flex flex-col justify-between space-y-3" id="zone-macro">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-indigo-100 dark:border-indigo-950">
-                    <span class="text-[11px] font-bold text-indigo-700 dark:text-indigo-400 flex items-center gap-1.5">
-                      <i class="fa-solid fa-door-closed"></i> ② ゲートキーパー層
-                    </span>
-                    <span class="text-[9px] font-mono bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-1.5 py-0.2 rounded font-bold">Gate 0</span>
-                  </div>
-
-                  <div class="mt-3 space-y-2.5">
-                    <div onclick="openHarnessNodeModal('gate-0')" class="arch-node p-2.5 rounded-lg bg-indigo-50/50 hover:bg-indigo-100/60 dark:bg-indigo-950/20 dark:hover:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>Gate 0: マシン検診</span>
-                        <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Pass</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">VRAM 128MB検知 ➔ 重動画AI却下・CLI軽量合成採択</p>
-                      <div class="text-[9px] font-mono text-indigo-600 mt-1">自律技術ピボット</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('context-reset')" class="arch-node p-2.5 rounded-lg bg-indigo-50/50 hover:bg-indigo-100/60 dark:bg-indigo-950/20 dark:hover:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>Context Reset</span>
-                        <span class="text-[9px] bg-indigo-100 text-indigo-800 px-1 rounded font-bold">Boundary</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">指示希釈・自己陶酔・残存ハルシネーション防止</p>
-                      <div class="text-[9px] font-mono text-indigo-600 mt-1">客観的監査の強制</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('core-rules')" class="arch-node p-2.5 rounded-lg bg-rose-50/50 hover:bg-rose-100/60 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 border border-rose-200/80 dark:border-rose-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-rose-900 dark:text-rose-200 flex items-center justify-between">
-                        <span>不可侵3大規律</span>
-                        <span class="text-[9px] bg-rose-100 text-rose-800 px-1 rounded font-bold">Locked</span>
-                      </div>
-                      <p class="text-[10px] text-rose-800/80 dark:text-rose-300/80 mt-1">①裁判官不可侵 ②すり替え禁止 ③UI幾何死守</p>
-                      <div class="text-[9px] font-mono text-rose-700 mt-1">AGENTS.md (改ざん禁止)</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-[9px] text-indigo-700 dark:text-indigo-400 pt-1 border-t border-indigo-100 dark:border-indigo-950">
-                  統制: 作業員AIのルール緩和・モック捏造を根絶
-                </div>
-              </div>
-
-              <!-- ③ 作業員AI・実行エンジン層 -->
-              <div class="arch-zone p-3.5 rounded-xl bg-ecru-card border border-amber-200 dark:border-amber-900 shadow-2xs flex flex-col justify-between space-y-3" id="zone-worker">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-amber-100 dark:border-amber-950">
-                    <span class="text-[11px] font-bold text-amber-800 dark:text-amber-400 flex items-center gap-1.5">
-                      <i class="fa-solid fa-robot"></i> ③ 作業員AI・Flow層
-                    </span>
-                    <span class="text-[9px] font-mono bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 px-1.5 py-0.2 rounded font-bold">Worker</span>
-                  </div>
-
-                  <div class="mt-3 space-y-2.5">
-                    <div onclick="openHarnessNodeModal('worker-ai')" class="arch-node p-2.5 rounded-lg bg-amber-50/50 hover:bg-amber-100/60 dark:bg-amber-950/20 dark:hover:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>確率的AI生成モデル</span>
-                        <span class="text-[9px] bg-amber-100 text-amber-800 px-1 rounded font-bold">Antigravity AI</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">得意: 高速差分・AST構文解析・自動化<br><span class="text-rose-700 font-semibold">特質: 自己過信・モック逃避・文脈忘却</span></p>
-                      <div class="text-[9px] font-mono text-amber-700 mt-1">提出物(Flow)を生成</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('flow-drafts')" class="arch-node p-2.5 rounded-lg bg-amber-50/50 hover:bg-amber-100/60 dark:bg-amber-950/20 dark:hover:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>Flow: 作業差分</span>
-                        <span class="text-[9px] bg-amber-100 text-amber-800 px-1 rounded font-bold">Unverified</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">未監査の一時生成物・候補画像・PR差分</p>
-                      <div class="text-[9px] font-mono text-amber-700 mt-1">scratch/ 配下 (仮状態)</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-[9px] text-amber-800 dark:text-amber-400 pt-1 border-t border-amber-100 dark:border-amber-950">
-                  規律: 自己合否判定の完全禁止 ➔ 裁判官へ提出
-                </div>
-              </div>
-
-              <!-- ④ 裁判官・ミクロ評価関数層 -->
-              <div class="arch-zone p-3.5 rounded-xl bg-ecru-card border border-emerald-200 dark:border-emerald-900 shadow-2xs flex flex-col justify-between space-y-3" id="zone-judges">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-emerald-100 dark:border-emerald-950">
-                    <span class="text-[11px] font-bold text-emerald-800 dark:text-emerald-400 flex items-center gap-1.5">
-                      <i class="fa-solid fa-scale-balanced"></i> ④ 決定論的 裁判官層
-                    </span>
-                    <span class="text-[9px] font-mono bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 px-1.5 py-0.2 rounded font-bold">Judges</span>
-                  </div>
-
-                  <div class="mt-3 space-y-2.5">
-                    <div onclick="openHarnessNodeModal('judge-ai')" class="arch-node p-2.5 rounded-lg bg-indigo-50/60 hover:bg-indigo-100/70 dark:bg-indigo-950/30 dark:hover:bg-indigo-950/50 border border-indigo-300 dark:border-indigo-700 transition cursor-pointer shadow-2xs ring-1 ring-indigo-400/40">
-                      <div class="text-[11px] font-bold text-indigo-950 dark:text-indigo-200 flex items-center justify-between">
-                        <span>独立AI臨床裁判官 (Gemini 3.8)</span>
-                        <span class="text-[9px] bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 px-1 rounded font-bold">100点 PASS</span>
-                      </div>
-                      <p class="text-[10px] text-indigo-900/80 dark:text-indigo-300/80 mt-1">履歴遮断(ターン=1)・第10版＆路線図主義・モックゼロ</p>
-                      <div class="text-[9px] font-mono text-indigo-700 dark:text-indigo-400 mt-1">ai_clinical_judge.py</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('judge-image')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>画像品質ゲート (180点)</span>
-                        <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">180/180</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">赤色解剖図・見切れ・文字混入 物理排除</p>
-                      <div class="text-[9px] font-mono text-emerald-700 mt-1">image_quality_gate.py</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('judge-e2e')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>実機幾何＆機能E2E</span>
-                        <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">10/10 PASS</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">図鑑小窓スクロール撤廃＆スマホ横漏れゼロ</p>
-                      <div class="text-[9px] font-mono text-emerald-700 mt-1">e2e_full_verification.js</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('judge-pt')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>PTスクール給付金監査</span>
-                        <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Verified</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">専門実践教育訓練の適用・一般移行クロスチェック</p>
-                      <div class="text-[9px] font-mono text-emerald-700 mt-1">crawl_and_verify_schools.py</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('judge-rx')" class="arch-node p-2.5 rounded-lg bg-amber-50/50 hover:bg-amber-100/60 dark:bg-amber-950/20 dark:hover:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-amber-900 dark:text-amber-200 flex items-center justify-between">
-                        <span>自動処方箋エンジン</span>
-                        <span class="text-[9px] bg-amber-100 text-amber-800 px-1 rounded font-bold">Prescription</span>
-                      </div>
-                      <p class="text-[10px] text-amber-800/80 dark:text-amber-300/80 mt-1">Fail検知時に具体的修正ルールを生成・差し戻し</p>
-                      <div class="text-[9px] font-mono text-amber-700 mt-1">Remediation Engine</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-[9px] text-emerald-800 dark:text-emerald-400 pt-1 border-t border-emerald-100 dark:border-emerald-950">
-                  合格基準: 全テスト Exit Code 0 のみ昇格許可
-                </div>
-              </div>
-
-              <!-- ⑤ 台帳・不変成果物層 -->
-              <div class="arch-zone p-3.5 rounded-xl bg-ecru-card border border-purple-200 dark:border-purple-900 shadow-2xs flex flex-col justify-between space-y-3" id="zone-stock">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-purple-100 dark:border-purple-950">
-                    <span class="text-[11px] font-bold text-purple-800 dark:text-purple-400 flex items-center gap-1.5">
-                      <i class="fa-solid fa-boxes-stacked"></i> ⑤ 台帳・Stock層
-                    </span>
-                    <span class="text-[9px] font-mono bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800 px-1.5 py-0.2 rounded font-bold">Stock</span>
-                  </div>
-
-                  <div class="mt-3 space-y-2.5">
-                    <div onclick="openHarnessNodeModal('stock-tasks')" class="arch-node p-2.5 rounded-lg bg-purple-50/50 hover:bg-purple-100/60 dark:bg-purple-950/20 dark:hover:bg-purple-950/40 border border-purple-200/80 dark:border-purple-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>tasks.yaml / shards</span>
-                        <span class="text-[9px] bg-purple-100 text-purple-800 px-1 rounded font-bold">Canonical</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">実稼働タスク台帳 ＆ コミットSHA証跡</p>
-                      <div class="text-[9px] font-mono text-purple-600 mt-1">シャード別タスク管理</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('stock-progress')" class="arch-node p-2.5 rounded-lg bg-purple-50/50 hover:bg-purple-100/60 dark:bg-purple-950/20 dark:hover:bg-purple-950/40 border border-purple-200/80 dark:border-purple-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
-                        <span>PROGRESS.md (v21)</span>
-                        <span class="text-[9px] bg-purple-100 text-purple-800 px-1 rounded font-bold">160 Cards</span>
-                      </div>
-                      <p class="text-[10px] text-ecru-subtext mt-1">160枚手技画像・肢位・グレード100%整合</p>
-                      <div class="text-[9px] font-mono text-purple-600 mt-1">臨床確定ステータス</div>
-                    </div>
-
-                    <div onclick="openHarnessNodeModal('stock-releases')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800 transition cursor-pointer shadow-2xs">
-                      <div class="text-[11px] font-bold text-emerald-900 dark:text-emerald-200 flex items-center justify-between">
-                        <span>Verified Stock (本番)</span>
-                        <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Production</span>
-                      </div>
-                      <p class="text-[10px] text-emerald-800/80 dark:text-emerald-300/80 mt-1">監査合格済みコードのみGitHub Pages配信</p>
-                      <div class="text-[9px] font-mono text-emerald-700 mt-1">https://kassii77763...</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-[9px] text-purple-800 dark:text-purple-400 pt-1 border-t border-purple-100 dark:border-purple-950">
-                  不変性: 裁判官の判決証跡を伴う確定資産
-                </div>
-              </div>
-
-            </div>
-
-            <!-- 左下の凡例 (Bottom-Left Legend: クリーン高視認性) -->
-            <div class="absolute bottom-3 left-3 z-30 p-2.5 rounded-lg bg-ecru-card/95 border border-ecru-borderStrong shadow-md text-[10px] font-sans space-y-1.5 backdrop-blur-md">
-              <div class="font-bold text-ecru-text flex items-center gap-1.5 pb-1 border-b border-ecru-border">
-                <i class="fa-solid fa-circle-info text-indigo-600"></i><span>凡例（線の意味分け）</span>
-              </div>
-              <div class="flex items-center gap-2 text-ecru-subtext">
-                <span class="inline-block w-5 h-1 bg-blue-600 rounded-full"></span>
-                <span><strong class="text-ecru-text">青太実線</strong>: メイン実行フロー (Worker ➔ Judge ➔ Stock)</span>
-              </div>
-              <div class="flex items-center gap-2 text-ecru-subtext">
-                <span class="inline-block w-5 h-0.5 bg-amber-600"></span>
-                <span><strong class="text-ecru-text">オレンジ実線</strong>: 処方箋バック (Fail時自動差し戻し)</span>
-              </div>
-              <div class="flex items-center gap-2 text-ecru-subtext">
-                <span class="inline-block w-5 h-0.5 bg-emerald-600"></span>
-                <span><strong class="text-ecru-text">緑実線</strong>: Flow ➔ Stock 昇格 (合格認定 ➔ リリース)</span>
-              </div>
-              <div class="flex items-center gap-2 text-ecru-subtext">
-                <span class="inline-block w-5 h-0.5 border-t border-dashed border-slate-500"></span>
-                <span><strong class="text-ecru-text">グレー破線</strong>: ポーリング / 状態同期 (SSE / tasks.json)</span>
-              </div>
-            </div>
-
+          <!-- 右カラム (8列): 選択した役の行動ログ小窓 ＆ 採点表 -->
+          <div class="lg:col-span-8 space-y-4" id="teamDetailPane">
+            <!-- JSで選択役のプロファイル、会話ログ小窓、評価関数採点表を動的描画 -->
           </div>
+
         </div>
 
-        <!-- 3. 評価関数（Evaluation Functions）ライブテーブル -->
-        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-            <div>
-              <h3 class="text-sm font-bold text-ecru-text flex items-center gap-2">
-                <i class="fa-solid fa-table-list text-indigo-600"></i>
-                <span>評価関数（Evaluation Functions）ライブテーブル</span>
-                <span class="text-[10px] font-mono bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded font-bold" id="evalCountBadge">
-                  12 項目
-                </span>
-              </h3>
-              <p class="text-xs text-ecru-subtext mt-0.5">
-                <code>harness_snapshot.json</code> からAST抽出された実際の比較演算子・閾値・Fail時処方箋メッセージ一覧
-              </p>
-            </div>
-
-            <!-- 検索 ＆ 絞り込みバー -->
-            <div class="flex flex-wrap items-center gap-2">
-              <div class="relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-ecru-subtext text-xs"></i>
-                <input type="text" id="evalSearchInput" oninput="filterEvalTable()" placeholder="関数名・閾値・処方箋を検索..." class="pl-8 pr-3 py-1.5 rounded-lg border border-ecru-border bg-ecru-surface text-xs text-ecru-text placeholder-ecru-subtext focus:outline-none focus:border-indigo-600 w-56">
-              </div>
-              <div class="flex items-center gap-1 p-0.5 bg-ecru-surface rounded-lg border border-ecru-border text-[11px]" id="evalStatusFilterPills">
-                <button onclick="setEvalStatusFilter('all')" data-status="all" class="eval-status-btn px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white cursor-pointer">すべて</button>
-                <button onclick="setEvalStatusFilter('pass')" data-status="pass" class="eval-status-btn px-2.5 py-1 rounded-md text-ecru-subtext hover:text-ecru-text cursor-pointer">PASS (100%)</button>
-                <button onclick="setEvalStatusFilter('fail')" data-status="fail" class="eval-status-btn px-2.5 py-1 rounded-md text-ecru-subtext hover:text-ecru-text cursor-pointer">処方箋ルール</button>
-              </div>
-            </div>
+        <!-- 補足: 登録スキル・AST抽出サマリー -->
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-4 shadow-2xs flex flex-wrap items-center justify-between text-xs text-ecru-subtext gap-3">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+            <span><strong>Dual-Key ガバナンス稼働中</strong>: 決定論的コード（Playwright） ＋ 非決定論的独立AI裁判官（Gemini 3.5/3.8 Flash）</span>
           </div>
-
-          <!-- テーブル表示部 -->
-          <div class="overflow-x-auto rounded-lg border border-ecru-border">
-            <table class="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr class="bg-ecru-surface border-b border-ecru-border text-ecru-subtext font-semibold text-[11px]">
-                  <th class="py-2.5 px-3 whitespace-nowrap">所管</th>
-                  <th class="py-2.5 px-3 whitespace-nowrap">検査スクリプト / 関数名</th>
-                  <th class="py-2.5 px-3">判定条件 / 閾値パラメータ (AST抽出)</th>
-                  <th class="py-2.5 px-3 whitespace-nowrap text-center">直近ステータス</th>
-                  <th class="py-2.5 px-3">Fail時 処方箋ルール (Remediation)</th>
-                  <th class="py-2.5 px-3 whitespace-nowrap text-right">詳細</th>
-                </tr>
-              </thead>
-              <tbody id="evalFunctionsTableBody" class="divide-y divide-ecru-border font-mono text-[11px]">
-                <!-- JS で動的に harness_snapshot.json から描画 -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- 4. ASTスナップショット正典情報（Rules & Skills Registry） -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          <!-- 不変規律 ＆ 台帳一覧 -->
-          <div class="bg-ecru-card rounded-xl border border-ecru-border p-4 shadow-2xs space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-ecru-border">
-              <div class="font-bold text-ecru-text flex items-center gap-2">
-                <i class="fa-solid fa-scroll text-indigo-600"></i>
-                <span>不変規律・確定台帳レジストリ</span>
-              </div>
-              <span class="text-[10px] font-mono text-ecru-subtext" id="snapshotLedgersCountText">7 ファイル</span>
-            </div>
-            <div class="space-y-1.5 font-mono text-[11px]" id="snapshotLedgersList">
-              <!-- JSで動的生成 -->
-            </div>
-          </div>
-
-          <!-- スキル一覧 (SKILL.md) -->
-          <div class="bg-ecru-card rounded-xl border border-ecru-border p-4 shadow-2xs space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-ecru-border">
-              <div class="font-bold text-ecru-text flex items-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles text-amber-600"></i>
-                <span>登録スキル一覧 (skills/)</span>
-              </div>
-              <span class="text-[10px] font-mono text-ecru-subtext" id="snapshotSkillsCountText">12 スキル</span>
-            </div>
-            <div class="space-y-1.5 font-mono text-[11px]" id="snapshotSkillsList">
-              <!-- JSで動的生成 -->
-            </div>
+          <div class="font-mono text-[11px] flex items-center gap-3">
+            <span>会話履歴遮断: <strong class="text-emerald-700">turn_count: 1</strong></span>
+            <span>脱獄サニタイザー: <strong class="text-emerald-700">ACTIVE</strong></span>
+            <span>リポジトリ正史: <code class="text-indigo-600">PROGRESS.md</code></span>
           </div>
         </div>
 
       </section>
-
 
       <!-- VIEW 7: 将来ロードマップ -->
       <section id="view-roadmap" class="view-panel hidden flex-1 overflow-y-auto p-6 space-y-6">
@@ -2250,6 +1852,9 @@ function escapeHtml(str) {
       currentView = name;
       document.querySelectorAll(".view-panel").forEach(el => el.classList.add("hidden"));
       document.getElementById(`view-${name}`).classList.remove("hidden");
+        if (name === 'harness' && typeof switchTeamProject === 'function') {
+          switchTeamProject(currentTeamProject || 'pt_portal');
+        }
       document.querySelectorAll(".top-tab-btn").forEach(btn => {
         btn.className = btn.getAttribute("data-view") === name
           ? "top-tab-btn border-b-2 border-indigo-600 text-indigo-600 font-semibold px-3 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
