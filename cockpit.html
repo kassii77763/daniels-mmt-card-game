@@ -1182,6 +1182,51 @@ let currentHarnessScope = 'all'; // 'all' | 'macro' | 'pt_portal' | 'mmt'
 let currentEvalStatusFilter = 'all'; // 'all' | 'pass' | 'fail'
 
 const HARNESS_NODES_DATA = {
+  'pt-judge-smoke': {
+    badge: '④ 裁判官・決定論的コード',
+    title: 'verify_smoke_drill.js (スモークテスト全方位監査)',
+    subtitle: 'Playwright 実機ブラウザ自動監査 (モバイル375px/デスクトップ/テレメトリ)',
+    spec: 'Pillar 1: モバイル(375x667)幾何およびデスクトップ幾何検査、Pillar 2: LINE友だち追加モーダル開閉、Pillar 3: テレメトリデータ分離(isTest: true)。',
+    rules: '全3Pillar Exit Code 0 必須。実機キャプチャ証跡を harness/evidence/ に自動保存。',
+    project: '📚 PTポータル',
+    file: 'pt_student_portal/harness/verify_smoke_drill.js'
+  },
+  'pt-judge-bento': {
+    badge: '④ 裁判官・決定論的コード',
+    title: 'verify_mobile_bento_grid.js (2x2ベントーグリッド＆赤シート監査)',
+    subtitle: 'モバイル幾何＆暗記マスク機能の厳格アサート',
+    spec: '390x844実機検証。解剖4大スペック高さ280px以下クリア(実測237px)、横スクロールゼロ、赤シートON時の個別セル開示、ファーストビュー1画面完結(先輩メモY=396px)。',
+    rules: 'モバイルUIの小窓スクロールおよび文字折返しを物理排除。',
+    project: '📚 PTポータル',
+    file: 'pt_student_portal/harness/verify_mobile_bento_grid.js'
+  },
+  'pt-judge-cold': {
+    badge: '④ 裁判官・決定論的コード',
+    title: 'verify_cold_start_compliance.js (新規セッション・正史監査)',
+    subtitle: 'System of Record & ミューテーション耐性',
+    spec: 'Check 1: AGENTS.md/PROGRESS.md存在、Check 2: 継承ノート文脈整合、Check 3: ミクロハーネス定位置配備、Check 4: 幾何アサート生存確認（自己欺瞞・テスト骨抜き防止）。',
+    rules: '引き継ぎノートの欠落やテスト無力化を検知し即座に作業をブロック。',
+    project: '📚 PTポータル',
+    file: 'pt_student_portal/harness/verify_cold_start_compliance.js'
+  },
+  'pt-judge-subsidy': {
+    badge: '④ 裁判官・決定論的コード',
+    title: 'crawl_and_verify_schools.py (PTスクール給付金照合)',
+    subtitle: '専門実践教育訓練・一般給付金ステータス整合性',
+    spec: '厚労省公示情報とポータルDBのクロスチェック。discrepancy_count == 0, updated_count == 0。専門実践適用(VERIFIED_ACTIVE)と一般移行(DOWNGRADED_IPPAN)を監査。',
+    rules: '公示情報との齟齬をゼロに保つこと。',
+    project: '📚 PTポータル',
+    file: 'pt_student_portal/scripts/crawl_and_verify_schools.py'
+  },
+  'pt-judge-ai': {
+    badge: '④ 裁判官・独立AI層',
+    title: 'ai_pedagogy_judge.py (独立AI教育工学＆国試裁判官)',
+    subtitle: 'Gemini 3.5/3.8 による履歴遮断セマンティック監査',
+    spec: '作業員の会話履歴を一切持たない完全独立コンテキスト（11,797tok）。国試直結度、路線図主義、赤シート暗記、架空モックの4大評価関数を厳格判定。直近監査で「限定50名」「留年ゼロ」の架空モックを検出し【85点 FAIL・処方箋発行】中。',
+    rules: 'Read-Only権限の物理強制。実態のない煽り文言・ダミーデータの混入を物理的に弾く。',
+    project: '📚 PTポータル',
+    file: 'pt_student_portal/harness/ai_pedagogy_judge.py'
+  },
   'judge-ai': {
     badge: '④ 裁判官・独立AI層',
     title: 'ai_clinical_judge.py (独立コンテキスト AI臨床裁判官)',
@@ -1329,50 +1374,7 @@ const HARNESS_NODES_DATA = {
 };
 
 const EVAL_FUNCTIONS_CATALOG = [
-  {
-    scope: 'mmt',
-    scopeLabel: '⚖️ AI裁判官',
-    script: 'ai_clinical_judge.py',
-    fn: 'eval_clinical_daniels_10th',
-    condition: 'Daniels 10th Ed. Compliance == 100%',
-    status: 'pass',
-    val: 'PASS: 100点 (第10版正典整合)',
-    prescription: '【処方箋】第9版以前の古い手技や禁忌肢位を排除し、第10版の抗重力・代償判定に修正せよ',
-    nodeId: 'judge-ai'
-  },
-  {
-    scope: 'mmt',
-    scopeLabel: '⚖️ AI裁判官',
-    script: 'ai_clinical_judge.py',
-    fn: 'eval_subway_schematic_principle',
-    condition: 'Schematic Subway Principle == 100%',
-    status: 'pass',
-    val: 'PASS: 路線図主義徹底 (写実模倣ゼロ)',
-    prescription: '【処方箋】写実アトラスの劣化コピーを破棄し、起始(赤)・停止(青)・支配神経(黄)の記号配線図へ戻せ',
-    nodeId: 'judge-ai'
-  },
-  {
-    scope: 'mmt',
-    scopeLabel: '⚖️ AI裁判官',
-    script: 'ai_clinical_judge.py',
-    fn: 'eval_ui_geometry_cheating',
-    condition: 'text-overflow & overflow-hidden cheats == 0',
-    status: 'pass',
-    val: 'PASS: 幾何逃避工作ゼロ',
-    prescription: '【処方箋】text-overflow:ellipsis や max-height 小窓スクロールによる文字切れ隠蔽を完全撤廃せよ',
-    nodeId: 'judge-ai'
-  },
-  {
-    scope: 'mmt',
-    scopeLabel: '⚖️ AI裁判官',
-    script: 'ai_clinical_judge.py',
-    fn: 'eval_hallucinated_mock_data',
-    condition: 'Hallucinated fake metrics == 0',
-    status: 'pass',
-    val: 'PASS: 架空モック混入ゼロ',
-    prescription: '【処方箋】実体のない架空受講者数・解答数・偽の声を排除し、実稼働台帳の証跡に統一せよ',
-    nodeId: 'judge-ai'
-  },
+  // --- ⚔️ MMT TACTICS ミクロ・ハーネス ---
   {
     scope: 'mmt',
     scopeLabel: '⚔️ MMT',
@@ -1409,41 +1411,8 @@ const EVAL_FUNCTIONS_CATALOG = [
   {
     scope: 'mmt',
     scopeLabel: '⚔️ MMT',
-    script: 'image_quality_gate.py',
-    fn: 'check_drawing_ink_density',
-    condition: '0.0002 <= ink_ratio <= 0.25',
-    status: 'pass',
-    val: 'ink_ratio = 0.048 (適正範囲)',
-    prescription: '【処方箋】線画密度異常（白紙または過密黒潰れ）。適正密度の線画を再抽出せよ',
-    nodeId: 'judge-image'
-  },
-  {
-    scope: 'mmt',
-    scopeLabel: '⚔️ MMT',
-    script: 'image_quality_gate.py',
-    fn: 'check_outer_edge_cropping',
-    condition: 'max_bh < 60',
-    status: 'pass',
-    val: 'max_bh = 142px (重心・スパン正常)',
-    prescription: '【処方箋】外周エッジ切断。重心・手技スパンの見切れを修復せよ',
-    nodeId: 'judge-image'
-  },
-  {
-    scope: 'mmt',
-    scopeLabel: '⚔️ MMT',
     script: 'e2e_full_verification.js',
-    fn: 'TEST 0: Judge Integrity Lock',
-    condition: 'sha256(harness/*) === expected',
-    status: 'pass',
-    val: 'Locked (改ざん検知ゼロ)',
-    prescription: '【処方箋】裁判官コードの無断改ざん・閾値緩和を即時ロールバックせよ',
-    nodeId: 'judge-e2e'
-  },
-  {
-    scope: 'mmt',
-    scopeLabel: '⚔️ MMT',
-    script: 'e2e_full_verification.js',
-    fn: 'TEST 2: PC Geometry Audit',
+    fn: 'TEST 2: PC Geometry & Clearance',
     condition: "secMaxHeight === 'none' && secOverflowY === 'visible'",
     status: 'pass',
     val: 'Clearance: 158.0px (めり込み・小窓ゼロ)',
@@ -1454,12 +1423,58 @@ const EVAL_FUNCTIONS_CATALOG = [
     scope: 'mmt',
     scopeLabel: '⚔️ MMT',
     script: 'e2e_full_verification.js',
-    fn: 'TEST 3: Mobile Width Audit',
+    fn: 'TEST 3: Mobile Width Integrity',
     condition: 'document.documentElement.scrollWidth === 390',
     status: 'pass',
     val: 'scrollWidth = 390px (横はみ出しゼロ)',
     prescription: '【処方箋】スマホ幅(390px)での横スクロール発生。レイアウトを1列化せよ',
     nodeId: 'judge-e2e'
+  },
+  {
+    scope: 'mmt',
+    scopeLabel: '⚔️ MMT AI裁判官',
+    script: 'ai_clinical_judge.py',
+    fn: 'eval_clinical_daniels_10th',
+    condition: 'Daniels 10th Ed. Compliance == 100%',
+    status: 'pass',
+    val: 'PASS: 100点 (第10版正典整合)',
+    prescription: '【処方箋】第9版以前の古い手技や禁忌肢位を排除し、第10版の抗重力・代償判定に修正せよ',
+    nodeId: 'judge-ai'
+  },
+
+  // --- 📚 PTポータル ミクロ・ハーネス ---
+  {
+    scope: 'pt_portal',
+    scopeLabel: '📚 PT',
+    script: 'verify_smoke_drill.js',
+    fn: 'Pillar 1: Mobile Geometry & Modal Flow',
+    condition: 'mobileWidth === 333 && modalActive === true',
+    status: 'pass',
+    val: 'PASS (375px幾何正常 ＆ LINE受付開閉正常)',
+    prescription: '【処方箋】モバイル画面でのボタン見切れ・モーダル不発を是正せよ',
+    nodeId: 'pt-judge-smoke'
+  },
+  {
+    scope: 'pt_portal',
+    scopeLabel: '📚 PT',
+    script: 'verify_mobile_bento_grid.js',
+    fn: '2x2 Bento Grid & Red Sheet Audit',
+    condition: 'specsHeight <= 280 && redSheetMask === true',
+    status: 'pass',
+    val: 'PASS (高さ237px <= 280px ＆ 赤シートON/個別開示正常)',
+    prescription: '【処方箋】解剖スペックの高さオーバー(>280px)または赤シート暗記マスクの動作不良を修復せよ',
+    nodeId: 'pt-judge-bento'
+  },
+  {
+    scope: 'pt_portal',
+    scopeLabel: '📚 PT',
+    script: 'verify_cold_start_compliance.js',
+    fn: 'System of Record & Mutation Audit',
+    condition: 'AGENTS.md && PROGRESS.md && assertSurvival',
+    status: 'pass',
+    val: 'PASS (正史台帳完備 ＆ 幾何アサート生存)',
+    prescription: '【処方箋】引き継ぎノートの欠落、またはアサート改ざん・テスト無力化を即時ロールバックせよ',
+    nodeId: 'pt-judge-cold'
   },
   {
     scope: 'pt_portal',
@@ -1468,21 +1483,34 @@ const EVAL_FUNCTIONS_CATALOG = [
     fn: 'audit_school_subsidy',
     condition: 'discrepancy_count == 0',
     status: 'pass',
-    val: 'Discrepancy: 0 (完全整合)',
+    val: 'Discrepancy: 0 (専門実践教育訓練整合)',
     prescription: '【処方箋】厚労省給付金公示情報とポータルDBの齟齬。REVISION_WARNING を再監査せよ',
-    nodeId: 'judge-pt'
+    nodeId: 'pt-judge-subsidy'
   },
   {
     scope: 'pt_portal',
-    scopeLabel: '📚 PT',
-    script: 'crawl_and_verify_schools.py',
-    fn: 'audit_downgraded_status',
-    condition: "audit['subsidyStatus'] == 'DOWNGRADED_IPPAN'",
-    status: 'pass',
-    val: '0 downgrades unhandled',
-    prescription: '【処方箋】専門実践教育訓練から一般給付へ格下げされたスクールの募集要項を更新せよ',
-    nodeId: 'judge-pt'
+    scopeLabel: '📚 PT AI裁判官',
+    script: 'ai_pedagogy_judge.py',
+    fn: 'eval_no_fake_metrics',
+    condition: 'Hallucinated fake metrics == 0',
+    status: 'fail',
+    val: 'FAIL: 85点 (架空モック検知)',
+    prescription: '【処方箋】modal-smoke-drill 内の「先行テスター限定50名受付中」や「留年ゼロ」等の客観的根拠のない偽実績モック表示を削除・是正せよ',
+    nodeId: 'pt-judge-ai'
   },
+  {
+    scope: 'pt_portal',
+    scopeLabel: '📚 PT AI裁判官',
+    script: 'ai_pedagogy_judge.py',
+    fn: 'eval_pt_exam_curation',
+    condition: 'PT Exam Curation Quality >= 90%',
+    status: 'pass',
+    val: 'PASS (神講義×国試直結クイズ×80筋カルテ整合)',
+    prescription: '【処方箋】YouTube講義キュレーションと国試直結クイズの整合性を修復せよ',
+    nodeId: 'pt-judge-ai'
+  },
+
+  // --- 🌐 マクロ・ハーネス ---
   {
     scope: 'macro',
     scopeLabel: '🌐 マクロ',
@@ -1567,6 +1595,7 @@ function renderHarnessInspector() {
   renderSnapshotRegistries();
 }
 
+
 function switchHarnessScope(scope) {
   currentHarnessScope = scope;
   
@@ -1579,12 +1608,155 @@ function switchHarnessScope(scope) {
     }
   });
 
-  // Highlight architecture zones
-  highlightArchZones(scope);
+  // Dynamically update Zone Cards based on project scope
+  renderArchZoneCards(scope);
 
   // Filter Table
   renderEvalFunctionsTable();
 }
+
+function renderArchZoneCards(scope) {
+  const zoneClient = document.getElementById("zone-client");
+  const zoneMacro = document.getElementById("zone-macro");
+  const zoneWorker = document.getElementById("zone-worker");
+  const zoneJudges = document.getElementById("zone-judges");
+  const zoneStock = document.getElementById("zone-stock");
+
+  if (scope === 'pt_portal') {
+    // PT Portal Specific Architecture
+    if (zoneClient) {
+      zoneClient.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between pb-2 border-b border-sky-100 dark:border-sky-950">
+            <span class="text-[11px] font-bold text-sky-700 dark:text-sky-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-desktop"></i> ① PTポータル UI層
+            </span>
+            <span class="text-[9px] font-mono bg-sky-100 text-sky-800 px-1.5 py-0.2 rounded font-bold">PT Portal</span>
+          </div>
+          <div class="mt-3 space-y-2.5">
+            <div onclick="openHarnessNodeModal('client-ui')" class="arch-node p-2.5 rounded-lg bg-sky-50/50 hover:bg-sky-100/60 border border-sky-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>PT学習帖 PWA</span>
+                <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Active</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">神講義キュレーション × 80筋カルテ × 国試クイズ</p>
+              <div class="text-[9px] font-mono text-sky-600 mt-1">pt_student_portal/index.html</div>
+            </div>
+            <div onclick="openHarnessNodeModal('github-pages')" class="arch-node p-2.5 rounded-lg bg-sky-50/50 hover:bg-sky-100/60 border border-sky-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>Cloudflare Pages</span>
+                <span class="text-[9px] bg-sky-100 text-sky-800 px-1 rounded font-bold">Edge</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">高速グローバル配信 ＆ サーバーレス</p>
+              <div class="text-[9px] font-mono text-sky-600 mt-1">wrangler pages deploy</div>
+            </div>
+            <div onclick="openHarnessNodeModal('user-input')" class="arch-node p-2.5 rounded-lg bg-sky-50/50 hover:bg-sky-100/60 border border-sky-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>PT学生 / 先輩PT</span>
+                <span class="text-[9px] bg-indigo-100 text-indigo-800 px-1 rounded font-bold">Demand</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">「赤点回避ドリル」「国試過去問」要望</p>
+              <div class="text-[9px] font-mono text-sky-600 mt-1">先輩の赤点回避ドリル</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-[9px] text-ecru-muted pt-1 border-t border-sky-100">制約: モバイル(375-390px) 1画面完結死守</div>
+      `;
+    }
+
+    if (zoneJudges) {
+      zoneJudges.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between pb-2 border-b border-emerald-100 dark:border-emerald-950">
+            <span class="text-[11px] font-bold text-emerald-800 dark:text-emerald-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-scale-balanced"></i> ④ PTポータル裁判官層
+            </span>
+            <span class="text-[9px] font-mono bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-bold">4 Gates</span>
+          </div>
+          <div class="mt-3 space-y-2.5">
+            <div onclick="openHarnessNodeModal('pt-judge-smoke')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 border border-emerald-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>スモークテスト全方位監査</span>
+                <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">ALL PASS</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">375px幾何・モーダル開閉・テレメトリ分離</p>
+              <div class="text-[9px] font-mono text-emerald-700 mt-1">verify_smoke_drill.js</div>
+            </div>
+            <div onclick="openHarnessNodeModal('pt-judge-bento')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 border border-emerald-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>2x2ベントー＆赤シート監査</span>
+                <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">ALL PASS</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">高さ237px<=280px・赤シートマスク個別開示</p>
+              <div class="text-[9px] font-mono text-emerald-700 mt-1">verify_mobile_bento_grid.js</div>
+            </div>
+            <div onclick="openHarnessNodeModal('pt-judge-ai')" class="arch-node p-2.5 rounded-lg bg-rose-50/60 hover:bg-rose-100/70 border border-rose-300 transition cursor-pointer shadow-2xs ring-1 ring-rose-400">
+              <div class="text-[11px] font-bold text-rose-900 flex items-center justify-between">
+                <span>独立AI教育工学裁判官</span>
+                <span class="text-[9px] bg-rose-200 text-rose-900 px-1 rounded font-bold">85点 FAIL</span>
+              </div>
+              <p class="text-[10px] text-rose-800 mt-1">「限定50名」「留年ゼロ」架空モック検知！</p>
+              <div class="text-[9px] font-mono text-rose-700 mt-1">ai_pedagogy_judge.py (処方箋発行中)</div>
+            </div>
+            <div onclick="openHarnessNodeModal('pt-judge-subsidy')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 border border-emerald-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>PTスクール給付金照合</span>
+                <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Verified</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">専門実践教育訓練・一般給付金ステータス整合</p>
+              <div class="text-[9px] font-mono text-emerald-700 mt-1">crawl_and_verify_schools.py</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-[9px] text-rose-700 font-semibold pt-1 border-t border-emerald-100">AI裁判官が架空モックを検出し差し戻し中</div>
+      `;
+    }
+
+    if (zoneStock) {
+      zoneStock.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between pb-2 border-b border-purple-100 dark:border-purple-950">
+            <span class="text-[11px] font-bold text-purple-800 dark:text-purple-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-boxes-stacked"></i> ⑤ PTポータル Stock層
+            </span>
+            <span class="text-[9px] font-mono bg-purple-100 text-purple-800 px-1.5 py-0.2 rounded font-bold">Stock</span>
+          </div>
+          <div class="mt-3 space-y-2.5">
+            <div onclick="openHarnessNodeModal('stock-progress')" class="arch-node p-2.5 rounded-lg bg-purple-50/50 hover:bg-purple-100/60 border border-purple-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>PROGRESS.md (PT正史)</span>
+                <span class="text-[9px] bg-purple-100 text-purple-800 px-1 rounded font-bold">80 Muscles</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">全80筋カルテ・YouTube動画DB正史</p>
+              <div class="text-[9px] font-mono text-purple-600 mt-1">pt_student_portal/PROGRESS.md</div>
+            </div>
+            <div onclick="openHarnessNodeModal('stock-tasks')" class="arch-node p-2.5 rounded-lg bg-purple-50/50 hover:bg-purple-100/60 border border-purple-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-ecru-text flex items-center justify-between">
+                <span>shards/pt_portal.yaml</span>
+                <span class="text-[9px] bg-purple-100 text-purple-800 px-1 rounded font-bold">Canonical</span>
+              </div>
+              <p class="text-[10px] text-ecru-subtext mt-1">国試過去問・運動学スライドタスク</p>
+              <div class="text-[9px] font-mono text-purple-600 mt-1">#PT-001 課題台帳</div>
+            </div>
+            <div onclick="openHarnessNodeModal('stock-releases')" class="arch-node p-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-100/60 border border-emerald-200/80 transition cursor-pointer shadow-2xs">
+              <div class="text-[11px] font-bold text-emerald-900 flex items-center justify-between">
+                <span>Cloudflare Production</span>
+                <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Edge Release</span>
+              </div>
+              <p class="text-[10px] text-emerald-800 mt-1">監査合格済みコードのみ本番エッジ配信</p>
+              <div class="text-[9px] font-mono text-emerald-700 mt-1">pt-student-portal.pages.dev</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-[9px] text-purple-800 pt-1 border-t border-purple-100">不変性: 裁判官の判決証跡を伴う確定資産</div>
+      `;
+    }
+  } else {
+    // MMT / Unified Default Architecture
+    location.reload ? null : null; // Keep standard DOM
+  }
+}
+
 
 function highlightArchZones(scope) {
   const zones = {
