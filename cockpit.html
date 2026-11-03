@@ -719,6 +719,29 @@
               <!-- プロジェクト連動SNSバナー -->
               <div id="snsProjectContextBanner" class="mt-3"></div>
 
+          
+          <!-- 立腰体操 専用マーケティング表示（未着手・テストデータ完全排除） -->
+          <div id="tatekoshiMarketingSection" class="space-y-4 hidden">
+            <div class="bg-ecru-card p-6 rounded-xl border border-ecru-border space-y-4 shadow-2xs">
+              <div class="flex items-center gap-2.5">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800 text-slate-300 text-sm font-bold shadow-xs">
+                  <i class="fa-solid fa-person-walking"></i>
+                </span>
+                <div>
+                  <h2 class="text-base font-bold text-ecru-text">🧘 立腰体操 LINE Bot・教材：外部環境 ＆ マーケティング分析</h2>
+                  <p class="text-xs text-ecru-subtext font-sans mt-0.5">Phase 0: 構想・企画段階につき、配信実績・広告インプレッション・LINE友だち数等の実測データは現在ありません。</p>
+                </div>
+              </div>
+              <div class="p-4 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 space-y-2 font-sans">
+                <div class="font-bold flex items-center gap-1.5 text-slate-200">
+                  <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                  <span>テストデータ・ダミー数値の完全排除方針</span>
+                </div>
+                <p class="leading-relaxed">本プロジェクトは現在構想段階（未着手）のため、架空のインプレッション数やコンバージョン率などのテストデータは一切掲載していません。まずはPT教育エコシステム（収益本体のPTポータルおよびMMTカードゲーム160枚）の基盤確立に全集中し、本格リリース時に実データを連携いたします。</p>
+              </div>
+            </div>
+          </div>
+
           <!-- PT学生の学習帖 専用マーケティング詳細（完全分離） -->
           <div id="ptMarketingDetailsSection" class="space-y-5 hidden">
             <div class="bg-ecru-card border border-ecru-border rounded-xl p-5 shadow-2xs space-y-4">
@@ -3516,11 +3539,35 @@ function escapeHtml(str) {
 
     const ptSpecific = document.getElementById("ptMarketingDetailsSection");
     const generalGrid = document.getElementById("generalSnsCardsGrid");
+    const tatekoshiSection = document.getElementById("tatekoshiMarketingSection");
 
+    // PTポータル専用マーケティング
     if (ptSpecific) {
       if (proj.id === 'pt_student_portal') {
         ptSpecific.classList.remove("hidden");
       } else {
+        ptSpecific.classList.add("hidden");
+      }
+    }
+
+    // 立腰体操専用マーケティング（未着手・構想中）
+    if (tatekoshiSection) {
+      if (proj.id === 'line_bot_proposal') {
+        tatekoshiSection.classList.remove("hidden");
+      } else {
+        tatekoshiSection.classList.add("hidden");
+      }
+    }
+
+    // YouTube全般グリッド（全体統括またはShorts選択時のみ表示）
+    if (generalGrid) {
+      if (proj.id === 'ALL' || proj.id === 'youtube_visual_library') {
+        generalGrid.classList.remove("hidden");
+      } else {
+        generalGrid.classList.add("hidden");
+      }
+    }
+  } else {
         ptSpecific.classList.add("hidden");
       }
     }
