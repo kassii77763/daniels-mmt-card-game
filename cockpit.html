@@ -2057,17 +2057,6 @@ function escapeHtml(str) {
         if (name === 'harness' && typeof switchTeamProject === 'function') switchTeamProject(currentTeamProject || 'pt_portal');
         if (name === 'sns' && typeof renderSnsAnalytics === 'function') renderSnsAnalytics();
       }
-);
-      document.querySelectorAll(".side-nav-btn").forEach(btn => {
-        if (btn.getAttribute("data-view") === name) {
-          btn.classList.add("bg-indigo-600", "text-white");
-          btn.classList.remove("text-sidebar-muted");
-        } else {
-          btn.classList.remove("bg-indigo-600", "text-white");
-          btn.classList.add("text-sidebar-muted");
-        }
-      });
-    }
 
     function setBoardFilter(f) {
       currentBoardFilter = f;
