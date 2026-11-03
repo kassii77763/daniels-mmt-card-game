@@ -1,5 +1,5 @@
 {
-  "last_synced_at": "2026-11-03T16:48:50+09:00",
+  "last_synced_at": "2026-11-03T23:54:04+09:00",
   "sync_mode": "hourly_daemon",
   "projects": {
     "pt_student_portal": {
@@ -53,7 +53,7 @@
     },
     "mmt_card_game": {
       "folder": "projects/mmt_card_game",
-      "verified_file_count": 24,
+      "verified_file_count": 25,
       "verified_files": [
         ".gitignore",
         ".nojekyll",
@@ -61,12 +61,12 @@
         "app.js",
         "apply_verified_hardcoded_deck.py",
         "cockpit.html",
+        "DASHBOARD_STATE.json",
         "harness_snapshot.json",
         "index.html",
         "launch_cockpit.bat",
         "manifest.json",
-        "MILESTONES.md",
-        "PROGRESS.md"
+        "MILESTONES.md"
       ],
       "milestone": {
         "north_star_kpi": "先行27枚のポータル連携稼働 ＆ 残り133枚の段階実装（3層品質ゲートALL PASS）",
