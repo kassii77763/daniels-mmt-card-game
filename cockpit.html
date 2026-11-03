@@ -736,6 +736,66 @@
               <!-- プロジェクト連動SNSバナー -->
               <div id="snsProjectContextBanner" class="mt-3"></div>
 
+          <!-- PT学生の学習帖 専用マーケティング詳細（完全分離） -->
+          <div id="ptMarketingDetailsSection" class="space-y-5 hidden">
+            <div class="bg-ecru-card border border-ecru-border rounded-xl p-5 shadow-2xs space-y-4">
+              <div class="flex items-center justify-between border-b border-ecru-border/70 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-crown"></i></span>
+                  <div>
+                    <h3 class="text-sm font-bold text-ecru-text">👑 PT学生の学習帖：外部環境 ＆ 顧客獲得ファネル分析</h3>
+                    <p class="text-[11px] text-ecru-subtext font-sans">留年危機層・社会人学生が「最短1分で赤点を回避する」ための集客・送客動線</p>
+                  </div>
+                </div>
+                <span class="text-xs font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-2 py-0.5 rounded font-bold">収益ファネル</span>
+              </div>
+
+              <!-- ファネル3段階カード -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div class="bg-ecru-surface p-3.5 rounded-lg border border-ecru-border/60 space-y-1">
+                  <span class="text-rose-600 font-bold block text-[11px]"><i class="fa-brands fa-youtube mr-1"></i>1. 集客（Shorts動画）</span>
+                  <p class="text-ecru-text font-semibold">視覚的解剖ショート動画で認知獲得</p>
+                  <p class="text-[10px] text-ecru-subtext font-sans">「上腕二頭筋3点配線図」等で毎月数万人の学生にアプローチ。固定コメントからLINEへ誘導。</p>
+                </div>
+                <div class="bg-ecru-surface p-3.5 rounded-lg border border-ecru-border/60 space-y-1">
+                  <span class="text-emerald-600 font-bold block text-[11px]"><i class="fa-brands fa-line mr-1"></i>2. 教育（公式LINEドリル）</span>
+                  <p class="text-ecru-text font-semibold">「赤点回避ドリル」友だち追加</p>
+                  <p class="text-[10px] text-ecru-subtext font-sans">毎日1問クイズ、80筋カルテ、給付金破綻防止ガイドで信頼とエンゲージメントを確立。</p>
+                </div>
+                <div class="bg-ecru-surface p-3.5 rounded-lg border border-ecru-border/60 space-y-1">
+                  <span class="text-indigo-600 font-bold block text-[11px]"><i class="fa-solid fa-graduation-cap mr-1"></i>3. 収益化（LTV会員）</span>
+                  <p class="text-ecru-text font-semibold">有料講読 ＆ 実習完全支援</p>
+                  <p class="text-[10px] text-ecru-subtext font-sans">実習レポート添削、国試直前模試ドリル、MMT160枚完全版の解放によるサブスク/買い切り収益。</p>
+                </div>
+              </div>
+
+              <!-- 検索インテントと競合比較 -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-sans">
+                <div class="bg-black/30 border border-slate-800 p-3.5 rounded-lg space-y-1.5 text-slate-300">
+                  <div class="font-bold text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-magnifying-glass text-indigo-400"></i> 学生の切実な検索インテント（悩み）
+                  </div>
+                  <ul class="text-[11px] space-y-1 list-disc list-inside text-slate-300">
+                    <li>「PT 実習 落ちる」「PT 留年 奨学金 返還」の恐怖検索</li>
+                    <li>「解剖学 覚える量 多すぎて無理」「MMT 段階 判定迷う」</li>
+                    <li>「専門実践教育訓練給付金 留年したらどうなる」の学費不安</li>
+                  </ul>
+                </div>
+                <div class="bg-black/30 border border-slate-800 p-3.5 rounded-lg space-y-1.5 text-slate-300">
+                  <div class="font-bold text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i> PTポータルの競合優位性（差別化）
+                  </div>
+                  <ul class="text-[11px] space-y-1 list-disc list-inside text-slate-300">
+                    <li>大手国試アプリ（過去問の丸暗記）に対し、<strong>「臨床配線図＋思考プロセス」</strong>で根本理解。</li>
+                    <li>note教材（文字ばかりのPDF）に対し、<strong>「スマホで即動くインタラクティブWebドリル」</strong>。</li>
+                    <li>誇大広告（「誰でも一発合格」等）を排除した、<strong>誠実で臨床に直結するクオリティ保証</strong>。</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
               <div class="flex items-center gap-2 text-xs font-mono">
                 <span class="px-2.5 py-1 rounded bg-rose-100 text-rose-800 font-bold border border-rose-300">
                   <i class="fa-solid fa-signal mr-1"></i>YouTube Studio 連携中
@@ -747,18 +807,20 @@
             </div>
           </div>
 
-          <!-- YouTubeアナリティクス メトリクスカード 4連 -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="snsMetricsCards">
-            <!-- JSで動的レンダリング -->
-          </div>
-
-          <!-- 2カラム詳細: 【左: Shorts動画実例＆視聴維持率分析】 ＋ 【右: 競合チャンネルパワー監査】 -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-6 space-y-4" id="shortsAnalysisPane">
-              <!-- JSでレンダリング -->
+          <div id="generalSnsCardsGrid" class="space-y-6">
+            <!-- YouTubeアナリティクス メトリクスカード 4連 -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="snsMetricsCards">
+              <!-- JSで動的レンダリング -->
             </div>
-            <div class="lg:col-span-6 space-y-4" id="competitorAuditPane">
-              <!-- JSでレンダリング -->
+
+            <!-- 2カラム詳細: 【左: Shorts動画実例＆視聴維持率分析】 ＋ 【右: 競合チャンネルパワー監査】 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-6 space-y-4" id="shortsAnalysisPane">
+                <!-- JSでレンダリング -->
+              </div>
+              <div class="lg:col-span-6 space-y-4" id="competitorAuditPane">
+                <!-- JSでレンダリング -->
+              </div>
             </div>
           </div>
         </section>
@@ -1020,10 +1082,43 @@
 
   let currentProjectScope = 'ALL';
 
+  
+  function updateTopTabLabels() {
+    const proj = projectRegistry.find(p => p.id === currentProjectScope) || projectRegistry[0];
+    const isAll = (proj.id === 'ALL');
+    const pName = isAll ? '' : (proj.shortName + ' ');
+
+    const tab1 = document.querySelector('button[data-view="env"] span:last-child') || document.querySelector('button[data-view="env"]');
+    const tab2 = document.querySelector('button[data-view="projects"] span:last-child') || document.querySelector('button[data-view="projects"]');
+    const tab3 = document.querySelector('button[data-view="harness"] span:last-child') || document.querySelector('button[data-view="harness"]');
+    const tab4 = document.querySelector('button[data-view="sns"] span:last-child') || document.querySelector('button[data-view="sns"]');
+
+    // サイドバーのCore Viewsボタンのテキストも更新
+    const side1 = document.querySelector('.side-nav-btn[data-view="env"] span.flex');
+    const side2 = document.querySelector('.side-nav-btn[data-view="projects"] span.flex');
+    const side3 = document.querySelector('.side-nav-btn[data-view="harness"] span.flex');
+    const side4 = document.querySelector('.side-nav-btn[data-view="sns"] span.flex');
+
+    if (side1) side1.innerHTML = `<i class="fa-solid fa-folder-tree w-4 text-center"></i>1. ${isAll ? 'PC環境・全フォルダ探査' : pName + 'ローカルフォルダ'}`;
+    if (side2) side2.innerHTML = `<i class="fa-solid fa-bullseye w-4 text-center text-amber-400"></i>2. ${isAll ? '全体目的・4大事業KPI' : pName + '目的・KPI・方向性'}`;
+    if (side3) side3.innerHTML = `<i class="fa-solid fa-scale-balanced w-4 text-center text-emerald-400"></i>3. ${isAll ? '全社品質監査・ハーネス' : pName + '品質監査・ハーネス'}`;
+    if (side4) side4.innerHTML = `<i class="fa-brands fa-youtube w-4 text-center text-rose-400"></i>4. ${isAll ? '全社SNS・マーケ環境分析' : pName + '外部環境・マーケ分析'}`;
+
+    // 上部タブバーのテキストも更新
+    document.querySelectorAll('.top-tab-btn').forEach(btn => {
+      const v = btn.getAttribute('data-view');
+      if (v === 'env') btn.innerHTML = `<i class="fa-solid fa-folder-tree mr-1"></i>${isAll ? '1. PC環境・フォルダ探査' : '1. ' + pName + 'フォルダ'}`;
+      if (v === 'projects') btn.innerHTML = `<i class="fa-solid fa-bullseye mr-1 text-amber-500"></i>${isAll ? '2. 目的・KPI・方向性' : '2. ' + pName + '目的・KPI'}`;
+      if (v === 'harness') btn.innerHTML = `<i class="fa-solid fa-scale-balanced mr-1 text-emerald-500"></i>${isAll ? '3. 品質監査・ハーネス' : '3. ' + pName + 'ハーネス'}`;
+      if (v === 'sns') btn.innerHTML = `<i class="fa-brands fa-youtube mr-1 text-rose-500"></i>${isAll ? '4. SNS・マーケ環境分析' : '4. ' + pName + '外部環境・マーケ'}`;
+    });
+  }
+
   function selectProjectScope(scopeId) {
     currentProjectScope = scopeId;
     currentShard = scopeId === 'ALL' ? 'ALL' : (projectRegistry.find(p => p.id === scopeId)?.code || 'ALL');
     renderSidebarShards();
+    updateTopTabLabels();
     renderProjectContextBanner();
     renderSNSProjectContextBanner();
 
@@ -2565,6 +2660,17 @@ function escapeHtml(str) {
 
   function switchTeamProject(proj) {
     currentTeamProject = proj;
+
+    // もし全体統括ならタブを表示し、プロジェクト個別なら該当プロジェクトに完全固定
+    const tabsContainer = document.getElementById("harnessProjectTabsNav");
+    if (tabsContainer) {
+      if (currentProjectScope === 'ALL') {
+        tabsContainer.classList.remove("hidden");
+      } else {
+        tabsContainer.classList.add("hidden");
+      }
+    }
+
     // update tabs
     document.querySelectorAll(".team-tab-btn").forEach(btn => {
       btn.className = "team-tab-btn px-3.5 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer flex items-center gap-1.5";
@@ -3405,6 +3511,31 @@ function escapeHtml(str) {
           <p class="text-slate-200 text-[11px]">Instagram / TikTokからのセルフケア流入 ➔ LINEステップでの毎日体操指導 ➔ 有料講座成約への独立ファネル。</p>
         </div>
       `;
+    }
+  }
+
+  
+  function renderSNSView() {
+    renderSNSProjectContextBanner();
+    const proj = projectRegistry.find(p => p.id === currentProjectScope) || projectRegistry[0];
+
+    const ptSpecific = document.getElementById("ptMarketingDetailsSection");
+    const generalGrid = document.getElementById("generalSnsCardsGrid");
+
+    if (ptSpecific) {
+      if (proj.id === 'pt_student_portal') {
+        ptSpecific.classList.remove("hidden");
+      } else {
+        ptSpecific.classList.add("hidden");
+      }
+    }
+
+    if (generalGrid) {
+      if (proj.id === 'pt_student_portal') {
+        generalGrid.classList.add("hidden");
+      } else {
+        generalGrid.classList.remove("hidden");
+      }
     }
   }
 
