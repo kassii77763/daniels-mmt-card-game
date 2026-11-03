@@ -191,28 +191,7 @@
           <div class="space-y-1" id="shardSwitcherList"></div>
         </div>
 
-        <!-- 7大ビュー ナビゲーション -->
-        <div>
-          <div class="px-1.5 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">Core Views (実態連動)</div>
-                    <nav class="space-y-0.5 text-xs" id="sidebarViewNav">
-            <button onclick="switchMainView('env')" data-view="env" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md bg-indigo-600 text-white font-medium transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-folder-tree w-4 text-center"></i>1. PC環境・フォルダ探査</span>
-              <span class="text-[9px] font-mono bg-black/30 px-1.5 py-0.2 rounded" id="sideBadgeFolders">19 フォルダ</span>
-            </button>
-            <button onclick="switchMainView('projects')" data-view="projects" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-bullseye w-4 text-center text-amber-400"></i>2. 目的・KPI・方向性</span>
-              <span class="text-[9px] font-mono bg-amber-900/60 text-amber-200 border border-amber-700/60 px-1.5 py-0.2 rounded">4大事業</span>
-            </button>
-            <button onclick="switchMainView('harness')" data-view="harness" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-scale-balanced w-4 text-center text-emerald-400"></i>3. 品質監査・ハーネス</span>
-              <span class="text-[9px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.2 rounded">100点 ALL PASS</span>
-            </button>
-            <button onclick="switchMainView('sns')" data-view="sns" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
-              <span class="flex items-center gap-2"><i class="fa-brands fa-youtube w-4 text-center text-rose-400"></i>4. SNS・マーケ環境分析</span>
-              <span class="text-[9px] font-mono bg-rose-950 text-rose-300 border border-rose-800 px-1.5 py-0.2 rounded">YouTube Studio</span>
-            </button>
-          </nav>
-        </div>
+        
 
         <!-- 正典ファイル直結リンク -->
         <div>
@@ -221,6 +200,10 @@
             <button onclick="previewArtifact('AGENTS.md')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
               <span class="truncate"><i class="fa-regular fa-file-lines text-indigo-400 mr-1.5"></i><code>AGENTS.md</code></span>
               <span class="text-[9px] font-mono text-emerald-400">規約</span>
+            </button>
+                        <button onclick="previewArtifact('PROJECT_REGISTRY.json')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
+              <span class="truncate"><i class="fa-solid fa-sitemap text-emerald-400 mr-1.5"></i><code>PROJECT_REGISTRY.json</code></span>
+              <span class="text-[9px] font-mono text-emerald-400">正典</span>
             </button>
             <button onclick="previewArtifact('PROGRESS.md')" class="w-full flex items-center justify-between px-2 py-1 rounded bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800/80 transition cursor-pointer">
               <span class="truncate"><i class="fa-solid fa-list-check text-amber-400 mr-1.5"></i><code>PROGRESS.md</code></span>
@@ -989,10 +972,10 @@
       folderPath: 'projects/*',
       folderHighlight: [],
       purpose: 'PT教育エコシステム（本体・Shorts・MMT）および独立ヘルスケア事業のKPI進捗・品質ハーネス・SNS集客・ローカル環境の統合統括',
-      kpi: 'PTポータル収益化 / YouTube Shorts月間10万再生 / MMT 160枚完全実装 / PC環境健全性100%',
-      snsSummary: 'YouTube Studio（臨床解剖Shorts） + PTポータル公式LINE + 立腰体操LINE',
+      kpi: 'PTポータル収益化 / YouTube Shorts投稿開始 / MMT 160枚完全実装 / PC環境健全性100%',
+      snsSummary: 'YouTube Studio（初期段階・投稿準備中） + PTポータル公式LINE準備中',
       harnessSummary: 'MMT 3層ゲート 100% PASS ＋ PTポータル教育工学裁判官 100点 ALL PASS',
-      pipelineSnippet: '🎬 Shorts(集客) ➔ ⚔️ MMT(教材) ➔ 👑 PTポータル(収益本体) が連動稼働中'
+      pipelineSnippet: '🎬 Shorts(集客) ➔ ⚔️ MMT(教材) ➔ 👑 PTポータル(収益本体) が連動準備中'
     },
     {
       id: 'pt_student_portal',
@@ -1008,8 +991,8 @@
       parentName: null,
       folderPath: 'projects/pt_student_portal',
       folderHighlight: ['pt_student_portal', 'pt_quiz_temp', 'pt_anatomy_quiz'],
-      purpose: '社会人PT学生・留年不安層が「最短1分で赤点を回避し、専門実践給付金での学費破綻を防ぐ」学習セーフティネットの確立と収益化プラットフォーム',
-      kpi: '公式LINE友だち追加 1,000名 / 80筋カルテWebドリル日次アクティブ 300名 / 有料講読・会員LTV化',
+      purpose: '社会人PT学生・留年不安層が「最短1分で赤点を回避し、専門実践教育訓練給付金での学費破綻を防ぐ」学習セーフティネットの確立と収益化プラットフォーム',
+      kpi: '公式LINE友だち登録 ＆ 80筋カルテWebドリル稼働中（実証中）',
       snsSummary: '公式LINE「赤点回避ドリル」連動。Shortsおよび実習検索からのコンバージョン受け皿。',
       harnessSummary: 'AI教育工学裁判官 100点 ALL PASS（誇大広告ゼロ・3点配線図路線図主義）。スモークテストPASS。',
       primaryFiles: ['index.html', 'drill.html', 'server.js', 'harness/ai_pedagogy_judge.py'],
@@ -1023,18 +1006,18 @@
       tier: 'sub',
       group: 'pt_ecosystem',
       role: 'traffic_hook',
-      roleLabel: '🎬 PT集客フック（フロントエンド）',
+      roleLabel: '🎬 PT集客フック（初期稼働中）',
       roleBadgeClass: 'bg-rose-950 text-rose-300 border border-rose-800',
       parentId: 'pt_student_portal',
       parentName: '👑 PT学生の学習帖 (PTポータル)',
       folderPath: 'projects/youtube_visual_library',
       folderHighlight: ['youtube_visual_library'],
       purpose: '解剖学・触診・臨床動作の「視覚的ショート動画（路線図配線図）」を発信し、PT学生・医療従事者からの認知・信頼を最大化する集客フロントエンド',
-      kpi: 'Shorts平均再生数 10,000+ / 視聴維持率 70%超 / プロフィール・固定コメントからのLINE遷移率 3%',
-      snsSummary: 'YouTube Studioチャンネル「臨床解剖」実データ連動。アルゴリズム推奨最適化・離脱防止SE実装。',
+      kpi: '自動録画パイプライン検証完了 / 投稿開始後の視聴維持率70%目標（実測値蓄積待ち）',
+      snsSummary: 'YouTube Studio初期稼働中。15秒自動生成 ＆ SE同期スクリプト検証完了。',
       harnessSummary: '動画自動生成スクリプト（record_shorts.js）構文検証 ＆ SE同期テスト PASS。',
       primaryFiles: ['record_shorts.js', 'audit_channel_power.js', 'generate_shorts_se.js'],
-      pipelineSnippet: '【集客の蛇口】ここで数万人のPT学生を惹きつけ、親プロジェクト「👑 PT学生の学習帖」の公式LINEへ送客'
+      pipelineSnippet: '【集客の蛇口】ここでPT学生を惹きつけ、親プロジェクト「👑 PT学生の学習帖」の公式LINEへ送客'
     },
     {
       id: 'mmt_card_game',
@@ -1044,18 +1027,18 @@
       tier: 'sub',
       group: 'pt_ecosystem',
       role: 'educational_hook',
-      roleLabel: '⚔️ PT教材・制作高負荷',
+      roleLabel: '⚔️ PT教材・制作中',
       roleBadgeClass: 'bg-amber-950 text-amber-300 border border-amber-800',
       parentId: 'pt_student_portal',
       parentName: '👑 PT学生の学習帖 (PTポータル)',
       folderPath: 'projects/mmt_card_game',
       folderHighlight: ['mmt_card_game'],
       purpose: 'ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床判定Webカードゲーム。実技試験・臨床実習の判定シミュレーターとして制作し、PTポータルに埋め込み連携。',
-      kpi: '確定27枚 ➔ 160枚完全実装 / OpenCV幾何監査 ＆ Playwright E2E ALL PASS / PTポータル内での稼働',
+      kpi: '確定27枚完全実装済み ➔ 160枚完全カタログ確定 / OpenCV幾何監査 ＆ Playwright E2E ALL PASS',
       snsSummary: 'YouTube Shortsでの「MMT実技あるある・判定トラップ」解説 ＆ ポータル教材連携。',
       harnessSummary: 'OpenCV幾何監査、Playwright E2E、3層品質ゲート（決定論 vs 非決定論）完全稼働中。',
       primaryFiles: ['index.html', 'cockpit.html', 'AGENTS.md', 'harness/image_quality_gate.py'],
-      pipelineSnippet: '【キラー教材】制作コスト大（160枚完備）。親プロジェクト「👑 PT学生の学習帖」の独自価値・会員特典として搭載'
+      pipelineSnippet: '【キラー教材】制作高負荷（160枚完備）。親プロジェクト「👑 PT学生の学習帖」の独自価値・会員特典として搭載'
     },
     {
       id: 'line_bot_proposal',
@@ -1065,18 +1048,18 @@
       tier: 'primary',
       group: 'healthcare',
       role: 'independent_core',
-      roleLabel: '🧘 独立事業（一般向け）',
-      roleBadgeClass: 'bg-teal-950 text-teal-300 border border-teal-800',
+      roleLabel: '🧘 独立事業（構想中）',
+      roleBadgeClass: 'bg-slate-800 text-slate-300 border border-slate-700',
       parentId: null,
       parentName: null,
       folderPath: 'projects/line_bot_proposal',
       folderHighlight: ['line_bot_proposal'],
-      purpose: '一般の腰痛・姿勢に悩む人に向けた、立腰体操の継続指導・LINEステップ配信システム。PT教育とはターゲットを分けた独立ヘルスケア事業。',
-      kpi: 'LINE友だち追加数 / 体操実践継続率 40%超 / 個別指導・オンライン教材成約率 5%',
-      snsSummary: 'Instagram / TikTokからのセルフケア流入 ➔ LINEステップシナリオ自動配信。',
-      harnessSummary: 'LINE Bot対話シナリオ構文・自動応答テスト。',
+      purpose: '一般の腰痛・姿勢に悩む人に向けた、立腰体操の継続指導・LINEステップ配信システム（構想段階・未着手）。',
+      kpi: '未設定（PT教育エコシステムの基盤確立後に着手予定）',
+      snsSummary: '未連携（構想中）',
+      harnessSummary: '未実施（着手時に構築）',
       primaryFiles: ['scenario.json', 'bot.js'],
-      pipelineSnippet: '【独立事業】PT学生とは完全に分けた一般向け腰痛改善セルフケア事業（SNS ➔ LINEステップ指導 ➔ 教材）'
+      pipelineSnippet: '【構想中】PT学生とは完全に分けた一般向け腰痛改善セルフケア事業（現在保留・リソース待機中）'
     }
   ];
 
@@ -2153,7 +2136,7 @@ function escapeHtml(str) {
           <span class="flex items-center gap-1.5 truncate">
             <span class="truncate">${p.name}</span>
           </span>
-          <span class="text-[9px] font-mono px-1 rounded bg-teal-950 text-teal-300 border border-teal-800 flex-shrink-0">独立</span>
+          <span class="text-[9px] font-mono px-1 rounded bg-slate-800 text-slate-400 border border-slate-700 flex-shrink-0">構想中</span>
         </button>
       `;
     });
@@ -3406,43 +3389,55 @@ function escapeHtml(str) {
   const strategicProjectsData = [
     {
       id: 'pt_portal',
+      code: 'PT',
       title: '📚 PT学生の学習帖 (PTポータル)',
-      phase: 'Phase 2: スモークテスト実証 ＆ LINEドリル展開',
-      mission: '社会人PT学生・留年危機層が「最短1分で赤点を回避し、専門実践給付金で学費破綻を防ぐ」学習セーフティネットの確立',
-      primaryKpi: '公式LINE「赤点回避ドリル」友だち追加数 ＆ 80筋カルテ日次利用率',
-      currentStatus: '全80筋カルテ ＆ 3連動クイズ完備。架空煽りコピーを完全排除し、実機Playwright・Gemini二重監査 100点 ALL PASS達成。',
-      pivotNotes: '【最新の方向性変更】写実アトラス競合（Warm Bone表記）を全面禁止し、「起始・停止・支配神経の3点記号化配線図（路線図主義）」へ完全ピボット完了。',
-      badges: ['Cloudflare Pages', '週15hモデル', '教育訓練給付金25校DB']
+      phase: 'Phase 2: スモークテスト実証 ＆ LINEドリル準備',
+      mission: '社会人PT学生・留年危機層が「最短1分で赤点を回避し、専門実践教育訓練給付金で学費破綻を防ぐ」学習セーフティネットの確立（収益本体）',
+      primaryKpi: '公式LINE「赤点回避ドリル」友だち登録 ＆ 80筋カルテWebドリル稼働',
+      currentStatus: '全80筋カルテWebドリル稼働中・スモークテストPASS・AI裁判官100点是正完了',
+      harnessSpec: 'ai_pedagogy_judge.py 100点 ALL PASS（誇大広告ゼロ・3点路線図主義）',
+      nextFocus: '実習・国試対策ドリルとLINE登録ステップの接続、および教材コンテンツ拡充',
+      pivotNotes: '「誰でも一発合格」などの安易な誇大広告を全面排除し、臨床・国試直結の実利と誠実さで信頼を獲得する路線へ完全確定。',
+      badges: ['収益本体', 'AI裁判官100点', 'Webドリル稼働中']
     },
     {
-      id: 'mmt_card_game',
+      id: 'mmt_card',
+      code: 'MMT',
       title: '⚔️ Daniels MMT Tactical Card Game',
-      phase: 'Phase 3: 160枚完備・PWAスタンドアロン運用',
-      mission: '理学療法士・作業療法士の実技試験の最難関「ダニエルズ徒手筋力検査法（第10版）」を完全暗記する臨床タクティカルゲーム',
-      primaryKpi: '160手技の画像・肢位・グレード判定 100%整合 ＆ オフラインPWA動作',
-      currentStatus: '全160手技確定座標カタログ（dictionary-mapping.json）完全連動。OpenCV画像ゲート180/180 PASS。',
-      pivotNotes: '【最新の方向性変更】不整合時のダミー画像穴埋め（すり替え）を憲法レベルで完全禁止。テスト落ち時は即時停止する堅牢性を確立。',
-      badges: ['GitHub Pages', 'ダニエルズ第10版', 'OpenCV品質ゲート']
+      phase: 'Phase 1: 確定27枚実装完了 ➔ 160枚完全カタログ展開中',
+      mission: 'ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床判定Webカードゲーム。PTポータルのキラー教材として活用。',
+      primaryKpi: '全160枚確定カタログの実装 ＆ OpenCV幾何・Playwright E2E監査 ALL PASS',
+      currentStatus: '確定27枚完全実装済み・3層品質ゲート（決定論コード ＆ LLM監査）完全稼働',
+      harnessSpec: 'image_quality_gate.py ＆ e2e_full_verification.js ALL PASS（Exit Code 0）',
+      nextFocus: '残り133枚のカタログ座標抽出と自動テスト順次適用、PTポータル内での連携埋め込み',
+      pivotNotes: '単なる写実イラストではなく「起始(赤)・停止(青)・支配神経(黄)の3点配線図（路線図主義）」に徹底し、実技試験直結のクイック判定価値へ集中。',
+      badges: ['PT教材', '160枚完備', '3層品質ゲート']
     },
     {
-      id: 'tatekoshi_gym',
-      title: '🧘 立腰体操・姿勢改善 LINE予約 ＆ 自律配信',
-      phase: 'Phase 1: GAS × LINE予約自動化 ＆ 実証',
-      mission: '腰痛・姿勢崩壊に悩むデスクワーカー・学生へ、立腰体操の習慣化リマインドと予約受付を完全自動化する',
-      primaryKpi: 'LINE予約稼働率 99.8% ＆ 朝の習慣化リマインド開封率',
-      currentStatus: 'GASバックエンドスクリプト正常稼働。毎朝の自動通知と予約台帳同期を維持。',
-      pivotNotes: '【最新の方向性変更】複雑な独自アプリ開発を取りやめ、使い慣れたLINE公式アカウント内で1秒完結するUIへ集中。',
-      badges: ['LINE Messaging API', 'GASサーバーレス', '習慣化リマインド']
+      id: 'anat_shorts',
+      code: 'SHORTS',
+      title: '🎬 臨床解剖 YouTube Shorts',
+      phase: 'Phase 1: 自動録画パイプライン検証完了 ➔ 投稿準備中',
+      mission: '解剖学・触診・臨床動作の視覚的ショート動画（15秒路線図配線図）を発信し、PT学生・医療従事者からの認知を獲得してPTポータルへ送客するフロントエンド。',
+      primaryKpi: '動画自動生成の安定稼働 ＆ 投稿開始後の視聴維持率70%超（実測値蓄積待ち）',
+      currentStatus: 'Playwright自動録画（上腕二頭筋・腕橈骨筋等）＋SE同期スクリプト検証完了・チャンネル初期稼働中',
+      harnessSpec: 'record_shorts.js 構文検証 ＆ 幾何セーフゾーン（1452px）自動検査 PASS',
+      nextFocus: '初期動画の定期投稿開始と、YouTube Studioアナリティクスの実データ蓄積・改善サイクル構築',
+      pivotNotes: '冒頭1〜2秒の離脱防止（ビール乾杯筋などの直感フック）と、固定コメントからの公式LINE自然流入ラインを設計。',
+      badges: ['集客フック', '初期稼働中', '15秒自動生成']
     },
     {
-      id: 'anat_video',
-      title: '🎬 臨床解剖 Shorts動画 自律量産パイプライン',
-      phase: 'Phase 2: 15秒フォーマット確立 ＆ YouTube Studio連携',
-      mission: '筋肉の「起始・停止・支配神経」が15秒で脳に焼き付くYouTube Shorts動画を、PCスペック制約（VRAM 128MB）下で自動量産する',
-      primaryKpi: '視聴維持率（15秒完走率） ＆ 概要欄・コメント欄からのPTポータル流入数',
-      currentStatus: '腕橈骨筋・上腕二頭筋・上腕三頭筋の15秒動画生成完備。FFmpeg + Python軽量CLI合成によるGate 0完全適合。',
-      pivotNotes: '【最新の方向性変更】VRAM不足でフリーズするローカル重AI動画生成を却下し、CPUで4.2秒で書き出せる2DスライドFFmpeg合成へピボット。',
-      badges: ['YouTube Shorts', 'FFmpeg CLI合成', 'VRAM 128MB適合']
+      id: 'tatekoshi_line',
+      code: 'TATE',
+      title: '🧘 立腰体操 LINE Bot・教材（構想・準備中）',
+      phase: 'Phase 0: コンセプト設計・構想段階（未着手）',
+      mission: '一般の腰痛・姿勢に悩む人に向けた立腰体操の継続指導モデル。PT教育エコシステムとはターゲットを分けた独立事業として構想中。',
+      primaryKpi: '未設定（PT教育エコシステムの基盤確立後に設定予定）',
+      currentStatus: '構想段階・未着手（コード・シナリオ準備待ち）',
+      harnessSpec: '未実施（プロジェクト本格始動時に策定）',
+      nextFocus: 'まずはPTポータル（収益本体）とMMTカードゲームの基盤確立に注力するため、現段階では保留・リソース配分待機。',
+      pivotNotes: 'PT教育とは完全に分離した一般向けセルフケア事業として、適切なタイミングで再開予定。',
+      badges: ['独立事業', '構想中', '未着手']
     }
   ];
 
@@ -3602,26 +3597,26 @@ function escapeHtml(str) {
   // =========================================================================
   const snsAnalyticsData = {
     metrics: [
-      { label: 'YouTube Shorts 総インプレッション', val: '12,480 回', sub: '前週比 +24%', color: 'rose', icon: 'fa-eye' },
-      { label: '解剖Shorts 平均視聴維持率 (15s)', val: '78.4%', sub: '完走率業界平均 (65%) 超過', color: 'emerald', icon: 'fa-chart-pie' },
-      { label: '公式LINE 赤点ドリル 友だち登録', val: '42 名', sub: 'スモークテスト転換率 8.4%', color: 'emerald', icon: 'fa-user-plus' },
-      { label: 'Shorts ➔ PTポータル 誘導クリック', val: '318 回', sub: 'カルテ逆引き大事典直撃', color: 'indigo', icon: 'fa-arrow-up-right-from-square' }
+      { label: 'YouTube Shorts 制作状況', val: 'パイプライン稼働中', sub: '上腕二頭筋・腕橈骨筋検証済', color: 'indigo', icon: 'fa-video' },
+      { label: 'YouTube Studio 実データ', val: '計測準備中', sub: '初期アカウント・投稿後蓄積待ち', color: 'slate', icon: 'fa-chart-simple' },
+      { label: '公式LINE 赤点回避ドリル', val: '準備中', sub: 'スモークテスト検証完了', color: 'emerald', icon: 'fa-line' },
+      { label: '競合市場調査', val: '完了（空白地帯特定）', sub: '西島ゼミ・KATZ調査済', color: 'amber', icon: 'fa-compass' }
     ],
     shortsSample: [
       {
         muscle: '腕橈骨筋 (Brachioradialis)',
         duration: '15秒',
-        evalStatus: 'ALL PASS (8大幾何クリア)',
+        evalStatus: '自動録画検証 PASS (8大幾何クリア)',
         hookPoint: '「前腕のビール乾杯筋！起始は上腕骨外側上顆？」',
-        dropOffRate: '1秒目離脱: 14% (超低水準)',
+        dropOffRate: '配信前テスト動画',
         verdictText: '字幕位置1452px(セーフゾーン内)、ネタバレ防止マスク正常、音声と文字シンクロ合格'
       },
       {
         muscle: '上腕二頭筋 (Biceps Brachii)',
         duration: '15秒',
-        evalStatus: 'ALL PASS (合格)',
+        evalStatus: '自動録画検証 PASS (合格)',
         hookPoint: '「力こぶの主役！烏口突起から始まる短頭と長頭の分かれ道」',
-        dropOffRate: '1秒目離脱: 12%',
+        dropOffRate: '配信前テスト動画',
         verdictText: 'Warm Bone表記排除、起始(赤)・停止(青)・支配神経(黄)の3点配線図で直感理解'
       }
     ],
