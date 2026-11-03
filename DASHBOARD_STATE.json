@@ -1,0 +1,104 @@
+{
+  "last_synced_at": "2026-11-03T16:48:50+09:00",
+  "sync_mode": "hourly_daemon",
+  "projects": {
+    "pt_student_portal": {
+      "folder": "projects/pt_student_portal",
+      "verified_file_count": 26,
+      "verified_files": [
+        ".env",
+        ".env.example",
+        ".gitignore",
+        "AGENTS.md",
+        "app.js",
+        "dashboard_ai_automation_spec.md",
+        "debug_dict_shot.png",
+        "debug_fixed_dict.png",
+        "debug_test_tab.png",
+        "index.html",
+        "line-qr.png",
+        "MILESTONES.md"
+      ],
+      "milestone": {
+        "north_star_kpi": "公式LINE「赤点回避ドリル」有効友だち数 100名（年内達成目標）",
+        "active_milestone": "M1: 導線開通スプリント",
+        "deadline": "2026-11-10",
+        "days_remaining": 7,
+        "tasks_total": 7,
+        "tasks_done": 2,
+        "progress_pct": 29,
+        "non_goals": []
+      }
+    },
+    "youtube_visual_library": {
+      "folder": "projects/youtube_visual_library",
+      "verified_file_count": 5,
+      "verified_files": [
+        "index.html",
+        "MILESTONES.md",
+        "PROGRESS.md",
+        "README.md",
+        "SPEC.md"
+      ],
+      "milestone": {
+        "north_star_kpi": "動画自動生成パイプライン稼働100% ＆ 投稿後の視聴維持率70%超・LINE遷移率3.0%以上",
+        "active_milestone": "M1: パイプライン検証 ＆ 初期3本投稿スプリント",
+        "deadline": "2026-11-10",
+        "days_remaining": 7,
+        "tasks_total": 6,
+        "tasks_done": 2,
+        "progress_pct": 33,
+        "non_goals": []
+      }
+    },
+    "mmt_card_game": {
+      "folder": "projects/mmt_card_game",
+      "verified_file_count": 24,
+      "verified_files": [
+        ".gitignore",
+        ".nojekyll",
+        "AGENTS.md",
+        "app.js",
+        "apply_verified_hardcoded_deck.py",
+        "cockpit.html",
+        "harness_snapshot.json",
+        "index.html",
+        "launch_cockpit.bat",
+        "manifest.json",
+        "MILESTONES.md",
+        "PROGRESS.md"
+      ],
+      "milestone": {
+        "north_star_kpi": "先行27枚のポータル連携稼働 ＆ 残り133枚の段階実装（3層品質ゲートALL PASS）",
+        "active_milestone": "M1: 27枚先行体験版の切り出し ＆ ポータル連携スプリント",
+        "deadline": "2026-11-10",
+        "days_remaining": 7,
+        "tasks_total": 6,
+        "tasks_done": 2,
+        "progress_pct": 33,
+        "non_goals": []
+      }
+    },
+    "line_bot_proposal": {
+      "folder": "projects/line_bot_proposal",
+      "verified_file_count": 5,
+      "verified_files": [
+        "index.html",
+        "MILESTONES.md",
+        "PROGRESS.md",
+        "README.md",
+        "server.js"
+      ],
+      "milestone": {
+        "north_star_kpi": "未設定（PT教育エコシステムの自走化後に設定）",
+        "active_milestone": "M0: 計画的保留フェーズ",
+        "deadline": "2026-12-15",
+        "days_remaining": 42,
+        "tasks_total": 3,
+        "tasks_done": 2,
+        "progress_pct": 67,
+        "non_goals": []
+      }
+    }
+  }
+}
