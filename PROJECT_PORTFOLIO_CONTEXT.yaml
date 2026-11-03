@@ -1,8 +1,8 @@
 meta:
-  spec_version: 1.1.0
-  generated_at: '2026-11-03T15:45:29+09:00'
+  spec_version: 1.2.0
+  generated_at: '2026-11-03T15:59:40+09:00'
   environment: Windows Local + GitHub Pages Live (Auto-Verified by sync_portfolio_context.py)
-  document_purpose: ローカル実ファイル自動検査に基づくポートフォリオ正典仕様書
+  document_purpose: ローカル実ファイル自動検査およびアーカイブ物理整理済みのポートフォリオ正典仕様書
 portfolio_architecture:
   pt_education_ecosystem:
     concept: 社会人PT学生・留年不安層を救済し、実習・国試を完結させる収益化プラットフォーム
@@ -16,7 +16,7 @@ filesystem_audit:
   - youtube_visual_library
   - mmt_card_game
   - line_bot_proposal
-  unregistered_folders_to_archive:
+  archived_projects_in_storage:
   - agent_reach_guide
   - api_security_lab
   - icf_natural_mapper
@@ -32,6 +32,8 @@ filesystem_audit:
   - pt_knowledge_visual_library
   - pt_quiz_temp
   - status_guide_board
+  unregistered_folders_in_root:
+  - agent_reach_guide
 projects:
   pt_student_portal:
     name: 👑 PT学生の学習帖 (PTポータル)
