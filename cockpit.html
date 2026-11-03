@@ -110,32 +110,35 @@
        ===================================================================== -->
   <header id="statusStrip" class="bg-slate-950 text-slate-100 border-b border-slate-800 px-3.5 py-1.5 text-[11px] flex flex-wrap items-center justify-between gap-2 z-50 flex-shrink-0">
     <div class="flex flex-wrap items-center gap-2.5">
-      <!-- 接続インジケータ（ローカルSSE または GitHub Pagesクラウド同期） -->
-      <div id="sseStatusContainer" class="flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all">
+      <!-- 1時間自動同期ステータス（実機稼働中） -->
+      <div id="sseStatusContainer" class="flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2.5 py-0.5 rounded transition-all">
         <span class="relative flex h-2 w-2">
           <span id="ssePing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span id="sseDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          <span id="sseDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span id="sseStatusLabel" class="font-mono font-semibold text-emerald-200">SSE LIVE: 127.0.0.1:8795</span>
-        <span class="text-emerald-400 font-mono" id="lastCheckedText">監視中</span>
+        <span id="sseStatusLabel" class="font-mono text-[10px] text-emerald-300 font-semibold tracking-wide">
+          <i class="fa-solid fa-arrows-rotate mr-1 animate-spin-slow"></i>1時間自動同期常駐（Task Scheduler 稼働中）
+        </span>
       </div>
 
       <!-- プロダクト実態バッジ -->
       <div class="flex items-center space-x-1.5 bg-slate-900 border border-slate-700 px-2 py-0.5 rounded font-mono text-slate-300">
         <i class="fa-solid fa-code-branch text-indigo-400 text-[10px]"></i>
-        <span>Release: <strong class="text-amber-300">v21 (PWA対応済)</strong></span>
+        <span>Active Projects: <strong class="text-amber-300">4事業 (15退避済)</strong></span>
       </div>
 
       <!-- ハーネス監査状態 -->
       <div class="hidden xl:flex items-center space-x-1.5 bg-emerald-950/60 border border-emerald-800 px-2 py-0.5 rounded font-mono text-emerald-300">
         <i class="fa-solid fa-shield-check text-emerald-400 text-[10px]"></i>
-        <span>Harness Gate: <strong>180/180 ALL PASS (100%)</strong></span>
+        <span>裁判官ゲート: <strong class="text-emerald-400">Exit Code 0 (ALL PASS)</strong></span>
       </div>
 
-      <!-- SHA指紋 -->
-      <span class="hidden 2xl:inline font-mono text-[10px] text-slate-400">
-        SHA-256: <code id="shaFingerprint" class="text-indigo-300">gh-pages-sync</code> | 台帳: <code class="text-slate-300">tasks.yaml</code>
-      </span>
+      <!-- 最終同期時刻 -->
+      <div class="hidden sm:flex items-center space-x-1 text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2">
+        <i class="fa-regular fa-clock text-slate-500 mr-0.5"></i>
+        <span>最終同期:</span>
+        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">取得中...</span>
+      </div>
     </div>
 
     <!-- 右側アクション -->
@@ -143,18 +146,19 @@
       <!-- テーマ切替 -->
       <div class="flex items-center bg-slate-900 border border-slate-700 rounded p-0.5 text-[10px]">
         <button onclick="setTheme('ecru')" id="themeBtn-ecru" class="px-1.5 py-0.5 rounded bg-amber-100 text-stone-900 font-semibold cursor-pointer">Ecru</button>
-        <button onclick="setTheme('jira')" id="themeBtn-jira" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Jira</button>
-        <button onclick="setTheme('dark')" id="themeBtn-dark" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white cursor-pointer">Dark</button>
+        <button onclick="setTheme('cyber')" id="themeBtn-cyber" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-slate-200 cursor-pointer">Cyber</button>
       </div>
 
+      <!-- コマンドパレット -->
       <button onclick="openCommandPalette()" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-2 py-1 rounded font-mono text-[10px] flex items-center gap-1 cursor-pointer">
-        <i class="fa-solid fa-magnifying-glass text-indigo-400"></i>
-        <span>Ctrl+K</span>
+        <i class="fa-solid fa-terminal text-[10px] text-amber-400"></i>
+        <span class="hidden sm:inline">Cmd [Ctrl+K]</span>
       </button>
 
+      <!-- 実機本番リンク -->
       <a id="gameLinkBtn" href="./" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition text-[11px]">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>MMTゲーム画面を開く</span>
+        <span>カードゲーム本体起動</span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
       </a>
     </div>
   </header>
@@ -293,7 +297,7 @@
                   <div>
                     <h2 class="text-base font-bold text-ecru-text">💻 PCローカル環境 ＆ プロジェクトフォルダ全数探査</h2>
                     <p class="text-xs text-ecru-subtext mt-0.5">
-                      AIエージェントが生成・増殖させた全19フォルダの現在地・ステータス判定（現役稼働・完了凍結・放置候補）
+                      全4大アクティブ事業 ＋ 15フォルダ退避済（projects/_archive/ へ物理アーカイブ完了）
                     </p>
                   </div>
                 </div>
@@ -302,13 +306,13 @@
               <!-- フォルダサマリーバッジ -->
               <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
                 <span class="px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
-                  ● 現役中核: 2 フォルダ (PTポータル / MMT)
-                </span>
-                <span class="px-2.5 py-1 rounded-md bg-amber-100 text-amber-800 border border-amber-300 font-bold">
-                  ▲ 完了・参照用: 5 フォルダ
+                  ● 4大アクティブ事業 (直下配置)
                 </span>
                 <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-300 font-bold">
-                  ⏸ 過去・休眠: 12 フォルダ
+                  ⏸ 15フォルダ退避済 (projects/_archive/ へ物理アーカイブ完了)
+                </span>
+                <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 border border-indigo-300 font-bold">
+                  総計: 19フォルダ
                 </span>
               </div>
             </div>
@@ -317,9 +321,8 @@
             <div class="pt-2 border-t border-ecru-border flex flex-wrap items-center justify-between gap-2 text-xs">
               <div class="flex items-center gap-1.5 p-1 bg-ecru-surface rounded-lg border border-ecru-borderStrong" id="folderFilterTabs">
                 <button onclick="filterFolders('all')" id="btn-folder-all" class="folder-tab-btn px-2.5 py-1 rounded text-xs font-bold bg-indigo-600 text-white shadow-xs cursor-pointer">全19フォルダ</button>
-                <button onclick="filterFolders('active')" id="btn-folder-active" class="folder-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-emerald-800 hover:bg-emerald-100 cursor-pointer">● 現役・中核のみ (2)</button>
-                <button onclick="filterFolders('completed')" id="btn-folder-completed" class="folder-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-amber-800 hover:bg-amber-100 cursor-pointer">▲ 完了・正史あり (5)</button>
-                <button onclick="filterFolders('dormant')" id="btn-folder-dormant" class="folder-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer">⏸ 休眠・スクラッチ (12)</button>
+                <button onclick="filterFolders('active')" id="btn-folder-active" class="folder-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-emerald-800 hover:bg-emerald-100 cursor-pointer">● 4大アクティブ事業 (4)</button>
+                <button onclick="filterFolders('archive')" id="btn-folder-dormant" class="folder-tab-btn px-2.5 py-1 rounded text-xs font-semibold text-slate-700 hover:bg-slate-100 cursor-pointer">⏸ 退避アーカイブ (15)</button>
               </div>
 
               <div class="relative">
@@ -505,9 +508,9 @@
             <div class="text-[11px] text-ecru-subtext mt-1">※以前の42名はGeminiのダミー表示でした</div>
           </div>
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
-            <div class="text-xs text-ecru-subtext flex justify-between"><span>出題可能カード総数</span><i class="fa-solid fa-layer-group text-indigo-600"></i></div>
-            <div class="text-2xl font-bold font-mono mt-1">160 枚 <span class="text-xs font-sans font-semibold text-emerald-600">(133枚実動)</span></div>
-            <div class="text-[11px] text-ecru-subtext mt-1">アーカイブ27枚（完全一致整合保証）</div>
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>先行出題カード数</span><i class="fa-solid fa-layer-group text-indigo-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">27 枚 <span class="text-xs font-sans font-semibold text-indigo-600">先行公開版</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">確定27枚先行体験版稼働中（残り133枚はM2スプリント以降に段階拡張）</div>
           </div>
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
             <div class="text-xs text-ecru-subtext flex justify-between"><span>3層ハーネス監査結果</span><i class="fa-solid fa-shield-check text-emerald-600"></i></div>
@@ -602,7 +605,7 @@
               </button>
               <button onclick="switchTeamProject('mmt')" id="teamTab-mmt" class="team-tab-btn px-3.5 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer flex items-center gap-1.5">
                 <i class="fa-solid fa-shield-cat text-amber-500"></i>
-                <span>⚔️ MMTカードゲーム編 (160枚完備)</span>
+                <span>⚔️ MMTカードゲーム編 (先行27枚版)</span>
               </button>
             </div>
           </div>
@@ -765,7 +768,10 @@
                 <div class="bg-ecru-surface p-3.5 rounded-lg border border-ecru-border/60 space-y-1">
                   <span class="text-rose-600 font-bold block text-[11px]"><i class="fa-brands fa-youtube mr-1"></i>1. 集客（Shorts動画）</span>
                   <p class="text-ecru-text font-semibold">視覚的解剖ショート動画で認知獲得</p>
-                  <p class="text-[10px] text-ecru-subtext font-sans">「上腕二頭筋3点配線図」等で毎月数万人の学生にアプローチ。固定コメントからLINEへ誘導。</p>
+                  <p class="text-[10px] text-slate-700 font-sans">
+                    <span class="font-bold text-rose-700">【設計目標】</span>「3点配線図」で月間1万再生・LINE遷移率3%<br>
+                    <span class="font-bold text-slate-500">【現在地】</span>初期3本自動録画検証完了・投稿準備中（実測値: 0回）
+                  </p>
                 </div>
                 <div class="bg-ecru-surface p-3.5 rounded-lg border border-ecru-border/60 space-y-1">
                   <span class="text-emerald-600 font-bold block text-[11px]"><i class="fa-brands fa-line mr-1"></i>2. 教育（公式LINEドリル）</span>
@@ -807,8 +813,8 @@
 
 
               <div class="flex items-center gap-2 text-xs font-mono">
-                <span class="px-2.5 py-1 rounded bg-rose-100 text-rose-800 font-bold border border-rose-300">
-                  <i class="fa-solid fa-signal mr-1"></i>YouTube Studio 連携中
+                <span class="px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold border border-slate-300 font-mono">
+                  <i class="fa-solid fa-chart-line mr-1"></i>YouTube Studio: 初期稼働・実測蓄積待ち
                 </span>
                 <span class="px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">
                   <i class="fa-brands fa-line mr-1"></i>LINEドリル事前登録稼働
@@ -843,8 +849,8 @@
           <div class="space-y-2.5 text-xs">
             <div class="p-3 rounded-lg bg-emerald-50/80 border border-emerald-300 flex items-center justify-between">
               <div>
-                <span class="font-bold text-emerald-950">Phase 1〜3: 160枚完備 ＆ PWAアプリ化 ＆ 判定・カルタ・フロー実装</span>
-                <p class="text-[11px] text-emerald-800 mt-0.5">v1〜v21 にて実装完了・ハーネス3層監査 ALL PASS 達成</p>
+                <span class="font-bold text-emerald-950">Phase 1: 確定27枚先行公開 ＆ 3層品質ゲートALL PASS（先行体験版提供中）</span>
+                <p class="text-[11px] text-emerald-800 mt-0.5">確定27枚は監査完了・ポータル連携中。残り133枚はM2スプリント以降に段階実装</p>
               </div>
               <span class="font-mono text-[11px] font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">達成済</span>
             </div>
@@ -1232,6 +1238,49 @@
           </div>
         </div>
         ${milestoneWidgetHtml}
+        
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+          <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
+            <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+            </div>
+            <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
+              <li>YouTube Studioでの初期動画公開操作</li>
+              <li>公式LINE応答メッセージのURL設定</li>
+              <li>実機スマホでの導線目視チェック</li>
+            </ul>
+          </div>
+
+          <!-- ② ファネル疎通ヘルスチェック（4段階物理開通ランプ） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
+            <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
+              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+            </div>
+          </div>
+
+          <!-- ③ 残り日数に対する理論ペース差分（リード/ビハインド） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-emerald-500/40 space-y-1">
+            <div class="flex items-center justify-between text-emerald-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-gauge-high mr-1 text-emerald-400"></i>M1 消化ペース判定</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
+            </div>
+            <div class="text-[10px] text-slate-300 space-y-0.5">
+              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
+              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+            </div>
+          </div>
+        </div>
+
       `;
     } else {
       if (titleEl) titleEl.innerHTML = `${proj.name} <span class="text-xs font-normal text-ecru-subtext ml-1">— プロジェクト個別コックピット</span>`;
@@ -1262,6 +1311,49 @@
           </div>
         </div>
         ${milestoneWidgetHtml}
+        
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+          <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
+            <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+            </div>
+            <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
+              <li>YouTube Studioでの初期動画公開操作</li>
+              <li>公式LINE応答メッセージのURL設定</li>
+              <li>実機スマホでの導線目視チェック</li>
+            </ul>
+          </div>
+
+          <!-- ② ファネル疎通ヘルスチェック（4段階物理開通ランプ） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
+            <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
+              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+            </div>
+          </div>
+
+          <!-- ③ 残り日数に対する理論ペース差分（リード/ビハインド） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-emerald-500/40 space-y-1">
+            <div class="flex items-center justify-between text-emerald-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-gauge-high mr-1 text-emerald-400"></i>M1 消化ペース判定</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
+            </div>
+            <div class="text-[10px] text-slate-300 space-y-0.5">
+              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
+              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+            </div>
+          </div>
+        </div>
+
       `;
     }
   }
@@ -1276,13 +1368,13 @@
     // SSE & BACKEND
     let eventSource = null;
     function initSSE() {
+      // 1時間自動同期常駐モード（GitHub Pages ＆ ローカルTask Scheduler完全同期）
+      updateMilestoneSyncHeader();
       if (isLocalEnvironment && window.EventSource) {
         eventSource = new EventSource('/events');
         eventSource.onopen = () => {
-          document.getElementById("sseStatusContainer").className = "flex items-center space-x-1.5 bg-emerald-950/90 border border-emerald-700/70 px-2 py-0.5 rounded transition-all";
-          document.getElementById("sseStatusLabel").textContent = "SSE LIVE: 127.0.0.1:8795";
-          document.getElementById("ssePing").className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
-          document.getElementById("sseDot").className = "relative inline-flex rounded-full h-2 w-2 bg-emerald-400";
+          const lbl = document.getElementById("sseStatusLabel");
+          if (lbl) lbl.innerHTML = '<i class="fa-solid fa-arrows-rotate mr-1 animate-spin-slow"></i>1時間自動同期常駐（Task Scheduler / SSE稼働）';
         };
         eventSource.onmessage = (event) => {
           try {
@@ -1895,6 +1987,49 @@ function renderArchZoneCards(scope) {
         </div>
         <div class="text-[9px] text-purple-800 pt-1 border-t border-purple-100">不変性: 裁判官の判決証跡を伴う確定資産</div>
         ${milestoneWidgetHtml}
+        
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+          <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
+            <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+            </div>
+            <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
+              <li>YouTube Studioでの初期動画公開操作</li>
+              <li>公式LINE応答メッセージのURL設定</li>
+              <li>実機スマホでの導線目視チェック</li>
+            </ul>
+          </div>
+
+          <!-- ② ファネル疎通ヘルスチェック（4段階物理開通ランプ） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
+            <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
+              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+            </div>
+          </div>
+
+          <!-- ③ 残り日数に対する理論ペース差分（リード/ビハインド） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-emerald-500/40 space-y-1">
+            <div class="flex items-center justify-between text-emerald-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-gauge-high mr-1 text-emerald-400"></i>M1 消化ペース判定</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
+            </div>
+            <div class="text-[10px] text-slate-300 space-y-0.5">
+              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
+              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+            </div>
+          </div>
+        </div>
+
       `;
     }
   } else {
@@ -2283,10 +2418,10 @@ function escapeHtml(str) {
 
     function renderTimelinePanel() {
       const phases = [
-        { id: "Phase 1", name: "Phase 1: 160枚手技図・肢位・グレード整合辞書確立", pct: 100 },
-        { id: "Phase 2", name: "Phase 2: カルタ読み札3段構造＆音声エンジン連携", pct: 100 },
-        { id: "Phase 3", name: "Phase 3: 3層監査ハーネス＆PWAアプリ化 (v21)", pct: 100 },
-        { id: "Phase 4", name: "Phase 4: GitHub Pages公開 ＆ 実機PWA検証", pct: 100 }
+        { id: "Phase 1", name: "Phase 1: 確定27枚先行体験版の切り出し・3層監査PASS (M1)", pct: 100 },
+        { id: "Phase 2", name: "Phase 2: PTポータル連携 ＆ 臨床判定・カルタ・音声同期 (M1)", pct: 60 },
+        { id: "Phase 3", name: "Phase 3: 残り133枚の段階実装 ＆ 160枚完全カタログ展開 (M2・Non-Goals)", pct: 0 },
+        { id: "Phase 4", name: "Phase 4: 有料会員化 ＆ 決済システム接続 (将来構想・Non-Goals)", pct: 0 }
       ];
       document.getElementById("timelinePhasesContainer").innerHTML = phases.map(p => `
         <div class="p-3.5 rounded-xl bg-ecru-surface border border-ecru-borderStrong space-y-1.5">
@@ -3322,7 +3457,7 @@ function escapeHtml(str) {
             <span class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-network-wired text-indigo-400"></i> 全社SNS・外部トラフィック総合連携</span>
             <span class="text-[10px] bg-indigo-950 text-indigo-300 border border-indigo-700/60 px-1.5 py-0.5 rounded font-mono">YouTube + LINE</span>
           </div>
-          <p class="text-slate-300 text-[11px]">YouTube Shorts（臨床解剖の視覚的動画）で毎月数万人を認知 ➔ PTポータル公式LINE「赤点回避ドリル」へ送客・還流中。</p>
+          <p class="text-slate-300 text-[11px]">YouTube Shorts（臨床解剖の15秒配線図）で認知獲得 ➔ PTポータル公式LINE「赤点回避ドリル」へ送客。<br><span class="text-[10px] text-amber-300 font-mono">【目標設計】月間数万人認知・LINE遷移率3% | 【現在実測】実アクセス 0名（初期動画3本準備中・導線開通検証待ち）</span></p>
         </div>
       `;
     } else if (proj.id === 'pt_student_portal') {
@@ -3334,9 +3469,9 @@ function escapeHtml(str) {
           </div>
           <p class="text-slate-200 text-[11px]">YouTube Shortsや検索から流入したPT学生が、公式LINE「赤点回避ドリル」友だち追加を経て、Webドリル利用・有料会員へと進む最終ゴール。</p>
           <div class="flex items-center gap-3 pt-1 text-[11px] font-mono">
-            <span class="text-slate-300">LINE友だち目標: <strong class="text-emerald-400">1,000名</strong></span>
-            <span class="text-slate-300">日次ドリル利用: <strong class="text-emerald-400">300名</strong></span>
-            <span class="text-slate-300">流入元: <strong class="text-rose-400">Shorts動画(78%)</strong>, 検索(22%)</span>
+            <span class="text-slate-300">LINE友だち目標: <strong class="text-emerald-400">1,000名</strong> (実測: 0名)</span>
+            <span class="text-slate-300">日次ドリル目標: <strong class="text-emerald-400">300名</strong> (実測: 0名)</span>
+            <span class="text-slate-300">導線: <strong class="text-amber-400">Shorts ➔ LINE ➔ 80筋ドリル</strong></span>
           </div>
         </div>
       `;
@@ -3349,8 +3484,8 @@ function escapeHtml(str) {
           </div>
           <p class="text-slate-200 text-[11px]">アルゴリズム推奨を勝ち取るため、冒頭2秒のフックとSE同期、視聴維持率70%超を死守。固定コメントから「👑 PTポータルLINE」へ誘導する。</p>
           <div class="flex items-center gap-3 pt-1 text-[11px] font-mono">
-            <span class="text-slate-300">平均維持率: <strong class="text-rose-400">72.4%</strong></span>
-            <span class="text-slate-300">LINEクリック率: <strong class="text-rose-400">3.8%</strong></span>
+            <span class="text-slate-300">視聴維持率目標: <strong class="text-rose-400">70%超</strong> (自動録画検証済)</span>
+            <span class="text-slate-300">LINEクリック率目標: <strong class="text-rose-400">3.0%</strong> (実測蓄積待ち)</span>
           </div>
         </div>
       `;
@@ -3374,6 +3509,49 @@ function escapeHtml(str) {
           <p class="text-slate-200 text-[11px]">Instagram / TikTokからのセルフケア流入 ➔ LINEステップでの毎日体操指導 ➔ 有料講座成約への独立ファネル。</p>
         </div>
         ${milestoneWidgetHtml}
+        
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+          <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
+            <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+            </div>
+            <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
+              <li>YouTube Studioでの初期動画公開操作</li>
+              <li>公式LINE応答メッセージのURL設定</li>
+              <li>実機スマホでの導線目視チェック</li>
+            </ul>
+          </div>
+
+          <!-- ② ファネル疎通ヘルスチェック（4段階物理開通ランプ） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
+            <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
+              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+            </div>
+          </div>
+
+          <!-- ③ 残り日数に対する理論ペース差分（リード/ビハインド） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-emerald-500/40 space-y-1">
+            <div class="flex items-center justify-between text-emerald-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-gauge-high mr-1 text-emerald-400"></i>M1 消化ペース判定</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
+            </div>
+            <div class="text-[10px] text-slate-300 space-y-0.5">
+              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
+              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+            </div>
+          </div>
+        </div>
+
       `;
     }
   }
@@ -3582,6 +3760,49 @@ function escapeHtml(str) {
           </div>
         </div>
         ${milestoneWidgetHtml}
+        
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+          <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
+            <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+            </div>
+            <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
+              <li>YouTube Studioでの初期動画公開操作</li>
+              <li>公式LINE応答メッセージのURL設定</li>
+              <li>実機スマホでの導線目視チェック</li>
+            </ul>
+          </div>
+
+          <!-- ② ファネル疎通ヘルスチェック（4段階物理開通ランプ） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
+            <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
+              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+            </div>
+          </div>
+
+          <!-- ③ 残り日数に対する理論ペース差分（リード/ビハインド） -->
+          <div class="p-2.5 rounded-lg bg-black/50 border border-emerald-500/40 space-y-1">
+            <div class="flex items-center justify-between text-emerald-300 font-bold text-[11px]">
+              <span><i class="fa-solid fa-gauge-high mr-1 text-emerald-400"></i>M1 消化ペース判定</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
+            </div>
+            <div class="text-[10px] text-slate-300 space-y-0.5">
+              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
+              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+            </div>
+          </div>
+        </div>
+
       `;
     }
   }
