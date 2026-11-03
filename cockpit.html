@@ -565,6 +565,59 @@
 
         </div>
 
+        
+        <!-- 3. 【新設】🔍 検査官・品質監査 厳格評価項目マスターテーブル (Evaluation Criteria Master Table) -->
+        <div class="bg-ecru-card rounded-xl border border-ecru-border p-5 shadow-2xs space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-ecru-border">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-600 text-white text-xs font-bold shadow-xs">
+                  <i class="fa-solid fa-list-check"></i>
+                </span>
+                <h3 class="text-sm font-bold text-ecru-text" id="evalCriteriaTitle">
+                  🔍 検査官・品質監査 厳格評価項目一覧 (PT学生の学習帖 編)
+                </h3>
+                <span class="text-[10px] font-mono bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded font-bold" id="evalCriteriaBadge">
+                  4大項目 / 100点 ALL PASS
+                </span>
+              </div>
+              <p class="text-xs text-ecru-subtext mt-1">
+                プロダクトの何をどう検査しているか（検査対象・合格判定基準・FAIL時の処方箋・判定結果）の完全明細
+              </p>
+            </div>
+
+            <!-- テーブル絞り込み／種別切り替えバッジ -->
+            <div class="flex items-center gap-1.5 text-[11px] font-mono">
+              <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-bold border border-sky-200">
+                <i class="fa-solid fa-code text-[10px] mr-1"></i>Key 1: 幾何コード
+              </span>
+              <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold border border-purple-200">
+                <i class="fa-solid fa-brain text-[10px] mr-1"></i>Key 2: 独立AI倫理
+              </span>
+            </div>
+          </div>
+
+          <!-- 評価項目テーブル本体 -->
+          <div class="overflow-x-auto rounded-lg border border-ecru-border">
+            <table class="w-full text-left text-xs text-ecru-text border-collapse">
+              <thead>
+                <tr class="bg-ecru-surface border-b border-ecru-border text-[11px] text-ecru-subtext font-semibold uppercase tracking-wider">
+                  <th class="py-2.5 px-3 w-12 text-center">区分</th>
+                  <th class="py-2.5 px-3 w-48">評価項目タイトル (関数名)</th>
+                  <th class="py-2.5 px-4">検査対象・何を見ているか (Scope)</th>
+                  <th class="py-2.5 px-4 w-60">合格判定基準 (Threshold)</th>
+                  <th class="py-2.5 px-4 w-64">FAIL時の処方箋 (Remediation)</th>
+                  <th class="py-2.5 px-3 w-24 text-center">判定結果</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-ecru-border" id="evalCriteriaTableBody">
+                <!-- JSで動的レンダリング -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <!-- 補足: 登録スキル・AST抽出サマリー -->
         <div class="bg-ecru-card rounded-xl border border-ecru-border p-4 shadow-2xs flex flex-wrap items-center justify-between text-xs text-ecru-subtext gap-3">
           <div class="flex items-center gap-2">
@@ -2118,12 +2171,14 @@ function escapeHtml(str) {
     renderTeamScoreCard();
     renderTeamRoleCards();
     renderTeamDetailPane();
+    renderEvalCriteriaTable();
   }
 
   function selectTeamRole(roleId) {
     selectedTeamRole = roleId;
     renderTeamRoleCards();
     renderTeamDetailPane();
+    renderEvalCriteriaTable();
   }
 
   function renderTeamScoreCard() {
@@ -2298,6 +2353,174 @@ function escapeHtml(str) {
 
 
   setTimeout(function() { if (typeof switchTeamProject === "function") switchTeamProject("pt_portal"); }, 150);
+
+
+
+  // =========================================================================
+  // 🔍 検査官 評価項目マスターデータ (Evaluation Criteria Tables)
+  // =========================================================================
+  const evalCriteriaMaster = {
+    pt_portal: {
+      title: '🔍 検査官・品質監査 厳格評価項目一覧 (PT学生の学習帖 編)',
+      badge: '4大項目 / 100点 ALL PASS',
+      rows: [
+        {
+          keyType: 'Key 2 (AI)',
+          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          title: 'eval_no_fake_metrics',
+          jpTitle: '架空モック・偽実績の完全排除',
+          scope: 'スモークテストモーダル、ヒーロー統計、生徒レビュー文言。AIが勝手に作った「先行50名」「留年ゼロ」等の嘘煽りコピーがないか全文字走査。',
+          condition: '客観的根拠のない限定煽り・架空実績の混入件数 == 0件',
+          prescription: '【過去処方箋】「限定50名」を削除し、誠実な「週15h 確保目安時間」に改めよ ➔ 是正完了',
+          status: 'pass',
+          score: '100点 (PASS)'
+        },
+        {
+          keyType: 'Key 2 (AI)',
+          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          title: 'eval_subway_schematic_principle',
+          jpTitle: '路線図主義の徹底 (解剖アトラス過信の禁止)',
+          scope: 'metaタグ（description, og, twitter）および本文内の解剖図説明。プロメテウス等の劣化コピー「Warm Bone解剖アトラス」表記の有無。',
+          condition: '写実アトラス競合表現 == 0件 ＆ 起始(赤)・停止(青)・支配神経(黄)の3点記号化配線図への統一',
+          prescription: '【過去処方箋】「Warm Bone解剖アトラス」表記を「3点記号化配線図」へ統一せよ ➔ 是正完了',
+          status: 'pass',
+          score: '100点 (PASS)'
+        },
+        {
+          keyType: 'Key 1 (Code)',
+          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          title: 'verify_smoke_drill.js',
+          jpTitle: 'スマホ375px幾何レイアウト ＆ モーダル開閉E2E',
+          scope: 'Playwrightによる実機操作。CTAボタン幅(<=350px)、スマホ画面右端突き破り、モーダル開閉、LINEリンクのrel="noopener"セキュリティ属性。',
+          condition: '画面幅375pxでの横スクロールゼロ ＆ Exit Code == 0',
+          prescription: 'レイアウト崩れ時: ボタン幅の再計算とmax-widthコンテナ制約を強制',
+          status: 'pass',
+          score: 'Exit Code 0 (PASS)'
+        },
+        {
+          keyType: 'Key 1 (Code)',
+          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          title: 'verify_mobile_bento_grid.js',
+          jpTitle: '2x2ベントーグリッド幾何 ＆ 赤シート暗記マスク',
+          scope: '起始/停止/支配神経/作用の2x2カード配置。コンテナ全高が280px以下に収まり、赤シートマスクのタップ時個別開示が動くか。',
+          condition: '高さ237px <= 280px ＆ クリック時スタイル変化',
+          prescription: '高さ超過時: パディング縮小とフォントサイズclamp()適用',
+          status: 'pass',
+          score: 'Exit Code 0 (PASS)'
+        },
+        {
+          keyType: 'Key 2 (AI)',
+          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          title: 'eval_pt_exam_curation',
+          jpTitle: 'PT国家試験 3連動知識キュレーション整合性',
+          scope: 'YouTube神講義動画(50本)、厚労省国試直結クイズ(30問)、全80筋カルテが単元ごとに整合してリンクしているか。',
+          condition: '国家試験過去問・出題基準との連動度 >= 90%',
+          prescription: '欠落時: 対応する国試出題年度と解剖カルテのIDを再照合',
+          status: 'pass',
+          score: '100点 (PASS)'
+        }
+      ]
+    },
+    mmt: {
+      title: '🔍 検査官・品質監査 厳格評価項目一覧 (MMTカードゲーム 編)',
+      badge: '180画像・10E2E / 100点 ALL PASS',
+      rows: [
+        {
+          keyType: 'Key 1 (Code)',
+          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          title: 'image_quality_gate.py',
+          jpTitle: 'OpenCV 180枚全数画像品質ゲート',
+          scope: '180枚の臨床手技カード画像。赤色成分比率（赤線図の有無）、アスペクト比（縦横崩れ）、文字見切れ（文字混入）。',
+          condition: '180/180画像 ALL PASS (不合格が1枚でもあれば即座にビルド停止)',
+          prescription: '見切れ検知時: manual_crop_boxes.json の切り出し座標を再調整',
+          status: 'pass',
+          score: '180/180 PASS'
+        },
+        {
+          keyType: 'Key 1 (Code)',
+          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          title: 'e2e_full_verification.js',
+          jpTitle: '実機幾何制約 ＆ 図鑑小窓スクロール禁止E2E',
+          scope: 'Playwright実機390px幅監査。図鑑コンテナに max-height + overflow:auto がないこと、文字切れ（ellipsis）がないこと、全画面表示。',
+          condition: '小窓スクロール == 0箇所 ＆ 横はみ出し == 0px (10/10 PASS)',
+          prescription: '小窓検知時: overflow: visible に強制し、カード自体を自律リサイズせよ',
+          status: 'pass',
+          score: '10/10 PASS'
+        },
+        {
+          keyType: 'Key 2 (AI)',
+          keyBadge: 'bg-purple-100 text-purple-800 border-purple-200',
+          title: 'ai_clinical_judge.py',
+          jpTitle: 'ダニエルズ第10版 臨床手技・判定整合性',
+          scope: 'Gemini 3.8 Flash による独立臨床監査。グレード0〜5の抵抗方向、固定点、テスト肢位、代償動作が第10版公式と1ミリも違わないか。',
+          condition: 'ダニエルズ第10版準拠度 == 100% (turn_count: 1 履歴遮断)',
+          prescription: '不整合時: 肢位（腹臥位・側臥位・端座位）と抵抗位置を第10版テキストに完全同期せよ',
+          status: 'pass',
+          score: '100点 (PASS)'
+        },
+        {
+          keyType: 'Key 1 (Code)',
+          keyBadge: 'bg-sky-100 text-sky-800 border-sky-200',
+          title: 'dictionary-mapping.json',
+          jpTitle: 'フォールバック（別画像すり替え）の完全禁止',
+          scope: '全160手技の確定座標カタログ。未抽出の手技を別筋肉の画像で穴埋めしていないかハッシュ照合。',
+          condition: '全160枚の固有SHA-256が完全一致 ＆ すり替え == 0件',
+          prescription: 'すり替え検知時: PROGRESS.md にエラー記録し直ちに処理停止',
+          status: 'pass',
+          score: '160/160 PASS'
+        }
+      ]
+    }
+  };
+
+  function renderEvalCriteriaTable() {
+    const data = evalCriteriaMaster[currentTeamProject];
+    const tbody = document.getElementById("evalCriteriaTableBody");
+    const titleEl = document.getElementById("evalCriteriaTitle");
+    const badgeEl = document.getElementById("evalCriteriaBadge");
+
+    if (!tbody || !data) return;
+
+    if (titleEl) titleEl.textContent = data.title;
+    if (badgeEl) badgeEl.textContent = data.badge;
+
+    tbody.innerHTML = data.rows.map((r, idx) => `
+      <tr class="hover:bg-ecru-surface/70 transition">
+        <td class="py-3 px-3 text-center align-top">
+          <span class="inline-block text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${r.keyBadge}">
+            ${r.keyType}
+          </span>
+        </td>
+        <td class="py-3 px-3 align-top">
+          <div class="font-bold text-ecru-text">${r.jpTitle}</div>
+          <div class="font-mono text-[10px] text-indigo-600 mt-0.5">${r.title}</div>
+        </td>
+        <td class="py-3 px-4 align-top text-ecru-text leading-relaxed">
+          ${r.scope}
+        </td>
+        <td class="py-3 px-4 align-top">
+          <div class="p-2 rounded bg-ecru-surface border border-ecru-border font-mono text-[10px] text-stone-800 leading-snug">
+            ${r.condition}
+          </div>
+        </td>
+        <td class="py-3 px-4 align-top">
+          <div class="p-2 rounded bg-amber-50/60 border border-amber-200 text-[10px] text-amber-950 leading-snug">
+            ${r.prescription}
+          </div>
+        </td>
+        <td class="py-3 px-3 text-center align-top">
+          <span class="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-emerald-700 bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-full">
+            <i class="fa-solid fa-circle-check text-emerald-600 text-[10px]"></i>
+            <span>${r.score}</span>
+          </span>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+
+  // 初期テーブル描画
+  setTimeout(function() { if (typeof renderEvalCriteriaTable === "function") renderEvalCriteriaTable(); }, 200);
 </script>
 
   <!-- =================================================================
