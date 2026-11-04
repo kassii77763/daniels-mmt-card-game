@@ -52,6 +52,15 @@ for fname in sorted(png_files):
         white_ratio = np.sum(gray >= 245) / float(gray.size)
         if white_ratio < 0.70:
             errors.append(f"{fname}: 白背景比率不足 ({white_ratio*100:.1f}% < 70%) 背景ノイズ混入の疑い")
+        # 1-2. 【決定論的インク濃度監査】薄墨・かすれ線の根絶＆外周純白完全保証
+        min_gray = gray.min()
+        if min_gray > 75:
+            errors.append(f"{fname}: 線画インク濃度不足 (min={min_gray} > 75) 灰色・かすれの疑い")
+            
+        border_pixels = np.concatenate([gray[:5, :].flatten(), gray[-5:, :].flatten(), gray[:, :5].flatten(), gray[:, -5:].flatten()])
+        border_white_ratio = np.sum(border_pixels >= 254) / float(border_pixels.size)
+        if border_white_ratio < 0.999:
+            errors.append(f"{fname}: 外周枠ノイズ浮き上がり (border_white={border_white_ratio*100:.2f}% < 99.9%)")
             
         # 2. インクピクセル比率
         ink_ratio = np.sum(gray < 200) / float(gray.size)
