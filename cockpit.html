@@ -137,7 +137,7 @@
       <div class="hidden sm:flex items-center space-x-1 text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2">
         <i class="fa-regular fa-clock text-slate-500 mr-0.5"></i>
         <span>最終同期:</span>
-        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">22:54 JST (毎時同期済)</span>
+        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">23:53 JST (毎時同期済)</span>
       </div>
     </div>
 
@@ -508,9 +508,9 @@
             <div class="text-[11px] text-ecru-subtext mt-1">※以前の42名はGeminiのダミー表示でした</div>
           </div>
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
-            <div class="text-xs text-ecru-subtext flex justify-between"><span>先行出題カード数</span><i class="fa-solid fa-layer-group text-indigo-600"></i></div>
-            <div class="text-2xl font-bold font-mono mt-1">27 枚 <span class="text-xs font-sans font-semibold text-indigo-600">先行公開版</span></div>
-            <div class="text-[11px] text-ecru-subtext mt-1">確定27枚先行体験版稼働中（残り133枚はM2スプリント以降に段階拡張）</div>
+            <div class="text-xs text-ecru-subtext flex justify-between"><span>実動カード数</span><i class="fa-solid fa-layer-group text-emerald-600"></i></div>
+            <div class="text-2xl font-bold font-mono mt-1">133 枚 <span class="text-xs font-sans font-semibold text-emerald-600">実動配備済</span></div>
+            <div class="text-[11px] text-ecru-subtext mt-1">全160枚確定カタログ展開中（手技画像・肢位・グレード100%完全一致保証）</div>
           </div>
           <div class="bg-ecru-card p-4 rounded-xl border border-ecru-border shadow-2xs">
             <div class="text-xs text-ecru-subtext flex justify-between"><span>3層ハーネス監査結果</span><i class="fa-solid fa-shield-check text-emerald-600"></i></div>
@@ -605,7 +605,7 @@
               </button>
               <button onclick="switchTeamProject('mmt')" id="teamTab-mmt" class="team-tab-btn px-3.5 py-1.5 rounded-md text-xs font-semibold text-ecru-subtext hover:text-ecru-text transition cursor-pointer flex items-center gap-1.5">
                 <i class="fa-solid fa-shield-cat text-amber-500"></i>
-                <span>⚔️ MMTカードゲーム編 (先行27枚版)</span>
+                <span>⚔️ MMTカードゲーム編 (133枚実動配備済)</span>
               </button>
             </div>
           </div>
@@ -1264,44 +1264,43 @@
           </div>
           <span class="text-[10px] text-slate-400 font-mono" id="hourlySyncBadge"><i class="fa-solid fa-arrows-rotate text-emerald-400 mr-1"></i>1時間自動同期常駐</span>
         </div>
-        <!-- 統合ファネルパイプライン -->
+        <!-- 統合ファネルパイプライン（収益化・実動重視） -->
         <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2">
-          <div class="bg-black/50 border border-rose-900/60 p-2 rounded flex items-center gap-2">
+          <div class="bg-black/50 border border-rose-900/60 p-2 rounded flex items-center gap-2 ring-1 ring-rose-500/30">
             <div class="w-6 h-6 rounded bg-rose-950 text-rose-400 flex items-center justify-center font-bold text-xs"><i class="fa-brands fa-youtube"></i></div>
             <div class="min-w-0">
-              <div class="text-[10px] font-semibold text-rose-300">1. 集客フック (Shorts)</div>
-              <div class="text-[9px] text-slate-400 truncate">15秒配線図で認知獲得・固定コメントからLINE直行</div>
+              <div class="text-[10px] font-semibold text-rose-300">1. 集客フック (Shorts 3本公開中)</div>
+              <div class="text-[9px] text-slate-300 truncate">上腕二頭筋・三頭筋・腕橈骨筋 公開中 ➔ LINE誘導</div>
             </div>
           </div>
           <div class="bg-black/50 border border-emerald-900/60 p-2 rounded flex items-center gap-2 ring-1 ring-emerald-500/50">
             <div class="w-6 h-6 rounded bg-emerald-950 text-emerald-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-crown"></i></div>
             <div class="min-w-0">
-              <div class="text-[10px] font-semibold text-emerald-300">2. 受け皿・リスト (PTポータル＆LINE)</div>
-              <div class="text-[9px] text-slate-400 truncate">80筋赤点回避ドリル即時体験でリスト獲得</div>
+              <div class="text-[10px] font-semibold text-emerald-300">2. 受け皿・リスト (80筋カルテ ＆ LINE)</div>
+              <div class="text-[9px] text-slate-300 truncate">赤シート暗記モード即時体験 ➔ LINE友だち追加</div>
             </div>
           </div>
-          <div class="bg-black/50 border border-amber-900/60 p-2 rounded flex items-center gap-2">
-            <div class="w-6 h-6 rounded bg-amber-950 text-amber-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-gamepad"></i></div>
+          <div class="bg-black/50 border border-amber-900/60 p-2 rounded flex items-center gap-2 ring-1 ring-amber-500/30">
+            <div class="w-6 h-6 rounded bg-amber-950 text-amber-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-sack-dollar"></i></div>
             <div class="min-w-0">
-              <div class="text-[10px] font-semibold text-amber-300">3. キラー教材・LTV (MMTカード)</div>
-              <div class="text-[9px] text-slate-400 truncate">先行27枚体験＋160枚完全版で会員LTV最大化</div>
+              <div class="text-[10px] font-semibold text-amber-300">3. 収益化・LTV (300円Note ＆ MMT133枚)</div>
+              <div class="text-[9px] text-slate-300 truncate">夜間部生存Note販売 ＆ MMT実動教材でLTV最大化</div>
             </div>
           </div>
         </div>
         ${milestoneWidgetHtml}
         
-        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標：収益化重視） -->
         <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
           <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
           <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
             <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
-              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 2件</span>
             </div>
             <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
-              <li>YouTube Studioでの初期動画公開操作</li>
-              <li>公式LINE応答メッセージのURL設定</li>
-              <li>実機スマホでの導線目視チェック</li>
+              <li>公開済Shorts3本の固定コメントに公式LINEリンク設置</li>
+              <li>note（@kaibouseiri）で300円有料記事を公開</li>
             </ul>
           </div>
 
@@ -1309,13 +1308,13 @@
           <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
             <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
-              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+              <span class="text-emerald-400 font-mono text-[10px]">3/4 開通</span>
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
-              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
-              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
           </div>
 
@@ -1326,8 +1325,8 @@
               <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
             </div>
             <div class="text-[10px] text-slate-300 space-y-0.5">
-              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
-              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+              <div>必要ペース: <strong class="text-white">0.5件 / 日</strong>（期日まで残り5日）</div>
+              <div class="text-slate-400">直列パス: Shorts公開(済) ➔ LINE・Note接続中 ➔ 初成約</div>
             </div>
           </div>
         </div>
@@ -1363,18 +1362,17 @@
         </div>
         ${milestoneWidgetHtml}
         
-        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標：収益化重視） -->
         <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
           <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
           <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
             <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
-              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 2件</span>
             </div>
             <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
-              <li>YouTube Studioでの初期動画公開操作</li>
-              <li>公式LINE応答メッセージのURL設定</li>
-              <li>実機スマホでの導線目視チェック</li>
+              <li>公開済Shorts3本の固定コメントに公式LINEリンク設置</li>
+              <li>note（@kaibouseiri）で300円有料記事を公開</li>
             </ul>
           </div>
 
@@ -1382,13 +1380,13 @@
           <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
             <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
-              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+              <span class="text-emerald-400 font-mono text-[10px]">3/4 開通</span>
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
-              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
-              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
           </div>
 
@@ -1399,8 +1397,8 @@
               <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
             </div>
             <div class="text-[10px] text-slate-300 space-y-0.5">
-              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
-              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+              <div>必要ペース: <strong class="text-white">0.5件 / 日</strong>（期日まで残り5日）</div>
+              <div class="text-slate-400">直列パス: Shorts公開(済) ➔ LINE・Note接続中 ➔ 初成約</div>
             </div>
           </div>
         </div>
@@ -2039,18 +2037,17 @@ function renderArchZoneCards(scope) {
         <div class="text-[9px] text-purple-800 pt-1 border-t border-purple-100">不変性: 裁判官の判決証跡を伴う確定資産</div>
         ${milestoneWidgetHtml}
         
-        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標：収益化重視） -->
         <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
           <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
           <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
             <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
-              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 2件</span>
             </div>
             <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
-              <li>YouTube Studioでの初期動画公開操作</li>
-              <li>公式LINE応答メッセージのURL設定</li>
-              <li>実機スマホでの導線目視チェック</li>
+              <li>公開済Shorts3本の固定コメントに公式LINEリンク設置</li>
+              <li>note（@kaibouseiri）で300円有料記事を公開</li>
             </ul>
           </div>
 
@@ -2058,13 +2055,13 @@ function renderArchZoneCards(scope) {
           <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
             <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
-              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+              <span class="text-emerald-400 font-mono text-[10px]">3/4 開通</span>
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
-              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
-              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
           </div>
 
@@ -2075,8 +2072,8 @@ function renderArchZoneCards(scope) {
               <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
             </div>
             <div class="text-[10px] text-slate-300 space-y-0.5">
-              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
-              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+              <div>必要ペース: <strong class="text-white">0.5件 / 日</strong>（期日まで残り5日）</div>
+              <div class="text-slate-400">直列パス: Shorts公開(済) ➔ LINE・Note接続中 ➔ 初成約</div>
             </div>
           </div>
         </div>
@@ -2469,9 +2466,9 @@ function escapeHtml(str) {
 
     function renderTimelinePanel() {
       const phases = [
-        { id: "Phase 1", name: "Phase 1: 確定27枚先行体験版の切り出し・3層監査PASS (M1)", pct: 100 },
-        { id: "Phase 2", name: "Phase 2: PTポータル連携 ＆ 臨床判定・カルタ・音声同期 (M1)", pct: 60 },
-        { id: "Phase 3", name: "Phase 3: 残り133枚の段階実装 ＆ 160枚完全カタログ展開 (M2・Non-Goals)", pct: 0 },
+        { id: "Phase 1", name: "Phase 1: 133枚実動版 PWA安定稼働 ＆ 3層品質ゲートALL PASS (M1)", pct: 100 },
+        { id: "Phase 2", name: "Phase 2: PTポータル連携 ＆ 公式LINE特典呼び出し配備 (M1)", pct: 75 },
+        { id: "Phase 3", name: "Phase 3: 全160枚完全カタログ展開 ＆ 代償見落とし防止クイズ (M2)", pct: 10 },
         { id: "Phase 4", name: "Phase 4: 有料会員化 ＆ 決済システム接続 (将来構想・Non-Goals)", pct: 0 }
       ];
       document.getElementById("timelinePhasesContainer").innerHTML = phases.map(p => `
@@ -3458,10 +3455,10 @@ function escapeHtml(str) {
       id: 'mmt_card',
       code: 'MMT',
       title: '⚔️ Daniels MMT Tactical Card Game',
-      phase: 'Phase 1: 確定27枚実装完了 ➔ 160枚完全カタログ展開中',
+      phase: 'Phase 1: 133枚実動版稼働中 ➔ PTポータル/LINE連携フェーズ',
       mission: 'ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床判定Webカードゲーム。PTポータルのキラー教材として活用。',
-      primaryKpi: '全160枚確定カタログの実装 ＆ OpenCV幾何・Playwright E2E監査 ALL PASS',
-      currentStatus: '確定27枚完全実装済み・3層品質ゲート（決定論コード ＆ LLM監査）完全稼働',
+      primaryKpi: '133枚実動版のPWA安定稼働 ＆ PTポータル/LINE特典連携完了',
+      currentStatus: '133枚実動カード完全実装済み・PWA対応・3層品質ゲートALL PASS完了',
       harnessSpec: 'image_quality_gate.py ＆ e2e_full_verification.js ALL PASS（Exit Code 0）',
       nextFocus: '残り133枚のカタログ座標抽出と自動テスト順次適用、PTポータル内での連携埋め込み',
       pivotNotes: '単なる写実イラストではなく「起始(赤)・停止(青)・支配神経(黄)の3点配線図（路線図主義）」に徹底し、実技試験直結のクイック判定価値へ集中。',
@@ -3471,10 +3468,10 @@ function escapeHtml(str) {
       id: 'anat_shorts',
       code: 'SHORTS',
       title: '🎬 臨床解剖 YouTube Shorts',
-      phase: 'Phase 1: 自動録画パイプライン検証完了 ➔ 投稿準備中',
+      phase: 'Phase 1: 初期3本公開完了 ➔ 固定コメント導線検証フェーズ',
       mission: '解剖学・触診・臨床動作の視覚的ショート動画（15秒路線図配線図）を発信し、PT学生・医療従事者からの認知を獲得してPTポータルへ送客するフロントエンド。',
       primaryKpi: '動画自動生成の安定稼働 ＆ 投稿開始後の視聴維持率70%超（実測値蓄積待ち）',
-      currentStatus: 'Playwright自動録画（上腕二頭筋・腕橈骨筋等）＋SE同期スクリプト検証完了・チャンネル初期稼働中',
+      currentStatus: 'エリート3筋（上腕二頭筋・上腕三頭筋・腕橈骨筋）YouTube公開アップロード完了（一般公開中）',
       harnessSpec: 'record_shorts.js 構文検証 ＆ 幾何セーフゾーン（1452px）自動検査 PASS',
       nextFocus: '初期動画の定期投稿開始と、YouTube Studioアナリティクスの実データ蓄積・改善サイクル構築',
       pivotNotes: '冒頭1〜2秒の離脱防止（ビール乾杯筋などの直感フック）と、固定コメントからの公式LINE自然流入ラインを設計。',
@@ -3561,18 +3558,17 @@ function escapeHtml(str) {
         </div>
         ${milestoneWidgetHtml}
         
-        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標：収益化重視） -->
         <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
           <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
           <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
             <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
-              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 2件</span>
             </div>
             <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
-              <li>YouTube Studioでの初期動画公開操作</li>
-              <li>公式LINE応答メッセージのURL設定</li>
-              <li>実機スマホでの導線目視チェック</li>
+              <li>公開済Shorts3本の固定コメントに公式LINEリンク設置</li>
+              <li>note（@kaibouseiri）で300円有料記事を公開</li>
             </ul>
           </div>
 
@@ -3580,13 +3576,13 @@ function escapeHtml(str) {
           <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
             <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
-              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+              <span class="text-emerald-400 font-mono text-[10px]">3/4 開通</span>
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
-              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
-              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
           </div>
 
@@ -3597,8 +3593,8 @@ function escapeHtml(str) {
               <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
             </div>
             <div class="text-[10px] text-slate-300 space-y-0.5">
-              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
-              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+              <div>必要ペース: <strong class="text-white">0.5件 / 日</strong>（期日まで残り5日）</div>
+              <div class="text-slate-400">直列パス: Shorts公開(済) ➔ LINE・Note接続中 ➔ 初成約</div>
             </div>
           </div>
         </div>
@@ -3812,18 +3808,17 @@ function escapeHtml(str) {
         </div>
         ${milestoneWidgetHtml}
         
-        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標） -->
+        <!-- 🚀 意思決定加速ウィジェット（3大アクション指標：収益化重視） -->
         <div class="mt-2.5 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
           <!-- ① 人間作業ブロッカー（Human-in-the-Loop Queue） -->
           <div class="p-2.5 rounded-lg bg-black/50 border border-amber-500/40 space-y-1">
             <div class="flex items-center justify-between text-amber-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-user-clock mr-1 text-amber-400"></i>人間作業ブロッカー</span>
-              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 3件</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-950 border border-amber-700 text-[10px]">残り 2件</span>
             </div>
             <ul class="text-[10px] text-slate-300 space-y-0.5 list-disc list-inside">
-              <li>YouTube Studioでの初期動画公開操作</li>
-              <li>公式LINE応答メッセージのURL設定</li>
-              <li>実機スマホでの導線目視チェック</li>
+              <li>公開済Shorts3本の固定コメントに公式LINEリンク設置</li>
+              <li>note（@kaibouseiri）で300円有料記事を公開</li>
             </ul>
           </div>
 
@@ -3831,13 +3826,13 @@ function escapeHtml(str) {
           <div class="p-2.5 rounded-lg bg-black/50 border border-indigo-500/40 space-y-1">
             <div class="flex items-center justify-between text-indigo-300 font-bold text-[11px]">
               <span><i class="fa-solid fa-network-wired mr-1 text-indigo-400"></i>ファネル物理開通ランプ</span>
-              <span class="text-emerald-400 font-mono text-[10px]">2/4 開通</span>
+              <span class="text-emerald-400 font-mono text-[10px]">3/4 開通</span>
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋ドリル稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. 裁判官100点PASS</span>
-              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答設定中</span>
-              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回アクセス待ち</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
+              <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
           </div>
 
@@ -3848,8 +3843,8 @@ function escapeHtml(str) {
               <span class="px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-700 text-[10px]">オンペース</span>
             </div>
             <div class="text-[10px] text-slate-300 space-y-0.5">
-              <div>必要ペース: <strong class="text-white">0.7件 / 日</strong>（期日まで残り6日）</div>
-              <div class="text-slate-400">M1直列クリティカルパス: 受け皿(済) ➔ LINE接続中 ➔ 投稿</div>
+              <div>必要ペース: <strong class="text-white">0.5件 / 日</strong>（期日まで残り5日）</div>
+              <div class="text-slate-400">直列パス: Shorts公開(済) ➔ LINE・Note接続中 ➔ 初成約</div>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 {
-  "last_synced_at": "2026-11-04T22:54:02+09:00",
+  "last_synced_at": "2026-11-04T23:53:33+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "1b6173d",
+  "git_commit": "1dc5db6",
   "validation_status": "ALL_PASS",
   "projects": {
     "pt_student_portal": {
@@ -22,14 +22,14 @@
         "MILESTONES.md"
       ],
       "milestone": {
-        "north_star_kpi": "公式LINE「赤点回避ドリル」有効友だち数 100名（年内達成目標）",
-        "active_milestone": "M1: 導線開通スプリント",
+        "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「赤点回避ドリル」友だち登録 100名**",
+        "active_milestone": "M1: 収益化ファネル直結スプリント",
         "deadline": "2026-11-10",
         "days_remaining": 6,
-        "tasks_total": 7,
-        "tasks_done": 2,
-        "progress_pct": 29,
-        "mtime": "2026-11-03T16:47:46+09:00",
+        "tasks_total": 9,
+        "tasks_done": 3,
+        "progress_pct": 33,
+        "mtime": "2026-11-04T23:51:59+09:00",
         "non_goals": []
       }
     },
@@ -44,14 +44,14 @@
         "SPEC.md"
       ],
       "milestone": {
-        "north_star_kpi": "動画自動生成パイプライン稼働100% ＆ 投稿後の視聴維持率70%超・LINE遷移率3.0%以上",
-        "active_milestone": "M1: パイプライン検証 ＆ 初期3本投稿スプリント",
+        "north_star_kpi": "**初期3本からのLINE誘導クリック数 ＆ 視聴維持率70%超（実測蓄積）**",
+        "active_milestone": "M1: 初期3本公開済 ➔ LINE導線検証スプリント",
         "deadline": "2026-11-10",
         "days_remaining": 6,
-        "tasks_total": 6,
-        "tasks_done": 2,
-        "progress_pct": 33,
-        "mtime": "2026-11-03T16:47:46+09:00",
+        "tasks_total": 7,
+        "tasks_done": 3,
+        "progress_pct": 43,
+        "mtime": "2026-11-04T23:51:59+09:00",
         "non_goals": []
       }
     },
@@ -73,14 +73,14 @@
         "MILESTONES.md"
       ],
       "milestone": {
-        "north_star_kpi": "先行27枚のポータル連携稼働 ＆ 残り133枚の段階実装（3層品質ゲートALL PASS）",
-        "active_milestone": "M1: 27枚先行体験版の切り出し ＆ ポータル連携スプリント",
+        "north_star_kpi": "**133枚実動版のPWA安定稼働 ＆ PTポータル/LINE特典連携完了**",
+        "active_milestone": "M1: 133枚実動版 PWA安定稼働 ＆ ポータル連携スプリント",
         "deadline": "2026-11-10",
         "days_remaining": 6,
-        "tasks_total": 6,
-        "tasks_done": 2,
-        "progress_pct": 33,
-        "mtime": "2026-11-03T16:47:46+09:00",
+        "tasks_total": 7,
+        "tasks_done": 3,
+        "progress_pct": 43,
+        "mtime": "2026-11-04T23:51:59+09:00",
         "non_goals": []
       }
     },
