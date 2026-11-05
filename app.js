@@ -6910,6 +6910,8 @@ function toggleKarutaSplit() {
     btn.innerText = isKarutaSplit ? "👥 対面2P" : "👤 1Pソロ";
     btn.classList.toggle('toggled-on', isKarutaSplit);
   }
+  const arena = document.getElementById('karuta-arena');
+  if (arena) arena.classList.toggle('is-split', isKarutaSplit);
   const zoneP2 = document.getElementById('k-zone-p2');
   if (zoneP2) {
     zoneP2.style.display = isKarutaSplit ? 'flex' : 'none';
@@ -6949,6 +6951,8 @@ function typeKarutaLine(lineClass, text) {
 
 // ゾーン（1P, 2P）の描画
 function renderKarutaZones() {
+  const arena = document.getElementById('karuta-arena');
+  if (arena) arena.classList.toggle('is-split', isKarutaSplit);
   const zoneP2 = document.getElementById('k-zone-p2');
   if (zoneP2) {
     zoneP2.style.display = isKarutaSplit ? 'flex' : 'none';

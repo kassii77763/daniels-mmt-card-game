@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MMT GRADE — 臨床MMTカードバトル —</title>
-<link rel="stylesheet" href="style.css?v=20261105_v24">
-<link rel="manifest" href="manifest.json?v=20261105_v24">
+<link rel="stylesheet" href="style.css?v=20261106_v25">
+<link rel="manifest" href="manifest.json?v=20261106_v25">
 <meta name="theme-color" content="#F9F8F6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -556,6 +556,22 @@
       </div>
 
       <!-- 3分岐フローチャートボード -->
+      <div class="flow-walkthrough-panel" id="flow-walkthrough-panel" style="display:none;">
+        <div class="fw-panel-header">
+          <div class="fw-step-indicator" id="fw-step-indicator">STEP 1 / 4</div>
+          <h3 class="fw-step-title" id="fw-step-title">開始体位（Grade 3）を選択してください</h3>
+        </div>
+        <div class="fw-question-desc" id="fw-question-desc">
+          対象種目「<strong id="fw-target-name">体幹屈曲</strong>」の抗重力位（Grade 3）の正しい開始体位は？
+        </div>
+        <div class="fw-options-grid" id="fw-options-grid">
+          <!-- 選択肢ボタン動的生成 -->
+        </div>
+        <div class="fw-feedback-box" id="fw-feedback-box" style="display:none;">
+          <!-- フィードバック（正解・解説） -->
+        </div>
+      </div>
+
       <div class="flow-chart-card">
         <!-- START: Grade 3 -->
         <div class="flow-node flow-start" id="flow-step1-node">
@@ -651,22 +667,7 @@
           </div>
         </div>
       </div>
-      <div class="flow-walkthrough-panel" id="flow-walkthrough-panel" style="display:none;">
-        <div class="fw-panel-header">
-          <div class="fw-step-indicator" id="fw-step-indicator">STEP 1 / 4</div>
-          <h3 class="fw-step-title" id="fw-step-title">開始体位（Grade 3）を選択してください</h3>
-        </div>
-        <div class="fw-question-desc" id="fw-question-desc">
-          対象種目「<strong id="fw-target-name">体幹屈曲</strong>」の抗重力位（Grade 3）の正しい開始体位は？
-        </div>
-        <div class="fw-options-grid" id="fw-options-grid">
-          <!-- 選択肢ボタン動的生成 -->
-        </div>
-        <div class="fw-feedback-box" id="fw-feedback-box" style="display:none;">
-          <!-- フィードバック（正解・解説） -->
-        </div>
-      </div>
-    </section>
+      </section>
 
     <!-- 3. ENCYCLOPEDIA & WEAKNESS TAB (図鑑＆弱点カルテ) -->
     <section id="tab-list" class="tab-pane">
@@ -736,7 +737,7 @@
   </div>
 </div>
 
-<script src="app.js?v=20261105_v24"></script>
+<script src="app.js?v=20261106_v25"></script>
 <script>
   // Service Worker Registration for PWA (v17)
   if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
