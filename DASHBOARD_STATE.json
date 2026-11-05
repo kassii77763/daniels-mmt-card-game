@@ -1,12 +1,12 @@
 {
-  "last_synced_at": "2026-11-05T23:54:02+09:00",
+  "last_synced_at": "2026-11-06T00:54:02+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "e358c39",
+  "git_commit": "e42c973",
   "validation_status": "ALL_PASS",
   "projects": {
     "pt_student_portal": {
       "folder": "projects/pt_student_portal",
-      "verified_file_count": 26,
+      "verified_file_count": 30,
       "verified_files": [
         ".env",
         ".env.example",
@@ -17,15 +17,15 @@
         "debug_dict_shot.png",
         "debug_fixed_dict.png",
         "debug_test_tab.png",
+        "feature_list.json",
         "index.html",
-        "line-qr.png",
-        "MILESTONES.md"
+        "init.ps1"
       ],
       "milestone": {
         "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「赤点回避ドリル」友だち登録 100名**",
         "active_milestone": "M1: 収益化ファネル直結スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": 5,
+        "days_remaining": 4,
         "tasks_total": 9,
         "tasks_done": 3,
         "progress_pct": 33,
@@ -47,7 +47,7 @@
         "north_star_kpi": "**初期3本からのLINE誘導クリック数 ＆ 視聴維持率70%超（実測蓄積）**",
         "active_milestone": "M1: 初期3本公開済 ➔ LINE導線検証スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": 5,
+        "days_remaining": 4,
         "tasks_total": 7,
         "tasks_done": 3,
         "progress_pct": 43,
@@ -76,7 +76,7 @@
         "north_star_kpi": "**133枚実動版のPWA安定稼働 ＆ PTポータル/LINE特典連携完了**",
         "active_milestone": "M1: 133枚実動版 PWA安定稼働 ＆ ポータル連携スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": 5,
+        "days_remaining": 4,
         "tasks_total": 7,
         "tasks_done": 3,
         "progress_pct": 43,
@@ -98,7 +98,7 @@
         "north_star_kpi": "未設定（PT教育エコシステムの自走化後に設定）",
         "active_milestone": "M0: 計画的保留フェーズ",
         "deadline": "2026-12-15",
-        "days_remaining": 40,
+        "days_remaining": 39,
         "tasks_total": 3,
         "tasks_done": 2,
         "progress_pct": 67,
