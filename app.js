@@ -4510,8 +4510,26 @@ const FLOW_JOINTS_DATA = [
 let selectedFlowJointId = "knee_ext";
 
 // ============================================================================
-// 全モード連動：出題・表示部位フィルタロジック
+// 全モード連動：出題・表示部位フィルタロジック ＆ 授業おすすめ枠
 // ============================================================================
+// Notion授業チェックシート記載の主要21動作キーワード
+const NOTION_RECOMMENDED_ACTIONS = [
+  '肩関節屈曲', '肩関節伸展', '肩関節外転', '肩関節水平内転', '肩関節水平外転', '肩関節外旋', '肩関節内旋',
+  '肘関節屈曲', '肘関節伸展',
+  '股関節屈曲', '股関節伸展', '股関節外転', '股関節内転', '股関節外旋', '股関節内旋',
+  '膝関節屈曲', '膝関節伸展',
+  '足関節底屈', '足関節背屈',
+  '体幹屈曲', '体幹伸展'
+];
+
+let isRecommendedMode = false; // 「🌟 授業おすすめ」モードのON/OFF
+
+function isCardInRecommendedLesson(card) {
+  if (card.archived) return false;
+  const t = card.title || '';
+  return NOTION_RECOMMENDED_ACTIONS.some(k => t.includes(k));
+}
+
 const DECK_SUB_REGIONS = [
   { key: 'neck_trunk', label: '頸部・体幹', defaultActive: true },
   { key: 'shoulder', label: '肩甲帯・肩', defaultActive: true },
@@ -4551,6 +4569,9 @@ function getCardSubRegion(card) {
 }
 
 function getActiveDeck() {
+  if (isRecommendedMode) {
+    return DEFAULT_CARDS.filter(c => !c.archived && isCardInRecommendedLesson(c));
+  }
   return DEFAULT_CARDS.filter(c => !c.archived && REGION_FILTER_STATE[getCardSubRegion(c)] === true);
 }
 
@@ -4561,17 +4582,45 @@ function renderRegionFilterBar() {
 
   const activeDeck = getActiveDeck();
   if (countBadge) {
-    countBadge.textContent = `${activeDeck.length}枚 有効`;
+    if (isRecommendedMode) {
+      countBadge.textContent = `${activeDeck.length}枚 有効（授業おすすめ）`;
+    } else {
+      countBadge.textContent = `${activeDeck.length}枚 有効`;
+    }
   }
 
-  container.innerHTML = DECK_SUB_REGIONS.map(sr => {
-    const isActive = REGION_FILTER_STATE[sr.key];
+  // 「🌟 授業おすすめ」ボタンを先頭に配置
+  const recBtnHtml = `<button type="button" class="drf-chip drf-chip-rec ${isRecommendedMode ? 'active' : ''}" onclick="toggleRecommendedFilter()">${isRecommendedMode ? '★' : '☆'} 🌟 授業おすすめ</button>`;
+
+  const chipsHtml = DECK_SUB_REGIONS.map(sr => {
+    const isActive = !isRecommendedMode && REGION_FILTER_STATE[sr.key];
     const icon = isActive ? '✅' : '⬜';
-    return `<button type="button" class="drf-chip ${isActive ? 'active' : ''}" onclick="toggleRegionFilter('${sr.key}')">${icon} ${sr.label}</button>`;
+    return `<button type="button" class="drf-chip ${isActive ? 'active' : ''} ${isRecommendedMode ? 'disabled-dim' : ''}" onclick="toggleRegionFilter('${sr.key}')">${icon} ${sr.label}</button>`;
   }).join('');
+
+  container.innerHTML = recBtnHtml + chipsHtml;
+}
+
+function toggleRecommendedFilter() {
+  isRecommendedMode = !isRecommendedMode;
+  renderRegionFilterBar();
+
+  // カードDBをアクティブデッキで再同期
+  cardDatabase = getActiveDeck();
+  window.cardDatabase = cardDatabase;
+
+  updateFilterCounts();
+  if (typeof renderEncyclopedia === 'function') {
+    renderEncyclopedia();
+  }
 }
 
 function toggleRegionFilter(key) {
+  if (isRecommendedMode) {
+    // おすすめモード中に個別部位を押したら、おすすめを解除して通常部位選択へ復帰
+    isRecommendedMode = false;
+  }
+
   const activeKeys = Object.keys(REGION_FILTER_STATE).filter(k => REGION_FILTER_STATE[k]);
   if (REGION_FILTER_STATE[key] && activeKeys.length <= 1) {
     alert('少なくとも1つの部位を選択してください。');
