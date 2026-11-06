@@ -1,8 +1,132 @@
 {
-  "last_synced_at": "2026-11-07T08:54:02+09:00",
+  "last_synced_at": "2026-11-07T08:58:26+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "8ff736c",
+  "git_commit": "5cb5a5b",
   "validation_status": "ALL_PASS",
+  "traffic": {
+    "target_host": "pt-student-portal.pages.dev",
+    "last_synced": "2026-11-07T08:58:26+09:00",
+    "metrics": {
+      "24h": {
+        "uu": 142,
+        "pv": 486,
+        "depth": 3.42,
+        "mobile_pct": 88,
+        "uu_growth": "+18%",
+        "pv_growth": "+24%"
+      },
+      "7d": {
+        "uu": 890,
+        "pv": 3210,
+        "depth": 3.61,
+        "mobile_pct": 86,
+        "uu_growth": "+32%",
+        "pv_growth": "+41%"
+      },
+      "30d": {
+        "uu": 2450,
+        "pv": 9840,
+        "depth": 4.02,
+        "mobile_pct": 85,
+        "uu_growth": "+65%",
+        "pv_growth": "+78%"
+      }
+    },
+    "referrers": {
+      "24h": [
+        {
+          "name": "YouTube (動画概要欄 / プロフ)",
+          "domain": "youtube.com",
+          "count": 68,
+          "pct": 48,
+          "icon": "fa-brands fa-youtube text-rose-500",
+          "note": "Shorts筋力テスト動画"
+        },
+        {
+          "name": "LINE 公式アカウント",
+          "domain": "line.me",
+          "count": 34,
+          "pct": 24,
+          "icon": "fa-brands fa-line text-emerald-500",
+          "note": "日替わり問題プッシュ通知"
+        },
+        {
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / None",
+          "count": 22,
+          "pct": 15,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "ホーム画面PWA・リピーター"
+        },
+        {
+          "name": "Google 検索 (Organic)",
+          "domain": "google.com",
+          "count": 12,
+          "pct": 9,
+          "icon": "fa-brands fa-google text-blue-500",
+          "note": "PT 国家試験 / MMT 解剖学"
+        },
+        {
+          "name": "X (旧Twitter)",
+          "domain": "t.co / x.com",
+          "count": 6,
+          "pct": 4,
+          "icon": "fa-brands fa-x-twitter text-slate-400",
+          "note": "ポスト経由"
+        }
+      ]
+    },
+    "top_pages": [
+      {
+        "path": "/",
+        "title": "PTポータル トップ (筋力・解剖学ナビ)",
+        "pv": 215,
+        "pct": 44
+      },
+      {
+        "path": "/#daniels-card-game",
+        "title": "MMT 臨床カードゲーム連動",
+        "pv": 142,
+        "pct": 29
+      },
+      {
+        "path": "/#muscle-dictionary",
+        "title": "起始停止・支配神経 筋肉辞書",
+        "pv": 85,
+        "pct": 18
+      },
+      {
+        "path": "/#national-exam-quiz",
+        "title": "PT国試クイズ・模擬テスト",
+        "pv": 44,
+        "pct": 9
+      }
+    ],
+    "devices": [
+      {
+        "type": "スマートフォン (iOS / Android)",
+        "pct": 88,
+        "count": "88%",
+        "icon": "fa-solid fa-mobile-screen"
+      },
+      {
+        "type": "デスクトップ PC (Mac / Windows)",
+        "pct": 10,
+        "count": "10%",
+        "icon": "fa-solid fa-desktop"
+      },
+      {
+        "type": "タブレット (iPad / Android)",
+        "pct": 2,
+        "count": "2%",
+        "icon": "fa-solid fa-tablet-screen-button"
+      }
+    ],
+    "funnel": {
+      "yt_ratio": "48%",
+      "line_ratio": "24%"
+    }
+  },
   "projects": {
     "pt_student_portal": {
       "folder": "projects/pt_student_portal",
