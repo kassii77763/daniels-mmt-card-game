@@ -1,78 +1,98 @@
 {
-  "last_synced_at": "2026-11-07T10:07:32+09:00",
+  "last_synced_at": "2026-11-07T10:29:25+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "3a67748",
+  "git_commit": "28be510",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-07T10:07:32+09:00",
+    "last_synced": "2026-11-07T10:29:25+09:00",
+    "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
+    "api_status": "ALL_PASS_LIVE",
+    "latest_deployment": {
+      "id": "82ae254b",
+      "env": "production",
+      "created_on": "2026-11-06T23:40:29.527306Z",
+      "url": "https://82ae254b.pt-student-portal.pages.dev"
+    },
     "metrics": {
       "24h": {
-        "uu": 142,
-        "pv": 486,
-        "depth": 3.42,
+        "uu": 8,
+        "pv": 53,
+        "depth": 6.62,
         "mobile_pct": 88,
-        "uu_growth": "+18%",
-        "pv_growth": "+24%"
+        "uu_growth": "実データ稼働中",
+        "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 890,
-        "pv": 3210,
-        "depth": 3.61,
-        "mobile_pct": 86,
-        "uu_growth": "+32%",
-        "pv_growth": "+41%"
+        "uu": 8,
+        "pv": 53,
+        "depth": 6.62,
+        "mobile_pct": 88,
+        "uu_growth": "実データ稼働中",
+        "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 2450,
-        "pv": 9840,
-        "depth": 4.02,
-        "mobile_pct": 85,
-        "uu_growth": "+65%",
-        "pv_growth": "+78%"
+        "uu": 8,
+        "pv": 53,
+        "depth": 6.62,
+        "mobile_pct": 88,
+        "uu_growth": "実データ稼働中",
+        "pv_growth": "実データ稼働中"
       }
     },
     "referrers": {
       "24h": [
         {
-          "name": "YouTube (動画概要欄 / プロフ)",
-          "domain": "youtube.com",
-          "count": 68,
-          "pct": 48,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Shorts筋力テスト動画"
-        },
-        {
-          "name": "LINE 公式アカウント",
-          "domain": "line.me",
-          "count": 34,
-          "pct": 24,
-          "icon": "fa-brands fa-line text-emerald-500",
-          "note": "日替わり問題プッシュ通知"
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 45,
+          "pct": 85,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
-          "domain": "Direct / None",
-          "count": 22,
+          "domain": "Direct / ブックマーク",
+          "count": 8,
           "pct": 15,
           "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "ホーム画面PWA・リピーター"
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ],
+      "7d": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 45,
+          "pct": 85,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
         },
         {
-          "name": "Google 検索 (Organic)",
-          "domain": "google.com",
-          "count": 12,
-          "pct": 9,
-          "icon": "fa-brands fa-google text-blue-500",
-          "note": "PT 国家試験 / MMT 解剖学"
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 8,
+          "pct": 15,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ],
+      "30d": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 45,
+          "pct": 85,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
         },
         {
-          "name": "X (旧Twitter)",
-          "domain": "t.co / x.com",
-          "count": 6,
-          "pct": 4,
-          "icon": "fa-brands fa-x-twitter text-slate-400",
-          "note": "ポスト経由"
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 8,
+          "pct": 15,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
         }
       ]
     },
@@ -80,46 +100,22 @@
       {
         "path": "/",
         "title": "PTポータル トップ (筋力・解剖学ナビ)",
-        "pv": 215,
-        "pct": 44
-      },
-      {
-        "path": "/#daniels-card-game",
-        "title": "MMT 臨床カードゲーム連動",
-        "pv": 142,
-        "pct": 29
-      },
-      {
-        "path": "/#muscle-dictionary",
-        "title": "起始停止・支配神経 筋肉辞書",
-        "pv": 85,
-        "pct": 18
-      },
-      {
-        "path": "/#national-exam-quiz",
-        "title": "PT国試クイズ・模擬テスト",
-        "pv": 44,
-        "pct": 9
+        "pv": 0,
+        "pct": 100
       }
     ],
     "devices": [
       {
         "type": "スマートフォン (iOS / Android)",
-        "pct": 88,
-        "count": "88%",
+        "pct": 85,
+        "count": "85%",
         "icon": "fa-solid fa-mobile-screen"
       },
       {
         "type": "デスクトップ PC (Mac / Windows)",
-        "pct": 10,
-        "count": "10%",
+        "pct": 15,
+        "count": "15%",
         "icon": "fa-solid fa-desktop"
-      },
-      {
-        "type": "タブレット (iPad / Android)",
-        "pct": 2,
-        "count": "2%",
-        "icon": "fa-solid fa-tablet-screen-button"
       }
     ],
     "funnel": {
@@ -133,12 +129,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "3人",
-    "total_views": 7380,
+    "total_views": 7417,
     "total_likes": 24,
     "total_comments": 8,
     "videos_count": 12,
     "api_connected": true,
-    "last_updated": "10:07 JST",
+    "last_updated": "10:29 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -184,7 +180,7 @@
         "id": "4FVIM92zSps",
         "muscle": "骨盤を支えるこの筋肉はどっち",
         "title": "【PT国試予想】骨盤を支えるこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 549,
+        "views": 586,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-06T22:30:16Z",
