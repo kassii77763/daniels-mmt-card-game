@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-07T09:55:39+09:00",
+  "last_synced_at": "2026-11-07T09:57:18+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "fae8c0e",
+  "git_commit": "8c3b63b",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-07T09:55:39+09:00",
+    "last_synced": "2026-11-07T09:57:18+09:00",
     "metrics": {
       "24h": {
         "uu": 142,
@@ -133,16 +133,86 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "3人",
-    "total_views": 248,
-    "total_likes": 1,
-    "total_comments": 3,
-    "videos_count": 3,
+    "total_views": 7417,
+    "total_likes": 24,
+    "total_comments": 8,
+    "videos_count": 12,
     "api_connected": true,
-    "last_updated": "09:55 JST",
+    "last_updated": "09:57 JST",
     "videos": [
       {
+        "id": "PZA60VS43Xo",
+        "muscle": "肘の後ろに付くこの筋肉はどっち",
+        "title": "【PT国試予想】肘の後ろに付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1919,
+        "likes": 6,
+        "comments": 1,
+        "published_at": "2026-11-04T23:33:03Z",
+        "url": "https://youtube.com/shorts/PZA60VS43Xo"
+      },
+      {
+        "id": "8Gs8ptqKtOE",
+        "muscle": "青い停止部に付く筋肉はどっち",
+        "title": "【PT国試予想】青い停止部に付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1679,
+        "likes": 5,
+        "comments": 1,
+        "published_at": "2026-11-04T23:32:49Z",
+        "url": "https://youtube.com/shorts/8Gs8ptqKtOE"
+      },
+      {
+        "id": "TPQgC4HjOdc",
+        "muscle": "肩のてっぺんに付く筋肉はどっち",
+        "title": "【PT国試予想】肩のてっぺんに付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1277,
+        "likes": 3,
+        "comments": 0,
+        "published_at": "2026-11-06T11:30:11Z",
+        "url": "https://youtube.com/shorts/TPQgC4HjOdc"
+      },
+      {
+        "id": "vRscTh45xbQ",
+        "muscle": "手首の外側に伸びる筋肉はどっち",
+        "title": "【PT国試予想】手首の外側に伸びる筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 925,
+        "likes": 4,
+        "comments": 0,
+        "published_at": "2026-11-06T03:15:31Z",
+        "url": "https://youtube.com/shorts/vRscTh45xbQ"
+      },
+      {
+        "id": "4FVIM92zSps",
+        "muscle": "骨盤を支えるこの筋肉はどっち",
+        "title": "【PT国試予想】骨盤を支えるこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 586,
+        "likes": 4,
+        "comments": 0,
+        "published_at": "2026-11-06T22:30:16Z",
+        "url": "https://youtube.com/shorts/4FVIM92zSps"
+      },
+      {
+        "id": "8TR1XZwPLG8",
+        "muscle": "腕の外側に付くこの筋肉はどっち",
+        "title": "【PT国試予想】腕の外側に付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 230,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-05T22:30:18Z",
+        "url": "https://youtube.com/shorts/8TR1XZwPLG8"
+      },
+      {
+        "id": "wCiZKSRzofU",
+        "muscle": "上腕三頭筋の停止部はどっち",
+        "title": "【PT国試予想】上腕三頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 224,
+        "likes": 1,
+        "comments": 1,
+        "published_at": "2026-11-07T00:19:53Z",
+        "url": "https://youtube.com/shorts/wCiZKSRzofU"
+      },
+      {
         "id": "FLLgoI2mmYA",
-        "muscle": "上腕三頭筋",
+        "muscle": "上腕三頭筋の起始・停止即答できる",
         "title": "【PT1年・3秒テスト】上腕三頭筋の起始・停止即答できる？支配神経はどっち？ #shorts #理学療法士 #解剖学",
         "views": 201,
         "likes": 0,
@@ -151,8 +221,28 @@
         "url": "https://youtube.com/shorts/FLLgoI2mmYA"
       },
       {
+        "id": "4KT8o75W2Ho",
+        "muscle": "上腕二頭筋の起始・停止即答できる",
+        "title": "【PT1年・3秒テスト】上腕二頭筋の起始・停止即答できる？支配神経はどっち？ #shorts #理学療法士 #解剖学",
+        "views": 184,
+        "likes": 0,
+        "comments": 1,
+        "published_at": "2026-11-03T01:32:06Z",
+        "url": "https://youtube.com/shorts/4KT8o75W2Ho"
+      },
+      {
+        "id": "8h_lqHM8G40",
+        "muscle": "膝のお皿の下に付く筋肉はどっち",
+        "title": "【PT国試予想】膝のお皿の下に付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 145,
+        "likes": 0,
+        "comments": 1,
+        "published_at": "2026-11-04T23:33:04Z",
+        "url": "https://youtube.com/shorts/8h_lqHM8G40"
+      },
+      {
         "id": "VDopoyb07v4",
-        "muscle": "腕橈骨筋",
+        "muscle": "腕橈骨筋の起始・停止即答できる",
         "title": "【PT1年・3秒テスト】腕橈骨筋の起始・停止即答できる？支配神経はどっち？ #shorts #理学療法士 #解剖学",
         "views": 30,
         "likes": 1,
@@ -162,7 +252,7 @@
       },
       {
         "id": "cdTP9nsZKzM",
-        "muscle": "上腕二頭筋",
+        "muscle": "上腕二頭筋の起始・停止即答できる",
         "title": "【PT1年・3秒テスト】上腕二頭筋の起始・停止即答できる？支配神経はどっち？ #shorts #理学療法士 #解剖学",
         "views": 17,
         "likes": 0,
