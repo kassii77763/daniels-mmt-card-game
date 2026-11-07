@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-07T12:54:02+09:00",
+  "last_synced_at": "2026-11-07T13:54:02+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "71aefad",
+  "git_commit": "f3d63ac",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-07T12:54:02+09:00",
+    "last_synced": "2026-11-07T13:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -16,25 +16,25 @@
     },
     "metrics": {
       "24h": {
-        "uu": 9,
-        "pv": 60,
-        "depth": 6.67,
+        "uu": 10,
+        "pv": 64,
+        "depth": 6.4,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 9,
-        "pv": 60,
-        "depth": 6.67,
+        "uu": 10,
+        "pv": 64,
+        "depth": 6.4,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 9,
-        "pv": 60,
-        "depth": 6.67,
+        "uu": 10,
+        "pv": 64,
+        "depth": 6.4,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -45,8 +45,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 51,
-          "pct": 85,
+          "count": 54,
+          "pct": 84,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -54,15 +54,15 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 8,
-          "pct": 13,
+          "pct": 12,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 1,
-          "pct": 2,
+          "count": 2,
+          "pct": 3,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -71,8 +71,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 51,
-          "pct": 85,
+          "count": 54,
+          "pct": 84,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -80,15 +80,15 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 8,
-          "pct": 13,
+          "pct": 12,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 1,
-          "pct": 2,
+          "count": 2,
+          "pct": 3,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -97,8 +97,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 51,
-          "pct": 85,
+          "count": 54,
+          "pct": 84,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -106,15 +106,15 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 8,
-          "pct": 13,
+          "pct": 12,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 1,
-          "pct": 2,
+          "count": 2,
+          "pct": 3,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -152,13 +152,13 @@
     "channel_handle": "@toaru-pt-gakusei",
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
-    "subscribers": "4人",
-    "total_views": 8529,
-    "total_likes": 30,
+    "subscribers": "5人",
+    "total_views": 8824,
+    "total_likes": 31,
     "total_comments": 9,
-    "videos_count": 13,
+    "videos_count": 14,
     "api_connected": true,
-    "last_updated": "12:54 JST",
+    "last_updated": "13:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -204,7 +204,7 @@
         "id": "4FVIM92zSps",
         "muscle": "骨盤を支えるこの筋肉はどっち",
         "title": "【PT国試予想】骨盤を支えるこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 910,
+        "views": 915,
         "likes": 6,
         "comments": 0,
         "published_at": "2026-11-06T22:30:16Z",
@@ -214,8 +214,8 @@
         "id": "wCiZKSRzofU",
         "muscle": "上腕三頭筋の停止部はどっち",
         "title": "【PT国試予想】上腕三頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 635,
-        "likes": 4,
+        "views": 755,
+        "likes": 5,
         "comments": 2,
         "published_at": "2026-11-07T00:19:53Z",
         "url": "https://youtube.com/shorts/wCiZKSRzofU"
@@ -234,7 +234,7 @@
         "id": "OgM2Uwu_c2g",
         "muscle": "膝の内側に巻き付く筋肉はどっち",
         "title": "【PT国試予想】膝の内側に巻き付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 208,
+        "views": 225,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-07T03:15:17Z",
@@ -261,10 +261,20 @@
         "url": "https://youtube.com/shorts/4KT8o75W2Ho"
       },
       {
+        "id": "6H07VZb6IGg",
+        "muscle": "上腕二頭筋の停止部はどっち",
+        "title": "【PT国試予想】上腕二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 152,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-07T04:20:03Z",
+        "url": "https://youtube.com/shorts/6H07VZb6IGg"
+      },
+      {
         "id": "8h_lqHM8G40",
         "muscle": "膝のお皿の下に付く筋肉はどっち",
         "title": "【PT国試予想】膝のお皿の下に付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 145,
+        "views": 146,
         "likes": 0,
         "comments": 1,
         "published_at": "2026-11-04T23:33:04Z",
