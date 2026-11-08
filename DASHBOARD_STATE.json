@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-08T17:54:03+09:00",
+  "last_synced_at": "2026-11-08T18:54:02+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "1d239f9",
+  "git_commit": "5fdf9f7",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-08T17:54:03+09:00",
+    "last_synced": "2026-11-08T18:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -153,12 +153,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 16020,
-    "total_likes": 62,
+    "total_views": 16859,
+    "total_likes": 63,
     "total_comments": 10,
     "videos_count": 22,
     "api_connected": true,
-    "last_updated": "17:54 JST",
+    "last_updated": "18:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -184,7 +184,7 @@
         "id": "4FVIM92zSps",
         "muscle": "骨盤を支えるこの筋肉はどっち",
         "title": "【PT国試予想】骨盤を支えるこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1301,
+        "views": 1367,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-06T22:30:16Z",
@@ -241,6 +241,16 @@
         "url": "https://youtube.com/shorts/rua5Z-oTINQ"
       },
       {
+        "id": "uE-VKj5NT_Q",
+        "muscle": "中臀筋の停止部はどっち",
+        "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 984,
+        "likes": 4,
+        "comments": 0,
+        "published_at": "2026-11-08T00:19:33Z",
+        "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
+      },
+      {
         "id": "xwLXn2jkZfM",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -251,14 +261,14 @@
         "url": "https://youtube.com/shorts/xwLXn2jkZfM"
       },
       {
-        "id": "uE-VKj5NT_Q",
-        "muscle": "中臀筋の停止部はどっち",
-        "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 981,
-        "likes": 4,
+        "id": "LyXi1WD7pr8",
+        "muscle": "三角筋の停止部はどっち",
+        "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 978,
+        "likes": 5,
         "comments": 0,
-        "published_at": "2026-11-08T00:19:33Z",
-        "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
+        "published_at": "2026-11-07T12:19:43Z",
+        "url": "https://youtube.com/shorts/LyXi1WD7pr8"
       },
       {
         "id": "vFLod7F0Bbg",
@@ -271,16 +281,6 @@
         "url": "https://youtube.com/shorts/vFLod7F0Bbg"
       },
       {
-        "id": "LyXi1WD7pr8",
-        "muscle": "三角筋の停止部はどっち",
-        "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 797,
-        "likes": 5,
-        "comments": 0,
-        "published_at": "2026-11-07T12:19:43Z",
-        "url": "https://youtube.com/shorts/LyXi1WD7pr8"
-      },
-      {
         "id": "qpxnSrvWs30",
         "muscle": "縫工筋の停止部はどっち",
         "title": "【PT国試予想】縫工筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -289,6 +289,16 @@
         "comments": 0,
         "published_at": "2026-11-08T04:19:47Z",
         "url": "https://youtube.com/shorts/qpxnSrvWs30"
+      },
+      {
+        "id": "EiWKs9EeAYg",
+        "muscle": "前脛骨筋の停止部はどっち",
+        "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 764,
+        "likes": 2,
+        "comments": 0,
+        "published_at": "2026-11-08T08:20:06Z",
+        "url": "https://youtube.com/shorts/EiWKs9EeAYg"
       },
       {
         "id": "8TR1XZwPLG8",
@@ -319,16 +329,6 @@
         "comments": 1,
         "published_at": "2026-11-03T01:32:06Z",
         "url": "https://youtube.com/shorts/4KT8o75W2Ho"
-      },
-      {
-        "id": "EiWKs9EeAYg",
-        "muscle": "前脛骨筋の停止部はどっち",
-        "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 175,
-        "likes": 1,
-        "comments": 0,
-        "published_at": "2026-11-08T08:20:06Z",
-        "url": "https://youtube.com/shorts/EiWKs9EeAYg"
       },
       {
         "id": "6H07VZb6IGg",
