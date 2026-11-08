@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-08T16:54:02+09:00",
+  "last_synced_at": "2026-11-08T17:54:03+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "7627865",
+  "git_commit": "1d239f9",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-08T16:54:02+09:00",
+    "last_synced": "2026-11-08T17:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -153,12 +153,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 15390,
-    "total_likes": 61,
+    "total_views": 16020,
+    "total_likes": 62,
     "total_comments": 10,
-    "videos_count": 21,
+    "videos_count": 22,
     "api_connected": true,
-    "last_updated": "16:54 JST",
+    "last_updated": "17:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -194,7 +194,7 @@
         "id": "OgM2Uwu_c2g",
         "muscle": "膝の内側に巻き付く筋肉はどっち",
         "title": "【PT国試予想】膝の内側に巻き付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1273,
+        "views": 1271,
         "likes": 7,
         "comments": 0,
         "published_at": "2026-11-07T03:15:17Z",
@@ -241,6 +241,16 @@
         "url": "https://youtube.com/shorts/rua5Z-oTINQ"
       },
       {
+        "id": "xwLXn2jkZfM",
+        "muscle": "腕橈骨筋の停止部はどっち",
+        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 982,
+        "likes": 5,
+        "comments": 0,
+        "published_at": "2026-11-07T16:19:58Z",
+        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
+      },
+      {
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -251,14 +261,14 @@
         "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
       },
       {
-        "id": "xwLXn2jkZfM",
-        "muscle": "腕橈骨筋の停止部はどっち",
-        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 960,
+        "id": "vFLod7F0Bbg",
+        "muscle": "大腿直筋の起始部はどっち",
+        "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 958,
         "likes": 5,
         "comments": 0,
-        "published_at": "2026-11-07T16:19:58Z",
-        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
+        "published_at": "2026-11-07T08:19:53Z",
+        "url": "https://youtube.com/shorts/vFLod7F0Bbg"
       },
       {
         "id": "LyXi1WD7pr8",
@@ -271,20 +281,10 @@
         "url": "https://youtube.com/shorts/LyXi1WD7pr8"
       },
       {
-        "id": "vFLod7F0Bbg",
-        "muscle": "大腿直筋の起始部はどっち",
-        "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 795,
-        "likes": 5,
-        "comments": 0,
-        "published_at": "2026-11-07T08:19:53Z",
-        "url": "https://youtube.com/shorts/vFLod7F0Bbg"
-      },
-      {
         "id": "qpxnSrvWs30",
         "muscle": "縫工筋の停止部はどっち",
         "title": "【PT国試予想】縫工筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 514,
+        "views": 779,
         "likes": 2,
         "comments": 0,
         "published_at": "2026-11-08T04:19:47Z",
@@ -321,6 +321,16 @@
         "url": "https://youtube.com/shorts/4KT8o75W2Ho"
       },
       {
+        "id": "EiWKs9EeAYg",
+        "muscle": "前脛骨筋の停止部はどっち",
+        "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 175,
+        "likes": 1,
+        "comments": 0,
+        "published_at": "2026-11-08T08:20:06Z",
+        "url": "https://youtube.com/shorts/EiWKs9EeAYg"
+      },
+      {
         "id": "6H07VZb6IGg",
         "muscle": "上腕二頭筋の停止部はどっち",
         "title": "【PT国試予想】上腕二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -344,7 +354,7 @@
         "id": "vu2tJqJ8yJk",
         "muscle": "棘上筋の停止部はどっち",
         "title": "【PT国試予想】棘上筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 103,
+        "views": 110,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-07T20:20:00Z",
