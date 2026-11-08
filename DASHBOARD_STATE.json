@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T00:54:01+09:00",
+  "last_synced_at": "2026-11-09T01:54:01+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "56d9846",
+  "git_commit": "1fc9a22",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T00:54:01+09:00",
+    "last_synced": "2026-11-09T01:54:01+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -153,12 +153,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17807,
+    "total_views": 17814,
     "total_likes": 63,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "00:54 JST",
+    "last_updated": "01:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -321,6 +321,16 @@
         "url": "https://youtube.com/shorts/FLLgoI2mmYA"
       },
       {
+        "id": "wlKxVmKffOQ",
+        "muscle": "大腿二頭筋の停止部はどっち",
+        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 183,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-08T12:19:51Z",
+        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
+      },
+      {
         "id": "4KT8o75W2Ho",
         "muscle": "上腕二頭筋の起始・停止即答できる",
         "title": "【PT1年・3秒テスト】上腕二頭筋の起始・停止即答できる？支配神経はどっち？ #shorts #理学療法士 #解剖学",
@@ -339,16 +349,6 @@
         "comments": 0,
         "published_at": "2026-11-07T04:20:03Z",
         "url": "https://youtube.com/shorts/6H07VZb6IGg"
-      },
-      {
-        "id": "wlKxVmKffOQ",
-        "muscle": "大腿二頭筋の停止部はどっち",
-        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 176,
-        "likes": 0,
-        "comments": 0,
-        "published_at": "2026-11-08T12:19:51Z",
-        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
       },
       {
         "id": "8h_lqHM8G40",
