@@ -137,7 +137,7 @@
       <div class="hidden sm:flex items-center space-x-1 text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2">
         <i class="fa-regular fa-clock text-slate-500 mr-0.5"></i>
         <span>最終同期:</span>
-        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">22:26 JST (毎時同期済)</span>
+        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">22:34 JST (毎時同期済)</span>
       </div>
     </div>
 
@@ -4162,6 +4162,15 @@ function escapeHtml(str) {
     if (cardDepth) cardDepth.textContent = Number(m.depth || 3.2).toFixed(2);
 
     const cardMob = document.getElementById('trafficCardMobile');
+    if (cardMob) cardMob.textContent = (m.mobile_pct || 88) + '%';
+
+    // Telemetry from PT Portal (LINE Clicks)
+    const telem = (liveDashboardState && liveDashboardState.portal_telemetry) ? liveDashboardState.portal_telemetry : null;
+    const lineRatioEl = document.getElementById('funnelLineRatio');
+    if (lineRatioEl && telem) {
+      lineRatioEl.innerHTML = `<span title="ローカル検証・スモーク累計">${telem.total_line_clicks} クリック (最終: ${telem.last_clicked})</span>`;
+    }
+
     if (cardMob) cardMob.textContent = (m.mobile_pct || 88) + '%';
 
     // Referrers List
