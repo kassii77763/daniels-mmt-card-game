@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-08T11:54:02+09:00",
+  "last_synced_at": "2026-11-08T12:54:02+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "0d8c6d2",
+  "git_commit": "af6cb55",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-08T11:54:02+09:00",
+    "last_synced": "2026-11-08T12:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -153,18 +153,18 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 10550,
-    "total_likes": 38,
+    "total_views": 10692,
+    "total_likes": 40,
     "total_comments": 10,
     "videos_count": 20,
     "api_connected": true,
-    "last_updated": "11:54 JST",
+    "last_updated": "12:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
         "muscle": "肘の後ろに付くこの筋肉はどっち",
         "title": "【PT国試予想】肘の後ろに付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1689,
+        "views": 1690,
         "likes": 6,
         "comments": 2,
         "published_at": "2026-11-04T23:33:03Z",
@@ -234,8 +234,8 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 588,
-        "likes": 3,
+        "views": 729,
+        "likes": 5,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
         "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
