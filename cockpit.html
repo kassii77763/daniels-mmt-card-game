@@ -137,7 +137,7 @@
       <div class="hidden sm:flex items-center space-x-1 text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2">
         <i class="fa-regular fa-clock text-slate-500 mr-0.5"></i>
         <span>最終同期:</span>
-        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">22:54 JST (毎時同期済)</span>
+        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">22:59 JST (毎時同期済)</span>
       </div>
     </div>
 
@@ -196,6 +196,33 @@
         </div>
 
         
+
+        
+        <!-- Core Views ナビゲーション (完全復活) -->
+        <div>
+          <div class="px-1.5 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-sidebar-muted">Core Views (主要機能)</div>
+          <nav class="space-y-0.5 text-xs" id="sidebarViewNav">
+            <button onclick="switchMainView('env')" data-view="env" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md bg-indigo-600 text-white font-medium transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-folder-tree w-4 text-center"></i>1. PC環境・フォルダ探査</span>
+            </button>
+            <button onclick="switchMainView('projects')" data-view="projects" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-bullseye w-4 text-center text-amber-400"></i>2. 目的・KPI・方向性</span>
+              <span class="text-[9px] font-mono bg-amber-900/60 text-amber-200 border border-amber-700/60 px-1.5 py-0.2 rounded">4大事業</span>
+            </button>
+            <button onclick="switchMainView('harness')" data-view="harness" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-scale-balanced w-4 text-center text-emerald-400"></i>3. 品質監査・ハーネス</span>
+              <span class="text-[9px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.2 rounded">100点 ALL PASS</span>
+            </button>
+            <button onclick="switchMainView('sns')" data-view="sns" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-brands fa-youtube w-4 text-center text-rose-400"></i>4. SNS・マーケ環境分析</span>
+              <span class="text-[9px] font-mono bg-rose-950 text-rose-300 border border-rose-800 px-1.5 py-0.2 rounded">YouTube Live</span>
+            </button>
+            <button onclick="switchMainView('traffic')" data-view="traffic" class="side-nav-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-sidebar-muted hover:bg-sidebar-hover hover:text-white transition cursor-pointer">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line w-4 text-center text-cyan-400"></i>5. Webトラフィック・流入解析</span>
+              <span class="text-[9px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-800 px-1.5 py-0.2 rounded">Cloudflare</span>
+            </button>
+          </nav>
+        </div>
 
         <!-- 正典ファイル直結リンク -->
         <div>
@@ -4236,8 +4263,10 @@ function escapeHtml(str) {
     // Funnel
     const ytRatioEl = document.getElementById('funnelYtRatio');
     if (ytRatioEl) ytRatioEl.textContent = (data.funnel && data.funnel.yt_ratio) ? data.funnel.yt_ratio : '48%';
-    const lineRatioEl = document.getElementById('funnelLineRatio');
-    if (lineRatioEl) lineRatioEl.textContent = (data.funnel && data.funnel.line_ratio) ? data.funnel.line_ratio : '24%';
+    if (!telem) {
+      const fallbackLine = document.getElementById('funnelLineRatio');
+      if (fallbackLine) fallbackLine.textContent = (data.funnel && data.funnel.line_ratio) ? data.funnel.line_ratio : '24%';
+    }
   }
 
   function refreshTrafficData() {
