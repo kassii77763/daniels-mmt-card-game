@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-08T21:54:01+09:00",
+  "last_synced_at": "2026-11-08T22:26:50+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "df2ac61",
+  "git_commit": "d70bd1c",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-08T21:54:02+09:00",
+    "last_synced": "2026-11-08T22:26:51+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -16,25 +16,25 @@
     },
     "metrics": {
       "24h": {
-        "uu": 14,
-        "pv": 91,
-        "depth": 6.5,
+        "uu": 16,
+        "pv": 95,
+        "depth": 5.94,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 14,
-        "pv": 91,
-        "depth": 6.5,
+        "uu": 16,
+        "pv": 95,
+        "depth": 5.94,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 14,
-        "pv": 91,
-        "depth": 6.5,
+        "uu": 16,
+        "pv": 95,
+        "depth": 5.94,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -45,24 +45,24 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 77,
-          "pct": 85,
+          "count": 79,
+          "pct": 83,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 9,
-          "pct": 10,
+          "count": 10,
+          "pct": 11,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 5,
-          "pct": 5,
+          "count": 6,
+          "pct": 6,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -71,24 +71,24 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 77,
-          "pct": 85,
+          "count": 79,
+          "pct": 83,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 9,
-          "pct": 10,
+          "count": 10,
+          "pct": 11,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 5,
-          "pct": 5,
+          "count": 6,
+          "pct": 6,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -97,24 +97,24 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 77,
-          "pct": 85,
+          "count": 79,
+          "pct": 83,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 9,
-          "pct": 10,
+          "count": 10,
+          "pct": 11,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 5,
-          "pct": 5,
+          "count": 6,
+          "pct": 6,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -153,12 +153,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17264,
+    "total_views": 17336,
     "total_likes": 63,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "21:54 JST",
+    "last_updated": "22:26 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -191,6 +191,16 @@
         "url": "https://youtube.com/shorts/4FVIM92zSps"
       },
       {
+        "id": "TPQgC4HjOdc",
+        "muscle": "肩のてっぺんに付く筋肉はどっち",
+        "title": "【PT国試予想】肩のてっぺんに付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1317,
+        "likes": 3,
+        "comments": 0,
+        "published_at": "2026-11-06T11:30:11Z",
+        "url": "https://youtube.com/shorts/TPQgC4HjOdc"
+      },
+      {
         "id": "OgM2Uwu_c2g",
         "muscle": "膝の内側に巻き付く筋肉はどっち",
         "title": "【PT国試予想】膝の内側に巻き付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
@@ -199,16 +209,6 @@
         "comments": 0,
         "published_at": "2026-11-07T03:15:17Z",
         "url": "https://youtube.com/shorts/OgM2Uwu_c2g"
-      },
-      {
-        "id": "TPQgC4HjOdc",
-        "muscle": "肩のてっぺんに付く筋肉はどっち",
-        "title": "【PT国試予想】肩のてっぺんに付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1165,
-        "likes": 3,
-        "comments": 0,
-        "published_at": "2026-11-06T11:30:11Z",
-        "url": "https://youtube.com/shorts/TPQgC4HjOdc"
       },
       {
         "id": "vRscTh45xbQ",
@@ -331,16 +331,6 @@
         "url": "https://youtube.com/shorts/4KT8o75W2Ho"
       },
       {
-        "id": "wlKxVmKffOQ",
-        "muscle": "大腿二頭筋の停止部はどっち",
-        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 176,
-        "likes": 0,
-        "comments": 0,
-        "published_at": "2026-11-08T12:19:51Z",
-        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
-      },
-      {
         "id": "6H07VZb6IGg",
         "muscle": "上腕二頭筋の停止部はどっち",
         "title": "【PT国試予想】上腕二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -371,6 +361,16 @@
         "url": "https://youtube.com/shorts/vu2tJqJ8yJk"
       },
       {
+        "id": "wlKxVmKffOQ",
+        "muscle": "大腿二頭筋の停止部はどっち",
+        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 96,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-08T12:19:51Z",
+        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
+      },
+      {
         "id": "VDopoyb07v4",
         "muscle": "腕橈骨筋の起始・停止即答できる",
         "title": "【PT1年・3秒テスト】腕橈骨筋の起始・停止即答できる？支配神経はどっち？ #shorts #理学療法士 #解剖学",
@@ -395,20 +395,20 @@
   "projects": {
     "pt_student_portal": {
       "folder": "projects/pt_student_portal",
-      "verified_file_count": 28,
+      "verified_file_count": 25,
       "verified_files": [
         ".env",
         ".env.example",
         ".gitignore",
         "AGENTS.md",
         "app.js",
-        "classmate.css",
-        "classmate.html",
-        "classmate.js",
         "dashboard_ai_automation_spec.md",
         "debug_dict_shot.png",
         "debug_fixed_dict.png",
-        "debug_test_tab.png"
+        "debug_test_tab.png",
+        "feature_list.json",
+        "index.html",
+        "init.ps1"
       ],
       "milestone": {
         "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「赤点回避ドリル」友だち登録 100名**",
