@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-08T13:54:02+09:00",
+  "last_synced_at": "2026-11-08T14:54:03+09:00",
   "sync_mode": "hourly_daemon",
-  "git_commit": "3b16a52",
+  "git_commit": "5e38287",
   "validation_status": "ALL_PASS",
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-08T13:54:02+09:00",
+    "last_synced": "2026-11-08T14:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -153,12 +153,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 12181,
-    "total_likes": 48,
+    "total_views": 14090,
+    "total_likes": 58,
     "total_comments": 10,
     "videos_count": 21,
     "api_connected": true,
-    "last_updated": "13:54 JST",
+    "last_updated": "14:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -215,7 +215,7 @@
         "muscle": "膝の内側に巻き付く筋肉はどっち",
         "title": "【PT国試予想】膝の内側に巻き付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
         "views": 1100,
-        "likes": 5,
+        "likes": 7,
         "comments": 0,
         "published_at": "2026-11-07T03:15:17Z",
         "url": "https://youtube.com/shorts/OgM2Uwu_c2g"
@@ -234,18 +234,28 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 781,
-        "likes": 5,
+        "views": 981,
+        "likes": 4,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
         "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
       },
       {
+        "id": "LyXi1WD7pr8",
+        "muscle": "三角筋の停止部はどっち",
+        "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 797,
+        "likes": 5,
+        "comments": 0,
+        "published_at": "2026-11-07T12:19:43Z",
+        "url": "https://youtube.com/shorts/LyXi1WD7pr8"
+      },
+      {
         "id": "rua5Z-oTINQ",
         "muscle": "つま先を持ち上げる筋肉はどっち",
         "title": "【PT国試予想】つま先を持ち上げる筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 337,
-        "likes": 2,
+        "views": 774,
+        "likes": 4,
         "comments": 0,
         "published_at": "2026-11-07T11:30:30Z",
         "url": "https://youtube.com/shorts/rua5Z-oTINQ"
@@ -254,28 +264,18 @@
         "id": "xwLXn2jkZfM",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 292,
-        "likes": 3,
+        "views": 772,
+        "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T16:19:58Z",
         "url": "https://youtube.com/shorts/xwLXn2jkZfM"
       },
       {
-        "id": "LyXi1WD7pr8",
-        "muscle": "三角筋の停止部はどっち",
-        "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 285,
-        "likes": 3,
-        "comments": 0,
-        "published_at": "2026-11-07T12:19:43Z",
-        "url": "https://youtube.com/shorts/LyXi1WD7pr8"
-      },
-      {
         "id": "vFLod7F0Bbg",
         "muscle": "大腿直筋の起始部はどっち",
         "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 260,
-        "likes": 1,
+        "views": 540,
+        "likes": 4,
         "comments": 0,
         "published_at": "2026-11-07T08:19:53Z",
         "url": "https://youtube.com/shorts/vFLod7F0Bbg"
