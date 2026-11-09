@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T04:54:02+09:00",
+  "last_synced_at": "2026-11-10T05:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "cdc384b",
-  "pt_git_commit": "01e2cb7",
+  "git_commit": "eb32a44",
+  "pt_git_commit": "5a92d3b",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T04:54:02+09:00",
+    "scanned_at": "2026-11-10T05:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "5a92d3b",
+        "date": "2026-11-10",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [04:54 JST]"
+      },
+      {
         "sha": "01e2cb7",
         "date": "2026-11-10",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [03:54 JST]"
@@ -86,11 +91,6 @@
         "sha": "79cf109",
         "date": "2026-11-09",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [23:54 JST]"
-      },
-      {
-        "sha": "3209e9b",
-        "date": "2026-11-09",
-        "subject": "fix(stats): implement lecture-specific 10-question quizzes for all 8 lectures (total 80 questions)"
       }
     ],
     "adsense_monitor": {
@@ -106,125 +106,50 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T04:54:02+09:00"
+      "last_checked_at": "2026-11-10T05:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T04:54:02+09:00",
+    "last_synced": "2026-11-10T05:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
-    "api_status": "ALL_PASS_LIVE",
+    "api_status": "ERROR: The read operation timed out",
     "latest_deployment": {
-      "id": "a30d827e",
+      "id": "850538b4",
       "env": "production",
-      "created_on": "2026-11-09T18:54:17.453681Z",
-      "url": "https://a30d827e.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T19:54:16.083168Z",
+      "url": "https://850538b4.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
-        "uu": 40,
-        "pv": 286,
-        "depth": 7.15,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 40,
-        "pv": 286,
-        "depth": 7.15,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 40,
-        "pv": 286,
-        "depth": 7.15,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       }
     },
     "referrers": {
-      "24h": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 246,
-          "pct": 86,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 11,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 8,
-          "pct": 3,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ],
-      "7d": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 246,
-          "pct": 86,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 11,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 8,
-          "pct": 3,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ],
-      "30d": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 246,
-          "pct": 86,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 11,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 8,
-          "pct": 3,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ]
+      "24h": [],
+      "7d": [],
+      "30d": []
     },
     "top_pages": [
       {
@@ -259,12 +184,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18933,
+    "total_views": 18953,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "04:54 JST",
+    "last_updated": "05:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -410,7 +335,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 854,
+        "views": 874,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
