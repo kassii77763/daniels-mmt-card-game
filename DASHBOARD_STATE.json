@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T11:54:01+09:00",
+  "last_synced_at": "2026-11-09T12:54:01+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "ec72237",
-  "pt_git_commit": "7dbccc7",
+  "git_commit": "4063378",
+  "pt_git_commit": "4a9f9ce",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T11:54:02+09:00",
+    "scanned_at": "2026-11-09T12:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -62,6 +62,11 @@
     },
     "recent_commits": [
       {
+        "sha": "4a9f9ce",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:54 JST]"
+      },
+      {
         "sha": "7dbccc7",
         "date": "2026-11-09",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:43 JST]"
@@ -85,46 +90,41 @@
         "sha": "c20ddfc",
         "date": "2026-11-09",
         "subject": "feat(adsense & sync): add Google AdSense ownership snippet & ads.txt, enable local bridge sync from cloud dashboard"
-      },
-      {
-        "sha": "f076727",
-        "date": "2026-11-09",
-        "subject": "chore(sync): update DASHBOARD_STATE.json with latest git sha"
       }
     ]
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T11:54:02+09:00",
+    "last_synced": "2026-11-09T12:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "ac124c2b",
+      "id": "a4deeac5",
       "env": "production",
-      "created_on": "2026-11-09T02:44:03.321507Z",
-      "url": "https://ac124c2b.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T02:54:14.369388Z",
+      "url": "https://a4deeac5.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
         "uu": 35,
-        "pv": 183,
-        "depth": 5.23,
+        "pv": 188,
+        "depth": 5.37,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
         "uu": 35,
-        "pv": 183,
-        "depth": 5.23,
+        "pv": 188,
+        "depth": 5.37,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
         "uu": 35,
-        "pv": 183,
-        "depth": 5.23,
+        "pv": 188,
+        "depth": 5.37,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -135,7 +135,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 148,
+          "count": 153,
           "pct": 81,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -144,7 +144,7 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 27,
-          "pct": 15,
+          "pct": 14,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -161,7 +161,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 148,
+          "count": 153,
           "pct": 81,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -170,7 +170,7 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 27,
-          "pct": 15,
+          "pct": 14,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -187,7 +187,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 148,
+          "count": 153,
           "pct": 81,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -196,7 +196,7 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 27,
-          "pct": 15,
+          "pct": 14,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -243,12 +243,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17812,
+    "total_views": 17853,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "11:54 JST",
+    "last_updated": "12:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -394,7 +394,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 317,
+        "views": 358,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
