@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T13:09:28+09:00",
+  "last_synced_at": "2026-11-09T13:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "a85d187",
-  "pt_git_commit": "a196eba",
+  "git_commit": "67d6126",
+  "pt_git_commit": "4dfdd61",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T13:09:28+09:00",
+    "scanned_at": "2026-11-09T13:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -62,6 +62,11 @@
     },
     "recent_commits": [
       {
+        "sha": "4dfdd61",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [13:09 JST]"
+      },
+      {
         "sha": "a196eba",
         "date": "2026-11-09",
         "subject": "feat(dashboard): add Google AdSense 4-metric monitor (tag/ads.txt live HTTP check, status, 8000 JPY gauge, /u/2/ direct link)"
@@ -85,11 +90,6 @@
         "sha": "9b85b4e",
         "date": "2026-11-09",
         "subject": "docs(adsense): record Google AdSense & ads.txt deployment in MILESTONES.md, PROGRESS.md, and HEAD scanner"
-      },
-      {
-        "sha": "5de30bb",
-        "date": "2026-11-09",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:38 JST]"
       }
     ],
     "adsense_monitor": {
@@ -105,41 +105,41 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-09T13:09:28+09:00"
+      "last_checked_at": "2026-11-09T13:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T13:09:28+09:00",
+    "last_synced": "2026-11-09T13:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "5e443ede",
+      "id": "14cb1832",
       "env": "production",
-      "created_on": "2026-11-09T03:54:14.139467Z",
-      "url": "https://5e443ede.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T04:09:41.990314Z",
+      "url": "https://14cb1832.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
         "uu": 36,
-        "pv": 196,
-        "depth": 5.44,
+        "pv": 200,
+        "depth": 5.56,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
         "uu": 36,
-        "pv": 196,
-        "depth": 5.44,
+        "pv": 200,
+        "depth": 5.56,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
         "uu": 36,
-        "pv": 196,
-        "depth": 5.44,
+        "pv": 200,
+        "depth": 5.56,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -150,7 +150,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 160,
+          "count": 164,
           "pct": 82,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -176,7 +176,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 160,
+          "count": 164,
           "pct": 82,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -202,7 +202,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 160,
+          "count": 164,
           "pct": 82,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -258,18 +258,18 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17867,
+    "total_views": 17908,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "13:09 JST",
+    "last_updated": "13:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
         "muscle": "肘の後ろに付くこの筋肉はどっち",
         "title": "【PT国試予想】肘の後ろに付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1697,
+        "views": 1692,
         "likes": 6,
         "comments": 2,
         "published_at": "2026-11-04T23:33:03Z",
@@ -349,7 +349,7 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 974,
+        "views": 975,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
@@ -409,7 +409,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 364,
+        "views": 409,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
@@ -498,15 +498,16 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 93,
-    "smoke_tests": 25,
+    "total_line_clicks": 103,
+    "smoke_tests": 28,
     "by_date": {
       "2026-10-31": 12,
       "2026-11-02": 63,
       "2026-11-03": 14,
-      "2026-11-07": 4
+      "2026-11-07": 4,
+      "2026-11-09": 10
     },
-    "last_clicked": "2026-11-07"
+    "last_clicked": "2026-11-09"
   },
   "projects": {
     "pt_student_portal": {
