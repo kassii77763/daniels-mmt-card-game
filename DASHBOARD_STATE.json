@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T19:54:02+09:00",
+  "last_synced_at": "2026-11-09T20:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "a95309a",
-  "pt_git_commit": "e0b7134",
+  "git_commit": "9ca7074",
+  "pt_git_commit": "6ea1852",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T19:54:02+09:00",
+    "scanned_at": "2026-11-09T20:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,34 +63,34 @@
     },
     "recent_commits": [
       {
-        "sha": "e0b7134",
+        "sha": "6ea1852",
         "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 3-2"
+        "subject": "feat(stats): complete and deploy video 4-4"
       },
       {
-        "sha": "bd0fb79",
+        "sha": "e2b317b",
         "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 3-1"
+        "subject": "feat(stats): complete and deploy video 4-3"
       },
       {
-        "sha": "ce9e31d",
+        "sha": "7ec3053",
         "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 2-4"
+        "subject": "feat(stats): complete and deploy video 4-2"
       },
       {
-        "sha": "3d7d5c7",
+        "sha": "2449035",
         "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 2-3"
+        "subject": "feat(stats): complete and deploy video 4-1"
       },
       {
-        "sha": "bff98bb",
+        "sha": "29f8e43",
         "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 2-2"
+        "subject": "feat(stats): complete and deploy video 3-4"
       },
       {
-        "sha": "9847c0f",
+        "sha": "eb043c4",
         "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 2-1"
+        "subject": "feat(stats): complete and deploy video 3-3"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-09T19:54:02+09:00"
+      "last_checked_at": "2026-11-09T20:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T19:54:02+09:00",
+    "last_synced": "2026-11-09T20:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "89ec8896",
+      "id": "1e0b72e1",
       "env": "production",
-      "created_on": "2026-11-09T10:41:16.103672Z",
-      "url": "https://89ec8896.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T11:53:55.202099Z",
+      "url": "https://1e0b72e1.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -259,12 +259,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18523,
+    "total_views": 18575,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "19:54 JST",
+    "last_updated": "20:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -367,6 +367,16 @@
         "url": "https://youtube.com/shorts/vFLod7F0Bbg"
       },
       {
+        "id": "uE-VKj5NT_Q",
+        "muscle": "中臀筋の停止部はどっち",
+        "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1028,
+        "likes": 5,
+        "comments": 0,
+        "published_at": "2026-11-08T00:19:33Z",
+        "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
+      },
+      {
         "id": "rua5Z-oTINQ",
         "muscle": "つま先を持ち上げる筋肉はどっち",
         "title": "【PT国試予想】つま先を持ち上げる筋肉はどっち？ #shorts #解剖学 #理学療法士",
@@ -375,16 +385,6 @@
         "comments": 0,
         "published_at": "2026-11-07T11:30:30Z",
         "url": "https://youtube.com/shorts/rua5Z-oTINQ"
-      },
-      {
-        "id": "uE-VKj5NT_Q",
-        "muscle": "中臀筋の停止部はどっち",
-        "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 976,
-        "likes": 5,
-        "comments": 0,
-        "published_at": "2026-11-08T00:19:33Z",
-        "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
       },
       {
         "id": "EiWKs9EeAYg",
