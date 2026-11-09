@@ -137,7 +137,7 @@
       <div class="hidden sm:flex items-center space-x-1 text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2">
         <i class="fa-regular fa-clock text-slate-500 mr-0.5"></i>
         <span>最終同期:</span>
-        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">12:54 JST (自動スキャン同期済)</span>
+        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">13:09 JST (自動スキャン同期済)</span>
       </div>
     </div>
 
@@ -1392,6 +1392,11 @@
             if (ptMs.active_milestone) ptItem.phase = ptMs.active_milestone;
             if (cw.http_ok_count !== undefined) {
               ptItem.currentStatus = `【本番HEAD自動スキャン済】稼働タブ${(arch.active_tabs || []).length}個・80筋カルテ・略語50/禁忌20へ純化（神動画50選・辞書50枚・AI相談撤去済）。全国${cw.total_schools || 25}校クローラー稼働（HTTP疎通 ${cw.http_ok_count}/${cw.total_schools || 25} OK・専門実践${cw.verified_active_count || 21}校確定・3年192万/4年256万）。`;
+            }
+            const ads = arch.adsense_monitor || {};
+            if (ads.publisher_id) {
+              ptItem.adsenseSummary = `${ads.review_status_label || '🟡 審査中'} | ${ads.health_label || '🟢 Tag & ads.txt 200 OK'} (${ads.publisher_id}) | 振込基準 ¥${(ads.estimated_earnings_jpy || 0).toLocaleString()} / ¥${(ads.payout_threshold_jpy || 8000).toLocaleString()}`;
+              ptItem.adsenseUrl = ads.console_url || 'https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding';
             }
             if (ptMs.strategic_decisions && ptMs.strategic_decisions.length > 0) {
               ptItem.pivotNotes = ptMs.strategic_decisions.slice(0, 3).join(' / ');
@@ -3691,8 +3696,11 @@ function escapeHtml(str) {
       nextFocus: '臨床サバイバルチートシート＆国試100問ドリルの本番投入、およびクラスメイト専用ハブ（classmate.html）展開',
       pivotNotes: '【重要ピボット】目的が曖昧な「他人の神動画50選まとめ」を廃止し、80筋カルテ内でグッズ・起始停止と同時に見られる特化動画へ集中。給付金は厚労省2024年10月新基準（3年192万/4年256万）に完全統一。',
       badges: ['👑 収益本体', '80筋カルテ純化', '25校クローラー稼働'],
+      adsenseSummary: '🟡 審査中 (Onboarding) | 🟢 Tag & ads.txt 200 OK (ca-pub-7918089251306963) | 振込基準 ¥0 / ¥8,000',
+      adsenseUrl: 'https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding',
       relations: [
         { label: '📊 PTポータル専用統括管制盤（詳細・戦略・クローラー台帳）を開く ➔', url: 'https://pt-student-portal.pages.dev/admin-backend/dashboard.html', primary: true },
+        { label: '💰 Google AdSense 管理画面 (/u/2/ 直通) ↗', url: 'https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding', primary: false },
         { label: '🌐 本番ポータル (トップ / 80筋カルテ) ↗', url: 'https://pt-student-portal.pages.dev/', primary: false },
         { label: '🏛️ 本番ポータル (全国25校DB・給付金) ↗', url: 'https://pt-student-portal.pages.dev/#schools', primary: false },
         { label: '📋 本番ポータル (チートシート・100問準備枠) ↗', url: 'https://pt-student-portal.pages.dev/#curation', primary: false }
@@ -3941,6 +3949,12 @@ function escapeHtml(str) {
           <div class="pt-1 border-t border-ecru-border/70 text-[11px] text-ecru-subtext">
             <strong>現在地:</strong> ${p.currentStatus}
           </div>
+          ${p.adsenseSummary ? `
+          <div class="pt-1.5 border-t border-amber-200/80 flex items-center justify-between gap-2 text-[11px]">
+            <span class="font-semibold text-amber-900">💰 <strong>AdSense監視:</strong> ${p.adsenseSummary}</span>
+            <a href="${p.adsenseUrl || 'https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding'}" target="_blank" rel="noopener noreferrer" class="px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-700 text-white font-bold text-[10px] flex-shrink-0">AdSense管理画面 ↗</a>
+          </div>
+          ` : ''}
         </div>
 
         <div class="p-3 rounded-lg bg-amber-50/70 border border-amber-200 text-xs space-y-1">
