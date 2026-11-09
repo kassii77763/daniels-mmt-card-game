@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T11:43:51+09:00",
+  "last_synced_at": "2026-11-09T11:54:01+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "08598c8",
-  "pt_git_commit": "9b85b4e",
+  "git_commit": "ec72237",
+  "pt_git_commit": "7dbccc7",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T11:43:51+09:00",
+    "scanned_at": "2026-11-09T11:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -62,6 +62,11 @@
     },
     "recent_commits": [
       {
+        "sha": "7dbccc7",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:43 JST]"
+      },
+      {
         "sha": "9b85b4e",
         "date": "2026-11-09",
         "subject": "docs(adsense): record Google AdSense & ads.txt deployment in MILESTONES.md, PROGRESS.md, and HEAD scanner"
@@ -85,24 +90,19 @@
         "sha": "f076727",
         "date": "2026-11-09",
         "subject": "chore(sync): update DASHBOARD_STATE.json with latest git sha"
-      },
-      {
-        "sha": "24fd889",
-        "date": "2026-11-09",
-        "subject": "Merge remote-tracking branch 'origin/main'"
       }
     ]
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T11:43:51+09:00",
+    "last_synced": "2026-11-09T11:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "a6d7a528",
+      "id": "ac124c2b",
       "env": "production",
-      "created_on": "2026-11-09T02:38:58.708096Z",
-      "url": "https://a6d7a528.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T02:44:03.321507Z",
+      "url": "https://ac124c2b.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -243,12 +243,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17805,
+    "total_views": 17812,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "11:43 JST",
+    "last_updated": "11:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -394,7 +394,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 310,
+        "views": 317,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
