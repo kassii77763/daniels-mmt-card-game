@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T15:55:29+09:00",
+  "last_synced_at": "2026-11-09T16:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "236eb15",
-  "pt_git_commit": "5372ee3",
+  "git_commit": "1728e97",
+  "pt_git_commit": "0a2d5be",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T15:55:30+09:00",
+    "scanned_at": "2026-11-09T16:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,26 @@
     },
     "recent_commits": [
       {
+        "sha": "0a2d5be",
+        "date": "2026-11-09",
+        "subject": "feat(stats): add completed lecture 1 videos (1-1, 1-2) and all 8 lectures quiz/cheatsheet data"
+      },
+      {
+        "sha": "a17e70c",
+        "date": "2026-11-09",
+        "subject": "feat: implement Master Mobile Learning UI System with optimal typography and compact layout"
+      },
+      {
+        "sha": "47bdad4",
+        "date": "2026-11-09",
+        "subject": "feat: upgrade stats hub to dedicated page with optimized video playback, 4-choice quiz, and PT portal design alignment"
+      },
+      {
+        "sha": "fd157a5",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [15:55 JST]"
+      },
+      {
         "sha": "5372ee3",
         "date": "2026-11-09",
         "subject": "style: optimize VAKT diagnosis for mobile responsive layout and touch targets"
@@ -71,26 +91,6 @@
         "sha": "716b85f",
         "date": "2026-11-09",
         "subject": "feat: upgrade VAKT to 1-by-1 step wizard modal, polish share actions, and add scientific evidence details"
-      },
-      {
-        "sha": "6b19194",
-        "date": "2026-11-09",
-        "subject": "feat: implement scientific VAKT learning style diagnosis and improve modal UX"
-      },
-      {
-        "sha": "b293e25",
-        "date": "2026-11-09",
-        "subject": "feat: clean up Amazon gear section, fix video filters, and upgrade test harnesses"
-      },
-      {
-        "sha": "cf200ac",
-        "date": "2026-11-09",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [14:20 JST]"
-      },
-      {
-        "sha": "e396990",
-        "date": "2026-11-09",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [13:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,125 +106,50 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-09T15:55:32+09:00"
+      "last_checked_at": "2026-11-09T16:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T15:55:36+09:00",
+    "last_synced": "2026-11-09T16:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
-    "api_status": "ALL_PASS_LIVE",
+    "api_status": "ERROR: The read operation timed out",
     "latest_deployment": {
-      "id": "29fcb502",
+      "id": "7419959f",
       "env": "production",
-      "created_on": "2026-11-09T06:46:29.846799Z",
-      "url": "https://29fcb502.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T07:47:14.494997Z",
+      "url": "https://7419959f.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
-        "uu": 40,
-        "pv": 271,
-        "depth": 6.78,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 40,
-        "pv": 271,
-        "depth": 6.78,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 40,
-        "pv": 271,
-        "depth": 6.78,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       }
     },
     "referrers": {
-      "24h": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 231,
-          "pct": 85,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 12,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 8,
-          "pct": 3,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ],
-      "7d": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 231,
-          "pct": 85,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 12,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 8,
-          "pct": 3,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ],
-      "30d": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 231,
-          "pct": 85,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 12,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 8,
-          "pct": 3,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ]
+      "24h": [],
+      "7d": [],
+      "30d": []
     },
     "top_pages": [
       {
@@ -259,12 +184,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17975,
+    "total_views": 17979,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "15:55 JST",
+    "last_updated": "16:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -340,7 +265,7 @@
         "id": "rua5Z-oTINQ",
         "muscle": "つま先を持ち上げる筋肉はどっち",
         "title": "【PT国試予想】つま先を持ち上げる筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 978,
+        "views": 979,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-07T11:30:30Z",
@@ -360,7 +285,7 @@
         "id": "xwLXn2jkZfM",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 967,
+        "views": 968,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T16:19:58Z",
@@ -380,7 +305,7 @@
         "id": "LyXi1WD7pr8",
         "muscle": "三角筋の停止部はどっち",
         "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 952,
+        "views": 954,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T12:19:43Z",
@@ -499,14 +424,14 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 118,
-    "smoke_tests": 33,
+    "total_line_clicks": 124,
+    "smoke_tests": 35,
     "by_date": {
       "2026-10-31": 12,
       "2026-11-02": 63,
       "2026-11-03": 14,
       "2026-11-07": 4,
-      "2026-11-09": 25
+      "2026-11-09": 31
     },
     "last_clicked": "2026-11-09"
   },
