@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T11:01:01+09:00",
+  "last_synced_at": "2026-11-09T11:20:43+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "cdc3167",
-  "pt_git_commit": "dd4df12",
+  "git_commit": "33f170d",
+  "pt_git_commit": "24fd889",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T11:01:01+09:00",
+    "scanned_at": "2026-11-09T11:20:43+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -50,7 +50,7 @@
     },
     "crawler_audit": {
       "engine": "PTStudentPortalCrawler/2.0 (Official URL Fetch & MHLW Verification)",
-      "crawled_at": "2026-11-09T10:23:39.071634",
+      "crawled_at": "2026-11-09T11:11:23.592388",
       "total_schools": 25,
       "http_ok_count": 22,
       "verified_active_count": 21,
@@ -61,78 +61,153 @@
     },
     "recent_commits": [
       {
-        "sha": "dd4df12",
-        "date": "2026-11-05",
-        "subject": "feat: add admission checklist PDF and PNG assets for note bonus"
+        "sha": "24fd889",
+        "date": "2026-11-09",
+        "subject": "Merge remote-tracking branch 'origin/main'"
       },
       {
-        "sha": "5696da6",
-        "date": "2026-11-03",
+        "sha": "8542270",
+        "date": "2026-11-09",
+        "subject": "feat(portal & dashboard): integrate 2024/10 school subsidy crawler v2.0, 2-tier cockpit sync, and live HEAD structure audit"
+      },
+      {
+        "sha": "5f54fb1",
+        "date": "2026-11-08",
         "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
       },
       {
-        "sha": "db0fe49",
-        "date": "2026-11-03",
-        "subject": "feat(analytics): integrate Cloudflare Web Analytics beacon and update progress ledger"
-      },
-      {
-        "sha": "815128a",
-        "date": "2026-11-03",
-        "subject": "feat(harness): apply AI Pedagogy Judge prescriptions (100 ALL PASS) and deploy sanitizers"
-      },
-      {
-        "sha": "69e9bcd",
-        "date": "2026-11-03",
+        "sha": "711bf70",
+        "date": "2026-11-07",
         "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
       },
       {
-        "sha": "6b22e66",
-        "date": "2026-11-02",
-        "subject": "fix(plan-ui): fix accordion header layout, isolate sections cleanly, and update progress to 33%"
+        "sha": "de74377",
+        "date": "2026-11-07",
+        "subject": "chore(auto): autonomous patrol and content data sync [skip ci]"
+      },
+      {
+        "sha": "0d55462",
+        "date": "2026-11-06",
+        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
       }
     ]
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T11:01:01+09:00",
+    "last_synced": "2026-11-09T11:20:43+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "40cc47c3",
+      "id": "58afecfe",
       "env": "production",
-      "created_on": "2026-11-08T22:41:49.299905Z",
-      "url": "https://40cc47c3.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T02:20:32.730105Z",
+      "url": "https://58afecfe.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
-        "uu": 28,
-        "pv": 158,
-        "depth": 5.64,
+        "uu": 35,
+        "pv": 178,
+        "depth": 5.09,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 28,
-        "pv": 158,
-        "depth": 5.64,
+        "uu": 35,
+        "pv": 178,
+        "depth": 5.09,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 28,
-        "pv": 158,
-        "depth": 5.64,
+        "uu": 35,
+        "pv": 178,
+        "depth": 5.09,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       }
     },
     "referrers": {
-      "24h": [],
-      "7d": [],
-      "30d": []
+      "24h": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 143,
+          "pct": 80,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 27,
+          "pct": 15,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "YouTube (Shorts動画概要欄)",
+          "domain": "YouTube (Shorts動画概要欄)",
+          "count": 8,
+          "pct": 4,
+          "icon": "fa-brands fa-youtube text-rose-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ],
+      "7d": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 143,
+          "pct": 80,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 27,
+          "pct": 15,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "YouTube (Shorts動画概要欄)",
+          "domain": "YouTube (Shorts動画概要欄)",
+          "count": 8,
+          "pct": 4,
+          "icon": "fa-brands fa-youtube text-rose-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ],
+      "30d": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 143,
+          "pct": 80,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 27,
+          "pct": 15,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "YouTube (Shorts動画概要欄)",
+          "domain": "YouTube (Shorts動画概要欄)",
+          "count": 8,
+          "pct": 4,
+          "icon": "fa-brands fa-youtube text-rose-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ]
     },
     "top_pages": [
       {
@@ -167,12 +242,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17776,
+    "total_views": 17789,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "11:01 JST",
+    "last_updated": "11:20 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -318,7 +393,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 281,
+        "views": 294,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
@@ -420,8 +495,9 @@
   "projects": {
     "pt_student_portal": {
       "folder": "projects/pt_student_portal",
-      "verified_file_count": 28,
+      "verified_file_count": 29,
       "verified_files": [
+        ".cfignore",
         ".env",
         ".env.example",
         ".gitignore",
@@ -432,8 +508,7 @@
         "classmate.js",
         "dashboard_ai_automation_spec.md",
         "debug_dict_shot.png",
-        "debug_fixed_dict.png",
-        "debug_test_tab.png"
+        "debug_fixed_dict.png"
       ],
       "milestone": {
         "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「先輩の赤点回避ドリル」友だち登録 100名**",
@@ -443,7 +518,7 @@
         "tasks_total": 12,
         "tasks_done": 6,
         "progress_pct": 50,
-        "mtime": "2026-11-09T10:50:24+09:00",
+        "mtime": "2026-11-09T11:10:00+09:00",
         "strategic_decisions": [
           "**【廃止・純化済】神動画50選キュレーションの撤廃**: 目的が曖昧な他人の動画まとめを廃止し、**「80筋カルテ内で起始停止・支配神経・グッズと同時に見られるピンポイント解説動画」** に価値を集中。",
           "**【廃止・純化済】二重管理コンテンツの整理**:",
