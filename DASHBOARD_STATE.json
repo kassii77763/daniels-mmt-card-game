@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T03:54:02+09:00",
+  "last_synced_at": "2026-11-10T04:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "37b604f",
-  "pt_git_commit": "af8aa3b",
+  "git_commit": "cdc384b",
+  "pt_git_commit": "01e2cb7",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T03:54:02+09:00",
+    "scanned_at": "2026-11-10T04:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "01e2cb7",
+        "date": "2026-11-10",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [03:54 JST]"
+      },
+      {
         "sha": "af8aa3b",
         "date": "2026-11-10",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [02:54 JST]"
@@ -86,11 +91,6 @@
         "sha": "3209e9b",
         "date": "2026-11-09",
         "subject": "fix(stats): implement lecture-specific 10-question quizzes for all 8 lectures (total 80 questions)"
-      },
-      {
-        "sha": "5f6489d",
-        "date": "2026-11-09",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [22:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T03:54:03+09:00"
+      "last_checked_at": "2026-11-10T04:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T03:54:03+09:00",
+    "last_synced": "2026-11-10T04:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "ce0a3da5",
+      "id": "a30d827e",
       "env": "production",
-      "created_on": "2026-11-09T17:54:18.523243Z",
-      "url": "https://ce0a3da5.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T18:54:17.453681Z",
+      "url": "https://a30d827e.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -259,12 +259,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18932,
+    "total_views": 18933,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "03:54 JST",
+    "last_updated": "04:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -300,7 +300,7 @@
         "id": "TPQgC4HjOdc",
         "muscle": "肩のてっぺんに付く筋肉はどっち",
         "title": "【PT国試予想】肩のてっぺんに付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1318,
+        "views": 1319,
         "likes": 3,
         "comments": 0,
         "published_at": "2026-11-06T11:30:11Z",
