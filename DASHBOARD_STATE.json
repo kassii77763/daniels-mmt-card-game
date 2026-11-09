@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T20:54:02+09:00",
+  "last_synced_at": "2026-11-09T21:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "9ca7074",
-  "pt_git_commit": "6ea1852",
+  "git_commit": "9fcc79b",
+  "pt_git_commit": "1c52004",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T20:54:02+09:00",
+    "scanned_at": "2026-11-09T21:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "1c52004",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [20:54 JST]"
+      },
+      {
         "sha": "6ea1852",
         "date": "2026-11-09",
         "subject": "feat(stats): complete and deploy video 4-4"
@@ -86,11 +91,6 @@
         "sha": "29f8e43",
         "date": "2026-11-09",
         "subject": "feat(stats): complete and deploy video 3-4"
-      },
-      {
-        "sha": "eb043c4",
-        "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 3-3"
       }
     ],
     "adsense_monitor": {
@@ -106,41 +106,41 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-09T20:54:02+09:00"
+      "last_checked_at": "2026-11-09T21:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T20:54:02+09:00",
+    "last_synced": "2026-11-09T21:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "1e0b72e1",
+      "id": "309d58cc",
       "env": "production",
-      "created_on": "2026-11-09T11:53:55.202099Z",
-      "url": "https://1e0b72e1.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T11:54:16.294039Z",
+      "url": "https://309d58cc.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
         "uu": 40,
-        "pv": 274,
-        "depth": 6.85,
+        "pv": 280,
+        "depth": 7.0,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
         "uu": 40,
-        "pv": 274,
-        "depth": 6.85,
+        "pv": 280,
+        "depth": 7.0,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
         "uu": 40,
-        "pv": 274,
-        "depth": 6.85,
+        "pv": 280,
+        "depth": 7.0,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -151,8 +151,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 234,
-          "pct": 85,
+          "count": 240,
+          "pct": 86,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -160,7 +160,7 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 32,
-          "pct": 12,
+          "pct": 11,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -177,8 +177,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 234,
-          "pct": 85,
+          "count": 240,
+          "pct": 86,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -186,7 +186,7 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 32,
-          "pct": 12,
+          "pct": 11,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -203,8 +203,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 234,
-          "pct": 85,
+          "count": 240,
+          "pct": 86,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -212,7 +212,7 @@
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
           "count": 32,
-          "pct": 12,
+          "pct": 11,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -259,12 +259,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18575,
+    "total_views": 18596,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "20:54 JST",
+    "last_updated": "21:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -360,7 +360,7 @@
         "id": "vFLod7F0Bbg",
         "muscle": "大腿直筋の起始部はどっち",
         "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1038,
+        "views": 1050,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T08:19:53Z",
@@ -370,7 +370,7 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1028,
+        "views": 1037,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
