@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T11:20:43+09:00",
+  "last_synced_at": "2026-11-09T11:38:48+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "33f170d",
-  "pt_git_commit": "24fd889",
+  "git_commit": "3350095",
+  "pt_git_commit": "eec0fbf",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T11:20:43+09:00",
+    "scanned_at": "2026-11-09T11:38:48+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -61,6 +61,21 @@
     },
     "recent_commits": [
       {
+        "sha": "eec0fbf",
+        "date": "2026-11-09",
+        "subject": "feat(portal & dashboard): deploy all morning portal changes, restore enriched dictionary, and unify dashboard to Option A auto-sync"
+      },
+      {
+        "sha": "c20ddfc",
+        "date": "2026-11-09",
+        "subject": "feat(adsense & sync): add Google AdSense ownership snippet & ads.txt, enable local bridge sync from cloud dashboard"
+      },
+      {
+        "sha": "f076727",
+        "date": "2026-11-09",
+        "subject": "chore(sync): update DASHBOARD_STATE.json with latest git sha"
+      },
+      {
         "sha": "24fd889",
         "date": "2026-11-09",
         "subject": "Merge remote-tracking branch 'origin/main'"
@@ -74,56 +89,41 @@
         "sha": "5f54fb1",
         "date": "2026-11-08",
         "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
-      },
-      {
-        "sha": "711bf70",
-        "date": "2026-11-07",
-        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
-      },
-      {
-        "sha": "de74377",
-        "date": "2026-11-07",
-        "subject": "chore(auto): autonomous patrol and content data sync [skip ci]"
-      },
-      {
-        "sha": "0d55462",
-        "date": "2026-11-06",
-        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
       }
     ]
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T11:20:43+09:00",
+    "last_synced": "2026-11-09T11:38:48+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "58afecfe",
+      "id": "2c4730ba",
       "env": "production",
-      "created_on": "2026-11-09T02:20:32.730105Z",
-      "url": "https://58afecfe.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T02:37:52.589666Z",
+      "url": "https://2c4730ba.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
         "uu": 35,
-        "pv": 178,
-        "depth": 5.09,
+        "pv": 183,
+        "depth": 5.23,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
         "uu": 35,
-        "pv": 178,
-        "depth": 5.09,
+        "pv": 183,
+        "depth": 5.23,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
         "uu": 35,
-        "pv": 178,
-        "depth": 5.09,
+        "pv": 183,
+        "depth": 5.23,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -134,8 +134,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 143,
-          "pct": 80,
+          "count": 148,
+          "pct": 81,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -160,8 +160,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 143,
-          "pct": 80,
+          "count": 148,
+          "pct": 81,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -186,8 +186,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 143,
-          "pct": 80,
+          "count": 148,
+          "pct": 81,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -242,12 +242,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17789,
+    "total_views": 17802,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "11:20 JST",
+    "last_updated": "11:38 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -393,7 +393,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 294,
+        "views": 307,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
@@ -495,20 +495,20 @@
   "projects": {
     "pt_student_portal": {
       "folder": "projects/pt_student_portal",
-      "verified_file_count": 29,
+      "verified_file_count": 30,
       "verified_files": [
         ".cfignore",
         ".env",
         ".env.example",
         ".gitignore",
+        "ads.txt",
         "AGENTS.md",
         "app.js",
         "classmate.css",
         "classmate.html",
         "classmate.js",
         "dashboard_ai_automation_spec.md",
-        "debug_dict_shot.png",
-        "debug_fixed_dict.png"
+        "debug_dict_shot.png"
       ],
       "milestone": {
         "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「先輩の赤点回避ドリル」友だち登録 100名**",
