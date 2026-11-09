@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T11:38:48+09:00",
+  "last_synced_at": "2026-11-09T11:43:51+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "3350095",
-  "pt_git_commit": "eec0fbf",
+  "git_commit": "08598c8",
+  "pt_git_commit": "9b85b4e",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T11:38:48+09:00",
+    "scanned_at": "2026-11-09T11:43:51+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -36,6 +36,7 @@
       "flawed_30_quiz_suspended": true,
       "classmate_hub_exists": true,
       "real_line_bot_connected": true,
+      "adsense_configured": true,
       "ai_mock_consult_abolished": true,
       "redundant_50_muscle_dict_abolished": false
     },
@@ -61,6 +62,16 @@
     },
     "recent_commits": [
       {
+        "sha": "9b85b4e",
+        "date": "2026-11-09",
+        "subject": "docs(adsense): record Google AdSense & ads.txt deployment in MILESTONES.md, PROGRESS.md, and HEAD scanner"
+      },
+      {
+        "sha": "5de30bb",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:38 JST]"
+      },
+      {
         "sha": "eec0fbf",
         "date": "2026-11-09",
         "subject": "feat(portal & dashboard): deploy all morning portal changes, restore enriched dictionary, and unify dashboard to Option A auto-sync"
@@ -79,29 +90,19 @@
         "sha": "24fd889",
         "date": "2026-11-09",
         "subject": "Merge remote-tracking branch 'origin/main'"
-      },
-      {
-        "sha": "8542270",
-        "date": "2026-11-09",
-        "subject": "feat(portal & dashboard): integrate 2024/10 school subsidy crawler v2.0, 2-tier cockpit sync, and live HEAD structure audit"
-      },
-      {
-        "sha": "5f54fb1",
-        "date": "2026-11-08",
-        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
       }
     ]
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T11:38:48+09:00",
+    "last_synced": "2026-11-09T11:43:51+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "2c4730ba",
+      "id": "a6d7a528",
       "env": "production",
-      "created_on": "2026-11-09T02:37:52.589666Z",
-      "url": "https://2c4730ba.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T02:38:58.708096Z",
+      "url": "https://a6d7a528.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -242,12 +243,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17802,
+    "total_views": 17805,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "11:38 JST",
+    "last_updated": "11:43 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -393,7 +394,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 307,
+        "views": 310,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
@@ -515,10 +516,10 @@
         "active_milestone": "M1: コア純化・クローラー監査・収益ファネル直結スプリント",
         "deadline": "2026-11-10",
         "days_remaining": 1,
-        "tasks_total": 12,
-        "tasks_done": 6,
-        "progress_pct": 50,
-        "mtime": "2026-11-09T11:10:00+09:00",
+        "tasks_total": 13,
+        "tasks_done": 7,
+        "progress_pct": 54,
+        "mtime": "2026-11-09T11:43:08+09:00",
         "strategic_decisions": [
           "**【廃止・純化済】神動画50選キュレーションの撤廃**: 目的が曖昧な他人の動画まとめを廃止し、**「80筋カルテ内で起始停止・支配神経・グッズと同時に見られるピンポイント解説動画」** に価値を集中。",
           "**【廃止・純化済】二重管理コンテンツの整理**:",
@@ -527,6 +528,7 @@
           "モックだった「AI壁打ち相談枠」を撤去し、実物の **公式LINE相談・赤点回避ドリル** に一本化。",
           "**【稼働中】自前YouTube Shorts集客エンジン**: 公式チャンネル「とあるPT学生」（23本公開・総再生17,670回超）からポータル・LINEへ実流入（48%）を創出。",
           "**【稼働中】全国25校 定期周回クローラー v2.0**: 厚労省2024年10月新基準（3年制最大192万／4年制最大256万）に完全準拠し、各校公式HPのHTTP疎通・指定外れ（OCR等の一般給付移行）を自動監視・シミュレーター完全一致連動。",
+          "**【配置済】Google AdSense 収益化タグ ＆ `ads.txt` 実装**: `ca-pub-7918089251306963` の所有権確認スニペット・メタタグ（`index.html`, `classmate.html`）およびルート直下 `ads.txt` をCloudflare Pages本番環境（`pt-student-portal.pages.dev`）へ配備完了（審査申請フェーズ）。",
           "**【進行中】クラスメイト専用ハブ（`classmate.html`）**: 同級生向け共有ハブを開発中。"
         ],
         "done_items": [
@@ -535,6 +537,7 @@
           "全国25校 定期周回クローラー v2.0 稼働（3年192万/4年256万完全整合・公式URL疎通22/25校確認）",
           "YouTube Shorts 23本公開完了（総再生1.7万回突破）",
           "300円有料Note原稿『夜間部1年目を生き抜くリアル収支・168時間シフト・給付金全記録』＆入試チェックリスト完備",
+          "Google AdSense 所有権確認コード（`ca-pub-7918089251306963`）＆ `ads.txt` 本番配備完了",
           "Cold-Start 3ペルソナ14軸厳格監査（`portal-auditor` v2.0）構築完了"
         ],
         "todo_items": [
