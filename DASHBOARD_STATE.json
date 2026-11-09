@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T17:54:02+09:00",
+  "last_synced_at": "2026-11-09T18:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "ba3ec79",
-  "pt_git_commit": "6700219",
+  "git_commit": "2fbd4bf",
+  "pt_git_commit": "53af4ee",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T17:54:02+09:00",
+    "scanned_at": "2026-11-09T18:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "53af4ee",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [17:54 JST]"
+      },
+      {
         "sha": "6700219",
         "date": "2026-11-09",
         "subject": "feat(stats): complete all lecture 1 videos (1-1 to 1-4)"
@@ -86,11 +91,6 @@
         "sha": "47bdad4",
         "date": "2026-11-09",
         "subject": "feat: upgrade stats hub to dedicated page with optimized video playback, 4-choice quiz, and PT portal design alignment"
-      },
-      {
-        "sha": "fd157a5",
-        "date": "2026-11-09",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [15:55 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-09T17:54:03+09:00"
+      "last_checked_at": "2026-11-09T18:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T17:54:03+09:00",
+    "last_synced": "2026-11-09T18:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "f3577815",
+      "id": "187ff9fe",
       "env": "production",
-      "created_on": "2026-11-09T07:57:35.187373Z",
-      "url": "https://f3577815.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T08:54:16.654915Z",
+      "url": "https://187ff9fe.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -259,12 +259,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17983,
+    "total_views": 18337,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "17:54 JST",
+    "last_updated": "18:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -337,6 +337,26 @@
         "url": "https://youtube.com/shorts/vRscTh45xbQ"
       },
       {
+        "id": "xwLXn2jkZfM",
+        "muscle": "腕橈骨筋の停止部はどっち",
+        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1099,
+        "likes": 5,
+        "comments": 0,
+        "published_at": "2026-11-07T16:19:58Z",
+        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
+      },
+      {
+        "id": "vFLod7F0Bbg",
+        "muscle": "大腿直筋の起始部はどっち",
+        "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1038,
+        "likes": 5,
+        "comments": 0,
+        "published_at": "2026-11-07T08:19:53Z",
+        "url": "https://youtube.com/shorts/vFLod7F0Bbg"
+      },
+      {
         "id": "rua5Z-oTINQ",
         "muscle": "つま先を持ち上げる筋肉はどっち",
         "title": "【PT国試予想】つま先を持ち上げる筋肉はどっち？ #shorts #解剖学 #理学療法士",
@@ -355,16 +375,6 @@
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
         "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
-      },
-      {
-        "id": "xwLXn2jkZfM",
-        "muscle": "腕橈骨筋の停止部はどっち",
-        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 968,
-        "likes": 5,
-        "comments": 0,
-        "published_at": "2026-11-07T16:19:58Z",
-        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
       },
       {
         "id": "EiWKs9EeAYg",
@@ -397,20 +407,10 @@
         "url": "https://youtube.com/shorts/qpxnSrvWs30"
       },
       {
-        "id": "vFLod7F0Bbg",
-        "muscle": "大腿直筋の起始部はどっち",
-        "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 940,
-        "likes": 5,
-        "comments": 0,
-        "published_at": "2026-11-07T08:19:53Z",
-        "url": "https://youtube.com/shorts/vFLod7F0Bbg"
-      },
-      {
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 471,
+        "views": 596,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
