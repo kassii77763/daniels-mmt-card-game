@@ -1,11 +1,100 @@
 {
-  "last_synced_at": "2026-11-09T09:54:02+09:00",
-  "sync_mode": "hourly_daemon",
-  "git_commit": "1a2d767",
+  "last_synced_at": "2026-11-09T11:01:01+09:00",
+  "sync_mode": "hourly_daemon_v2_head_scanner",
+  "git_commit": "cdc3167",
+  "pt_git_commit": "dd4df12",
   "validation_status": "ALL_PASS",
+  "pt_portal_live_architecture": {
+    "scanned_at": "2026-11-09T11:01:01+09:00",
+    "active_tabs": [
+      {
+        "id": "home",
+        "label": "01 進学ロードマップ＆診断"
+      },
+      {
+        "id": "schools",
+        "label": "02 全国25校・学費＆給付金DB"
+      },
+      {
+        "id": "simulator",
+        "label": "03 3年/4年 収支＆168h試算"
+      },
+      {
+        "id": "curation",
+        "label": "01 神講義動画50選"
+      },
+      {
+        "id": "dict-community",
+        "label": "03 濃密筋カルテ＆事典 (全80筋)"
+      }
+    ],
+    "features_status": {
+      "2stage_muscle_selector": true,
+      "school_crawler_banner_live": true,
+      "school_crawler_modal_live": true,
+      "god_videos_50_abolished": true,
+      "flawed_30_quiz_suspended": true,
+      "classmate_hub_exists": true,
+      "real_line_bot_connected": true,
+      "ai_mock_consult_abolished": true,
+      "redundant_50_muscle_dict_abolished": false
+    },
+    "live_counts": {
+      "total_muscles": 80,
+      "tier1_muscle_details": 80,
+      "abbreviations_count": 50,
+      "contraindications_count": 20,
+      "schools_total": 25,
+      "schools_3year": 15,
+      "schools_4year": 10
+    },
+    "crawler_audit": {
+      "engine": "PTStudentPortalCrawler/2.0 (Official URL Fetch & MHLW Verification)",
+      "crawled_at": "2026-11-09T10:23:39.071634",
+      "total_schools": 25,
+      "http_ok_count": 22,
+      "verified_active_count": 21,
+      "downgraded_ippan_count": 2,
+      "not_applicable_count": 2,
+      "discrepancies_detected": 2,
+      "mhlw_rule": "2024年10月拡充基準（年間上限64万：3年制最大192万／4年制最大256万）"
+    },
+    "recent_commits": [
+      {
+        "sha": "dd4df12",
+        "date": "2026-11-05",
+        "subject": "feat: add admission checklist PDF and PNG assets for note bonus"
+      },
+      {
+        "sha": "5696da6",
+        "date": "2026-11-03",
+        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
+      },
+      {
+        "sha": "db0fe49",
+        "date": "2026-11-03",
+        "subject": "feat(analytics): integrate Cloudflare Web Analytics beacon and update progress ledger"
+      },
+      {
+        "sha": "815128a",
+        "date": "2026-11-03",
+        "subject": "feat(harness): apply AI Pedagogy Judge prescriptions (100 ALL PASS) and deploy sanitizers"
+      },
+      {
+        "sha": "69e9bcd",
+        "date": "2026-11-03",
+        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
+      },
+      {
+        "sha": "6b22e66",
+        "date": "2026-11-02",
+        "subject": "fix(plan-ui): fix accordion header layout, isolate sections cleanly, and update progress to 33%"
+      }
+    ]
+  },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T09:54:02+09:00",
+    "last_synced": "2026-11-09T11:01:01+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
@@ -16,115 +105,40 @@
     },
     "metrics": {
       "24h": {
-        "uu": 29,
-        "pv": 159,
-        "depth": 5.48,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 29,
-        "pv": 159,
-        "depth": 5.48,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 29,
-        "pv": 159,
-        "depth": 5.48,
+        "uu": 28,
+        "pv": 158,
+        "depth": 5.64,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       }
     },
     "referrers": {
-      "24h": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 130,
-          "pct": 82,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 23,
-          "pct": 14,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 6,
-          "pct": 4,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ],
-      "7d": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 130,
-          "pct": 82,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 23,
-          "pct": 14,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 6,
-          "pct": 4,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ],
-      "30d": [
-        {
-          "name": "内部回遊 (サイト内遷移)",
-          "domain": "内部回遊 (サイト内遷移)",
-          "count": 130,
-          "pct": 82,
-          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "Direct / ブックマーク",
-          "domain": "Direct / ブックマーク",
-          "count": 23,
-          "pct": 14,
-          "icon": "fa-solid fa-bookmark text-indigo-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        },
-        {
-          "name": "YouTube (Shorts動画概要欄)",
-          "domain": "YouTube (Shorts動画概要欄)",
-          "count": 6,
-          "pct": 4,
-          "icon": "fa-brands fa-youtube text-rose-500",
-          "note": "Cloudflare Web Analytics 実測値"
-        }
-      ]
+      "24h": [],
+      "7d": [],
+      "30d": []
     },
     "top_pages": [
       {
         "path": "/",
-        "title": "PTポータル トップ (筋力・解剖学ナビ)",
-        "pv": 0,
+        "title": "PTポータル トップ (80筋カルテ・25校逆引きDB)",
+        "pv": 158,
         "pct": 100
       }
     ],
@@ -153,18 +167,18 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17687,
+    "total_views": 17776,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "09:54 JST",
+    "last_updated": "11:01 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
         "muscle": "肘の後ろに付くこの筋肉はどっち",
         "title": "【PT国試予想】肘の後ろに付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1690,
+        "views": 1692,
         "likes": 6,
         "comments": 2,
         "published_at": "2026-11-04T23:33:03Z",
@@ -174,7 +188,7 @@
         "id": "8Gs8ptqKtOE",
         "muscle": "青い停止部に付く筋肉はどっち",
         "title": "【PT国試予想】青い停止部に付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1660,
+        "views": 1666,
         "likes": 5,
         "comments": 1,
         "published_at": "2026-11-04T23:32:49Z",
@@ -224,7 +238,7 @@
         "id": "vRscTh45xbQ",
         "muscle": "手首の外側に伸びる筋肉はどっち",
         "title": "【PT国試予想】手首の外側に伸びる筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1106,
+        "views": 1107,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-06T03:15:31Z",
@@ -264,7 +278,7 @@
         "id": "EiWKs9EeAYg",
         "muscle": "前脛骨筋の停止部はどっち",
         "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 953,
+        "views": 956,
         "likes": 2,
         "comments": 0,
         "published_at": "2026-11-08T08:20:06Z",
@@ -301,6 +315,16 @@
         "url": "https://youtube.com/shorts/qpxnSrvWs30"
       },
       {
+        "id": "wlKxVmKffOQ",
+        "muscle": "大腿二頭筋の停止部はどっち",
+        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 281,
+        "likes": 1,
+        "comments": 0,
+        "published_at": "2026-11-08T12:19:51Z",
+        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
+      },
+      {
         "id": "8TR1XZwPLG8",
         "muscle": "腕の外側に付くこの筋肉はどっち",
         "title": "【PT国試予想】腕の外側に付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
@@ -309,16 +333,6 @@
         "comments": 0,
         "published_at": "2026-11-05T22:30:18Z",
         "url": "https://youtube.com/shorts/8TR1XZwPLG8"
-      },
-      {
-        "id": "wlKxVmKffOQ",
-        "muscle": "大腿二頭筋の停止部はどっち",
-        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 204,
-        "likes": 1,
-        "comments": 0,
-        "published_at": "2026-11-08T12:19:51Z",
-        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
       },
       {
         "id": "FLLgoI2mmYA",
@@ -422,14 +436,40 @@
         "debug_test_tab.png"
       ],
       "milestone": {
-        "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「赤点回避ドリル」友だち登録 100名**",
-        "active_milestone": "M1: 収益化ファネル直結スプリント",
+        "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「先輩の赤点回避ドリル」友だち登録 100名**",
+        "active_milestone": "M1: コア純化・クローラー監査・収益ファネル直結スプリント",
         "deadline": "2026-11-10",
         "days_remaining": 1,
-        "tasks_total": 9,
-        "tasks_done": 3,
-        "progress_pct": 33,
-        "mtime": "2026-11-04T23:51:59+09:00",
+        "tasks_total": 12,
+        "tasks_done": 6,
+        "progress_pct": 50,
+        "mtime": "2026-11-09T10:50:24+09:00",
+        "strategic_decisions": [
+          "**【廃止・純化済】神動画50選キュレーションの撤廃**: 目的が曖昧な他人の動画まとめを廃止し、**「80筋カルテ内で起始停止・支配神経・グッズと同時に見られるピンポイント解説動画」** に価値を集中。",
+          "**【廃止・純化済】二重管理コンテンツの整理**:",
+          "下部にあった冗長な「筋肉辞書カード50枚」を撤去し、現場必須の **「臨床略語50語 ＆ リハビリ禁忌・中止基準20項目」** へ純化。",
+          "解説ズレのあった旧4択クイズ30問を一時休止し、**「臨床サバイバルチートシート ＆ 国試直結100問ドリル」** へ改組中。",
+          "モックだった「AI壁打ち相談枠」を撤去し、実物の **公式LINE相談・赤点回避ドリル** に一本化。",
+          "**【稼働中】自前YouTube Shorts集客エンジン**: 公式チャンネル「とあるPT学生」（23本公開・総再生17,670回超）からポータル・LINEへ実流入（48%）を創出。",
+          "**【稼働中】全国25校 定期周回クローラー v2.0**: 厚労省2024年10月新基準（3年制最大192万／4年制最大256万）に完全準拠し、各校公式HPのHTTP疎通・指定外れ（OCR等の一般給付移行）を自動監視・シミュレーター完全一致連動。",
+          "**【進行中】クラスメイト専用ハブ（`classmate.html`）**: 同級生向け共有ハブを開発中。"
+        ],
+        "done_items": [
+          "全80筋カルテWebドリル・2段階部位セレクター・赤シート暗記モード稼働完了",
+          "不要UIの純化完了（神動画50選廃止、筋肉辞書50枚撤去、AIモック相談撤去、旧30問クイズ休止）",
+          "全国25校 定期周回クローラー v2.0 稼働（3年192万/4年256万完全整合・公式URL疎通22/25校確認）",
+          "YouTube Shorts 23本公開完了（総再生1.7万回突破）",
+          "300円有料Note原稿『夜間部1年目を生き抜くリアル収支・168時間シフト・給付金全記録』＆入試チェックリスト完備",
+          "Cold-Start 3ペルソナ14軸厳格監査（`portal-auditor` v2.0）構築完了"
+        ],
+        "todo_items": [
+          "公開済Shortsの固定コメント・概要欄から公式LINE「赤点回避ドリル」への誘導最適化",
+          "公式LINE自動応答メッセージと「300円有料Note（@kaibouseiri）」の決済導線検証",
+          "臨床サバイバルチートシート ＆ 国試100問ドリルの本番投入",
+          "有料Note初回購入の発生検知と購入者アンケート",
+          "MMTカードゲーム（133枚実動）をLINE友だち・Note購入者限定特典として連携",
+          "クラスメイト専用ハブ（`classmate.html`）の正式リリース"
+        ],
         "non_goals": []
       }
     },
@@ -452,12 +492,24 @@
         "tasks_done": 3,
         "progress_pct": 43,
         "mtime": "2026-11-04T23:51:59+09:00",
+        "strategic_decisions": [],
+        "done_items": [
+          "record_shorts.js による15秒自動録画・幾何セーフゾーン（1452px）検証PASS",
+          "generate_shorts_se.js による効果音同期・離脱防止フックの配備",
+          "初期3本（上腕二頭筋・上腕三頭筋・腕橈骨筋）YouTube Data API経由で一般公開（PUBLIC）完了"
+        ],
+        "todo_items": [
+          "3本の固定コメントに公式LINE（赤点回避ドリル）誘導リンクを設置",
+          "実機スマホでの固定コメント表示・リンクタップ動作確認",
+          "下肢筋（大腿四頭筋・前脛骨筋・ハムストリングス）の動画生成・投稿",
+          "YouTube Studioでの平均視聴維持率・総再生回数の定期記録"
+        ],
         "non_goals": []
       }
     },
     "mmt_card_game": {
       "folder": "projects/mmt_card_game",
-      "verified_file_count": 29,
+      "verified_file_count": 30,
       "verified_files": [
         ".gitignore",
         ".nojekyll",
@@ -481,6 +533,18 @@
         "tasks_done": 3,
         "progress_pct": 43,
         "mtime": "2026-11-04T23:51:59+09:00",
+        "strategic_decisions": [],
+        "done_items": [
+          "133枚実動カードの手技画像・肢位・グレード100%完全一致保証",
+          "PWAスタンドアロン化（iOS/Androidホーム追加・オフラインCache First）完了",
+          "決定論コード検査とLLM検査のDual-Key品質ゲート完全稼働"
+        ],
+        "todo_items": [
+          "PTポータル側からMMT実技シミュレーターを直接呼び出すリンク/モーダル配備",
+          "公式LINEの特典メニュー（リッチメニュー）からMMT即時起動URLを接続",
+          "残り未実装手技カードのカタログ座標精査とデータ追加",
+          "実技試験対策の「代償動作見落とし防止クイズモード」追加"
+        ],
         "non_goals": []
       }
     },
@@ -503,6 +567,14 @@
         "tasks_done": 2,
         "progress_pct": 67,
         "mtime": "2026-11-03T16:47:46+09:00",
+        "strategic_decisions": [],
+        "done_items": [
+          "Phase 0 保留ステータスへの移行とダッシュボード・レジストリ隔離",
+          "実在ファイル（README/PROGRESS）と将来予定ファイルの分離"
+        ],
+        "todo_items": [
+          "PTポータルのM1〜M2達成後にコンセプト再開判定を実施"
+        ],
         "non_goals": []
       }
     }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MMT &amp; PT Portal Cockpit v2.0 — Real Status &amp; Harness Board</title>
+  <title>プロジェクト管理コックピット (Project Management Cockpit) — 全事業統合母体</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter, Noto Sans JP, JetBrains Mono -->
@@ -137,7 +137,7 @@
       <div class="hidden sm:flex items-center space-x-1 text-slate-400 font-mono text-[10px] border-l border-slate-800 pl-2">
         <i class="fa-regular fa-clock text-slate-500 mr-0.5"></i>
         <span>最終同期:</span>
-        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">09:54 JST (毎時同期済)</span>
+        <span id="topHeaderSyncTime" class="text-amber-300 font-semibold font-mono">11:01 JST (自動スキャン同期済)</span>
       </div>
     </div>
 
@@ -156,6 +156,11 @@
       </button>
 
       <!-- 実機本番リンク -->
+      <a href="https://pt-student-portal.pages.dev/admin-backend/dashboard.html" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition text-[11px]">
+        <i class="fa-solid fa-gauge-high text-[10px]"></i>
+        <span>PTポータル詳細管制盤</span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+      </a>
       <a id="gameLinkBtn" href="./" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-1 rounded flex items-center gap-1 shadow-xs transition text-[11px]">
         <span>カードゲーム本体起動</span>
         <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
@@ -178,10 +183,10 @@
             </div>
             <div>
               <div class="flex items-center gap-1.5">
-                <h1 class="text-sm font-bold text-white tracking-tight leading-none">MMT Cockpit</h1>
+                <h1 class="text-sm font-bold text-white tracking-tight leading-none">プロジェクト管理コックピット</h1>
                 <span class="text-[9px] font-mono bg-amber-600 text-white px-1 py-0.2 rounded font-semibold">v21</span>
               </div>
-              <p class="text-[10px] text-sidebar-muted mt-1 font-mono">Daniels 10th Ed. Live</p>
+              <p class="text-[10px] text-sidebar-muted mt-1 font-mono">Master Portfolio Hub</p>
             </div>
           </div>
           <span class="text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-700/60 px-1.5 py-0.5 rounded">Pages公開</span>
@@ -271,7 +276,7 @@
               <span id="headerProjectBreadcrumb" class="font-semibold text-indigo-600">GitHub Pages 公開コックピット</span>
             </div>
             <h2 class="text-base font-bold text-ecru-text tracking-tight mt-0.5" id="mainCockpitTitle">
-              MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1" id="mainCockpitSubtitle">— 🌐 全体統括（全事業マクロ俯瞰）</span>
+              🌐 プロジェクト管理コックピット（全事業母体） <span class="text-xs font-normal text-ecru-subtext ml-1" id="mainCockpitSubtitle">— 🌐 全体統括（全事業マクロ俯瞰）</span>
             </h2>
             <!-- プロジェクト・スコープ ＆ 収益ファネル連動バー -->
             <div id="projectContextBanner" class="mt-2.5 p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
@@ -1375,6 +1380,30 @@
         liveDashboardState = await res.json();
         console.log('[DASHBOARD_STATE] Loaded successfully:', liveDashboardState);
         updateMilestoneSyncHeader();
+        if (liveDashboardState) {
+          const yt = liveDashboardState.youtube || {};
+          const arch = liveDashboardState.pt_portal_live_architecture || {};
+          const cw = arch.crawler_audit || {};
+          const tele = liveDashboardState.portal_telemetry || {};
+          const ptMs = (liveDashboardState.projects && liveDashboardState.projects.pt_student_portal) ? liveDashboardState.projects.pt_student_portal.milestone : {};
+
+          const ptItem = strategicProjectsData.find(x => x.id === 'pt_portal');
+          if (ptItem) {
+            if (ptMs.active_milestone) ptItem.phase = ptMs.active_milestone;
+            if (cw.http_ok_count !== undefined) {
+              ptItem.currentStatus = `【本番HEAD自動スキャン済】稼働タブ${(arch.active_tabs || []).length}個・80筋カルテ・略語50/禁忌20へ純化（神動画50選・辞書50枚・AI相談撤去済）。全国${cw.total_schools || 25}校クローラー稼働（HTTP疎通 ${cw.http_ok_count}/${cw.total_schools || 25} OK・専門実践${cw.verified_active_count || 21}校確定・3年192万/4年256万）。`;
+            }
+            if (ptMs.strategic_decisions && ptMs.strategic_decisions.length > 0) {
+              ptItem.pivotNotes = ptMs.strategic_decisions.slice(0, 3).join(' / ');
+            }
+          }
+          const ytItem = strategicProjectsData.find(x => x.id === 'anat_shorts');
+          if (ytItem && yt.total_views !== undefined) {
+            ytItem.phase = `Phase 7: 自前Shorts ${yt.videos_count || 23}本公開中・総再生 ${(yt.total_views || 0).toLocaleString()}回`;
+            ytItem.primaryKpi = `総再生 ${(yt.total_views || 0).toLocaleString()}回 / 公開 ${yt.videos_count || 23}本 / 高評価 ${yt.total_likes || 64} / ポータル流入 48%`;
+          }
+          if (typeof renderStrategicProjects === 'function') renderStrategicProjects();
+        }
         if (typeof renderProjectContextBanner === 'function') {
           renderProjectContextBanner();
         }
@@ -1463,7 +1492,7 @@
     }
 
     if (proj.id === 'ALL') {
-      if (titleEl) titleEl.innerHTML = `MMT &amp; PT Portal 実稼働コックピット <span class="text-xs font-normal text-ecru-subtext ml-1">— 🌐 全体統括（全事業マクロ俯瞰）</span>`;
+      if (titleEl) titleEl.innerHTML = `🌐 プロジェクト管理コックピット（全事業母体） <span class="text-xs font-normal text-ecru-subtext ml-1">— 🌐 全体統括（全事業マクロ俯瞰）</span>`;
       if (breadcrumb) breadcrumb.textContent = '🌐 全体統括 (Core Views)';
       if (shardPath) shardPath.textContent = '全社マクロ・4大レイヤー全通';
 
@@ -1480,15 +1509,15 @@
           <div class="bg-black/50 border border-rose-900/60 p-2 rounded flex items-center gap-2 ring-1 ring-rose-500/30">
             <div class="w-6 h-6 rounded bg-rose-950 text-rose-400 flex items-center justify-center font-bold text-xs"><i class="fa-brands fa-youtube"></i></div>
             <div class="min-w-0">
-              <div class="text-[10px] font-semibold text-rose-300">1. 集客フック (Shorts 3本公開中)</div>
-              <div class="text-[9px] text-slate-300 truncate">上腕二頭筋・三頭筋・腕橈骨筋 公開中 ➔ LINE誘導</div>
+              <div class="text-[10px] font-semibold text-rose-300">1. 集客フック (自前Shorts 23本・1.7万再生)</div>
+              <div class="text-[9px] text-slate-300 truncate">「とあるPT学生」23本稼働・ポータル流入48% ➔ LINE誘導</div>
             </div>
           </div>
           <div class="bg-black/50 border border-emerald-900/60 p-2 rounded flex items-center gap-2 ring-1 ring-emerald-500/50">
             <div class="w-6 h-6 rounded bg-emerald-950 text-emerald-400 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-crown"></i></div>
             <div class="min-w-0">
-              <div class="text-[10px] font-semibold text-emerald-300">2. 受け皿・リスト (80筋カルテ ＆ LINE)</div>
-              <div class="text-[9px] text-slate-300 truncate">赤シート暗記モード即時体験 ➔ LINE友だち追加</div>
+              <div class="text-[10px] font-semibold text-emerald-300">2. 受け皿 (80筋カルテ・25校クローラー ＆ LINE)</div>
+              <div class="text-[9px] text-slate-300 truncate">2段階部位選択・3年192万/4年256万自動照合 ➔ LINE追加</div>
             </div>
           </div>
           <div class="bg-black/50 border border-amber-900/60 p-2 rounded flex items-center gap-2 ring-1 ring-amber-500/30">
@@ -1523,7 +1552,7 @@
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
               <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 23本(1.7万再生)</span>
               <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
               <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
@@ -1595,7 +1624,7 @@
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
               <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 23本(1.7万再生)</span>
               <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
               <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
@@ -2270,7 +2299,7 @@ function renderArchZoneCards(scope) {
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
               <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 23本(1.7万再生)</span>
               <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
               <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
@@ -3653,58 +3682,72 @@ function escapeHtml(str) {
     {
       id: 'pt_portal',
       code: 'PT',
-      title: '📚 PT学生の学習帖 (PTポータル)',
-      phase: 'Phase 2: スモークテスト実証 ＆ LINEドリル準備',
-      mission: '社会人PT学生・留年危機層が「最短1分で赤点を回避し、専門実践教育訓練給付金で学費破綻を防ぐ」学習セーフティネットの確立（収益本体）',
-      primaryKpi: '公式LINE「赤点回避ドリル」友だち登録 ＆ 80筋カルテWebドリル稼働',
-      currentStatus: '全80筋カルテWebドリル稼働中・スモークテストPASS・AI裁判官100点是正完了',
-      harnessSpec: 'ai_pedagogy_judge.py 100点 ALL PASS（誇大広告ゼロ・3点路線図主義）',
-      nextFocus: '実習・国試対策ドリルとLINE登録ステップの接続、および教材コンテンツ拡充',
-      pivotNotes: '「誰でも一発合格」などの安易な誇大広告を全面排除し、臨床・国試直結の実利と誠実さで信頼を獲得する路線へ完全確定。',
-      badges: ['収益本体', 'AI裁判官100点', 'Webドリル稼働中']
+      title: '👑 PT学生の学習帖 (PT Student Portal)',
+      phase: 'M1: コア純化・25校定期クローラー稼働・収益ファネル直結スプリント',
+      mission: '社会人PT学生・留年不安層が「赤点を最短回避し、専門実践教育訓練給付金（3年制最大192万／4年制最大256万）の受給と卒業を両立させる」学習セーフティネットの確立（収益本体）',
+      primaryKpi: '300円有料Note初月収益 ＆ 公式LINE「先輩の赤点回避ドリル」登録100名（現在LINEクリック93回 / PV 158）',
+      currentStatus: '【本番HEAD同期済】80筋カルテ（2段階部位選択）・略語50/禁忌20へ純化（神動画50選・下部50枚辞書・AI相談モック撤去済）。全国25校定期周回クローラーv2.0（HTTP疎通22/25 OK）稼働中。',
+      harnessSpec: 'Cold-Start 3ペルソナ14軸厳格監査（portal-auditor v2.0）＆ クローラー自動照合稼働中',
+      nextFocus: '臨床サバイバルチートシート＆国試100問ドリルの本番投入、およびクラスメイト専用ハブ（classmate.html）展開',
+      pivotNotes: '【重要ピボット】目的が曖昧な「他人の神動画50選まとめ」を廃止し、80筋カルテ内でグッズ・起始停止と同時に見られる特化動画へ集中。給付金は厚労省2024年10月新基準（3年192万/4年256万）に完全統一。',
+      badges: ['👑 収益本体', '80筋カルテ純化', '25校クローラー稼働'],
+      relations: [
+        { label: '📊 PTポータル専用統括管制盤（詳細・戦略・クローラー台帳）を開く ➔', url: 'https://pt-student-portal.pages.dev/admin-backend/dashboard.html', primary: true },
+        { label: '🌐 本番ポータル (トップ / 80筋カルテ) ↗', url: 'https://pt-student-portal.pages.dev/', primary: false },
+        { label: '🏛️ 本番ポータル (全国25校DB・給付金) ↗', url: 'https://pt-student-portal.pages.dev/#schools', primary: false },
+        { label: '📋 本番ポータル (チートシート・100問準備枠) ↗', url: 'https://pt-student-portal.pages.dev/#curation', primary: false }
+      ]
+    },
+    {
+      id: 'anat_shorts',
+      code: 'SHORTS',
+      title: '🎬 臨床解剖 YouTube Shorts（「とあるPT学生」）',
+      phase: 'Phase 7: 自前Shorts 23本公開完了・総再生17,670回突破',
+      mission: '解剖学・起始停止・国試予想の視覚的ショート動画を自動生成パイプラインで発信し、PTポータルおよび公式LINEへ直接送客する集客エンジン。',
+      primaryKpi: '総再生数 17,670回 / 公開本数 23本 / ポータル流入貢献率 48%',
+      currentStatus: 'YouTube Data API v3 実測連動中。23本公開済（上位動画1,690再生超）。概要欄・固定コメントからポータル・LINEへ送客中。',
+      harnessSpec: 'record_shorts_v2.js 自動録画 ＆ 幾何セーフゾーン検査 PASS',
+      nextFocus: '全公開動画の固定コメントから公式LINE「赤点回避ドリル」への誘導率最大化',
+      pivotNotes: '他人の動画をキュレーションする方式から、自前の「とあるPT学生」チャンネルでShortsを量産して直接集客するモデルへ完全転換。',
+      badges: ['🎬 集客エンジン', '23本公開済', '1.7万再生突破'],
+      relations: [
+        { label: '📺 YouTube公式チャンネル（@toaru-pt-gakusei）を開く ↗', url: 'https://www.youtube.com/@toaru-pt-gakusei', primary: true },
+        { label: '📊 PT管制盤で全動画ランキングを見る ➔', url: 'https://pt-student-portal.pages.dev/admin-backend/dashboard.html', primary: false }
+      ]
     },
     {
       id: 'mmt_card',
       code: 'MMT',
       title: '⚔️ Daniels MMT Tactical Card Game',
-      phase: 'Phase 1: 133枚実動版稼働中 ➔ PTポータル/LINE連携フェーズ',
-      mission: 'ダニエルズ徒手筋力検査法（第10版）準拠 160枚完備の臨床判定Webカードゲーム。PTポータルのキラー教材として活用。',
+      phase: 'M1: 133枚実動版 PWA安定稼働 ＆ ポータル特典連携フェーズ',
+      mission: 'ダニエルズ徒手筋力検査法（第10版）準拠の臨床判定Webカードゲーム。PTポータルおよびLINE登録者のキラー特典教材として活用。',
       primaryKpi: '133枚実動版のPWA安定稼働 ＆ PTポータル/LINE特典連携完了',
-      currentStatus: '133枚実動カード完全実装済み・PWA対応・3層品質ゲートALL PASS完了',
-      harnessSpec: 'image_quality_gate.py ＆ e2e_full_verification.js ALL PASS（Exit Code 0）',
-      nextFocus: '残り133枚のカタログ座標抽出と自動テスト順次適用、PTポータル内での連携埋め込み',
-      pivotNotes: '単なる写実イラストではなく「起始(赤)・停止(青)・支配神経(黄)の3点配線図（路線図主義）」に徹底し、実技試験直結のクイック判定価値へ集中。',
-      badges: ['PT教材', '160枚完備', '3層品質ゲート']
-    },
-    {
-      id: 'anat_shorts',
-      code: 'SHORTS',
-      title: '🎬 臨床解剖 YouTube Shorts',
-      phase: 'Phase 1: 初期3本公開完了 ➔ 固定コメント導線検証フェーズ',
-      mission: '解剖学・触診・臨床動作の視覚的ショート動画（15秒路線図配線図）を発信し、PT学生・医療従事者からの認知を獲得してPTポータルへ送客するフロントエンド。',
-      primaryKpi: '動画自動生成の安定稼働 ＆ 投稿開始後の視聴維持率70%超（実測値蓄積待ち）',
-      currentStatus: 'エリート3筋（上腕二頭筋・上腕三頭筋・腕橈骨筋）YouTube公開アップロード完了（一般公開中）',
-      harnessSpec: 'record_shorts.js 構文検証 ＆ 幾何セーフゾーン（1452px）自動検査 PASS',
-      nextFocus: '初期動画の定期投稿開始と、YouTube Studioアナリティクスの実データ蓄積・改善サイクル構築',
-      pivotNotes: '冒頭1〜2秒の離脱防止（ビール乾杯筋などの直感フック）と、固定コメントからの公式LINE自然流入ラインを設計。',
-      badges: ['集客フック', '初期稼働中', '15秒自動生成']
+      currentStatus: '133枚実動カード配備完了・PWA対応・3層品質ゲートALL PASS',
+      harnessSpec: 'image_quality_gate.py ＆ E2E検証 ALL PASS',
+      nextFocus: 'PTポータル・公式LINE友だち限定特典としてのシームレス埋め込み連携',
+      pivotNotes: '起始(赤)・停止(青)・支配神経(黄)の3点配線図に徹底し、実技試験直結の判定シミュレーター価値を提供。',
+      badges: ['⚔️ キラー教材', '133枚実動', 'PWA稼働中'],
+      relations: [
+        { label: '🎮 MMTカードゲーム本体 (GitHub Pages) を起動 ↗', url: 'https://kassii77763.github.io/daniels-mmt-card-game/', primary: true },
+        { label: '🛡️ MMTハーネスダッシュボードを開く ↗', url: 'http://127.0.0.1:8878/index.html', primary: false }
+      ]
     },
     {
       id: 'tatekoshi_line',
       code: 'TATE',
-      title: '🧘 立腰体操 LINE Bot・教材（構想・準備中）',
-      phase: 'Phase 0: コンセプト設計・構想段階（未着手）',
-      mission: '一般の腰痛・姿勢に悩む人に向けた立腰体操の継続指導モデル。PT教育エコシステムとはターゲットを分けた独立事業として構想中。',
-      primaryKpi: '未設定（PT教育エコシステムの基盤確立後に設定予定）',
-      currentStatus: '構想段階・未着手（コード・シナリオ準備待ち）',
-      harnessSpec: '未実施（プロジェクト本格始動時に策定）',
-      nextFocus: 'まずはPTポータル（収益本体）とMMTカードゲームの基盤確立に注力するため、現段階では保留・リソース配分待機。',
-      pivotNotes: 'PT教育とは完全に分離した一般向けセルフケア事業として、適切なタイミングで再開予定。',
-      badges: ['独立事業', '構想中', '未着手']
+      title: '🧘 立腰体操 LINE Bot・教材（計画的保留フェーズ）',
+      phase: 'M0: 計画的保留（PT教育エコシステム自走化後に着手）',
+      mission: '一般の腰痛・姿勢に悩む人に向けた立腰体操の継続指導モデル。PT教育エコシステムとは分離した独立事業。',
+      primaryKpi: '未設定（PTポータル＆Shorts収益化達成後に設定）',
+      currentStatus: '計画的保留中（リソースをPTポータル＆Shortsへ100%集中）',
+      harnessSpec: '本格始動時に策定',
+      nextFocus: 'PT学生ポータルの初月収益化完了まで待機',
+      pivotNotes: '選択と集中の原則に基づき、現在はPT教育エコシステムの本丸に全リソースを投下。',
+      badges: ['🧘 独立事業', '計画的保留'],
+      relations: []
     }
   ];
 
-  
   function renderSNSProjectContextBanner() {
     const banner = document.getElementById("snsProjectContextBanner");
     if (!banner) return;
@@ -3792,7 +3835,7 @@ function escapeHtml(str) {
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
               <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 23本(1.7万再生)</span>
               <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
               <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>
@@ -3907,6 +3950,15 @@ function escapeHtml(str) {
           </div>
           <p class="text-[11px] text-amber-900 leading-relaxed font-sans">${p.pivotNotes}</p>
         </div>
+        ${(p.relations && p.relations.length > 0) ? `
+          <div class="pt-2 border-t border-ecru-border flex flex-wrap gap-2">
+            ${p.relations.map(rel => `
+              <a href="${rel.url}" target="_blank" class="${rel.primary ? 'bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-xs' : 'bg-ecru-surface hover:bg-slate-200 text-ecru-text border border-ecru-borderStrong font-semibold'} px-3 py-1.5 rounded-lg text-xs inline-flex items-center gap-1.5 transition">
+                <span>${rel.label}</span>
+              </a>
+            `).join('')}
+          </div>
+        ` : ''}
       </div>
     `).join("");
   }
@@ -4065,7 +4117,7 @@ function escapeHtml(str) {
             </div>
             <div class="grid grid-cols-2 gap-1 text-[9px] font-mono">
               <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 1. 80筋カルテ稼働</span>
-              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 3本公開中</span>
+              <span class="p-1 rounded bg-emerald-950/80 border border-emerald-600 text-emerald-300">● 2. Shorts 23本(1.7万再生)</span>
               <span class="p-1 rounded bg-amber-950/80 border border-amber-600 text-amber-300">○ 3. LINE応答・Note接続</span>
               <span class="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400">○ 4. 初回成約待ち</span>
             </div>

@@ -1,5 +1,28 @@
 # PROGRESS.md — MMT Tactical Card Game 進捗ホワイトボード
 
+## 【NEW】YouTube Shorts Ver 2.0（PTポータル訴求 ＆ 3D座標追従 10本公開）
+- **公開日時**: 2026-11-07
+- **動画仕様**: 1080×1920 (9:16), 30fps, 8.50秒, H.264 / AAC
+- **新基準の達成項目**:
+  1. **3Dマーカー球スクリーン座標完全連動**: Blenderから `marker_coords.json` を算出し、青いフォーカスリング・バッジが骨付着部に1ピクセルの狂いもなく追従。
+  2. **音声かぶりゼロ**: 出題（0〜2.2s）➔ 思考無音（0.8s）➔ 正解（3.1〜4.6s）➔ 解説無音（1.1s）➔ ポータル告知（5.75〜8.1s）の完全分離。
+  3. **文字化け（□）完全根絶**: 特殊矢印記号（`➔`）を廃止し、標準全角 `→` および `【正解】` 表記に統一。
+  4. **YouTubeセーフゾーン完全順守**: X=70〜890, Y=200〜1480 に全UIを格納し、いいねボタンや下部タイトルとの被りゼロ。
+  5. **PT総合学習ポータルへの導線**: 左下チャンネルアイコンへの動的黄色矢印 ＆ 「国試クイズ・解説動画・MMTゲーム」全面訴求。
+- **投稿済み動画（全10本）**:
+  1. 上腕三頭筋: `https://youtu.be/wCiZKSRzofU`（即時公開）
+  2. 上腕二頭筋: `https://youtu.be/6H07VZb6IGg`
+  3. 大腿直筋: `https://youtu.be/vFLod7F0Bbg`
+  4. 三角筋: `https://youtu.be/LyXi1WD7pr8`
+  5. 腕橈骨筋: `https://youtu.be/xwLXn2jkZfM`
+  6. 棘上筋: `https://youtu.be/vu2tJqJ8yJk`
+  7. 中臀筋: `https://youtu.be/uE-VKj5NT_Q`
+  8. 縫工筋: `https://youtu.be/qpxnSrvWs30`
+  9. 前脛骨筋: `https://youtu.be/EiWKs9EeAYg`
+  10. 大腿二頭筋: `https://youtu.be/wlKxVmKffOQ`
+
+---
+
 ## 1. 現在のステータス概要 (v21)
 - **PWA（Progressive Web App）化完全対応**:
   - iOS（Safari）「ホーム画面に追加」およびAndroid（Chrome）でのネイティブアプリ同様のスタンドアロン全画面起動（URLバー非表示・`display: standalone`）。
