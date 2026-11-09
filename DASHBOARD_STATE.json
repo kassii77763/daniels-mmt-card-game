@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T00:54:02+09:00",
+  "last_synced_at": "2026-11-10T01:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "a19bd74",
-  "pt_git_commit": "79cf109",
+  "git_commit": "7051a6d",
+  "pt_git_commit": "99d3d7f",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T00:54:02+09:00",
+    "scanned_at": "2026-11-10T01:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "99d3d7f",
+        "date": "2026-11-10",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [00:54 JST]"
+      },
+      {
         "sha": "79cf109",
         "date": "2026-11-09",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [23:54 JST]"
@@ -86,11 +91,6 @@
         "sha": "1c52004",
         "date": "2026-11-09",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [20:54 JST]"
-      },
-      {
-        "sha": "6ea1852",
-        "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 4-4"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T00:54:02+09:00"
+      "last_checked_at": "2026-11-10T01:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T00:54:02+09:00",
+    "last_synced": "2026-11-10T01:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "20e408eb",
+      "id": "f615c2c7",
       "env": "production",
-      "created_on": "2026-11-09T14:54:53.72949Z",
-      "url": "https://20e408eb.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T15:54:16.252122Z",
+      "url": "https://f615c2c7.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -259,12 +259,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18706,
+    "total_views": 18932,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "00:54 JST",
+    "last_updated": "01:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -280,7 +280,7 @@
         "id": "8Gs8ptqKtOE",
         "muscle": "青い停止部に付く筋肉はどっち",
         "title": "【PT国試予想】青い停止部に付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1667,
+        "views": 1668,
         "likes": 5,
         "comments": 1,
         "published_at": "2026-11-04T23:32:49Z",
@@ -337,6 +337,16 @@
         "url": "https://youtube.com/shorts/LyXi1WD7pr8"
       },
       {
+        "id": "xwLXn2jkZfM",
+        "muscle": "腕橈骨筋の停止部はどっち",
+        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1107,
+        "likes": 5,
+        "comments": 0,
+        "published_at": "2026-11-07T16:19:58Z",
+        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
+      },
+      {
         "id": "vRscTh45xbQ",
         "muscle": "手首の外側に伸びる筋肉はどっち",
         "title": "【PT国試予想】手首の外側に伸びる筋肉はどっち？ #shorts #解剖学 #理学療法士",
@@ -345,16 +355,6 @@
         "comments": 0,
         "published_at": "2026-11-06T03:15:31Z",
         "url": "https://youtube.com/shorts/vRscTh45xbQ"
-      },
-      {
-        "id": "xwLXn2jkZfM",
-        "muscle": "腕橈骨筋の停止部はどっち",
-        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1104,
-        "likes": 5,
-        "comments": 0,
-        "published_at": "2026-11-07T16:19:58Z",
-        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
       },
       {
         "id": "vFLod7F0Bbg",
@@ -370,11 +370,21 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1037,
+        "views": 1039,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
         "url": "https://youtube.com/shorts/uE-VKj5NT_Q"
+      },
+      {
+        "id": "qpxnSrvWs30",
+        "muscle": "縫工筋の停止部はどっち",
+        "title": "【PT国試予想】縫工筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1003,
+        "likes": 2,
+        "comments": 0,
+        "published_at": "2026-11-08T04:19:47Z",
+        "url": "https://youtube.com/shorts/qpxnSrvWs30"
       },
       {
         "id": "rua5Z-oTINQ",
@@ -397,20 +407,10 @@
         "url": "https://youtube.com/shorts/EiWKs9EeAYg"
       },
       {
-        "id": "qpxnSrvWs30",
-        "muscle": "縫工筋の停止部はどっち",
-        "title": "【PT国試予想】縫工筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 941,
-        "likes": 2,
-        "comments": 0,
-        "published_at": "2026-11-08T04:19:47Z",
-        "url": "https://youtube.com/shorts/qpxnSrvWs30"
-      },
-      {
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 696,
+        "views": 854,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
