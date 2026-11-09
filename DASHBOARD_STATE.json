@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T21:54:02+09:00",
+  "last_synced_at": "2026-11-09T22:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "9fcc79b",
-  "pt_git_commit": "1c52004",
+  "git_commit": "3d52508",
+  "pt_git_commit": "45afd4e",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T21:54:02+09:00",
+    "scanned_at": "2026-11-09T22:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "45afd4e",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [21:54 JST]"
+      },
+      {
         "sha": "1c52004",
         "date": "2026-11-09",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [20:54 JST]"
@@ -86,11 +91,6 @@
         "sha": "2449035",
         "date": "2026-11-09",
         "subject": "feat(stats): complete and deploy video 4-1"
-      },
-      {
-        "sha": "29f8e43",
-        "date": "2026-11-09",
-        "subject": "feat(stats): complete and deploy video 3-4"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-09T21:54:02+09:00"
+      "last_checked_at": "2026-11-09T22:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T21:54:02+09:00",
+    "last_synced": "2026-11-09T22:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "309d58cc",
+      "id": "a4663efd",
       "env": "production",
-      "created_on": "2026-11-09T11:54:16.294039Z",
-      "url": "https://309d58cc.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T12:54:16.64931Z",
+      "url": "https://a4663efd.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -259,12 +259,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18596,
+    "total_views": 18696,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "21:54 JST",
+    "last_updated": "22:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -410,7 +410,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 596,
+        "views": 696,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
