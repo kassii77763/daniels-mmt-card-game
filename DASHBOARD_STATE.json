@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-09T14:20:32+09:00",
+  "last_synced_at": "2026-11-09T14:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "d38d1c8",
-  "pt_git_commit": "e396990",
+  "git_commit": "3d4c541",
+  "pt_git_commit": "b293e25",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-09T14:20:32+09:00",
+    "scanned_at": "2026-11-09T14:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,16 @@
     },
     "recent_commits": [
       {
+        "sha": "b293e25",
+        "date": "2026-11-09",
+        "subject": "feat: clean up Amazon gear section, fix video filters, and upgrade test harnesses"
+      },
+      {
+        "sha": "cf200ac",
+        "date": "2026-11-09",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [14:20 JST]"
+      },
+      {
         "sha": "e396990",
         "date": "2026-11-09",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [13:54 JST]"
@@ -81,16 +91,6 @@
         "sha": "6bdb214",
         "date": "2026-11-09",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [12:54 JST]"
-      },
-      {
-        "sha": "4a9f9ce",
-        "date": "2026-11-09",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:54 JST]"
-      },
-      {
-        "sha": "7dbccc7",
-        "date": "2026-11-09",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:43 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,41 +106,41 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-09T14:20:33+09:00"
+      "last_checked_at": "2026-11-09T14:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-09T14:20:33+09:00",
+    "last_synced": "2026-11-09T14:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "e22c3582",
+      "id": "bb1975ee",
       "env": "production",
-      "created_on": "2026-11-09T04:54:16.329695Z",
-      "url": "https://e22c3582.pt-student-portal.pages.dev"
+      "created_on": "2026-11-09T05:24:39.478188Z",
+      "url": "https://bb1975ee.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
-        "uu": 36,
-        "pv": 202,
-        "depth": 5.61,
+        "uu": 39,
+        "pv": 238,
+        "depth": 6.1,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 36,
-        "pv": 202,
-        "depth": 5.61,
+        "uu": 39,
+        "pv": 238,
+        "depth": 6.1,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 36,
-        "pv": 202,
-        "depth": 5.61,
+        "uu": 39,
+        "pv": 238,
+        "depth": 6.1,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -151,16 +151,16 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 166,
-          "pct": 82,
+          "count": 199,
+          "pct": 84,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 28,
-          "pct": 14,
+          "count": 31,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -168,7 +168,7 @@
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
           "count": 8,
-          "pct": 4,
+          "pct": 3,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -177,16 +177,16 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 166,
-          "pct": 82,
+          "count": 199,
+          "pct": 84,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 28,
-          "pct": 14,
+          "count": 31,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -194,7 +194,7 @@
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
           "count": 8,
-          "pct": 4,
+          "pct": 3,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -203,16 +203,16 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 166,
-          "pct": 82,
+          "count": 199,
+          "pct": 84,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 28,
-          "pct": 14,
+          "count": 31,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -220,7 +220,7 @@
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
           "count": 8,
-          "pct": 4,
+          "pct": 3,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -259,12 +259,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 17841,
+    "total_views": 17842,
     "total_likes": 64,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "14:20 JST",
+    "last_updated": "14:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -350,7 +350,7 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 974,
+        "views": 975,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
@@ -499,21 +499,21 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 103,
-    "smoke_tests": 28,
+    "total_line_clicks": 106,
+    "smoke_tests": 29,
     "by_date": {
       "2026-10-31": 12,
       "2026-11-02": 63,
       "2026-11-03": 14,
       "2026-11-07": 4,
-      "2026-11-09": 10
+      "2026-11-09": 13
     },
     "last_clicked": "2026-11-09"
   },
   "projects": {
     "pt_student_portal": {
       "folder": "projects/pt_student_portal",
-      "verified_file_count": 30,
+      "verified_file_count": 31,
       "verified_files": [
         ".cfignore",
         ".env",
