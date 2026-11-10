@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T08:54:50+09:00",
+  "last_synced_at": "2026-11-10T09:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "157fc93",
-  "pt_git_commit": "73eff3f",
+  "git_commit": "5fddb02",
+  "pt_git_commit": "8d88248",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T08:54:51+09:00",
+    "scanned_at": "2026-11-10T09:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -25,7 +25,7 @@
       },
       {
         "id": "dict-community",
-        "label": "03 濃密筋カルテ＆事典 (全80筋)"
+        "label": "03 濃密筋カルテ＆事典 (部位別)"
       }
     ],
     "features_status": {
@@ -63,34 +63,34 @@
     },
     "recent_commits": [
       {
-        "sha": "73eff3f",
+        "sha": "8d88248",
         "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 1-1"
+        "subject": "feat(stats): complete and deploy video 2-0b"
       },
       {
-        "sha": "1490593",
+        "sha": "f9260d1",
         "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 1-0b"
+        "subject": "fix(ux): eliminate 80-muscle pill bloat by introducing region-based filtering and concise navigation labels"
       },
       {
-        "sha": "15ece73",
+        "sha": "9063081",
         "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 1-0"
+        "subject": "feat(stats): complete and deploy video 2-0"
       },
       {
-        "sha": "b46e1c8",
+        "sha": "b5ee47f",
         "date": "2026-11-10",
-        "subject": "feat(mobile): implement adaptive dual-device layout, bottom nav, and 3-stage karte tabs"
+        "subject": "fix(ux): update note price to 300yen, refine study advice with active recall, fix mobile header layout, and restore scroll-to-top on tab switch"
       },
       {
-        "sha": "2a0aeb7",
+        "sha": "9297428",
         "date": "2026-11-10",
-        "subject": "feat(stats): harmonize all 8 lectures with 3-tier video structure (roadmap, dictionary, deep-dive)"
+        "subject": "feat(stats): complete and deploy video 1-4"
       },
       {
-        "sha": "c68c295",
+        "sha": "f7ec23c",
         "date": "2026-11-10",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [07:54 JST]"
+        "subject": "feat(stats): complete and deploy video 1-3"
       }
     ],
     "adsense_monitor": {
@@ -106,41 +106,41 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T08:54:51+09:00"
+      "last_checked_at": "2026-11-10T09:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T08:54:51+09:00",
+    "last_synced": "2026-11-10T09:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "4061e041",
+      "id": "970d9057",
       "env": "production",
-      "created_on": "2026-11-09T23:43:06.996766Z",
-      "url": "https://4061e041.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T00:46:39.484237Z",
+      "url": "https://970d9057.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
-        "uu": 42,
-        "pv": 315,
-        "depth": 7.5,
+        "uu": 70,
+        "pv": 310,
+        "depth": 4.43,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 42,
-        "pv": 315,
-        "depth": 7.5,
+        "uu": 70,
+        "pv": 310,
+        "depth": 4.43,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 42,
-        "pv": 315,
-        "depth": 7.5,
+        "uu": 70,
+        "pv": 310,
+        "depth": 4.43,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -151,32 +151,32 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 273,
-          "pct": 87,
+          "count": 240,
+          "pct": 77,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 10,
+          "count": 40,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 9,
-          "pct": 3,
+          "count": 20,
+          "pct": 6,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "localhost",
           "domain": "localhost",
-          "count": 1,
-          "pct": 0,
+          "count": 10,
+          "pct": 3,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -185,32 +185,32 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 273,
-          "pct": 87,
+          "count": 240,
+          "pct": 77,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 10,
+          "count": 40,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 9,
-          "pct": 3,
+          "count": 20,
+          "pct": 6,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "localhost",
           "domain": "localhost",
-          "count": 1,
-          "pct": 0,
+          "count": 10,
+          "pct": 3,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -219,32 +219,32 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 273,
-          "pct": 87,
+          "count": 240,
+          "pct": 77,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 32,
-          "pct": 10,
+          "count": 40,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "YouTube (Shorts動画概要欄)",
           "domain": "YouTube (Shorts動画概要欄)",
-          "count": 9,
-          "pct": 3,
+          "count": 20,
+          "pct": 6,
           "icon": "fa-brands fa-youtube text-rose-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "localhost",
           "domain": "localhost",
-          "count": 1,
-          "pct": 0,
+          "count": 10,
+          "pct": 3,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         }
@@ -288,7 +288,7 @@
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "08:54 JST",
+    "last_updated": "09:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -523,16 +523,17 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 130,
-    "smoke_tests": 37,
+    "total_line_clicks": 139,
+    "smoke_tests": 40,
     "by_date": {
       "2026-10-31": 12,
       "2026-11-02": 63,
       "2026-11-03": 14,
       "2026-11-07": 4,
-      "2026-11-09": 37
+      "2026-11-09": 37,
+      "2026-11-10": 9
     },
-    "last_clicked": "2026-11-09"
+    "last_clicked": "2026-11-10"
   },
   "projects": {
     "pt_student_portal": {
