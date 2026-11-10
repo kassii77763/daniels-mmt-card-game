@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T23:54:03+09:00",
+  "last_synced_at": "2026-11-11T00:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "36d1864",
-  "pt_git_commit": "e80819c",
+  "git_commit": "52eaa46",
+  "pt_git_commit": "17342bb",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T23:54:03+09:00",
+    "scanned_at": "2026-11-11T00:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,16 @@
     },
     "recent_commits": [
       {
+        "sha": "17342bb",
+        "date": "2026-11-10",
+        "subject": "fix(stats): reorder mobile layout to place video playlist directly under video player before quiz"
+      },
+      {
+        "sha": "0c73c6b",
+        "date": "2026-11-10",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [23:54 JST]"
+      },
+      {
         "sha": "e80819c",
         "date": "2026-11-10",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [23:40 JST]"
@@ -81,16 +91,6 @@
         "sha": "15693dc",
         "date": "2026-11-10",
         "subject": "feat(stats): complete and deploy video 8-2"
-      },
-      {
-        "sha": "70cd77a",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 8-1"
-      },
-      {
-        "sha": "477c9d2",
-        "date": "2026-11-10",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [19:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T23:54:03+09:00"
+      "last_checked_at": "2026-11-11T00:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T23:54:03+09:00",
+    "last_synced": "2026-11-11T00:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "2eb1b443",
+      "id": "30c9c5dc",
       "env": "production",
-      "created_on": "2026-11-10T14:41:04.591836Z",
-      "url": "https://2eb1b443.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T14:58:27.067665Z",
+      "url": "https://30c9c5dc.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -288,7 +288,7 @@
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "23:54 JST",
+    "last_updated": "00:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -557,7 +557,7 @@
         "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「先輩の赤点回避ドリル」友だち登録 100名**",
         "active_milestone": "M1: コア純化・クローラー監査・収益ファネル直結スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": 0,
+        "days_remaining": -1,
         "tasks_total": 13,
         "tasks_done": 7,
         "progress_pct": 54,
@@ -607,7 +607,7 @@
         "north_star_kpi": "**初期3本からのLINE誘導クリック数 ＆ 視聴維持率70%超（実測蓄積）**",
         "active_milestone": "M1: 初期3本公開済 ➔ LINE導線検証スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": 0,
+        "days_remaining": -1,
         "tasks_total": 7,
         "tasks_done": 3,
         "progress_pct": 43,
@@ -648,7 +648,7 @@
         "north_star_kpi": "**133枚実動版のPWA安定稼働 ＆ PTポータル/LINE特典連携完了**",
         "active_milestone": "M1: 133枚実動版 PWA安定稼働 ＆ ポータル連携スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": 0,
+        "days_remaining": -1,
         "tasks_total": 7,
         "tasks_done": 3,
         "progress_pct": 43,
@@ -682,7 +682,7 @@
         "north_star_kpi": "未設定（PT教育エコシステムの自走化後に設定）",
         "active_milestone": "M0: 計画的保留フェーズ",
         "deadline": "2026-12-15",
-        "days_remaining": 35,
+        "days_remaining": 34,
         "tasks_total": 3,
         "tasks_done": 2,
         "progress_pct": 67,
