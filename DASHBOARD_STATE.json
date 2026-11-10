@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T10:54:26+09:00",
+  "last_synced_at": "2026-11-10T12:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "1f5273b",
-  "pt_git_commit": "5e6f103",
+  "git_commit": "831e263",
+  "pt_git_commit": "c989eab",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T10:54:26+09:00",
+    "scanned_at": "2026-11-10T12:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,34 +63,34 @@
     },
     "recent_commits": [
       {
-        "sha": "5e6f103",
+        "sha": "c989eab",
         "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 3-0"
+        "subject": "feat(stats): improve overlay handling for pending videos and block 3-3 in functions"
       },
       {
-        "sha": "8793440",
+        "sha": "19cc2a8",
         "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 2-4"
+        "subject": "feat(stats): apply native title intros to all 34 videos, remove posters, safely quarantine 3-3"
       },
       {
-        "sha": "263a614",
+        "sha": "dec5515",
         "date": "2026-11-10",
-        "subject": "feat(factcheck): implement MHLW official registry x School HP two-factor cross-check verification engine"
+        "subject": "feat(stats): enable 206 Partial Content video streaming and accurate HD posters"
       },
       {
-        "sha": "40b5518",
+        "sha": "268b7eb",
         "date": "2026-11-10",
-        "subject": "fix(factcheck): update school crawler registry and audit logic to classify Kinki Rehab as DOWNGRADED_IPPAN"
+        "subject": "feat(video): add HTTP 206 Range Request function for smooth seeking and deploy HD poster thumbnails for all 50 videos"
       },
       {
-        "sha": "c0a1ed6",
+        "sha": "dedb629",
         "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 2-2"
+        "subject": "fix(stats): bust cache on stats.html, bind video.src properly, and add pending overlay for unproduced videos"
       },
       {
-        "sha": "9ae998b",
+        "sha": "e10c178",
         "date": "2026-11-10",
-        "subject": "fix(ux): correct Kinki Rehab subsidy fact-check to general 10man, streamline muscle selector with dropdown, fix gacha button layout, and remove reload hash bug"
+        "subject": "fix(stats): correct video source property binding (src instead of url) and default to lecture 1"
       }
     ],
     "adsense_monitor": {
@@ -106,41 +106,41 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T10:54:26+09:00"
+      "last_checked_at": "2026-11-10T12:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T10:54:26+09:00",
+    "last_synced": "2026-11-10T12:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "1bfef095",
+      "id": "cf4e49ab",
       "env": "production",
-      "created_on": "2026-11-10T01:43:28.741044Z",
-      "url": "https://1bfef095.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T03:50:31.954542Z",
+      "url": "https://cf4e49ab.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
         "uu": 80,
-        "pv": 360,
-        "depth": 4.5,
+        "pv": 370,
+        "depth": 4.62,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
         "uu": 80,
-        "pv": 360,
-        "depth": 4.5,
+        "pv": 370,
+        "depth": 4.62,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
         "uu": 80,
-        "pv": 360,
-        "depth": 4.5,
+        "pv": 370,
+        "depth": 4.62,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -151,7 +151,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 280,
+          "count": 290,
           "pct": 78,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -185,7 +185,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 280,
+          "count": 290,
           "pct": 78,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -219,7 +219,7 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 280,
+          "count": 290,
           "pct": 78,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18946,
+    "total_views": 18950,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "10:54 JST",
+    "last_updated": "12:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -404,7 +404,7 @@
         "id": "qpxnSrvWs30",
         "muscle": "縫工筋の停止部はどっち",
         "title": "【PT国試予想】縫工筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1003,
+        "views": 1004,
         "likes": 2,
         "comments": 0,
         "published_at": "2026-11-08T04:19:47Z",
@@ -494,7 +494,7 @@
         "id": "vu2tJqJ8yJk",
         "muscle": "棘上筋の停止部はどっち",
         "title": "【PT国試予想】棘上筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 132,
+        "views": 135,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-07T20:20:00Z",
@@ -523,15 +523,15 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 160,
-    "smoke_tests": 47,
+    "total_line_clicks": 181,
+    "smoke_tests": 54,
     "by_date": {
       "2026-10-31": 12,
       "2026-11-02": 63,
       "2026-11-03": 14,
       "2026-11-07": 4,
       "2026-11-09": 37,
-      "2026-11-10": 30
+      "2026-11-10": 51
     },
     "last_clicked": "2026-11-10"
   },
