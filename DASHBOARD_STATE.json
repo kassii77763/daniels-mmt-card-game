@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T14:54:06+09:00",
+  "last_synced_at": "2026-11-10T15:54:03+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "b206686",
-  "pt_git_commit": "f623ad0",
+  "git_commit": "429ee20",
+  "pt_git_commit": "0073cd2",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T14:54:06+09:00",
+    "scanned_at": "2026-11-10T15:54:03+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,34 +63,34 @@
     },
     "recent_commits": [
       {
-        "sha": "f623ad0",
+        "sha": "0073cd2",
         "date": "2026-11-10",
-        "subject": "feat(shorts): deploy Pattern-B high-conversion CTA template and generate 10 elite shorts videos for AB testing"
+        "subject": "feat(stats): complete and deploy video 7-0b"
       },
       {
-        "sha": "8d89e2c",
+        "sha": "99f3e5f",
         "date": "2026-11-10",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [13:54 JST]"
+        "subject": "feat(stats): complete and deploy video 7-0"
       },
       {
-        "sha": "501f39f",
+        "sha": "16bb540",
         "date": "2026-11-10",
-        "subject": "feat(stats): deploy clean regenerated 3-3 video with native title and restore full pipeline"
+        "subject": "feat(stats): complete and deploy video 4-5"
       },
       {
-        "sha": "c989eab",
+        "sha": "5a0fb3a",
         "date": "2026-11-10",
-        "subject": "feat(stats): improve overlay handling for pending videos and block 3-3 in functions"
+        "subject": "feat(stats): complete and deploy video 4-0b"
       },
       {
-        "sha": "19cc2a8",
+        "sha": "95c1576",
         "date": "2026-11-10",
-        "subject": "feat(stats): apply native title intros to all 34 videos, remove posters, safely quarantine 3-3"
+        "subject": "feat(telemetry): add session engagement tracker, exit beacon and edge endpoint for Cloudflare Pages"
       },
       {
-        "sha": "dec5515",
+        "sha": "5dab0ae",
         "date": "2026-11-10",
-        "subject": "feat(stats): enable 206 Partial Content video streaming and accurate HD posters"
+        "subject": "feat(stats): complete and deploy video 4-0"
       }
     ],
     "adsense_monitor": {
@@ -106,41 +106,41 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T14:54:07+09:00"
+      "last_checked_at": "2026-11-10T15:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T14:54:07+09:00",
+    "last_synced": "2026-11-10T15:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "965115b7",
+      "id": "2e59f9df",
       "env": "production",
-      "created_on": "2026-11-10T05:26:36.501785Z",
-      "url": "https://965115b7.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T06:53:37.150842Z",
+      "url": "https://2e59f9df.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
-        "uu": 80,
-        "pv": 370,
-        "depth": 4.62,
+        "uu": 90,
+        "pv": 380,
+        "depth": 4.22,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 80,
-        "pv": 370,
-        "depth": 4.62,
+        "uu": 90,
+        "pv": 380,
+        "depth": 4.22,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 80,
-        "pv": 370,
-        "depth": 4.62,
+        "uu": 90,
+        "pv": 380,
+        "depth": 4.22,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -152,15 +152,15 @@
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
           "count": 290,
-          "pct": 78,
+          "pct": 76,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 40,
-          "pct": 11,
+          "count": 50,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -186,15 +186,15 @@
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
           "count": 290,
-          "pct": 78,
+          "pct": 76,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 40,
-          "pct": 11,
+          "count": 50,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -220,15 +220,15 @@
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
           "count": 290,
-          "pct": 78,
+          "pct": 76,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
         {
           "name": "Direct / ブックマーク",
           "domain": "Direct / ブックマーク",
-          "count": 40,
-          "pct": 11,
+          "count": 50,
+          "pct": 13,
           "icon": "fa-solid fa-bookmark text-indigo-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18961,
+    "total_views": 18957,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "14:54 JST",
+    "last_updated": "15:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -314,7 +314,7 @@
         "id": "4FVIM92zSps",
         "muscle": "骨盤を支えるこの筋肉はどっち",
         "title": "【PT国試予想】骨盤を支えるこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1363,
+        "views": 1359,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-06T22:30:16Z",
@@ -334,7 +334,7 @@
         "id": "OgM2Uwu_c2g",
         "muscle": "膝の内側に巻き付く筋肉はどっち",
         "title": "【PT国試予想】膝の内側に巻き付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1277,
+        "views": 1273,
         "likes": 7,
         "comments": 0,
         "published_at": "2026-11-07T03:15:17Z",
@@ -354,7 +354,7 @@
         "id": "LyXi1WD7pr8",
         "muscle": "三角筋の停止部はどっち",
         "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1132,
+        "views": 1133,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T12:19:43Z",
@@ -434,7 +434,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 874,
+        "views": 878,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
@@ -474,7 +474,7 @@
         "id": "6H07VZb6IGg",
         "muscle": "上腕二頭筋の停止部はどっち",
         "title": "【PT国試予想】上腕二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 178,
+        "views": 177,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-07T04:20:03Z",
@@ -523,15 +523,15 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 191,
-    "smoke_tests": 58,
+    "total_line_clicks": 194,
+    "smoke_tests": 59,
     "by_date": {
       "2026-10-31": 12,
       "2026-11-02": 63,
       "2026-11-03": 14,
       "2026-11-07": 4,
       "2026-11-09": 37,
-      "2026-11-10": 61
+      "2026-11-10": 64
     },
     "last_clicked": "2026-11-10"
   },
