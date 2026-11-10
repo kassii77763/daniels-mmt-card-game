@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T19:54:02+09:00",
+  "last_synced_at": "2026-11-10T23:40:09+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "e1846ab",
-  "pt_git_commit": "243f9d9",
+  "git_commit": "4c58495",
+  "pt_git_commit": "1b996bf",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T19:54:02+09:00",
+    "scanned_at": "2026-11-10T23:40:12+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,26 @@
     },
     "recent_commits": [
       {
+        "sha": "1b996bf",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 8-3"
+      },
+      {
+        "sha": "15693dc",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 8-2"
+      },
+      {
+        "sha": "70cd77a",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 8-1"
+      },
+      {
+        "sha": "477c9d2",
+        "date": "2026-11-10",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [19:54 JST]"
+      },
+      {
         "sha": "243f9d9",
         "date": "2026-11-10",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [18:54 JST]"
@@ -71,26 +91,6 @@
         "sha": "444f577",
         "date": "2026-11-10",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [17:54 JST]"
-      },
-      {
-        "sha": "ea32cd8",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 8-0b"
-      },
-      {
-        "sha": "d22ab74",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 8-0"
-      },
-      {
-        "sha": "3053bc1",
-        "date": "2026-11-10",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [16:54 JST]"
-      },
-      {
-        "sha": "41636dc",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 7-4"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T19:54:02+09:00"
+      "last_checked_at": "2026-11-10T23:40:19+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T19:54:02+09:00",
+    "last_synced": "2026-11-10T23:40:19+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "a65dc981",
+      "id": "8e2611d7",
       "env": "production",
-      "created_on": "2026-11-10T09:54:17.807453Z",
-      "url": "https://a65dc981.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T11:24:46.245483Z",
+      "url": "https://8e2611d7.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19029,
+    "total_views": 19045,
     "total_likes": 66,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "19:54 JST",
+    "last_updated": "23:40 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -421,6 +421,16 @@
         "url": "https://youtube.com/shorts/rua5Z-oTINQ"
       },
       {
+        "id": "wlKxVmKffOQ",
+        "muscle": "大腿二頭筋の停止部はどっち",
+        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 963,
+        "likes": 2,
+        "comments": 0,
+        "published_at": "2026-11-08T12:19:51Z",
+        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
+      },
+      {
         "id": "EiWKs9EeAYg",
         "muscle": "前脛骨筋の停止部はどっち",
         "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -429,16 +439,6 @@
         "comments": 0,
         "published_at": "2026-11-08T08:20:06Z",
         "url": "https://youtube.com/shorts/EiWKs9EeAYg"
-      },
-      {
-        "id": "wlKxVmKffOQ",
-        "muscle": "大腿二頭筋の停止部はどっち",
-        "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 948,
-        "likes": 2,
-        "comments": 0,
-        "published_at": "2026-11-08T12:19:51Z",
-        "url": "https://youtube.com/shorts/wlKxVmKffOQ"
       },
       {
         "id": "8TR1XZwPLG8",
@@ -474,7 +474,7 @@
         "id": "6H07VZb6IGg",
         "muscle": "上腕二頭筋の停止部はどっち",
         "title": "【PT国試予想】上腕二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 177,
+        "views": 178,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-07T04:20:03Z",
