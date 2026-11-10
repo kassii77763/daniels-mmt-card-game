@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T12:54:02+09:00",
+  "last_synced_at": "2026-11-10T13:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "831e263",
-  "pt_git_commit": "c989eab",
+  "git_commit": "cb0a00a",
+  "pt_git_commit": "501f39f",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T12:54:02+09:00",
+    "scanned_at": "2026-11-10T13:54:03+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "501f39f",
+        "date": "2026-11-10",
+        "subject": "feat(stats): deploy clean regenerated 3-3 video with native title and restore full pipeline"
+      },
+      {
         "sha": "c989eab",
         "date": "2026-11-10",
         "subject": "feat(stats): improve overlay handling for pending videos and block 3-3 in functions"
@@ -86,11 +91,6 @@
         "sha": "dedb629",
         "date": "2026-11-10",
         "subject": "fix(stats): bust cache on stats.html, bind video.src properly, and add pending overlay for unproduced videos"
-      },
-      {
-        "sha": "e10c178",
-        "date": "2026-11-10",
-        "subject": "fix(stats): correct video source property binding (src instead of url) and default to lecture 1"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T12:54:02+09:00"
+      "last_checked_at": "2026-11-10T13:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T12:54:02+09:00",
+    "last_synced": "2026-11-10T13:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "cf4e49ab",
+      "id": "d7bcc401",
       "env": "production",
-      "created_on": "2026-11-10T03:50:31.954542Z",
-      "url": "https://cf4e49ab.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T04:22:41.539084Z",
+      "url": "https://d7bcc401.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18950,
+    "total_views": 18958,
     "total_likes": 65,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "12:54 JST",
+    "last_updated": "13:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -334,7 +334,7 @@
         "id": "OgM2Uwu_c2g",
         "muscle": "膝の内側に巻き付く筋肉はどっち",
         "title": "【PT国試予想】膝の内側に巻き付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1275,
+        "views": 1277,
         "likes": 7,
         "comments": 0,
         "published_at": "2026-11-07T03:15:17Z",
@@ -374,7 +374,7 @@
         "id": "xwLXn2jkZfM",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1105,
+        "views": 1106,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T16:19:58Z",
@@ -384,7 +384,7 @@
         "id": "vFLod7F0Bbg",
         "muscle": "大腿直筋の起始部はどっち",
         "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1050,
+        "views": 1052,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T08:19:53Z",
@@ -394,7 +394,7 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1039,
+        "views": 1041,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
@@ -414,7 +414,7 @@
         "id": "rua5Z-oTINQ",
         "muscle": "つま先を持ち上げる筋肉はどっち",
         "title": "【PT国試予想】つま先を持ち上げる筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 980,
+        "views": 981,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-07T11:30:30Z",
@@ -523,15 +523,15 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 181,
-    "smoke_tests": 54,
+    "total_line_clicks": 188,
+    "smoke_tests": 57,
     "by_date": {
       "2026-10-31": 12,
       "2026-11-02": 63,
       "2026-11-03": 14,
       "2026-11-07": 4,
       "2026-11-09": 37,
-      "2026-11-10": 51
+      "2026-11-10": 58
     },
     "last_clicked": "2026-11-10"
   },
