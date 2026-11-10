@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T15:54:03+09:00",
+  "last_synced_at": "2026-11-10T16:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "429ee20",
-  "pt_git_commit": "0073cd2",
+  "git_commit": "f8508a3",
+  "pt_git_commit": "41636dc",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T15:54:03+09:00",
+    "scanned_at": "2026-11-10T16:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,34 +63,34 @@
     },
     "recent_commits": [
       {
+        "sha": "41636dc",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 7-4"
+      },
+      {
+        "sha": "1acb344",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 7-3"
+      },
+      {
+        "sha": "9c36862",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 7-2"
+      },
+      {
+        "sha": "325e01c",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 7-1"
+      },
+      {
+        "sha": "1da37e8",
+        "date": "2026-11-10",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [15:54 JST]"
+      },
+      {
         "sha": "0073cd2",
         "date": "2026-11-10",
         "subject": "feat(stats): complete and deploy video 7-0b"
-      },
-      {
-        "sha": "99f3e5f",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 7-0"
-      },
-      {
-        "sha": "16bb540",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 4-5"
-      },
-      {
-        "sha": "5a0fb3a",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 4-0b"
-      },
-      {
-        "sha": "95c1576",
-        "date": "2026-11-10",
-        "subject": "feat(telemetry): add session engagement tracker, exit beacon and edge endpoint for Cloudflare Pages"
-      },
-      {
-        "sha": "5dab0ae",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 4-0"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T15:54:03+09:00"
+      "last_checked_at": "2026-11-10T16:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T15:54:03+09:00",
+    "last_synced": "2026-11-10T16:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "2e59f9df",
+      "id": "6c0c86a7",
       "env": "production",
-      "created_on": "2026-11-10T06:53:37.150842Z",
-      "url": "https://2e59f9df.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T07:44:01.900468Z",
+      "url": "https://6c0c86a7.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 18957,
-    "total_likes": 65,
+    "total_views": 18959,
+    "total_likes": 66,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "15:54 JST",
+    "last_updated": "16:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -434,8 +434,8 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 878,
-        "likes": 1,
+        "views": 880,
+        "likes": 2,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
         "url": "https://youtube.com/shorts/wlKxVmKffOQ"
