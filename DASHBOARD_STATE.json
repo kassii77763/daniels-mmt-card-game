@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-11T00:54:02+09:00",
+  "last_synced_at": "2026-11-11T01:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "52eaa46",
-  "pt_git_commit": "17342bb",
+  "git_commit": "998a781",
+  "pt_git_commit": "59389d8",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-11T00:54:02+09:00",
+    "scanned_at": "2026-11-11T01:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "59389d8",
+        "date": "2026-11-11",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [00:54 JST]"
+      },
+      {
         "sha": "17342bb",
         "date": "2026-11-10",
         "subject": "fix(stats): reorder mobile layout to place video playlist directly under video player before quiz"
@@ -86,11 +91,6 @@
         "sha": "1b996bf",
         "date": "2026-11-10",
         "subject": "feat(stats): complete and deploy video 8-3"
-      },
-      {
-        "sha": "15693dc",
-        "date": "2026-11-10",
-        "subject": "feat(stats): complete and deploy video 8-2"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-11T00:54:03+09:00"
+      "last_checked_at": "2026-11-11T01:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-11T00:54:03+09:00",
+    "last_synced": "2026-11-11T01:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "30c9c5dc",
+      "id": "7957af6f",
       "env": "production",
-      "created_on": "2026-11-10T14:58:27.067665Z",
-      "url": "https://30c9c5dc.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T15:54:16.012353Z",
+      "url": "https://7957af6f.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19045,
+    "total_views": 19046,
     "total_likes": 66,
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "00:54 JST",
+    "last_updated": "01:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -424,7 +424,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 963,
+        "views": 964,
         "likes": 2,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
