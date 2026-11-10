@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-10T23:40:09+09:00",
+  "last_synced_at": "2026-11-10T23:54:03+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "4c58495",
-  "pt_git_commit": "1b996bf",
+  "git_commit": "36d1864",
+  "pt_git_commit": "e80819c",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-10T23:40:12+09:00",
+    "scanned_at": "2026-11-10T23:54:03+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,16 @@
     },
     "recent_commits": [
       {
+        "sha": "e80819c",
+        "date": "2026-11-10",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [23:40 JST]"
+      },
+      {
+        "sha": "cff6377",
+        "date": "2026-11-10",
+        "subject": "feat(stats): complete and deploy video 8-4"
+      },
+      {
         "sha": "1b996bf",
         "date": "2026-11-10",
         "subject": "feat(stats): complete and deploy video 8-3"
@@ -81,16 +91,6 @@
         "sha": "477c9d2",
         "date": "2026-11-10",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [19:54 JST]"
-      },
-      {
-        "sha": "243f9d9",
-        "date": "2026-11-10",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [18:54 JST]"
-      },
-      {
-        "sha": "444f577",
-        "date": "2026-11-10",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [17:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-10T23:40:19+09:00"
+      "last_checked_at": "2026-11-10T23:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-10T23:40:19+09:00",
+    "last_synced": "2026-11-10T23:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "8e2611d7",
+      "id": "2eb1b443",
       "env": "production",
-      "created_on": "2026-11-10T11:24:46.245483Z",
-      "url": "https://8e2611d7.pt-student-portal.pages.dev"
+      "created_on": "2026-11-10T14:41:04.591836Z",
+      "url": "https://2eb1b443.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -288,7 +288,7 @@
     "total_comments": 10,
     "videos_count": 23,
     "api_connected": true,
-    "last_updated": "23:40 JST",
+    "last_updated": "23:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -523,7 +523,7 @@
     ]
   },
   "portal_telemetry": {
-    "total_line_clicks": 194,
+    "total_line_clicks": 196,
     "smoke_tests": 59,
     "by_date": {
       "2026-10-31": 12,
@@ -531,7 +531,7 @@
       "2026-11-03": 14,
       "2026-11-07": 4,
       "2026-11-09": 37,
-      "2026-11-10": 64
+      "2026-11-10": 66
     },
     "last_clicked": "2026-11-10"
   },
