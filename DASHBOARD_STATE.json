@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-11T09:54:05+09:00",
+  "last_synced_at": "2026-11-11T10:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "d6b8000",
-  "pt_git_commit": "4dd6794",
+  "git_commit": "b5cba8e",
+  "pt_git_commit": "b7abddc",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-11T09:54:05+09:00",
+    "scanned_at": "2026-11-11T10:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,16 @@
     },
     "recent_commits": [
       {
+        "sha": "b7abddc",
+        "date": "2026-11-11",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [09:54 JST]"
+      },
+      {
+        "sha": "bb30f01",
+        "date": "2026-11-10",
+        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
+      },
+      {
         "sha": "4dd6794",
         "date": "2026-11-11",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [08:54 JST]"
@@ -81,16 +91,6 @@
         "sha": "5421f6a",
         "date": "2026-11-11",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [03:54 JST]"
-      },
-      {
-        "sha": "b7ecc82",
-        "date": "2026-11-11",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [02:54 JST]"
-      },
-      {
-        "sha": "28d09f3",
-        "date": "2026-11-11",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [01:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-11T09:54:06+09:00"
+      "last_checked_at": "2026-11-11T10:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-11T09:54:06+09:00",
+    "last_synced": "2026-11-11T10:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "ab4ff7e4",
+      "id": "90b8c0ef",
       "env": "production",
-      "created_on": "2026-11-10T23:56:41.90846Z",
-      "url": "https://ab4ff7e4.pt-student-portal.pages.dev"
+      "created_on": "2026-11-11T00:54:28.130583Z",
+      "url": "https://90b8c0ef.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19187,
+    "total_views": 19188,
     "total_likes": 66,
     "total_comments": 11,
     "videos_count": 24,
     "api_connected": true,
-    "last_updated": "09:54 JST",
+    "last_updated": "10:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -494,7 +494,7 @@
         "id": "bJkq_S8cpF8",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 140,
+        "views": 141,
         "likes": 0,
         "comments": 1,
         "published_at": "2026-11-10T22:55:04Z",
