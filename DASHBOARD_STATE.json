@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-11T15:54:03+09:00",
+  "last_synced_at": "2026-11-11T16:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "bb5a57f",
-  "pt_git_commit": "3661cfc",
+  "git_commit": "cfc0c9e",
+  "pt_git_commit": "db8b845",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-11T15:54:03+09:00",
+    "scanned_at": "2026-11-11T16:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "db8b845",
+        "date": "2026-11-11",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [15:54 JST]"
+      },
+      {
         "sha": "3661cfc",
         "date": "2026-11-11",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [14:54 JST]"
@@ -86,11 +91,6 @@
         "sha": "087f186",
         "date": "2026-11-11",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [10:54 JST]"
-      },
-      {
-        "sha": "b7abddc",
-        "date": "2026-11-11",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [09:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-11T15:54:03+09:00"
+      "last_checked_at": "2026-11-11T16:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-11T15:54:03+09:00",
+    "last_synced": "2026-11-11T16:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "1310fbd6",
+      "id": "bd9e51cd",
       "env": "production",
-      "created_on": "2026-11-11T05:54:26.776436Z",
-      "url": "https://1310fbd6.pt-student-portal.pages.dev"
+      "created_on": "2026-11-11T06:54:26.977539Z",
+      "url": "https://bd9e51cd.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19284,
+    "total_views": 19296,
     "total_likes": 66,
     "total_comments": 11,
     "videos_count": 25,
     "api_connected": true,
-    "last_updated": "15:54 JST",
+    "last_updated": "16:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -444,7 +444,7 @@
         "id": "8TR1XZwPLG8",
         "muscle": "腕の外側に付くこの筋肉はどっち",
         "title": "【PT国試予想】腕の外側に付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 238,
+        "views": 239,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-05T22:30:18Z",
@@ -484,7 +484,7 @@
         "id": "bJkq_S8cpF8",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 160,
+        "views": 161,
         "likes": 0,
         "comments": 1,
         "published_at": "2026-11-10T22:55:04Z",
@@ -514,7 +514,7 @@
         "id": "Z9pGCYiAXjk",
         "muscle": "前脛骨筋の停止部はどっち",
         "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 72,
+        "views": 82,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-11T03:00:01Z",
