@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-11T23:54:03+09:00",
+  "last_synced_at": "2026-11-12T00:54:03+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "44f52b5",
-  "pt_git_commit": "762f99e",
+  "git_commit": "3c64801",
+  "pt_git_commit": "e5a3d2c",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-11T23:54:03+09:00",
+    "scanned_at": "2026-11-12T00:54:03+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "e5a3d2c",
+        "date": "2026-11-11",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [23:54 JST]"
+      },
+      {
         "sha": "762f99e",
         "date": "2026-11-11",
         "subject": "fix(cache): enable instant cache invalidation with must-revalidate and bump asset cache busters to v3"
@@ -86,11 +91,6 @@
         "sha": "04a367d",
         "date": "2026-11-11",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [19:54 JST]"
-      },
-      {
-        "sha": "1620f32",
-        "date": "2026-11-11",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [18:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-11T23:54:03+09:00"
+      "last_checked_at": "2026-11-12T00:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-11T23:54:03+09:00",
+    "last_synced": "2026-11-12T00:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "ae823f2e",
+      "id": "077c7daf",
       "env": "production",
-      "created_on": "2026-11-11T14:34:32.166117Z",
-      "url": "https://ae823f2e.pt-student-portal.pages.dev"
+      "created_on": "2026-11-11T14:54:20.392387Z",
+      "url": "https://077c7daf.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19417,
+    "total_views": 19402,
     "total_likes": 66,
     "total_comments": 11,
     "videos_count": 26,
     "api_connected": true,
-    "last_updated": "23:54 JST",
+    "last_updated": "00:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -354,21 +354,11 @@
         "id": "LyXi1WD7pr8",
         "muscle": "三角筋の停止部はどっち",
         "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1133,
+        "views": 1126,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T12:19:43Z",
         "url": "https://youtube.com/shorts/LyXi1WD7pr8"
-      },
-      {
-        "id": "xwLXn2jkZfM",
-        "muscle": "腕橈骨筋の停止部はどっち",
-        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1108,
-        "likes": 5,
-        "comments": 0,
-        "published_at": "2026-11-07T16:19:58Z",
-        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
       },
       {
         "id": "vRscTh45xbQ",
@@ -379,6 +369,16 @@
         "comments": 0,
         "published_at": "2026-11-06T03:15:31Z",
         "url": "https://youtube.com/shorts/vRscTh45xbQ"
+      },
+      {
+        "id": "xwLXn2jkZfM",
+        "muscle": "腕橈骨筋の停止部はどっち",
+        "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 1103,
+        "likes": 5,
+        "comments": 0,
+        "published_at": "2026-11-07T16:19:58Z",
+        "url": "https://youtube.com/shorts/xwLXn2jkZfM"
       },
       {
         "id": "vFLod7F0Bbg",
@@ -394,7 +394,7 @@
         "id": "uE-VKj5NT_Q",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1042,
+        "views": 1039,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-08T00:19:33Z",
@@ -587,7 +587,7 @@
         "north_star_kpi": "**初月収益（300円有料Note販売） ＆ 公式LINE「先輩の赤点回避ドリル」友だち登録 100名**",
         "active_milestone": "M1: コア純化・クローラー監査・収益ファネル直結スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": -1,
+        "days_remaining": -2,
         "tasks_total": 13,
         "tasks_done": 7,
         "progress_pct": 54,
@@ -637,7 +637,7 @@
         "north_star_kpi": "**初期3本からのLINE誘導クリック数 ＆ 視聴維持率70%超（実測蓄積）**",
         "active_milestone": "M1: 初期3本公開済 ➔ LINE導線検証スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": -1,
+        "days_remaining": -2,
         "tasks_total": 7,
         "tasks_done": 3,
         "progress_pct": 43,
@@ -678,7 +678,7 @@
         "north_star_kpi": "**133枚実動版のPWA安定稼働 ＆ PTポータル/LINE特典連携完了**",
         "active_milestone": "M1: 133枚実動版 PWA安定稼働 ＆ ポータル連携スプリント",
         "deadline": "2026-11-10",
-        "days_remaining": -1,
+        "days_remaining": -2,
         "tasks_total": 7,
         "tasks_done": 3,
         "progress_pct": 43,
@@ -712,7 +712,7 @@
         "north_star_kpi": "未設定（PT教育エコシステムの自走化後に設定）",
         "active_milestone": "M0: 計画的保留フェーズ",
         "deadline": "2026-12-15",
-        "days_remaining": 34,
+        "days_remaining": 33,
         "tasks_total": 3,
         "tasks_done": 2,
         "progress_pct": 67,
