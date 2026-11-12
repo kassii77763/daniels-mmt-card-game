@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-12T10:54:02+09:00",
+  "last_synced_at": "2026-11-12T12:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "5c06ab3",
-  "pt_git_commit": "9ff774b",
+  "git_commit": "3766b9c",
+  "pt_git_commit": "f65c6dc",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-12T10:54:02+09:00",
+    "scanned_at": "2026-11-12T12:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,21 @@
     },
     "recent_commits": [
       {
+        "sha": "f65c6dc",
+        "date": "2026-11-12",
+        "subject": "feat(stats): restore and deploy 45 verified pure NotebookLM assets with plan B curriculum alignment"
+      },
+      {
+        "sha": "8fbc380",
+        "date": "2026-11-12",
+        "subject": "fix(stats): strictly use NotebookLM videos only, set 11 mismatched videos to preparing"
+      },
+      {
+        "sha": "52e7f44",
+        "date": "2026-11-12",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [10:54 JST]"
+      },
+      {
         "sha": "9ff774b",
         "date": "2026-11-12",
         "subject": "chore: remove legacy unused video files 1-3.mp4 and 1-4.mp4"
@@ -76,21 +91,6 @@
         "sha": "215f1a8",
         "date": "2026-11-12",
         "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
-      },
-      {
-        "sha": "4286b31",
-        "date": "2026-11-12",
-        "subject": "feat: complete all 50 stats lecture videos with plan B alignment and official examples"
-      },
-      {
-        "sha": "846960a",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [09:54 JST]"
-      },
-      {
-        "sha": "af1c2bf",
-        "date": "2026-11-12",
-        "subject": "fix: rebuild data bundle.js with Plan B curriculum and add cache-busting queries to stats.html"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-12T10:54:02+09:00"
+      "last_checked_at": "2026-11-12T12:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-12T10:54:02+09:00",
+    "last_synced": "2026-11-12T12:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "a6f74fa6",
+      "id": "fca929f6",
       "env": "production",
-      "created_on": "2026-11-12T01:35:24.892118Z",
-      "url": "https://a6f74fa6.pt-student-portal.pages.dev"
+      "created_on": "2026-11-12T03:20:03.685674Z",
+      "url": "https://fca929f6.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19560,
+    "total_views": 19596,
     "total_likes": 66,
     "total_comments": 11,
-    "videos_count": 27,
+    "videos_count": 28,
     "api_connected": true,
-    "last_updated": "10:54 JST",
+    "last_updated": "12:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -494,7 +494,7 @@
         "id": "vfcKnlt3jMY",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 152,
+        "views": 154,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-11T23:00:36Z",
@@ -539,6 +539,16 @@
         "comments": 0,
         "published_at": "2026-11-11T03:00:01Z",
         "url": "https://youtube.com/shorts/Z9pGCYiAXjk"
+      },
+      {
+        "id": "RG8qOFLDuS0",
+        "muscle": "棘上筋の停止部はどっち",
+        "title": "【PT国試予想】棘上筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 34,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-12T03:30:39Z",
+        "url": "https://youtube.com/shorts/RG8qOFLDuS0"
       },
       {
         "id": "VDopoyb07v4",
