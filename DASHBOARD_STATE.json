@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-12T09:54:01+09:00",
+  "last_synced_at": "2026-11-12T10:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "9083629",
-  "pt_git_commit": "af1c2bf",
+  "git_commit": "5c06ab3",
+  "pt_git_commit": "9ff774b",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-12T09:54:02+09:00",
+    "scanned_at": "2026-11-12T10:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,34 +63,34 @@
     },
     "recent_commits": [
       {
+        "sha": "9ff774b",
+        "date": "2026-11-12",
+        "subject": "chore: remove legacy unused video files 1-3.mp4 and 1-4.mp4"
+      },
+      {
+        "sha": "8013e49",
+        "date": "2026-11-12",
+        "subject": "fix(api): add onRequestHead handler for video streaming endpoint"
+      },
+      {
+        "sha": "215f1a8",
+        "date": "2026-11-12",
+        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
+      },
+      {
+        "sha": "4286b31",
+        "date": "2026-11-12",
+        "subject": "feat: complete all 50 stats lecture videos with plan B alignment and official examples"
+      },
+      {
+        "sha": "846960a",
+        "date": "2026-11-12",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [09:54 JST]"
+      },
+      {
         "sha": "af1c2bf",
         "date": "2026-11-12",
         "subject": "fix: rebuild data bundle.js with Plan B curriculum and add cache-busting queries to stats.html"
-      },
-      {
-        "sha": "36c0073",
-        "date": "2026-11-12",
-        "subject": "feat: align statistics portal to Plan B order with 43 whiteboard videos and pending overlays for 7 in-progress videos"
-      },
-      {
-        "sha": "33cfb4d",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [08:54 JST]"
-      },
-      {
-        "sha": "82d95a6",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [07:54 JST]"
-      },
-      {
-        "sha": "df8f670",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [07:00 JST]"
-      },
-      {
-        "sha": "9b08814",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [05:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-12T09:54:02+09:00"
+      "last_checked_at": "2026-11-12T10:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-12T09:54:02+09:00",
+    "last_synced": "2026-11-12T10:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "656fc6ca",
+      "id": "a6f74fa6",
       "env": "production",
-      "created_on": "2026-11-12T00:46:16.130444Z",
-      "url": "https://656fc6ca.pt-student-portal.pages.dev"
+      "created_on": "2026-11-12T01:35:24.892118Z",
+      "url": "https://a6f74fa6.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -288,7 +288,7 @@
     "total_comments": 11,
     "videos_count": 27,
     "api_connected": true,
-    "last_updated": "09:54 JST",
+    "last_updated": "10:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
