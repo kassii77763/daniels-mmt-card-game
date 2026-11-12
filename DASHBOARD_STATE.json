@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-12T08:54:01+09:00",
+  "last_synced_at": "2026-11-12T09:54:01+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "ff9a1f2",
-  "pt_git_commit": "82d95a6",
+  "git_commit": "9083629",
+  "pt_git_commit": "af1c2bf",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-12T08:54:01+09:00",
+    "scanned_at": "2026-11-12T09:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,21 @@
     },
     "recent_commits": [
       {
+        "sha": "af1c2bf",
+        "date": "2026-11-12",
+        "subject": "fix: rebuild data bundle.js with Plan B curriculum and add cache-busting queries to stats.html"
+      },
+      {
+        "sha": "36c0073",
+        "date": "2026-11-12",
+        "subject": "feat: align statistics portal to Plan B order with 43 whiteboard videos and pending overlays for 7 in-progress videos"
+      },
+      {
+        "sha": "33cfb4d",
+        "date": "2026-11-12",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [08:54 JST]"
+      },
+      {
         "sha": "82d95a6",
         "date": "2026-11-12",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [07:54 JST]"
@@ -76,21 +91,6 @@
         "sha": "9b08814",
         "date": "2026-11-12",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [05:54 JST]"
-      },
-      {
-        "sha": "95f02a6",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [04:54 JST]"
-      },
-      {
-        "sha": "af0ff77",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [03:54 JST]"
-      },
-      {
-        "sha": "b88b734",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [02:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,41 +106,41 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-12T08:54:02+09:00"
+      "last_checked_at": "2026-11-12T09:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-12T08:54:02+09:00",
+    "last_synced": "2026-11-12T09:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "c9c42313",
+      "id": "656fc6ca",
       "env": "production",
-      "created_on": "2026-11-11T22:57:00.046006Z",
-      "url": "https://c9c42313.pt-student-portal.pages.dev"
+      "created_on": "2026-11-12T00:46:16.130444Z",
+      "url": "https://656fc6ca.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
         "uu": 90,
-        "pv": 380,
-        "depth": 4.22,
+        "pv": 390,
+        "depth": 4.33,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
         "uu": 90,
-        "pv": 380,
-        "depth": 4.22,
+        "pv": 390,
+        "depth": 4.33,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
         "uu": 90,
-        "pv": 380,
-        "depth": 4.22,
+        "pv": 390,
+        "depth": 4.33,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
@@ -151,8 +151,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 290,
-          "pct": 76,
+          "count": 300,
+          "pct": 77,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -185,8 +185,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 290,
-          "pct": 76,
+          "count": 300,
+          "pct": 77,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -219,8 +219,8 @@
         {
           "name": "内部回遊 (サイト内遷移)",
           "domain": "内部回遊 (サイト内遷移)",
-          "count": 290,
-          "pct": 76,
+          "count": 300,
+          "pct": 77,
           "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
           "note": "Cloudflare Web Analytics 実測値"
         },
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19561,
+    "total_views": 19560,
     "total_likes": 66,
     "total_comments": 11,
     "videos_count": 27,
     "api_connected": true,
-    "last_updated": "08:54 JST",
+    "last_updated": "09:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -494,7 +494,7 @@
         "id": "vfcKnlt3jMY",
         "muscle": "中臀筋の停止部はどっち",
         "title": "【PT国試予想】中臀筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 154,
+        "views": 152,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-11T23:00:36Z",
@@ -534,7 +534,7 @@
         "id": "Z9pGCYiAXjk",
         "muscle": "前脛骨筋の停止部はどっち",
         "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 88,
+        "views": 89,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-11T03:00:01Z",
