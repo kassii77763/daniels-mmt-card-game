@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-13T06:54:02+09:00",
+  "last_synced_at": "2026-11-13T08:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "866dc5f",
-  "pt_git_commit": "faae4af",
+  "git_commit": "00c3c6e",
+  "pt_git_commit": "67e82b1",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-13T06:54:02+09:00",
+    "scanned_at": "2026-11-13T08:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "67e82b1",
+        "date": "2026-11-13",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [06:54 JST]"
+      },
+      {
         "sha": "faae4af",
         "date": "2026-11-12",
         "subject": "fix(cache): force bypass edge cache with max-age=0, must-revalidate and add video cache-busting"
@@ -86,11 +91,6 @@
         "sha": "8fbc380",
         "date": "2026-11-12",
         "subject": "fix(stats): strictly use NotebookLM videos only, set 11 mismatched videos to preparing"
-      },
-      {
-        "sha": "52e7f44",
-        "date": "2026-11-12",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [10:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-13T06:54:02+09:00"
+      "last_checked_at": "2026-11-13T08:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-13T06:54:02+09:00",
+    "last_synced": "2026-11-13T08:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "9006dc12",
+      "id": "dbaa7f90",
       "env": "production",
-      "created_on": "2026-11-12T04:27:41.205228Z",
-      "url": "https://9006dc12.pt-student-portal.pages.dev"
+      "created_on": "2026-11-12T21:54:37.519922Z",
+      "url": "https://dbaa7f90.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,18 +283,18 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "5人",
-    "total_views": 19846,
+    "total_views": 19887,
     "total_likes": 66,
     "total_comments": 11,
-    "videos_count": 29,
+    "videos_count": 30,
     "api_connected": true,
-    "last_updated": "06:54 JST",
+    "last_updated": "08:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
         "muscle": "肘の後ろに付くこの筋肉はどっち",
         "title": "【PT国試予想】肘の後ろに付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1706,
+        "views": 1708,
         "likes": 6,
         "comments": 2,
         "published_at": "2026-11-04T23:33:03Z",
@@ -364,7 +364,7 @@
         "id": "vRscTh45xbQ",
         "muscle": "手首の外側に伸びる筋肉はどっち",
         "title": "【PT国試予想】手首の外側に伸びる筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1107,
+        "views": 1109,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-06T03:15:31Z",
@@ -554,11 +554,21 @@
         "id": "_HZ9QwfTbAQ",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 83,
+        "views": 84,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-12T09:30:18Z",
         "url": "https://youtube.com/shorts/_HZ9QwfTbAQ"
+      },
+      {
+        "id": "TxnFIXfmaAc",
+        "muscle": "三角筋の停止部はどっち",
+        "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 36,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-12T23:00:25Z",
+        "url": "https://youtube.com/shorts/TxnFIXfmaAc"
       },
       {
         "id": "VDopoyb07v4",
