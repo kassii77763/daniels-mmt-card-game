@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-13T09:54:02+09:00",
+  "last_synced_at": "2026-11-13T23:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "a58ebfa",
-  "pt_git_commit": "f16b3b4",
+  "git_commit": "da99f4b",
+  "pt_git_commit": "f6eb15d",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-13T09:54:02+09:00",
+    "scanned_at": "2026-11-13T23:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,9 +63,19 @@
     },
     "recent_commits": [
       {
-        "sha": "f16b3b4",
+        "sha": "f6eb15d",
+        "date": "2026-11-13",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [09:54 JST]"
+      },
+      {
+        "sha": "a8e306b",
         "date": "2026-11-13",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [08:54 JST]"
+      },
+      {
+        "sha": "dacad40",
+        "date": "2026-11-12",
+        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
       },
       {
         "sha": "67e82b1",
@@ -81,16 +91,6 @@
         "sha": "a36f632",
         "date": "2026-11-12",
         "subject": "fix(stats): unify audio to mono 44.1kHz and compress all 50 videos under 20MB for Cloudflare Pages 25MB limit"
-      },
-      {
-        "sha": "6f9f52a",
-        "date": "2026-11-12",
-        "subject": "fix(stats): restore pristine Google NotebookLM raw assets for 1-2, 2-2, 2-4 and activate 2-0, 2-0b"
-      },
-      {
-        "sha": "f65c6dc",
-        "date": "2026-11-12",
-        "subject": "feat(stats): restore and deploy 45 verified pure NotebookLM assets with plan B curriculum alignment"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-13T09:54:02+09:00"
+      "last_checked_at": "2026-11-13T23:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-13T09:54:02+09:00",
+    "last_synced": "2026-11-13T23:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "1125585f",
+      "id": "334e3d7d",
       "env": "production",
-      "created_on": "2026-11-12T23:59:53.554506Z",
-      "url": "https://1125585f.pt-student-portal.pages.dev"
+      "created_on": "2026-11-13T14:49:35.772513Z",
+      "url": "https://334e3d7d.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -282,19 +282,19 @@
     "channel_handle": "@toaru-pt-gakusei",
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
-    "subscribers": "5人",
-    "total_views": 19935,
-    "total_likes": 66,
+    "subscribers": "6人",
+    "total_views": 20308,
+    "total_likes": 67,
     "total_comments": 11,
-    "videos_count": 30,
+    "videos_count": 32,
     "api_connected": true,
-    "last_updated": "09:54 JST",
+    "last_updated": "23:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
         "muscle": "肘の後ろに付くこの筋肉はどっち",
         "title": "【PT国試予想】肘の後ろに付くこの筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1708,
+        "views": 1709,
         "likes": 6,
         "comments": 2,
         "published_at": "2026-11-04T23:33:03Z",
@@ -304,7 +304,7 @@
         "id": "8Gs8ptqKtOE",
         "muscle": "青い停止部に付く筋肉はどっち",
         "title": "【PT国試予想】青い停止部に付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1669,
+        "views": 1670,
         "likes": 5,
         "comments": 1,
         "published_at": "2026-11-04T23:32:49Z",
@@ -334,7 +334,7 @@
         "id": "OgM2Uwu_c2g",
         "muscle": "膝の内側に巻き付く筋肉はどっち",
         "title": "【PT国試予想】膝の内側に巻き付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1273,
+        "views": 1274,
         "likes": 7,
         "comments": 0,
         "published_at": "2026-11-07T03:15:17Z",
@@ -354,7 +354,7 @@
         "id": "LyXi1WD7pr8",
         "muscle": "三角筋の停止部はどっち",
         "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1126,
+        "views": 1125,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T12:19:43Z",
@@ -374,7 +374,7 @@
         "id": "xwLXn2jkZfM",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1103,
+        "views": 1102,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T16:19:58Z",
@@ -384,7 +384,7 @@
         "id": "vFLod7F0Bbg",
         "muscle": "大腿直筋の起始部はどっち",
         "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 1052,
+        "views": 1053,
         "likes": 5,
         "comments": 0,
         "published_at": "2026-11-07T08:19:53Z",
@@ -414,7 +414,7 @@
         "id": "rua5Z-oTINQ",
         "muscle": "つま先を持ち上げる筋肉はどっち",
         "title": "【PT国試予想】つま先を持ち上げる筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 981,
+        "views": 982,
         "likes": 4,
         "comments": 0,
         "published_at": "2026-11-07T11:30:30Z",
@@ -434,11 +434,21 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 963,
+        "views": 962,
         "likes": 2,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
         "url": "https://youtube.com/shorts/wlKxVmKffOQ"
+      },
+      {
+        "id": "FU3mvNgHwl4",
+        "muscle": "上腕二頭筋の停止部はどっち",
+        "title": "【PT国試予想】上腕二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 254,
+        "likes": 1,
+        "comments": 0,
+        "published_at": "2026-11-13T09:30:30Z",
+        "url": "https://youtube.com/shorts/FU3mvNgHwl4"
       },
       {
         "id": "8TR1XZwPLG8",
@@ -474,7 +484,7 @@
         "id": "4KT8o75W2Ho",
         "muscle": "上腕二頭筋の起始・停止即答できる",
         "title": "【PT1年・3秒テスト】上腕二頭筋の起始・停止即答できる？支配神経はどっち？ #shorts #理学療法士 #解剖学",
-        "views": 182,
+        "views": 183,
         "likes": 0,
         "comments": 1,
         "published_at": "2026-11-03T01:32:06Z",
@@ -514,7 +524,7 @@
         "id": "8h_lqHM8G40",
         "muscle": "膝のお皿の下に付く筋肉はどっち",
         "title": "【PT国試予想】膝のお皿の下に付く筋肉はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 148,
+        "views": 149,
         "likes": 0,
         "comments": 1,
         "published_at": "2026-11-04T23:33:04Z",
@@ -541,6 +551,16 @@
         "url": "https://youtube.com/shorts/IadcibOgeHQ"
       },
       {
+        "id": "TxnFIXfmaAc",
+        "muscle": "三角筋の停止部はどっち",
+        "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 116,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-12T23:00:25Z",
+        "url": "https://youtube.com/shorts/TxnFIXfmaAc"
+      },
+      {
         "id": "Z9pGCYiAXjk",
         "muscle": "前脛骨筋の停止部はどっち",
         "title": "【PT国試予想】前脛骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -551,16 +571,6 @@
         "url": "https://youtube.com/shorts/Z9pGCYiAXjk"
       },
       {
-        "id": "TxnFIXfmaAc",
-        "muscle": "三角筋の停止部はどっち",
-        "title": "【PT国試予想】三角筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 84,
-        "likes": 0,
-        "comments": 0,
-        "published_at": "2026-11-12T23:00:25Z",
-        "url": "https://youtube.com/shorts/TxnFIXfmaAc"
-      },
-      {
         "id": "_HZ9QwfTbAQ",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
@@ -569,6 +579,16 @@
         "comments": 0,
         "published_at": "2026-11-12T09:30:18Z",
         "url": "https://youtube.com/shorts/_HZ9QwfTbAQ"
+      },
+      {
+        "id": "TI2kBuBMBLc",
+        "muscle": "大腿直筋の起始部はどっち",
+        "title": "【PT国試予想】大腿直筋の起始部はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 83,
+        "likes": 0,
+        "comments": 0,
+        "published_at": "2026-11-13T03:30:12Z",
+        "url": "https://youtube.com/shorts/TI2kBuBMBLc"
       },
       {
         "id": "VDopoyb07v4",
