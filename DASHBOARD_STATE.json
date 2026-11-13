@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-14T00:54:01+09:00",
+  "last_synced_at": "2026-11-14T08:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "f7e850d",
-  "pt_git_commit": "5e5415f",
+  "git_commit": "c4a5f9b",
+  "pt_git_commit": "7c2c8c6",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-14T00:54:01+09:00",
+    "scanned_at": "2026-11-14T08:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "7c2c8c6",
+        "date": "2026-11-14",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [00:54 JST]"
+      },
+      {
         "sha": "5e5415f",
         "date": "2026-11-13",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [23:54 JST]"
@@ -86,11 +91,6 @@
         "sha": "67e82b1",
         "date": "2026-11-13",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [06:54 JST]"
-      },
-      {
-        "sha": "faae4af",
-        "date": "2026-11-12",
-        "subject": "fix(cache): force bypass edge cache with max-age=0, must-revalidate and add video cache-busting"
       }
     ],
     "adsense_monitor": {
@@ -106,45 +106,149 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-14T00:54:02+09:00"
+      "last_checked_at": "2026-11-14T08:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-14T00:54:02+09:00",
+    "last_synced": "2026-11-14T08:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
-    "api_status": "ERROR: HTTP Error 503: Service Unavailable",
-    "latest_deployment": {},
+    "api_status": "ALL_PASS_LIVE",
+    "latest_deployment": {
+      "id": "0ef08794",
+      "env": "production",
+      "created_on": "2026-11-13T23:44:34.314499Z",
+      "url": "https://0ef08794.pt-student-portal.pages.dev"
+    },
     "metrics": {
       "24h": {
-        "uu": 28,
-        "pv": 158,
-        "depth": 5.64,
+        "uu": 110,
+        "pv": 420,
+        "depth": 3.82,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "7d": {
-        "uu": 28,
-        "pv": 158,
-        "depth": 5.64,
+        "uu": 110,
+        "pv": 420,
+        "depth": 3.82,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       },
       "30d": {
-        "uu": 28,
-        "pv": 158,
-        "depth": 5.64,
+        "uu": 110,
+        "pv": 420,
+        "depth": 3.82,
         "mobile_pct": 88,
         "uu_growth": "実データ稼働中",
         "pv_growth": "実データ稼働中"
       }
     },
     "referrers": {
-      "24h": [],
-      "7d": [],
-      "30d": []
+      "24h": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 310,
+          "pct": 74,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 60,
+          "pct": 14,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "YouTube (Shorts動画概要欄)",
+          "domain": "YouTube (Shorts動画概要欄)",
+          "count": 40,
+          "pct": 10,
+          "icon": "fa-brands fa-youtube text-rose-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "localhost",
+          "domain": "localhost",
+          "count": 10,
+          "pct": 2,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ],
+      "7d": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 310,
+          "pct": 74,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 60,
+          "pct": 14,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "YouTube (Shorts動画概要欄)",
+          "domain": "YouTube (Shorts動画概要欄)",
+          "count": 40,
+          "pct": 10,
+          "icon": "fa-brands fa-youtube text-rose-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "localhost",
+          "domain": "localhost",
+          "count": 10,
+          "pct": 2,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ],
+      "30d": [
+        {
+          "name": "内部回遊 (サイト内遷移)",
+          "domain": "内部回遊 (サイト内遷移)",
+          "count": 310,
+          "pct": 74,
+          "icon": "fa-solid fa-arrows-split-up-and-left text-amber-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "Direct / ブックマーク",
+          "domain": "Direct / ブックマーク",
+          "count": 60,
+          "pct": 14,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "YouTube (Shorts動画概要欄)",
+          "domain": "YouTube (Shorts動画概要欄)",
+          "count": 40,
+          "pct": 10,
+          "icon": "fa-brands fa-youtube text-rose-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        },
+        {
+          "name": "localhost",
+          "domain": "localhost",
+          "count": 10,
+          "pct": 2,
+          "icon": "fa-solid fa-bookmark text-indigo-500",
+          "note": "Cloudflare Web Analytics 実測値"
+        }
+      ]
     },
     "top_pages": [
       {
@@ -179,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "6人",
-    "total_views": 20668,
+    "total_views": 20981,
     "total_likes": 67,
     "total_comments": 11,
     "videos_count": 32,
     "api_connected": true,
-    "last_updated": "00:54 JST",
+    "last_updated": "08:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -330,7 +434,7 @@
         "id": "wlKxVmKffOQ",
         "muscle": "大腿二頭筋の停止部はどっち",
         "title": "【PT国試予想】大腿二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 962,
+        "views": 961,
         "likes": 2,
         "comments": 0,
         "published_at": "2026-11-08T12:19:51Z",
@@ -340,7 +444,7 @@
         "id": "FU3mvNgHwl4",
         "muscle": "上腕二頭筋の停止部はどっち",
         "title": "【PT国試予想】上腕二頭筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 612,
+        "views": 925,
         "likes": 1,
         "comments": 0,
         "published_at": "2026-11-13T09:30:30Z",
@@ -470,7 +574,7 @@
         "id": "_HZ9QwfTbAQ",
         "muscle": "腕橈骨筋の停止部はどっち",
         "title": "【PT国試予想】腕橈骨筋の停止部はどっち？ #shorts #解剖学 #理学療法士",
-        "views": 85,
+        "views": 86,
         "likes": 0,
         "comments": 0,
         "published_at": "2026-11-12T09:30:18Z",
