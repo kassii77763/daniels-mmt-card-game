@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-16T12:54:02+09:00",
+  "last_synced_at": "2026-11-16T13:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "25d0ecd",
-  "pt_git_commit": "61a929a",
+  "git_commit": "1927d6e",
+  "pt_git_commit": "4caaf0d",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-16T12:54:02+09:00",
+    "scanned_at": "2026-11-16T13:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,11 @@
     },
     "recent_commits": [
       {
+        "sha": "4caaf0d",
+        "date": "2026-11-16",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [12:54 JST]"
+      },
+      {
         "sha": "61a929a",
         "date": "2026-11-16",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [11:54 JST]"
@@ -86,11 +91,6 @@
         "sha": "13eed11",
         "date": "2026-11-16",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [07:54 JST]"
-      },
-      {
-        "sha": "7946602",
-        "date": "2026-11-15",
-        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-16T12:54:03+09:00"
+      "last_checked_at": "2026-11-16T13:54:02+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-16T12:54:03+09:00",
+    "last_synced": "2026-11-16T13:54:02+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "321d6761",
+      "id": "90229575",
       "env": "production",
-      "created_on": "2026-11-16T02:54:16.534947Z",
-      "url": "https://321d6761.pt-student-portal.pages.dev"
+      "created_on": "2026-11-16T03:54:14.878075Z",
+      "url": "https://90229575.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -283,12 +283,12 @@
     "channel_id": "UCZ1AqHX59h7UCsCkIgHINrQ",
     "channel_url": "https://www.youtube.com/channel/UCZ1AqHX59h7UCsCkIgHINrQ",
     "subscribers": "6人",
-    "total_views": 22098,
-    "total_likes": 69,
+    "total_views": 22306,
+    "total_likes": 71,
     "total_comments": 13,
-    "videos_count": 33,
+    "videos_count": 34,
     "api_connected": true,
-    "last_updated": "12:54 JST",
+    "last_updated": "13:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
@@ -469,6 +469,16 @@
         "comments": 0,
         "published_at": "2026-11-05T22:30:18Z",
         "url": "https://youtube.com/shorts/8TR1XZwPLG8"
+      },
+      {
+        "id": "mNL1PvycSgA",
+        "muscle": "お尻の後ろで股関節を伸ばす筋肉はどっち",
+        "title": "【PT国試予想】お尻の後ろで股関節を伸ばす筋肉はどっち？ #shorts #解剖学 #理学療法士",
+        "views": 208,
+        "likes": 2,
+        "comments": 0,
+        "published_at": "2026-11-16T04:15:00Z",
+        "url": "https://youtube.com/shorts/mNL1PvycSgA"
       },
       {
         "id": "FLLgoI2mmYA",
