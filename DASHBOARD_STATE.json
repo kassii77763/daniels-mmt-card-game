@@ -1,11 +1,11 @@
 {
-  "last_synced_at": "2026-11-16T07:54:02+09:00",
+  "last_synced_at": "2026-11-16T09:54:02+09:00",
   "sync_mode": "hourly_daemon_v2_head_scanner",
-  "git_commit": "8ce9c3f",
-  "pt_git_commit": "ad9de28",
+  "git_commit": "ce8dce3",
+  "pt_git_commit": "13eed11",
   "validation_status": "ALL_PASS",
   "pt_portal_live_architecture": {
-    "scanned_at": "2026-11-16T07:54:02+09:00",
+    "scanned_at": "2026-11-16T09:54:02+09:00",
     "active_tabs": [
       {
         "id": "home",
@@ -63,6 +63,16 @@
     },
     "recent_commits": [
       {
+        "sha": "13eed11",
+        "date": "2026-11-16",
+        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [07:54 JST]"
+      },
+      {
+        "sha": "7946602",
+        "date": "2026-11-15",
+        "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
+      },
+      {
         "sha": "ad9de28",
         "date": "2026-11-16",
         "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [00:54 JST]"
@@ -81,16 +91,6 @@
         "sha": "f16b10d",
         "date": "2026-11-14",
         "subject": "chore(auto): autonomous hill-climb ledger and evaluation update [skip ci]"
-      },
-      {
-        "sha": "17d8265",
-        "date": "2026-11-14",
-        "subject": "chore(auto): autonomous patrol and content data sync [skip ci]"
-      },
-      {
-        "sha": "a53ea9a",
-        "date": "2026-11-14",
-        "subject": "chore(auto-sync): update PT portal DASHBOARD_STATE [15:54 JST]"
       }
     ],
     "adsense_monitor": {
@@ -106,19 +106,19 @@
       "payout_threshold_jpy": 8000,
       "payout_progress_pct": 0,
       "console_url": "https://adsense.google.com/adsense/u/2/pub-7918089251306963/onboarding",
-      "last_checked_at": "2026-11-16T07:54:03+09:00"
+      "last_checked_at": "2026-11-16T09:54:03+09:00"
     }
   },
   "traffic": {
     "target_host": "pt-student-portal.pages.dev",
-    "last_synced": "2026-11-16T07:54:03+09:00",
+    "last_synced": "2026-11-16T09:54:03+09:00",
     "site_tag": "7d084bbc38bc4a9aa273b4fbfc3176da",
     "api_status": "ALL_PASS_LIVE",
     "latest_deployment": {
-      "id": "0bee1275",
+      "id": "8ca9b594",
       "env": "production",
-      "created_on": "2026-11-15T16:03:11.025305Z",
-      "url": "https://0bee1275.pt-student-portal.pages.dev"
+      "created_on": "2026-11-16T00:01:24.311521Z",
+      "url": "https://8ca9b594.pt-student-portal.pages.dev"
     },
     "metrics": {
       "24h": {
@@ -288,7 +288,7 @@
     "total_comments": 11,
     "videos_count": 33,
     "api_connected": true,
-    "last_updated": "07:54 JST",
+    "last_updated": "09:54 JST",
     "videos": [
       {
         "id": "PZA60VS43Xo",
